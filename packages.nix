@@ -2,6 +2,7 @@
 
 with epkgs; [
   company
+  csharp-mode
   flycheck
   go-autocomplete
   go-mode

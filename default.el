@@ -71,6 +71,8 @@
 
 ;;; package configuration
 
+(use-package csharp-mode)
+
 (use-package helm
   :bind (("C-x C-f" . helm-find-files)
 	 ("C-x b"   . helm-buffers-list)))
