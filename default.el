@@ -71,7 +71,8 @@
 
 ;;; package configuration
 
-(use-package csharp-mode)
+(use-package csharp-mode
+  :init (setq indent-tabs-mode nil))
 
 (use-package helm
   :bind (("C-x C-f" . helm-find-files)
