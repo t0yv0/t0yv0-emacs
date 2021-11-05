@@ -28,7 +28,7 @@
 	  (horizontal-scroll-bars . nil))))
 
 (setq column-number-mode t)
-(setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
 (setq initial-major-mode 'text-mode)
@@ -71,8 +71,7 @@
 
 ;;; package configuration
 
-(use-package csharp-mode
-  :init (setq indent-tabs-mode nil))
+(use-package csharp-mode)
 
 (use-package helm
   :bind (("C-x C-f" . helm-find-files)
