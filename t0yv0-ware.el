@@ -9,13 +9,9 @@
 
 
 (defun t0yv0/open-shell-for-current-buffer ()
-  "Two-pane layout with a project shell."
+  "Command to open a project shell."
   (interactive)
-  (let ((new-shell-buf nil))
-    (save-window-excursion
-      (setq new-shell-buf (t0yv0/project-shell)))
-    (delete-other-windows)
-    (set-window-buffer (split-window-right) new-shell-buf)))
+  (display-buffer (t0yv0/project-shell)))
 
 
 (defun t0yv0/clear-and-repeat-last-command-in-project-shell ()

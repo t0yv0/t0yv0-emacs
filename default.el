@@ -69,6 +69,29 @@
 (global-set-key (kbd "RET") 'newline-and-indent)
 
 
+;;; side windows
+
+(let ((bottom-pane
+       '(display-buffer-in-side-window
+	 (side . bottom)
+	 (slot . 0)
+	 (window-height . 0.382)     ;; frac of total
+	 (preserve-size . (t . nil)) ;; preserve width
+	 ))
+      (right-pane
+       '(display-buffer-in-side-window
+	 (side . right)
+	 (slot . 0)
+	 (window-width . 0.382)      ;; frac of total
+	 (preserve-size . (nil . t)) ;; preserve height
+	 )))
+  (setq
+   display-buffer-alist
+   `(("^\\*shell" ,@right-pane)
+     ("^magit"    ,@right-pane)
+     ("^\\*helm"  ,@bottom-pane))))
+
+
 ;;; package configuration
 
 (use-package csharp-mode)
