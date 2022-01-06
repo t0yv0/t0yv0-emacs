@@ -11,7 +11,12 @@
 (defun t0yv0/open-shell-for-current-buffer ()
   "Command to open a project shell."
   (interactive)
-  (display-buffer (t0yv0/project-shell)))
+  (let ((new-shell-buf nil))
+    (save-window-excursion
+      (setq new-shell-buf (t0yv0/project-shell)))
+    (unless (window-parameter (selected-window) 'window-side)
+      (delete-other-windows))
+    (display-buffer new-shell-buf)))
 
 
 (defun t0yv0/clear-and-repeat-last-command-in-project-shell ()
