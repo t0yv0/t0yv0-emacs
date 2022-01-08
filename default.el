@@ -87,7 +87,7 @@
 	 )))
   (setq
    display-buffer-alist
-   `(("^\\*shell" ,@right-pane)
+   `(("^\\*shell" ,@bottom-pane)
      ("^magit"    ,@right-pane)
      ("^\\*helm"  ,@bottom-pane))))
 
