@@ -77,18 +77,10 @@
 	 (slot . 0)
 	 (window-height . 0.382)     ;; frac of total
 	 (preserve-size . (t . nil)) ;; preserve width
-	 ))
-      (right-pane
-       '(display-buffer-in-side-window
-	 (side . right)
-	 (slot . 0)
-	 (window-width . 0.382)      ;; frac of total
-	 (preserve-size . (nil . t)) ;; preserve height
 	 )))
   (setq
    display-buffer-alist
    `(("^\\*shell" ,@bottom-pane)
-     ("^magit"    ,@right-pane)
      ("^\\*helm"  ,@bottom-pane))))
 
 
@@ -111,7 +103,9 @@
   :bind (("C-c g" . helm-ls-git-ls)))
 
 (use-package magit
-  :bind (("C-x g" . magit-status)))
+  :bind (("C-x g" . magit-status))
+  :init (setq magit-display-buffer-function
+              #'magit-display-buffer-fullframe-status-v1))
 
 (use-package paredit
   :diminish paredit-mode
