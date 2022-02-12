@@ -17,7 +17,7 @@
     (when (string-match "^\\*shell" (buffer-name (current-buffer)))
       (other-window 1))
     (delete-other-windows)
-    (set-window-buffer (split-window-right -60) new-shell-buf)))
+    (set-window-buffer (split-window-right) new-shell-buf)))
 
 
 (defun t0yv0/clear-and-repeat-last-command-in-project-shell ()
