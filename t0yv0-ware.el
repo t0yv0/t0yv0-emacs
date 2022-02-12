@@ -14,9 +14,10 @@
   (let ((new-shell-buf nil))
     (save-window-excursion
       (setq new-shell-buf (t0yv0/project-shell)))
-    (unless (window-parameter (selected-window) 'window-side)
-      (delete-other-windows))
-    (display-buffer new-shell-buf)))
+    (when (string-match "^\\*shell" (buffer-name (current-buffer)))
+      (other-window 1))
+    (delete-other-windows)
+    (set-window-buffer (split-window-right -60) new-shell-buf)))
 
 
 (defun t0yv0/clear-and-repeat-last-command-in-project-shell ()

@@ -69,28 +69,13 @@
 (global-set-key (kbd "RET") 'newline-and-indent)
 
 
-;;; side windows
-
-(let ((bottom-pane
-       '(display-buffer-in-side-window
-	 (side . bottom)
-	 (slot . 0)
-	 (window-height . 0.382)     ;; frac of total
-	 (preserve-size . (t . nil)) ;; preserve width
-	 )))
-  (setq
-   display-buffer-alist
-   `(("^\\*shell" ,@bottom-pane)
-     ("^\\*helm"  ,@bottom-pane))))
-
-
 ;;; package configuration
 
 (use-package csharp-mode)
 
 (use-package helm
   :bind (("C-x C-f" . helm-find-files)
-	 ("C-x b"   . helm-buffers-list)))
+	 ("C-x b"   . helm-mini)))
 
 (use-package helm-ag
   :bind (("M-x"   . helm-M-x)
@@ -103,9 +88,7 @@
   :bind (("C-c g" . helm-ls-git-ls)))
 
 (use-package magit
-  :bind (("C-x g" . magit-status))
-  :init (setq magit-display-buffer-function
-              #'magit-display-buffer-fullframe-status-v1))
+  :bind (("C-x g" . magit-status)))
 
 (use-package paredit
   :diminish paredit-mode
