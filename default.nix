@@ -2,7 +2,7 @@
 
 {
   # Reference to `nixpkgs`.
-  pkgs ? import <nixpkgs>{},
+  pkgs ? (import ./pkgs.nix).pkgs,
 
   # Extra user-defined Elisp packages not found in `nixpkgs`.
   userEmacsPackages ? (import ./user-packages.nix),
@@ -34,7 +34,7 @@ let
     patches = old.patches ++ [ ./shell-compile-long-line.patch ];
   });
 
-  emacs = (pkgs.emacsPackagesNgGen patchedEmacs).emacsWithPackages(epkgs:
+  emacs = (pkgs.emacsPackagesFor patchedEmacs).emacsWithPackages(epkgs:
     (standardEmacsPackages { epkgs = epkgs; }) ++ userPackages ++ [defaultPackage]
   );
 
