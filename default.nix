@@ -31,7 +31,6 @@ let
 
   patchedEmacs = pkgs.emacs.overrideAttrs(old: {
     configureFlags = old.configureFlags ++ extraConfigureFlags;
-    patches = old.patches ++ [ ./shell-compile-long-line.patch ];
   });
 
   emacs = (pkgs.emacsPackagesFor patchedEmacs).emacsWithPackages(epkgs:
