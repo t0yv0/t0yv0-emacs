@@ -26,16 +26,14 @@
   (save-window-excursion
     (let ((buf (t0yv0/project-shell)))
       (with-current-buffer buf
-        (let ((p (comint-previous-input-string 0)))
-          (comint-clear-buffer)
-          (comint-bol)
-          (insert p)
-          (comint-send-input))))))
+        (vterm-clear)
+        (vterm-send-up)
+        (vterm-send-return)))))
 
 
 (defun t0yv0/project-shell ()
   "Like `projectile-run-shell` but with `compilation-shell-minor-mode`."
-  (let ((buf (projectile-run-shell nil)))
+  (let ((buf (projectile-run-vterm nil)))
     (with-current-buffer buf
       (compilation-shell-minor-mode))
     buf))

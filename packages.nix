@@ -17,5 +17,6 @@ with epkgs; [
   projectile
   tide
   use-package
+  vterm
   yasnippet
 ]
