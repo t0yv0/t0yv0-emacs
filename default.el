@@ -139,7 +139,8 @@
 					      (tide-setup))))
 
 (use-package vterm
-  :bind (("M-/" . #'t0yv0/vterm-dabbrev-expand)))
+  :bind (:map vterm-mode-map
+         ("M-/" . #'t0yv0/vterm-dabbrev-expand)))
 
 (use-package yasnippet
   :config
