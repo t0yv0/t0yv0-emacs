@@ -56,7 +56,7 @@
 
 (global-set-key (kbd "C-c 2") 't0yv0/open-shell-for-current-buffer)
 (global-set-key (kbd "C-c c") 'compile)
-(global-set-key (kbd "C-c h") 'shell)
+(global-set-key (kbd "C-c h") 'vterm)
 (global-set-key (kbd "C-c l") "λ")
 (global-set-key (kbd "C-c m") 'kmacro-start-macro-or-insert-counter)
 (global-set-key (kbd "C-c n") 'kmacro-end-or-call-macro)

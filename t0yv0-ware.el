@@ -14,7 +14,7 @@
   (let ((new-shell-buf nil))
     (save-window-excursion
       (setq new-shell-buf (t0yv0/project-shell)))
-    (when (string-match "^\\*shell" (buffer-name (current-buffer)))
+    (when (string-match "^\\*vterm" (buffer-name (current-buffer)))
       (other-window 1))
     (delete-other-windows)
     (set-window-buffer (split-window-right) new-shell-buf)))
@@ -33,10 +33,7 @@
 
 (defun t0yv0/project-shell ()
   "Like `projectile-run-shell` but with `compilation-shell-minor-mode`."
-  (let ((buf (projectile-run-vterm nil)))
-    (with-current-buffer buf
-      (compilation-shell-minor-mode))
-    buf))
+  (projectile-run-vterm nil))
 
 
 (defun t0yv0/vterm-dabbrev-expand ()
