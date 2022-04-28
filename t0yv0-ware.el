@@ -39,6 +39,19 @@
     buf))
 
 
+(defun t0yv0/vterm-dabbrev-expand ()
+  "Adaps `dabbrev-expand` to vterm."
+  (interactive)
+  (let* ((current-dabbrev (dabbrev--abbrev-at-point))
+         (expansion (dabbrev--find-expansion current-dabbrev 0 t)))
+    (if (eq expansion nil)
+        (dabbrev--reset-global-variables)
+      (progn
+        (dotimes (i (length current-dabbrev))
+          (vterm-send-backspace))
+        (vterm-insert expansion)))))
+
+
 (provide 't0yv0-ware)
 
 ;;; t0yv0-ware ends here

@@ -138,6 +138,9 @@
 					      (company-mode +1)
 					      (tide-setup))))
 
+(use-package vterm
+  :bind (("M-/" . #'t0yv0/vterm-dabbrev-expand)))
+
 (use-package yasnippet
   :config
   (setq yas-snippet-dirs '("~/my/snippets"))
