@@ -18,5 +18,6 @@ with epkgs; [
   tide
   use-package
   vterm
+  yaml-mode
   yasnippet
 ]
