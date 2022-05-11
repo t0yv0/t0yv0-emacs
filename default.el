@@ -140,7 +140,9 @@
 
 (use-package vterm
   :bind (:map vterm-mode-map
-         ("M-/" . #'t0yv0/vterm-dabbrev-expand)))
+              ("M-/" . #'t0yv0/vterm-dabbrev-expand)))
+
+(use-package yaml-mode)
 
 (use-package yasnippet
   :config
