@@ -131,6 +131,11 @@
   :init (global-flycheck-mode)
   :bind (("C-c e" . flycheck-next-error)))
 
+(use-package org
+  :mode (("\\.org$" . org-mode))
+  :config (progn
+            (setq org-default-notes-file "~/my/notes.org")))
+
 (use-package typescript-mode)
 
 (use-package tide
