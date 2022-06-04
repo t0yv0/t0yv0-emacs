@@ -29,9 +29,12 @@ let
     packageRequires = (standardEmacsPackages { epkgs = pkgs.emacsPackages; }) ++ userPackages;
   };
 
-  patchedEmacs = pkgs.emacs.overrideAttrs(old: {
-    configureFlags = old.configureFlags ++ extraConfigureFlags;
-  });
+  patchedEmacs =
+    if (pkgs ? emacsNativeComp)
+    then pkgs.emacsNativeComp
+    else pkgs.emacs.overrideAttrs(old: {
+      configureFlags = old.configureFlags ++ extraConfigureFlags;
+    });
 
   emacs = (pkgs.emacsPackagesFor patchedEmacs).emacsWithPackages(epkgs:
     (standardEmacsPackages { epkgs = epkgs; }) ++ userPackages ++ [defaultPackage]
