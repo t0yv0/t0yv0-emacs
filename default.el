@@ -134,8 +134,23 @@
 
 (use-package org
   :mode (("\\.org$" . org-mode))
-  :config (progn
-            (setq org-default-notes-file "~/my/notes.org")))
+  :config
+  (progn
+    (setq org-default-notes-file "~/my/notes.org")
+    (setq org-agenda-files '("~/my/notes.org"
+                             "~/my/gtd.org"
+                             "~/my/tickler.org"))
+    ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
+    (setq org-capture-templates
+          '(("t" "Todo [inbox]" entry
+             (file+headline "~/my/notes.org" "Tasks")
+             "* TODO %i%?\n  %a")
+            ("T" "Tickler" entry
+             (file+headline "~/my/tickler.org" "Tickler")
+             "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
+    (setq org-refile-targets '(("~/my/gtd.org" :maxlevel . 3)
+                               ("~/my/someday.org" :level . 1)
+                               ("~/my/tickler.org" :maxlevel . 2)))))
 
 (use-package typescript-mode)
 
