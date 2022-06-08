@@ -49,6 +49,12 @@
         (vterm-insert expansion)))))
 
 
+(defun t0yv0/diary ()
+  "Opens org diary entry for today."
+  (interactive)
+  (find-file (format-time-string "~/my/%Y/%m/%d.org" (current-time))))
+
+
 (provide 't0yv0-ware)
 
 ;;; t0yv0-ware ends here
