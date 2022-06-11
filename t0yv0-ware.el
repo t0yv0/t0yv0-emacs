@@ -55,6 +55,15 @@
   (find-file (format-time-string "~/my/%Y/%m/%d.org" (current-time))))
 
 
+(defun t0yv0/org-follow-gh-link (path _)
+   "Visit GitHub PR or issue link.
+PATH should be something like pulumi/pulumi#123"
+
+  (browse-url (concat "https://github.com/"
+    (replace-regexp-in-string (regexp-quote "#")
+      "/issues/" path nil 'literal))))
+
+
 (provide 't0yv0-ware)
 
 ;;; t0yv0-ware ends here
