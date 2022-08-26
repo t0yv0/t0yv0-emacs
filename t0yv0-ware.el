@@ -6,6 +6,15 @@
 
 
 (require 'comint)
+(require 'dabbrev)
+
+
+(declare-function vterm-clear "dbus" ())
+(declare-function vterm-insert "dbus" (x))
+(declare-function vterm-send-backspace "dbus" ())
+(declare-function vterm-send-return "dbus" ())
+(declare-function vterm-send-up "dbus" ())
+(declare-function projectile-run-vterm "projectile" (x))
 
 
 (defun t0yv0/open-shell-for-current-buffer ()
@@ -49,10 +58,23 @@
         (vterm-insert expansion)))))
 
 
+(defvar t0yv0/-diary-saved-winconf nil)
+
+
 (defun t0yv0/diary ()
-  "Opens org diary entry for today."
+  "Toggle between diary entry for today and current work."
   (interactive)
-  (find-file (format-time-string "~/my/%Y/%m/%d.org" (current-time))))
+  (let ((today-file-name
+         (format-time-string "~/my/%Y/%m/%d.org" (current-time))))
+
+    (if (equal (expand-file-name today-file-name)
+               (buffer-file-name (current-buffer)))
+        (unless (null t0yv0/-diary-saved-winconf)
+          (set-window-configuration t0yv0/-diary-saved-winconf)
+          (setq t0yv0/-diary-saved-winconf nil))
+      (progn
+        (setq t0yv0/-diary-saved-winconf (current-window-configuration))
+        (find-file today-file-name)))))
 
 
 (defun t0yv0/org-follow-gh-link (path _)
@@ -65,5 +87,4 @@ PATH should be something like pulumi/pulumi#123"
 
 
 (provide 't0yv0-ware)
-
-;;; t0yv0-ware ends here
+;;; t0yv0-ware.el ends here
