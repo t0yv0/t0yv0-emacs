@@ -7,6 +7,7 @@
 
 (require 'comint)
 (require 'dabbrev)
+(require 'org)
 
 
 (declare-function vterm-clear "dbus" ())
@@ -84,6 +85,19 @@ PATH should be something like pulumi/pulumi#123"
   (browse-url (concat "https://github.com/"
     (replace-regexp-in-string (regexp-quote "#")
       "/issues/" path nil 'literal))))
+
+
+(defun t0yv0/store-link ()
+  "Store link to current location in the diary."
+  (interactive)
+  (save-window-excursion
+    (let ((today-file-name
+           (format-time-string "~/my/%Y/%m/%d.org" (current-time)))
+          (the-link
+           (org-store-link nil)))
+      (find-file today-file-name)
+      (insert (string-join (list the-link "\n")))
+      (message the-link))))
 
 
 (provide 't0yv0-ware)
