@@ -14,6 +14,7 @@
 (global-so-long-mode 1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(tab-bar-mode 1)
 (tool-bar-mode -1)
 (prefer-coding-system 'utf-8)
 
@@ -37,8 +38,32 @@
 (setq make-backup-files nil)
 (setq sentence-end-double-space nil)
 (setq suggest-key-bindings t)
+(setq switch-to-buffer-obey-display-actions t)
 (setq tab-width 4)
 (setq visible-bell t)
+
+(setq display-buffer-alist
+      '(("\\*vterm" (display-buffer-reuse-mode-window
+                     display-buffer-in-direction)
+         (inhibit-same-window . nil)
+         (mode vterm-mode vterm-copy-mode)
+         (direction . bottom)
+         (window . root)
+         (window-height . 0.381)
+         (dedicated . t))))
+
+(progn
+  (setq display-buffer-alist (list))
+  (add-to-list
+   'display-buffer-alist
+   '(("\\*vterm" (display-buffer-reuse-mode-window
+                  display-buffer-in-side-window)
+
+      (inhibit-same-window . t)
+      (mode vterm-mode vterm-copy-mode)
+      (direction . right)
+      (window . root)
+      (window-width . 0.37)))))
 
 
 ;;; faces

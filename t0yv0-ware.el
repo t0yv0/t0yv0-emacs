@@ -18,16 +18,15 @@
 (declare-function projectile-run-vterm "projectile" (x))
 
 
+(defun t0yv0/project-shell ()
+  "Start a vterm/shell for a project."
+  (projectile-run-vterm nil))
+
+
 (defun t0yv0/open-shell-for-current-buffer ()
   "Command to open a project shell."
   (interactive)
-  (let ((new-shell-buf nil))
-    (save-window-excursion
-      (setq new-shell-buf (t0yv0/project-shell)))
-    (when (string-match "^\\*vterm" (buffer-name (current-buffer)))
-      (other-window 1))
-    (delete-other-windows)
-    (set-window-buffer (split-window-right) new-shell-buf)))
+  (t0yv0/project-shell))
 
 
 (defun t0yv0/clear-and-repeat-last-command-in-project-shell ()
@@ -39,11 +38,6 @@
         (vterm-clear)
         (vterm-send-up)
         (vterm-send-return)))))
-
-
-(defun t0yv0/project-shell ()
-  "Like `projectile-run-shell` but with `compilation-shell-minor-mode`."
-  (projectile-run-vterm nil))
 
 
 (defun t0yv0/vterm-dabbrev-expand ()
