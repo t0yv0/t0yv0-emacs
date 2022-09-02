@@ -52,19 +52,6 @@
          (window-height . 0.381)
          (dedicated . t))))
 
-(progn
-  (setq display-buffer-alist (list))
-  (add-to-list
-   'display-buffer-alist
-   '(("\\*vterm" (display-buffer-reuse-mode-window
-                  display-buffer-in-side-window)
-
-      (inhibit-same-window . t)
-      (mode vterm-mode vterm-copy-mode)
-      (direction . right)
-      (window . root)
-      (window-width . 0.37)))))
-
 
 ;;; faces
 
