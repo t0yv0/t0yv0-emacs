@@ -17,6 +17,8 @@
 (tab-bar-mode 1)
 (tool-bar-mode -1)
 (prefer-coding-system 'utf-8)
+(winner-mode t)
+(windmove-default-keybindings)
 
 (let ((font "monospace 16"))
   (set-frame-font font)
