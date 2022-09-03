@@ -166,6 +166,11 @@
     (add-hook 'org-shiftdown-final-hook 'windmove-down)
     (add-hook 'org-shiftright-final-hook 'windmove-right)
 
+    (define-key org-mode-map (kbd "<S-left>") nil)
+    (define-key org-mode-map (kbd "<S-right>") nil)
+    (define-key org-mode-map (kbd "<C-S-left>") 'org-shiftleft)
+    (define-key org-mode-map (kbd "<C-S-right>") 'org-shiftright)
+
     ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
     (setq org-capture-templates
           '(("t" "Todo [inbox]" entry
@@ -199,5 +204,4 @@
 
 
 (provide 'default)
-
-;;; default ends here
+;;; default.el ends here
