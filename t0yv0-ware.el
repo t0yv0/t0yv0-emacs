@@ -26,7 +26,10 @@
 (defun t0yv0/open-shell-for-current-buffer ()
   "Command to open a project shell."
   (interactive)
-  (t0yv0/project-shell))
+  (let ((buf (t0yv0/project-shell)))
+    (with-current-buffer buf
+      (compilation-shell-minor-mode 1))
+    buf))
 
 
 (defun t0yv0/clear-and-repeat-last-command-in-project-shell ()
