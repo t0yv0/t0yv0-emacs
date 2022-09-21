@@ -9,6 +9,7 @@ with epkgs; [
   haskell-mode
   helm-ag
   helm-ls-git
+  hydra
   json-mode
   lsp-ui
   magit

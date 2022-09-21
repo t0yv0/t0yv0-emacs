@@ -90,18 +90,30 @@
 (use-package csharp-mode)
 
 (use-package helm
-  :bind (("C-x C-f" . helm-find-files)
-	 ("C-x b"   . helm-mini)))
+  :bind (("M-x"     . helm-M-x)
+         ("C-x b"   . helm-mini)
+         ("C-x C-f" . helm-find-files)))
 
-(use-package helm-ag
-  :bind (("M-x"   . helm-M-x)
-	 ("C-c b" . helm-ag-buffers)
-	 ("C-c d" . helm-ag)
-	 ("C-c f" . helm-ag-this-file)
-	 ("C-c j" . helm-ag-project-root)))
+(use-package helm-ls-git)
 
-(use-package helm-ls-git
-  :bind (("C-c g" . helm-ls-git-ls)))
+(use-package helm-ag)
+
+(use-package hydra
+  :bind (("C-c s" . t0yv0/search-hydra/body)
+         ("C-c f" . t0yv0/find-hydra/body))
+  :init
+  (progn
+    (defhydra t0yv0/search-hydra ()
+      "search"
+      ("o" helm-occur "occur" :color blue)
+      ("b" helm-ag-buffers "buffers" :color blue)
+      ("d" helm-ag "dir" :color blue)
+      ("p" helm-ag-project-root "project" :color blue))
+
+    (defhydra t0yv0/find-hydra ()
+      "find-files"
+      ("p" helm-ls-git "project" :color blue)
+      ("r" helm-recentf "recent" :color blue))))
 
 (use-package magit
   :bind (("C-x g" . magit-status)))
