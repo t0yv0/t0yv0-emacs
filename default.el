@@ -108,10 +108,11 @@
       ("t" nil                "select" :color blue)
       ("n" t0yv0/open-tab     "new"    :color blue)
       ("r" tab-bar-rename-tab "rename" :color blue)
-
-      ("[" tab-previous "left")
-      ("]" tab-next     "right")
-      ("q" tab-close    "close"))
+      ("," tab-recent         "recent" :color blue)
+      ("d" t0yv0/diary        "diary"  :color blue)
+      ("[" tab-previous       "left")
+      ("]" tab-next           "right")
+      ("q" tab-close          "close"))
 
     (defhydra t0yv0/search-hydra ()
       "search"
@@ -122,7 +123,6 @@
 
     (defhydra t0yv0/find-hydra ()
       "find-files"
-      ("d" t0yv0/diary  "diary"   :color blue)
       ("p" helm-ls-git  "project" :color blue)
       ("r" helm-recentf "recent"  :color blue))))
 
