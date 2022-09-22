@@ -105,12 +105,13 @@
   (progn
     (defhydra t0yv0/tab-hydra ()
       "tabs"
-      ("t"       nil                "select-this-tab" :color blue)
-      ("n"       t0yv0/open-tab     "new"             :color blue)
-      ("r"       tab-bar-rename-tab "rename"          :color blue)
-      ("q"       tab-close          "close")
-      ("<left>"  tab-previous       "")
-      ("<right>" tab-next           ""))
+      ("t" nil                "select" :color blue)
+      ("n" t0yv0/open-tab     "new"    :color blue)
+      ("r" tab-bar-rename-tab "rename" :color blue)
+
+      ("[" tab-previous "left")
+      ("]" tab-next     "right")
+      ("q" tab-close    "close"))
 
     (defhydra t0yv0/search-hydra ()
       "search"
