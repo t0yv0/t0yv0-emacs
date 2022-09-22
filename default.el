@@ -77,7 +77,6 @@
 (global-set-key (kbd "C-c r") 'recompile)
 (global-set-key (kbd "C-c x") 'delete-frame)
 (global-set-key (kbd "C-c z") 't0yv0/clear-and-repeat-last-command-in-project-shell)
-(global-set-key (kbd "C-c t") 't0yv0/diary)
 (global-set-key (kbd "C-c o") 'org-capture)
 
 (global-set-key (kbd "M-n") 'forward-paragraph)
@@ -100,23 +99,36 @@
 
 (use-package hydra
   :bind (("C-c s" . t0yv0/search-hydra/body)
-         ("C-c f" . t0yv0/find-hydra/body))
+         ("C-c f" . t0yv0/find-hydra/body)
+         ("C-c t" . t0yv0/tab-hydra/body))
   :init
   (progn
+    (defhydra t0yv0/tab-hydra ()
+      "tabs"
+      ("t"       nil                "select-this-tab" :color blue)
+      ("n"       t0yv0/open-tab     "new"             :color blue)
+      ("r"       tab-bar-rename-tab "rename"          :color blue)
+      ("q"       tab-close          "close")
+      ("<left>"  tab-previous       "")
+      ("<right>" tab-next           ""))
+
     (defhydra t0yv0/search-hydra ()
       "search"
-      ("o" helm-occur "occur" :color blue)
-      ("b" helm-ag-buffers "buffers" :color blue)
-      ("d" helm-ag "dir" :color blue)
+      ("o" helm-occur           "occur"   :color blue)
+      ("b" helm-ag-buffers      "buffers" :color blue)
+      ("d" helm-ag              "dir"     :color blue)
       ("p" helm-ag-project-root "project" :color blue))
 
     (defhydra t0yv0/find-hydra ()
       "find-files"
-      ("p" helm-ls-git "project" :color blue)
-      ("r" helm-recentf "recent" :color blue))))
+      ("d" t0yv0/diary  "diary"   :color blue)
+      ("p" helm-ls-git  "project" :color blue)
+      ("r" helm-recentf "recent"  :color blue))))
+
 
 (use-package magit
   :bind (("C-x g" . magit-status)))
+
 
 (use-package paredit
   :diminish paredit-mode

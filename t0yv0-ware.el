@@ -56,23 +56,17 @@
         (vterm-insert expansion)))))
 
 
-(defvar t0yv0/-diary-saved-winconf nil)
-
-
 (defun t0yv0/diary ()
-  "Toggle between diary entry for today and current work."
+  "Switch to diary entry for today in a dedicated tab."
   (interactive)
-  (let ((today-file-name
-         (format-time-string "~/my/%Y/%m/%d.org" (current-time))))
-
-    (if (equal (expand-file-name today-file-name)
-               (buffer-file-name (current-buffer)))
-        (unless (null t0yv0/-diary-saved-winconf)
-          (set-window-configuration t0yv0/-diary-saved-winconf)
-          (setq t0yv0/-diary-saved-winconf nil))
-      (progn
-        (setq t0yv0/-diary-saved-winconf (current-window-configuration))
-        (find-file today-file-name)))))
+  (let ((diary-tab (seq-find (lambda (x)
+                               (equal "diary" (alist-get 'name x)))
+                             (tab-bar-tabs))))
+    (when (null diary-tab)
+      (tab-bar-new-tab-to -1)
+      (tab-bar-rename-tab "diary")
+      (find-file (format-time-string "~/my/%Y/%m/%d.org" (current-time))))
+    (tab-bar-switch-to-tab "diary")))
 
 
 (defun t0yv0/org-follow-gh-link (path _)
@@ -95,6 +89,13 @@ PATH should be something like pulumi/pulumi#123"
       (find-file today-file-name)
       (insert (string-join (list the-link "\n")))
       (message the-link))))
+
+
+(defun t0yv0/open-tab ()
+  "Opens a new tab to *scratch* buffer."
+  (interactive)
+  (tab-bar-new-tab-to -1)
+  (pop-to-buffer-same-window "*scratch*"))
 
 
 (provide 't0yv0-ware)
