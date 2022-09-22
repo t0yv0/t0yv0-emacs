@@ -18,7 +18,6 @@
 (tool-bar-mode -1)
 (prefer-coding-system 'utf-8)
 (winner-mode t)
-(windmove-default-keybindings)
 
 (let ((font "monospace 16"))
   (set-frame-font font)
@@ -100,7 +99,8 @@
 (use-package hydra
   :bind (("C-c s" . t0yv0/search-hydra/body)
          ("C-c f" . t0yv0/find-hydra/body)
-         ("C-c t" . t0yv0/tab-hydra/body))
+         ("C-c t" . t0yv0/tab-hydra/body)
+         ("C-c w" . t0yv0/windmove-hydra/body))
   :init
   (progn
     (defhydra t0yv0/tab-hydra ()
@@ -120,6 +120,21 @@
       ("b" helm-ag-buffers      "buffers" :color blue)
       ("d" helm-ag              "dir"     :color blue)
       ("p" helm-ag-project-root "project" :color blue))
+
+    (defhydra t0yv0/windmove-hydra ()
+      "windmove"
+      ("q"         nil            "quit")
+      ("d"         delete-window  "delete")
+      ("_"         split-window-vertically)
+      ("|"         split-window-horizontally)
+      ("S-<left>"  windmove-swap-states-left)
+      ("S-<right>" windmove-swap-states-right)
+      ("S-<up>"    windmove-swap-states-up)
+      ("S-<down>"  windmove-swap-states-down)
+      ("<left>"    windmove-left)
+      ("<right>"   windmove-right)
+      ("<up>"      windmove-up)
+      ("<down>"    windmove-down))
 
     (defhydra t0yv0/find-hydra ()
       "find-files"
@@ -184,17 +199,6 @@
     (setq org-agenda-files '("~/my/notes.org"
                              "~/my/gtd.org"
                              "~/my/tickler.org"))
-
-    ;; Make windmove work in Org mode:
-    (add-hook 'org-shiftup-final-hook 'windmove-up)
-    (add-hook 'org-shiftleft-final-hook 'windmove-left)
-    (add-hook 'org-shiftdown-final-hook 'windmove-down)
-    (add-hook 'org-shiftright-final-hook 'windmove-right)
-
-    (define-key org-mode-map (kbd "<S-left>") nil)
-    (define-key org-mode-map (kbd "<S-right>") nil)
-    (define-key org-mode-map (kbd "<C-S-left>") 'org-shiftleft)
-    (define-key org-mode-map (kbd "<C-S-right>") 'org-shiftright)
 
     ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
     (setq org-capture-templates
