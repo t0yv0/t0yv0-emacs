@@ -123,8 +123,8 @@
 
     (defhydra t0yv0/windmove-hydra ()
       "windmove"
-      ("q"         nil            "quit")
-      ("d"         delete-window  "delete")
+      ("<return>"  nil            "quit")
+      ("q"         delete-window  "delete")
       ("_"         split-window-vertically)
       ("|"         split-window-horizontally)
       ("S-<left>"  windmove-swap-states-left)
