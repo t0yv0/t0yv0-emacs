@@ -59,14 +59,7 @@
 (defun t0yv0/diary ()
   "Switch to diary entry for today in a dedicated tab."
   (interactive)
-  (let ((diary-tab (seq-find (lambda (x)
-                               (equal "diary" (alist-get 'name x)))
-                             (tab-bar-tabs))))
-    (when (null diary-tab)
-      (tab-bar-new-tab-to -1)
-      (tab-bar-rename-tab "diary")
-      (find-file (format-time-string "~/my/%Y/%m/%d.org" (current-time))))
-    (tab-bar-switch-to-tab "diary")))
+  (find-file (format-time-string "~/my/%Y/%m/%d.org" (current-time))))
 
 
 (defun t0yv0/org-follow-gh-link (path _)
