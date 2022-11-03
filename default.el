@@ -137,9 +137,9 @@
 
     (defhydra t0yv0/find-hydra ()
       "find-files"
-      ("d" t0yv0/diary  "diary"   :color blue)
-      ("p" helm-ls-git  "project" :color blue)
-      ("r" helm-recentf "recent"  :color blue))))
+      ("d" t0yv0/diary "diary" :color blue)
+      ("p" projectile-find-file "project" :color blue)
+      ("r" helm-recentf "recent" :color blue))))
 
 
 (use-package magit
