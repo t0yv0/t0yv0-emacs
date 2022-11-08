@@ -73,7 +73,6 @@
 (global-set-key (kbd "C-c l") 't0yv0/store-link)
 (global-set-key (kbd "C-c m") 'kmacro-start-macro-or-insert-counter)
 (global-set-key (kbd "C-c n") 'kmacro-end-or-call-macro)
-(global-set-key (kbd "C-c r") 'recompile)
 (global-set-key (kbd "C-c x") 'delete-frame)
 (global-set-key (kbd "C-c z") 't0yv0/clear-and-repeat-last-command-in-project-shell)
 (global-set-key (kbd "C-c o") 'org-capture)
@@ -100,7 +99,8 @@
   :bind (("C-c s" . t0yv0/search-hydra/body)
          ("C-c f" . t0yv0/find-hydra/body)
          ("C-c t" . t0yv0/tab-hydra/body)
-         ("C-c w" . t0yv0/windmove-hydra/body))
+         ("C-c w" . t0yv0/windmove-hydra/body)
+         ("C-c r" . t0yv0/register-hydra/body))
   :init
   (progn
     (defhydra t0yv0/tab-hydra ()
@@ -134,6 +134,14 @@
       ("<right>"   windmove-right)
       ("<up>"      windmove-up)
       ("<down>"    windmove-down))
+
+    (defhydra t0yv0/register-hydra ()
+      "registers"
+      ("r" helm-register       "helm"    :color blue)
+      ("p" point-to-register   "point"   :color blue)
+      ("c" copy-to-register    "copy"    :color blue)
+      ("a" append-to-register  "append"  :color blue)
+      ("p" prepend-to-register "prepend" :color blue))
 
     (defhydra t0yv0/find-hydra ()
       "find-files"
