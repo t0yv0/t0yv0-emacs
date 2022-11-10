@@ -138,7 +138,7 @@
     (defhydra t0yv0/register-hydra ()
       "registers"
       ("r" helm-register       "helm"    :color blue)
-      ("p" point-to-register   "point"   :color blue)
+      ("." point-to-register   "point"   :color blue)
       ("c" copy-to-register    "copy"    :color blue)
       ("a" append-to-register  "append"  :color blue)
       ("p" prepend-to-register "prepend" :color blue))
