@@ -19,7 +19,7 @@
 (prefer-coding-system 'utf-8)
 (winner-mode t)
 
-(let ((font "Iosevka 14"))
+(let ((font "Iosevka 16"))
   (set-frame-font font)
 
   (setq default-frame-alist
