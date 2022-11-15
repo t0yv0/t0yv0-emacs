@@ -30,7 +30,7 @@
 	  (horizontal-scroll-bars . nil))))
 
 (setq column-number-mode t)
-(setq fill-column 120)
+(setq-default fill-column 120)
 (setq-default indent-tabs-mode nil)
 (setq inhibit-splash-screen t)
 (setq inhibit-startup-message t)
