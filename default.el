@@ -71,7 +71,6 @@
 (global-set-key (kbd "C-c 2") 't0yv0/open-shell-for-current-buffer)
 (global-set-key (kbd "C-c c") 'compile)
 (global-set-key (kbd "C-c h") 'vterm)
-(global-set-key (kbd "C-c l") 't0yv0/store-link)
 (global-set-key (kbd "C-c m") 'kmacro-start-macro-or-insert-counter)
 (global-set-key (kbd "C-c n") 'kmacro-end-or-call-macro)
 (global-set-key (kbd "C-c x") 'delete-frame)
@@ -101,9 +100,17 @@
          ("C-c f" . t0yv0/find-hydra/body)
          ("C-c t" . t0yv0/tab-hydra/body)
          ("C-c w" . t0yv0/windmove-hydra/body)
-         ("C-c r" . t0yv0/register-hydra/body))
+         ("C-c r" . t0yv0/register-hydra/body)
+         ("C-c l" . t0yv0/link-hydra/body))
   :init
   (progn
+    (defhydra t0yv0/link-hydra ()
+      "links"
+      ("g" t0yv0/kill-github-link-at-point        "gh-kill"      :color blue)
+      ("G" t0yv0/github-link-at-point-to-register "gh-register"  :color blue)
+      ("o" t0yv0/kill-org-link                    "org-kill"     :color blue)
+      ("O" t0yv0/org-link-to-register             "org-register" :color blue))
+
     (defhydra t0yv0/tab-hydra ()
       "tabs"
       ("<return>" nil                "select" :color blue)

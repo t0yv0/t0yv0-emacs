@@ -84,11 +84,70 @@ PATH should be something like pulumi/pulumi#123"
       (message the-link))))
 
 
+(defun t0yv0/kill-org-link ()
+  "Store an org-style link to current location in the kill ring."
+  (interactive)
+  (save-window-excursion
+    (let* ((the-link (org-store-link nil))
+           (the-link-string (string-join (list the-link "\n"))))
+      (kill-new the-link-string)
+      (message "Stored org link in the kill ring: %s" the-link-string))))
+
+
+(defun t0yv0/org-link-to-register ()
+  "Store an org-style link to current location in a register."
+  (interactive)
+  (let* ((lnk (org-store-link nil))
+         (s   (string-join (list lnk "\n")))
+         (reg (register-read-with-preview "Register for GitHub link:")))
+    (message "Org link saved to register %s: %s" (string reg) s)
+    (set-register reg s)))
+
+
 (defun t0yv0/open-tab ()
   "Opens a new tab to *scratch* buffer."
   (interactive)
   (tab-bar-new-tab-to -1)
   (pop-to-buffer-same-window "*scratch*"))
+
+
+(defun t0yv0/github-link-at-point ()
+  "Builds a GitHub link to point."
+  (let* ((fn (buffer-file-name))
+         (dd (file-name-directory fn))
+         (sh (lambda (cmd)
+               (with-temp-buffer
+                 (let ((default-directory dd))
+                   (shell-command cmd (current-buffer))
+                   (replace-regexp-in-string "\n\\'" "" (buffer-string))))))
+         (ln (line-number-at-pos))
+         (origin (funcall sh "git config --get remote.origin.url"))
+         (hash (funcall sh "git rev-parse HEAD"))
+         (toplevel (funcall sh "git rev-parse --show-toplevel"))
+         (repo (string-remove-suffix ".git" (string-remove-prefix "git@github.com:" origin))))
+    (string-join (list "https://github.com"
+                       repo
+                       "blob"
+                       hash
+                       (file-relative-name fn toplevel))
+                 "/")))
+
+
+(defun t0yv0/github-link-at-point-to-register ()
+  "Store a GitHub link at point to a given register."
+  (interactive)
+  (let ((lnk (t0yv0/github-link-at-point))
+        (reg (register-read-with-preview "Register for GitHub link:")))
+    (message "GitHub link saved to register %s: %s" (string reg) lnk)
+    (set-register reg lnk)))
+
+
+(defun t0yv0/kill-github-link-at-point ()
+  "Store a GitHub link at point to the kill ring."
+  (interactive)
+  (let ((lnk (t0yv0/github-link-at-point)))
+    (message "GitHub link saved to the kill ring: %s" lnk)
+    (kill-new lnk)))
 
 
 (provide 't0yv0-ware)
