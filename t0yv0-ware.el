@@ -111,26 +111,54 @@ PATH should be something like pulumi/pulumi#123"
   (pop-to-buffer-same-window "*scratch*"))
 
 
+(defun t0yv0/shell (cmd &optional dir)
+  "Execute a shall command and return the reuslt as a trimmed string.
+
+CMD shell command
+DIR working directory"
+
+  (with-temp-buffer
+    (if (null dir)
+        (shell-command cmd (current-buffer))
+      (let ((default-directory dir))
+        (shell-command cmd (current-buffer))))
+    (replace-regexp-in-string "\n\\'" "" (buffer-string))))
+
+
+(defun t0yv0/region-line-bounds ()
+  "Compute active region line bounds or return current line."
+  (interactive)
+
+  (if (region-active-p)
+      (let ((rb (region-bounds)))
+        (if (= 1 (length rb))
+            (let* ((bounds-pair (car rb))
+                   (pos1 (car bounds-pair))
+                   (pos2 (cdr bounds-pair))
+                   (line1 (line-number-at-pos pos1 t))
+                   (line2 (line-number-at-pos pos2 t)))
+              (cons line1 line2))
+          (cons (line-number-at-pos) (line-number-at-pos))))
+    (cons (line-number-at-pos) (line-number-at-pos))))
+
+
 (defun t0yv0/github-link-at-point ()
   "Builds a GitHub link to point."
   (let* ((fn (buffer-file-name))
          (dd (file-name-directory fn))
-         (sh (lambda (cmd)
-               (with-temp-buffer
-                 (let ((default-directory dd))
-                   (shell-command cmd (current-buffer))
-                   (replace-regexp-in-string "\n\\'" "" (buffer-string))))))
-         (ln (line-number-at-pos))
-         (origin (funcall sh "git config --get remote.origin.url"))
-         (hash (funcall sh "git rev-parse HEAD"))
-         (toplevel (funcall sh "git rev-parse --show-toplevel"))
-         (repo (string-remove-suffix ".git" (string-remove-prefix "git@github.com:" origin))))
-    (string-join (list "https://github.com"
-                       repo
-                       "blob"
-                       hash
-                       (file-relative-name fn toplevel))
-                 "/")))
+         (origin (t0yv0/shell "git config --get remote.origin.url" dd))
+         (hash (t0yv0/shell "git rev-parse HEAD" dd))
+         (toplevel (t0yv0/shell "git rev-parse --show-toplevel" dd))
+         (repo (string-remove-suffix ".git" (string-remove-prefix "git@github.com:" origin)))
+         (lines (t0yv0/region-line-bounds)))
+    (concat (string-join (list "https://github.com"
+                               repo
+                               "blob"
+                               hash
+                               (file-relative-name fn toplevel))
+                         "/")
+            "#L"  (number-to-string (car lines))
+            "-#L" (number-to-string (cdr lines)))))
 
 
 (defun t0yv0/github-link-at-point-to-register ()
