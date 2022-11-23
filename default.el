@@ -152,10 +152,12 @@
       ("p" prepend-to-register "prepend" :color blue))
 
     (defhydra t0yv0/find-hydra ()
-      "find-files"
-      ("d" t0yv0/diary "diary" :color blue)
+      "find-things"
+      ("m" helm-all-mark-rings  "mark"    :color blue)
+      ("k" helm-show-kill-ring  "kill"    :color blue)
+      ("d" t0yv0/diary          "diary"   :color blue)
       ("p" projectile-find-file "project" :color blue)
-      ("r" helm-recentf "recent" :color blue))))
+      ("r" helm-recentf         "recent"  :color blue))))
 
 
 (use-package magit
