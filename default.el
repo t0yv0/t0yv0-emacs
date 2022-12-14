@@ -45,8 +45,12 @@
 (setq visible-bell t)
 
 (setq display-buffer-alist
-      '(("\\*vterm" (display-buffer-reuse-mode-window
-                     display-buffer-in-direction)
+      '((".go$"
+         (display-buffer-reuse-window
+          display-buffer-reuse-mode-window))
+        ("\\*vterm"
+         (display-buffer-reuse-mode-window
+          display-buffer-in-direction)
          (inhibit-same-window . nil)
          (mode vterm-mode vterm-copy-mode)
          (direction . bottom)
