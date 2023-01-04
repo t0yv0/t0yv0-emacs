@@ -51,7 +51,9 @@
           display-buffer-reuse-mode-window)
          (inhibit-same-window . nil))
         ("\\*vterm"
-         (display-buffer-reuse-mode-window
+         (display-buffer-reuse-window
+          t0yv0/display-buffer-same-vterm-window
+          display-buffer-reuse-mode-window
           display-buffer-in-direction)
          (inhibit-same-window . nil)
          (mode vterm-mode vterm-copy-mode)

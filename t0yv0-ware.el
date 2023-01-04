@@ -190,5 +190,17 @@ ALIST contains options such as `inhibit-same-window'."
     (display-buffer-same-window buffer alist)))
 
 
+(defun t0yv0/display-buffer-same-vterm-window (buffer alist)
+  "Like `display-buffer-same-window' if the selected window is in vterm-mode.
+
+BUFFER is a buffer to display.
+
+ALIST contains options such as `inhibit-same-window'."
+  (when (eq 'vterm-mode
+            (with-current-buffer (window-buffer (selected-window))
+              major-mode))
+    (display-buffer-same-window buffer alist)))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
