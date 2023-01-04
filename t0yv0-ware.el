@@ -178,5 +178,17 @@ DIR working directory"
     (kill-new lnk)))
 
 
+(defun t0yv0/display-buffer-same-go-window (buffer alist)
+  "Like `display-buffer-same-window' if the selected window is in go-mode.
+
+BUFFER is a buffer to display.
+
+ALIST contains options such as `inhibit-same-window'."
+  (when (eq 'go-mode
+            (with-current-buffer (window-buffer (selected-window))
+              major-mode))
+    (display-buffer-same-window buffer alist)))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
