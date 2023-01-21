@@ -14,6 +14,7 @@ with epkgs; [
   lsp-ui
   magit
   nix-mode
+  ormolu
   paredit
   projectile
   tide

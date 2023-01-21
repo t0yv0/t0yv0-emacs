@@ -203,6 +203,12 @@
 	  (add-hook 'before-save-hook 'gofmt-before-save)
 	  (add-hook 'go-mode-hook 'lsp-deferred)))
 
+(use-package ormolu
+  :hook (haskell-mode . ormolu-format-on-save-mode)
+  :bind
+  (:map haskell-mode-map
+        ("C-c q" . ormolu-format-buffer)))
+
 (use-package lsp-mode
   :hook  (lsp-mode . lsp-lens-mode)
   :config (setq lsp-prefer-flymake nil))
