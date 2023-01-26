@@ -103,6 +103,10 @@
 
 (use-package helm-ag)
 
+(use-package helm-descbinds
+  :defer t
+  :bind (("C-h b" . helm-descbinds)))
+
 (use-package hydra
   :bind (("C-c s" . t0yv0/search-hydra/body)
          ("C-c f" . t0yv0/find-hydra/body)

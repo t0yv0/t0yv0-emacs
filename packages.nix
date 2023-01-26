@@ -9,6 +9,7 @@ with epkgs; [
   haskell-mode
   helm-ag
   helm-ls-git
+  helm-descbinds
   hydra
   json-mode
   lsp-ui
