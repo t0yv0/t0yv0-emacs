@@ -210,8 +210,11 @@
         ("C-c q" . ormolu-format-buffer)))
 
 (use-package lsp-mode
-  :hook  (lsp-mode . lsp-lens-mode)
-  :config (setq lsp-prefer-flymake nil))
+  :ensure t
+  :defer t
+  :hook (lsp-mode . lsp-lens-mode)
+  :init (setq lsp-prefer-flymake nil)
+  :config (define-key lsp-mode-map (kbd "C-c i") lsp-command-map))
 
 (use-package lsp-ui :commands lsp-ui-mode)
 
