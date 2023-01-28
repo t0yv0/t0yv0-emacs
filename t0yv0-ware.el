@@ -8,6 +8,7 @@
 (require 'comint)
 (require 'dabbrev)
 (require 'org)
+(require 'xref)
 
 
 (declare-function vterm-clear "dbus" ())
@@ -200,6 +201,13 @@ ALIST contains options such as `inhibit-same-window'."
             (with-current-buffer (window-buffer (selected-window))
               major-mode))
     (display-buffer-same-window buffer alist)))
+
+
+(defun t0yv0/jump-to-register ()
+  "Like `jump-to-register' but enables M-, to jump back."
+  (interactive)
+  (xref-push-marker-stack)
+  (jump-to-register (register-read-with-preview "Jump to register:")))
 
 
 (provide 't0yv0-ware)

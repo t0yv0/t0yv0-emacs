@@ -112,7 +112,7 @@
          ("C-c f" . t0yv0/find-hydra/body)
          ("C-c t" . t0yv0/tab-hydra/body)
          ("C-c w" . t0yv0/windmove-hydra/body)
-         ("C-c r" . t0yv0/register-hydra/body)
+         ("C-x r" . t0yv0/register-hydra/body)
          ("C-c l" . t0yv0/link-hydra/body))
   :init
   (progn
@@ -155,13 +155,16 @@
       ("<up>"      windmove-up)
       ("<down>"    windmove-down))
 
-    (defhydra t0yv0/register-hydra ()
-      "registers"
-      ("r" helm-register       "helm"    :color blue)
-      ("." point-to-register   "point"   :color blue)
-      ("c" copy-to-register    "copy"    :color blue)
-      ("a" append-to-register  "append"  :color blue)
-      ("p" prepend-to-register "prepend" :color blue))
+    (defhydra t0yv0/register-hydra (:color blue :hint nil)
+      "register"
+      ("h" helm-register "helm")
+      ("SPC" point-to-register "point")
+      ("j" t0yv0/jump-to-register "jump")
+      ("s" copy-to-register "copy")
+      ("i" insert-register "ins")
+      ("r" copy-rectangle-to-register "copy-rect")
+      ("w" window-configuration-to-register "win")
+      ("+" increment-register "increment"))
 
     (defhydra t0yv0/find-hydra ()
       "find-things"
