@@ -175,13 +175,13 @@
       ("w" window-configuration-to-register "win")
       ("+" increment-register "increment"))
 
-    (defhydra t0yv0/find-hydra ()
+    (defhydra t0yv0/find-hydra (:color blue :hint nil)
       "find-things"
-      ("m" helm-all-mark-rings  "mark"    :color blue)
-      ("k" helm-show-kill-ring  "kill"    :color blue)
-      ("d" t0yv0/diary          "diary"   :color blue)
-      ("p" projectile-find-file "project" :color blue)
-      ("r" helm-recentf         "recent"  :color blue))))
+      ("m" helm-all-mark-rings "mark")
+      ("k" helm-show-kill-ring "kill")
+      ("d" t0yv0/diary "diary")
+      ("p" projectile-find-file "project")
+      ("r" helm-recentf "recent"))))
 
 
 (use-package magit
