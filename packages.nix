@@ -3,13 +3,14 @@
 with epkgs; [
   company
   csharp-mode
+  evil
   flycheck
   go-autocomplete
   go-mode
   haskell-mode
   helm-ag
-  helm-ls-git
   helm-descbinds
+  helm-ls-git
   hydra
   json-mode
   lsp-ui

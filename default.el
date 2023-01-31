@@ -94,6 +94,15 @@
 
 (use-package csharp-mode)
 
+(use-package evil
+  :demand t
+  :bind (("<escape>" . keyboard-escape-quit))
+  :init
+  (setq evil-want-keybinding nil)
+  (setq evil-undo-system 'undo-redo)
+  :config
+  (evil-mode 1))
+
 (use-package helm
   :bind (("M-x"     . helm-M-x)
          ("C-x b"   . helm-mini)
