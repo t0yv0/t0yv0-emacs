@@ -100,6 +100,7 @@
   :init
   (setq evil-want-keybinding nil)
   (setq evil-undo-system 'undo-redo)
+  (setq evil-want-C-i-jump nil) ;; preserve TAB calling org-cycle in org-mode
   :config
   (evil-mode 1))
 
