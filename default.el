@@ -96,7 +96,8 @@
 
 (use-package evil
   :demand t
-  :bind (("<escape>" . keyboard-escape-quit))
+  :bind (("<escape>" . keyboard-escape-quit)
+         ("C-c q" . evil-normal-state))
   :init
   (setq evil-want-keybinding nil)
   (setq evil-undo-system 'undo-redo)
