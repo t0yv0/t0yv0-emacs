@@ -115,7 +115,7 @@ PATH should be something like pulumi/pulumi#123"
 
 
 (defun t0yv0/shell (cmd &optional dir)
-  "Execute a shall command and return the reuslt as a trimmed string.
+  "Execute a shell command and return the result as a trimmed string.
 
 CMD shell command
 DIR working directory"
