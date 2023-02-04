@@ -18,6 +18,8 @@
 (declare-function vterm-send-up "dbus" ())
 (declare-function projectile-run-vterm "projectile" (x))
 (declare-function evil-emacs-state "evil-states" ())
+(declare-function markdown-mark-paragraph "markdown-mode" ())
+(declare-function mermaid-compile-region "mermaid-mode" ())
 
 
 (defun t0yv0/project-shell ()
@@ -187,9 +189,7 @@ DIR working directory"
 BUFFER is a buffer to display.
 
 ALIST contains options such as `inhibit-same-window'."
-  (when (eq 'go-mode
-            (with-current-buffer (window-buffer (selected-window))
-              major-mode))
+  (when (eq 'go-mode (t0yv0/current-mode))
     (display-buffer-same-window buffer alist)))
 
 
@@ -199,9 +199,7 @@ ALIST contains options such as `inhibit-same-window'."
 BUFFER is a buffer to display.
 
 ALIST contains options such as `inhibit-same-window'."
-  (when (eq 'vterm-mode
-            (with-current-buffer (window-buffer (selected-window))
-              major-mode))
+  (when (eq 'vterm-mode (t0yv0/current-mode))
     (display-buffer-same-window buffer alist)))
 
 
@@ -210,6 +208,24 @@ ALIST contains options such as `inhibit-same-window'."
   (interactive)
   (xref-push-marker-stack)
   (jump-to-register (register-read-with-preview "Jump to register:")))
+
+
+(defun t0yv0/current-mode ()
+  "Compute the mode of the current buffer."
+  (with-current-buffer (window-buffer (selected-window)) major-mode))
+
+
+(defun t0yv0/mermaid-compile ()
+  "Compiles and displays a Mermaid diagram from current region."
+  (interactive)
+  (save-excursion
+    (when (and (eq 'markdown-mode (t0yv0/current-mode))
+               (not (use-region-p)))
+      (markdown-mark-paragraph))
+    (mermaid-compile-region)
+    (deactivate-mark t)
+    (with-current-buffer "current-region.png"
+      (revert-buffer nil t))))
 
 
 (provide 't0yv0-ware)
