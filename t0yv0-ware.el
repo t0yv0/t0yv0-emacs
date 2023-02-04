@@ -222,6 +222,9 @@ ALIST contains options such as `inhibit-same-window'."
     (when (and (eq 'markdown-mode (t0yv0/current-mode))
                (not (use-region-p)))
       (markdown-mark-paragraph))
+    (when (and (eq 'org-mode (t0yv0/current-mode))
+               (not (use-region-p)))
+      (org-babel-mark-block))
     (mermaid-compile-region)
     (deactivate-mark t)
     (with-current-buffer "current-region.png"
