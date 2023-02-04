@@ -209,6 +209,8 @@ etc"
   (add-hook 'racket-mode-hook
 	    #'enable-paredit-mode))
 
+(use-package mermaid-mode)
+
 (use-package projectile
   :init
   (progn

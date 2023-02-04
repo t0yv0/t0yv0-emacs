@@ -15,6 +15,7 @@ with epkgs; [
   json-mode
   lsp-ui
   magit
+  mermaid-mode
   nix-mode
   ormolu
   paredit
