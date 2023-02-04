@@ -77,7 +77,6 @@
 ;;; key bindings
 
 (global-set-key (kbd "C-c 2") 't0yv0/open-shell-for-current-buffer)
-(global-set-key (kbd "C-c c") 'compile)
 (global-set-key (kbd "C-c h") 'vterm)
 (global-set-key (kbd "C-c m") 'kmacro-start-macro-or-insert-counter)
 (global-set-key (kbd "C-c n") 'kmacro-end-or-call-macro)
@@ -126,7 +125,8 @@
          ("C-c t" . t0yv0/tab-hydra/body)
          ("C-c w" . t0yv0/windmove-hydra/body)
          ("C-x r" . t0yv0/register-hydra/body)
-         ("C-c l" . t0yv0/link-hydra/body))
+         ("C-c l" . t0yv0/link-hydra/body)
+         ("C-c c" . t0yv0/compile-hydra/body))
   :init
   (progn
     (defhydra t0yv0/link-hydra (:color blue :hint nil)
@@ -186,7 +186,12 @@ etc"
       ("k" helm-show-kill-ring "kill")
       ("d" t0yv0/diary "diary")
       ("p" projectile-find-file "project")
-      ("r" helm-recentf "recent"))))
+      ("r" helm-recentf "recent"))
+
+    (defhydra t0yv0/compile-hydra (:color blue)
+      "compilation"
+      ("c" compile "compile")
+      ("m" t0yv0/mermaid-compile "mermaid"))))
 
 
 (use-package magit
