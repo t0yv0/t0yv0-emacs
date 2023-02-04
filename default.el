@@ -94,6 +94,8 @@
 
 (use-package csharp-mode)
 
+(use-package edit-indirect)
+
 (use-package evil
   :demand t
   :bind (("<escape>" . keyboard-escape-quit)
