@@ -144,20 +144,19 @@
       ("p" helm-ag-project-root "project"))
 
     (defhydra t0yv0/windmove-hydra (:hint nil)
-      "windmove: [hjkl]: move [HJKL]: swap
-etc"
+      "windmove: use arrow keys to nav, add shift to swap"
       ("SPC" nil "quit")
       ("q" delete-window "delete")
       ("_" split-window-vertically "v-split")
       ("|" split-window-horizontally "h-split")
-      ("H" windmove-swap-states-left)
-      ("L" windmove-swap-states-right)
-      ("K" windmove-swap-states-up)
-      ("J" windmove-swap-states-down)
-      ("h" windmove-left)
-      ("l" windmove-right)
-      ("k" windmove-up)
-      ("j" windmove-down))
+      ("S-<left>" windmove-swap-states-left)
+      ("S-<right>" windmove-swap-states-right)
+      ("S-<up>" windmove-swap-states-up)
+      ("S-<down>" windmove-swap-states-down)
+      ("<left>" windmove-left)
+      ("<right>" windmove-right)
+      ("<up>" windmove-up)
+      ("<down>" windmove-down))
 
     (defhydra t0yv0/register-hydra (:color blue :hint nil)
       "register"
