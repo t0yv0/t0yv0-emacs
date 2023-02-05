@@ -83,6 +83,7 @@
 (global-set-key (kbd "C-c x") 'delete-frame)
 (global-set-key (kbd "C-c z") 't0yv0/clear-and-repeat-last-command-in-project-shell)
 (global-set-key (kbd "C-c o") 'org-capture)
+(global-set-key (kbd "C-c ?") 't0yv0/cheatsheet)
 
 (global-set-key (kbd "M-n") 'forward-paragraph)
 (global-set-key (kbd "M-p") 'backward-paragraph)

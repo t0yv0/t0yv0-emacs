@@ -229,5 +229,26 @@ ALIST contains options such as `inhibit-same-window'."
       (revert-buffer nil t))))
 
 
+(defun t0yv0/cheatsheet ()
+  "Reminders on Emacs bindings."
+  (interactive)
+  (with-output-to-temp-buffer "*cheat*"
+    (princ "Emacs Refcard
+
+Motion               Fluency
+
+char C-b    C-f      M-h  mark-paragraph
+word M-b    M-f      M-m  back-to-indentation
+line C-p    C-n      C-x <left>  previous-buffer
+eol  C-a    C-e      C-x <right> next-buffer
+sntc M-a    M-e      C-x C-SPC   pop-global-mark
+para M-{    M-}      C-u C-SPC   set-mark-command (pop)
+page C-x [  C-x ]    C-SPC C-SPC set-mark-command
+sexp C-M-b  C-M-f
+func C-M-a  C-M-e
+buf  M-<    M->"))
+  (select-window (display-buffer "*cheat*")))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
