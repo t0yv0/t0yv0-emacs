@@ -144,9 +144,9 @@
       ("p" helm-ag-project-root "project"))
 
     (defhydra t0yv0/windmove-hydra (:hint nil)
-      "windmove: use arrow keys to nav, add shift to swap"
-      ("SPC" nil "quit")
-      ("q" delete-window "delete")
+      "windmove: use arrow keys to nav, add shift to swap\n"
+      ("q" nil "quit")
+      ("d" delete-window "delete")
       ("_" split-window-vertically "v-split")
       ("|" split-window-horizontally "h-split")
       ("S-<left>" windmove-swap-states-left)
