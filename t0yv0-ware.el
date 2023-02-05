@@ -17,7 +17,6 @@
 (declare-function vterm-send-return "dbus" ())
 (declare-function vterm-send-up "dbus" ())
 (declare-function projectile-run-vterm "projectile" (x))
-(declare-function evil-emacs-state "evil-states" ())
 (declare-function markdown-mark-paragraph "markdown-mode" ())
 (declare-function mermaid-compile-region "mermaid-mode" ())
 
@@ -32,8 +31,7 @@
   (interactive)
   (let ((buf (t0yv0/project-shell)))
     (with-current-buffer buf
-      (compilation-shell-minor-mode 1)
-      (evil-emacs-state))
+      (compilation-shell-minor-mode 1))
     buf))
 
 

@@ -4,7 +4,6 @@ with epkgs; [
   company
   csharp-mode
   edit-indirect
-  evil
   flycheck
   go-autocomplete
   go-mode

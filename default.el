@@ -95,17 +95,6 @@
 
 (use-package edit-indirect)
 
-(use-package evil
-  :demand t
-  :bind (("<escape>" . keyboard-escape-quit)
-         ("C-c q" . evil-normal-state))
-  :init
-  (setq evil-want-keybinding nil)
-  (setq evil-undo-system 'undo-redo)
-  (setq evil-want-C-i-jump nil) ;; preserve TAB calling org-cycle in org-mode
-  :config
-  (evil-mode 1))
-
 (use-package helm
   :bind (("M-x"     . helm-M-x)
          ("C-x b"   . helm-mini)
