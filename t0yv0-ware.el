@@ -19,6 +19,7 @@
 (declare-function projectile-run-vterm "projectile" (x))
 (declare-function markdown-mark-paragraph "markdown-mode" ())
 (declare-function mermaid-compile-region "mermaid-mode" ())
+(declare-function counsel-ag "counsel" (x y))
 
 
 (defun t0yv0/project-shell ()
@@ -248,6 +249,12 @@ sexp C-M-b  C-M-f
 func C-M-a  C-M-e
 buf  M-<    M->"))
   (select-window (display-buffer "*cheat*")))
+
+
+(defun t0yv0/counsel-ag-current-directory ()
+  "Search only current directory."
+  (interactive)
+  (counsel-ag "" default-directory))
 
 
 (provide 't0yv0-ware)

@@ -92,22 +92,28 @@
 
 ;;; package configuration
 
+(use-package ivy
+  :demand
+  :config (ivy-mode))
+
+(use-package counsel
+  :demand
+  :after (ivy)
+  :bind (("M-x" . counsel-M-x)
+         ("M-y" . counsel-yank-pop)
+         ("C-x b" . counsel-buffer-or-recentf)
+         ("C-x C-f" . counsel-find-file)
+         ("C-h b" . counsel-descbinds)))
+
+(use-package swiper
+  :demand
+  :after (ivy counsel)
+  :bind (("C-s" . swiper-isearch)
+         ("C-r" . swiper-isearch-backward)))
+
 (use-package csharp-mode)
 
 (use-package edit-indirect)
-
-(use-package helm
-  :bind (("M-x"     . helm-M-x)
-         ("C-x b"   . helm-mini)
-         ("C-x C-f" . helm-find-files)))
-
-(use-package helm-ls-git)
-
-(use-package helm-ag)
-
-(use-package helm-descbinds
-  :defer t
-  :bind (("C-h b" . helm-descbinds)))
 
 (use-package hydra
   :bind (("C-c s" . t0yv0/search-hydra/body)
@@ -138,10 +144,9 @@
 
     (defhydra t0yv0/search-hydra (:color blue :hint nil)
       "search"
-      ("o" helm-occur "occur")
-      ("b" helm-ag-buffers "buffers")
-      ("d" helm-ag "dir")
-      ("p" helm-ag-project-root "project"))
+      ("b" swiper-all "buffers")
+      ("d" t0yv0/counsel-ag-current-directory "dir")
+      ("p" counsel-ag "project"))
 
     (defhydra t0yv0/windmove-hydra (:hint nil)
       "windmove: use arrow keys to nav, add shift to swap\n"
@@ -160,7 +165,7 @@
 
     (defhydra t0yv0/register-hydra (:color blue :hint nil)
       "register"
-      ("h" helm-register "helm")
+      ("x" counsel-register "counsel")
       ("SPC" point-to-register "point")
       ("j" t0yv0/jump-to-register "jump")
       ("s" copy-to-register "copy")
@@ -171,11 +176,10 @@
 
     (defhydra t0yv0/find-hydra (:color blue :hint nil)
       "find-things"
-      ("m" helm-all-mark-rings "mark")
-      ("k" helm-show-kill-ring "kill")
+      ("m" counsel-mark-ring "mark")
       ("d" t0yv0/diary "diary")
       ("p" projectile-find-file "project")
-      ("r" helm-recentf "recent"))
+      ("r" counsel-recentf "recent"))
 
     (defhydra t0yv0/compile-hydra (:color blue)
       "compilation"
@@ -210,8 +214,7 @@
 (use-package projectile
   :init
   (progn
-    (projectile-mode +1)
-    (setq projectile-completion-system 'helm))
+    (projectile-mode +1))
   :bind (:map projectile-mode-map
               ("C-c p" . projectile-command-map)))
 

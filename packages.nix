@@ -2,16 +2,15 @@
 
 with epkgs; [
   company
+  counsel
   csharp-mode
   edit-indirect
   flycheck
   go-autocomplete
   go-mode
   haskell-mode
-  helm-ag
-  helm-descbinds
-  helm-ls-git
   hydra
+  ivy
   json-mode
   lsp-ui
   magit
@@ -20,6 +19,7 @@ with epkgs; [
   ormolu
   paredit
   projectile
+  swiper
   tide
   use-package
   vterm
