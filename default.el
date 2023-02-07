@@ -179,6 +179,7 @@
       ("d" t0yv0/diary "diary")
       ("p" projectile-find-file "project")
       ("r" counsel-register "register")
+      ("i" counsel-imenu "imenu")
       ("R" counsel-recentf "recent"))
 
     (defhydra t0yv0/compile-hydra (:color blue)
