@@ -103,7 +103,10 @@
          ("M-y" . counsel-yank-pop)
          ("C-x b" . counsel-buffer-or-recentf)
          ("C-x C-f" . counsel-find-file)
-         ("C-h b" . counsel-descbinds)))
+         ("C-h a" . counsel-apropos)
+         ("C-h b" . counsel-descbinds)
+         ("C-h f" . counsel-describe-function)
+         ("C-h v" . counsel-describe-variable)))
 
 (use-package swiper
   :demand
