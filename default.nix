@@ -10,10 +10,6 @@
   # Selector of standard Elisp packages defined in `nixpkgs`.
   standardEmacsPackages ? (import ./packages.nix),
 
-  # Config flags such as the experimental `--with-native-compilation`
-  # flag to speed up execution.
-  extraConfigureFlags ? [ "--with-native-compilation" ],
-
   # Elisp file to auto-load on startup. Customize a `default.el` file
   # as you would `~/.emacs`.
   defaultElisp ? ./default.el
@@ -29,16 +25,9 @@ let
     packageRequires = (standardEmacsPackages { epkgs = pkgs.emacsPackages; }) ++ userPackages;
   };
 
-  patchedEmacs =
-    if (pkgs ? emacsNativeComp)
-    then pkgs.emacsNativeComp
-    else pkgs.emacs.overrideAttrs(old: {
-      configureFlags = old.configureFlags ++ extraConfigureFlags;
-    });
+  emacsPackages = epkgs: (standardEmacsPackages { epkgs = epkgs; }) ++ userPackages ++ [defaultPackage];
 
-  emacs = (pkgs.emacsPackagesFor patchedEmacs).emacsWithPackages(epkgs:
-    (standardEmacsPackages { epkgs = epkgs; }) ++ userPackages ++ [defaultPackage]
-  );
+  emacs = (pkgs.emacsPackagesFor pkgs.emacsNativeComp).emacsWithPackages(emacsPackages);
 
 in
 
