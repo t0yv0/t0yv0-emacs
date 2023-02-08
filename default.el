@@ -93,11 +93,6 @@
 ;;; package configuration
 
 
-(defun t0yv0/consult-line ()
-  (interactive)
-  (consult-line "*"))
-
-
 (use-package consult
   :bind (("M-y" . consult-yank-pop)
          ("C-x b" . consult-buffer)
