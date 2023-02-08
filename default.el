@@ -145,8 +145,9 @@
       "search"
       ("l" consult-line "line")
       ("m" consult-line-multi "line-multi")
-      ("d" t0yv0/counsel-ag-current-directory "dir")
-      ("p" counsel-ag "project"))
+      ("d" t0yv0/consult-ripgrep-current-directory "dir")
+      ("p" consult-ripgrep "project")
+      ("g" consult-git-grep "git"))
 
     (defhydra t0yv0/windmove-hydra (:hint nil)
       "windmove: use arrow keys to nav, add shift to swap\n"
