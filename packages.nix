@@ -11,6 +11,7 @@ with epkgs; [
   haskell-mode
   hydra
   json-mode
+  lsp-mode
   lsp-ui
   magit
   mermaid-mode
