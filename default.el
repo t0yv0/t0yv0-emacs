@@ -92,31 +92,26 @@
 
 ;;; package configuration
 
-(use-package ivy
-  :demand
-  :config (ivy-mode))
+(icomplete-vertical-mode)
 
-(use-package counsel
-  :demand
-  :after (ivy)
-  :bind (("M-x" . counsel-M-x)
-         ("M-y" . counsel-yank-pop)
-         ("C-x b" . counsel-buffer-or-recentf)
-         ("C-x C-f" . counsel-find-file)
-         ("C-h a" . counsel-apropos)
-         ("C-h b" . counsel-descbinds)
-         ("C-h f" . counsel-describe-function)
-         ("C-h v" . counsel-describe-variable)))
 
-(use-package swiper
-  :demand
-  :after (ivy counsel)
-  :bind (("C-s" . swiper-isearch)
-         ("C-r" . swiper-isearch-backward)))
+(defun t0yv0/consult-line ()
+  (interactive)
+  (consult-line "*"))
+
+
+(use-package consult
+  :bind (("M-y" . consult-yank-pop)
+         ("C-x b" . consult-buffer)
+         ("C-x B" . consult-project-buffer)
+         ("C-h a" . consult-apropos)))
+
 
 (use-package csharp-mode)
 
+
 (use-package edit-indirect)
+
 
 (use-package hydra
   :bind (("C-c s" . t0yv0/search-hydra/body)
@@ -145,9 +140,11 @@
       ("<right>" tab-next "right")
       ("q" tab-close "close"))
 
+    ;; this needs consult-grep, consult-ripgrep, consult-git-grep
     (defhydra t0yv0/search-hydra (:color blue :hint nil)
       "search"
-      ("b" swiper-all "buffers")
+      ("l" consult-line "line")
+      ("m" consult-line-multi "line-multi")
       ("d" t0yv0/counsel-ag-current-directory "dir")
       ("p" counsel-ag "project"))
 
@@ -178,12 +175,14 @@
 
     (defhydra t0yv0/find-hydra (:color blue :hint nil)
       "find-things"
-      ("m" counsel-mark-ring "mark")
       ("d" t0yv0/diary "diary")
-      ("p" projectile-find-file "project")
-      ("r" counsel-register "register")
-      ("i" counsel-imenu "imenu")
-      ("R" counsel-recentf "recent"))
+      ("f" consult-find "file")
+      ("i" consult-imenu "imenu")
+      ("I" consult-imenu-multi "imenu*")
+      ("k" consult-yank-from-kill-ring "kill")
+      ("m" consult-mark "mark")
+      ("M" consult-global-mark "mark*")
+      ("r" consult-register "register"))
 
     (defhydra t0yv0/compile-hydra (:color blue)
       "compilation"

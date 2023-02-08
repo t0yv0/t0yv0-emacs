@@ -2,7 +2,7 @@
 
 with epkgs; [
   company
-  counsel
+  consult
   csharp-mode
   edit-indirect
   flycheck
@@ -10,7 +10,6 @@ with epkgs; [
   go-mode
   haskell-mode
   hydra
-  ivy
   json-mode
   lsp-ui
   magit
@@ -19,7 +18,6 @@ with epkgs; [
   ormolu
   paredit
   projectile
-  swiper
   tide
   use-package
   vterm
