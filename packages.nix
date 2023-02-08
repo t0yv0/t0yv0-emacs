@@ -5,6 +5,8 @@ with epkgs; [
   consult
   csharp-mode
   edit-indirect
+  embark
+  embark-consult
   flycheck
   go-autocomplete
   go-mode
