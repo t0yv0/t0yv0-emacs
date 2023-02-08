@@ -257,5 +257,28 @@ buf  M-<    M->"))
   (consult-ripgrep default-directory))
 
 
+(defun t0yv0/flex-if-twiddle (pattern _index _total)
+  "See `t0yv0/orderless-style-dispatchers'.
+PATTERN _INDEX _TOTAL as required by orderless."
+  (when (string-suffix-p "~" pattern)
+    `(orderless-flex . ,(substring pattern 0 -1))))
+
+
+(defun t0yv0/without-if-bang (pattern _index _total)
+  "See `t0yv0/orderless-style-dispatchers'.
+PATTERN _INDEX _TOTAL as required by orderless."
+  (cond
+   ((equal "!" pattern)
+    '(orderless-literal . ""))
+   ((string-prefix-p "!" pattern)
+    `(orderless-without-literal . ,(substring pattern 1)))))
+
+
+(defun t0yv0/orderless-style-dispatchers ()
+  "Compute style dispatchers for orderless 0.7."
+  '(t0yv0/flex-if-twiddle
+    t0yv0/without-if-bang))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here

@@ -226,6 +226,13 @@
                                ("~/my/someday.org" :level . 1)
                                ("~/my/tickler.org" :maxlevel . 2)))))
 
+(use-package orderless
+  :custom
+  (orderless-matching-styles '(orderless-regexp))
+  (orderless-style-dispatchers (t0yv0/orderless-style-dispatchers))
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
 (use-package ormolu
   :hook (haskell-mode . ormolu-format-on-save-mode)
   :bind

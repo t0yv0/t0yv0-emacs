@@ -16,6 +16,7 @@ with epkgs; [
   magit
   mermaid-mode
   nix-mode
+  orderless
   ormolu
   paredit
   projectile
