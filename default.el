@@ -98,14 +98,18 @@
          ("C-x B" . consult-project-buffer)
          ("C-h a" . consult-apropos)))
 
-(use-package vertico
-  :ensure t
-  :init
-  (vertico-mode))
-
 (use-package csharp-mode)
 
 (use-package edit-indirect)
+
+(use-package flycheck
+  :init (global-flycheck-mode)
+  :bind (("C-c e" . flycheck-next-error)))
+
+(use-package go-mode
+  :init (progn
+	  (add-hook 'before-save-hook 'gofmt-before-save)
+	  (add-hook 'go-mode-hook 'lsp-deferred)))
 
 (use-package hydra
   :bind (("C-c s" . t0yv0/search-hydra/body)
@@ -184,49 +188,7 @@
       ("c" compile "compile")
       ("m" t0yv0/mermaid-compile "mermaid"))))
 
-(use-package magit
-  :bind (("C-x g" . magit-status)))
-
-(use-package paredit
-  :diminish paredit-mode
-  :init
-  (add-hook 'emacs-lisp-mode-hook
-	    #'enable-paredit-mode)
-  (add-hook 'eval-expression-minibuffer-setup-hook
-	    #'enable-paredit-mode)
-  (add-hook 'ielm-mode-hook
-	    #'enable-paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook
-            #'enable-paredit-mode)
-  (add-hook 'lisp-mode-hook
-	    #'enable-paredit-mode)
-  (add-hook 'scheme-mode-hook
-	    #'enable-paredit-mode)
-  (add-hook 'racket-mode-hook
-	    #'enable-paredit-mode))
-
-(use-package mermaid-mode)
-
-(use-package projectile
-  :init
-  (progn
-    (projectile-mode +1))
-  :bind (:map projectile-mode-map
-              ("C-c p" . projectile-command-map)))
-
-(use-package go-mode
-  :init (progn
-	  (add-hook 'before-save-hook 'gofmt-before-save)
-	  (add-hook 'go-mode-hook 'lsp-deferred)))
-
-(use-package ormolu
-  :hook (haskell-mode . ormolu-format-on-save-mode)
-  :bind
-  (:map haskell-mode-map
-        ("C-c q" . ormolu-format-buffer)))
-
 (use-package lsp-mode
-  :ensure t
   :defer t
   :hook (lsp-mode . lsp-lens-mode)
   :init (setq lsp-prefer-flymake nil)
@@ -234,9 +196,10 @@
 
 (use-package lsp-ui :commands lsp-ui-mode)
 
-(use-package flycheck
-  :init (global-flycheck-mode)
-  :bind (("C-c e" . flycheck-next-error)))
+(use-package magit
+  :bind (("C-x g" . magit-status)))
+
+(use-package mermaid-mode)
 
 (use-package org
   :mode (("\\.org$" . org-mode))
@@ -263,12 +226,45 @@
                                ("~/my/someday.org" :level . 1)
                                ("~/my/tickler.org" :maxlevel . 2)))))
 
-(use-package typescript-mode)
+(use-package ormolu
+  :hook (haskell-mode . ormolu-format-on-save-mode)
+  :bind
+  (:map haskell-mode-map
+        ("C-c q" . ormolu-format-buffer)))
+
+(use-package paredit
+  :diminish paredit-mode
+  :init
+  (add-hook 'emacs-lisp-mode-hook
+	    #'enable-paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook
+	    #'enable-paredit-mode)
+  (add-hook 'ielm-mode-hook
+	    #'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook
+            #'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook
+	    #'enable-paredit-mode)
+  (add-hook 'scheme-mode-hook
+	    #'enable-paredit-mode)
+  (add-hook 'racket-mode-hook
+	    #'enable-paredit-mode))
+
+(use-package projectile
+  :init
+  (progn
+    (projectile-mode +1))
+  :bind (:map projectile-mode-map
+              ("C-c p" . projectile-command-map)))
 
 (use-package tide
   :config (add-hook 'typescript-mode-hook #'(lambda ()
 					      (company-mode +1)
 					      (tide-setup))))
+
+(use-package typescript-mode)
+
+(use-package vertico :init (vertico-mode))
 
 (use-package vterm
   :bind (:map vterm-mode-map
