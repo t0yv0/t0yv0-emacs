@@ -92,25 +92,20 @@
 
 ;;; package configuration
 
-
 (use-package consult
   :bind (("M-y" . consult-yank-pop)
          ("C-x b" . consult-buffer)
          ("C-x B" . consult-project-buffer)
          ("C-h a" . consult-apropos)))
 
-
 (use-package vertico
   :ensure t
   :init
   (vertico-mode))
 
-
 (use-package csharp-mode)
 
-
 (use-package edit-indirect)
-
 
 (use-package hydra
   :bind (("C-c s" . t0yv0/search-hydra/body)
@@ -189,10 +184,8 @@
       ("c" compile "compile")
       ("m" t0yv0/mermaid-compile "mermaid"))))
 
-
 (use-package magit
   :bind (("C-x g" . magit-status)))
-
 
 (use-package paredit
   :diminish paredit-mode
@@ -288,7 +281,6 @@
   (setq yas-snippet-dirs '("~/my/snippets"))
   (yas-reload-all)
   (yas-global-mode))
-
 
 (provide 'default)
 ;;; default.el ends here
