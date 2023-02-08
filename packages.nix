@@ -14,6 +14,7 @@ with epkgs; [
   lsp-mode
   lsp-ui
   magit
+  marginalia
   mermaid-mode
   nix-mode
   orderless

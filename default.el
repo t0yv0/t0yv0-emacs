@@ -199,6 +199,12 @@
 (use-package magit
   :bind (("C-x g" . magit-status)))
 
+(use-package marginalia
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+
+  :init (marginalia-mode))
+
 (use-package mermaid-mode)
 
 (use-package org
