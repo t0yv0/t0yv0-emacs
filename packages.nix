@@ -20,6 +20,7 @@ with epkgs; [
   projectile
   tide
   use-package
+  vertico
   vterm
   yaml-mode
   yasnippet

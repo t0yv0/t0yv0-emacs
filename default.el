@@ -92,8 +92,6 @@
 
 ;;; package configuration
 
-(icomplete-vertical-mode)
-
 
 (defun t0yv0/consult-line ()
   (interactive)
@@ -105,6 +103,12 @@
          ("C-x b" . consult-buffer)
          ("C-x B" . consult-project-buffer)
          ("C-h a" . consult-apropos)))
+
+
+(use-package vertico
+  :ensure t
+  :init
+  (vertico-mode))
 
 
 (use-package csharp-mode)
