@@ -109,11 +109,10 @@
    ("C-h B" . embark-bindings))
 
   :init
-  (progn
-    (setq prefix-help-command #'embark-prefix-help-command)
-    (add-to-list 'embark-target-finders 't0yv0/embark-target-gh-ref))
+  (setq prefix-help-command #'embark-prefix-help-command)
 
   :config
+  (add-to-list 'embark-target-finders 't0yv0/embark-target-gh-ref)
 
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
