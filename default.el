@@ -108,7 +108,10 @@
    ("C-;" . embark-dwim)
    ("C-h B" . embark-bindings))
 
-  :init (setq prefix-help-command #'embark-prefix-help-command)
+  :init
+  (progn
+    (setq prefix-help-command #'embark-prefix-help-command)
+    (add-to-list 'embark-target-finders 't0yv0/embark-target-gh-ref))
 
   :config
 

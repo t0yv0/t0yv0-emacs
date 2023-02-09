@@ -280,5 +280,25 @@ PATTERN _INDEX _TOTAL as required by orderless."
     t0yv0/without-if-bang))
 
 
+(defun t0yv0/embark-target-gh-ref ()
+  "Target a link at point of the GitHub ref form like pulumi/pulumi#12117."
+  (save-excursion
+    (let* ((beg (progn (skip-chars-backward "[:alnum:]/#") (point)))
+           (end (progn (skip-chars-forward "[:alnum:]/#") (point)))
+           (str (buffer-substring-no-properties beg end))
+           (rx (let* ((word "[[:alnum:]_]+")
+                      (cap (lambda (x) (concat "\\(" x "\\)")))
+                      (cap-word (funcall cap word)))
+                 (concat cap-word "[/]" cap-word "[#]" cap-word))))
+      (save-match-data
+        (when (string-match rx str)
+          `(url
+            ,(format "https://github.com/%s/%s/issues/%s"
+                     (match-string 1 str)
+                     (match-string 2 str)
+                     (match-string 3 str))
+            ,beg . ,end))))))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
