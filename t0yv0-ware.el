@@ -11,12 +11,12 @@
 (require 'xref)
 
 
-(declare-function vterm-clear "dbus" ())
-(declare-function vterm-insert "dbus" (x))
-(declare-function vterm-send-backspace "dbus" ())
-(declare-function vterm-send-return "dbus" ())
-(declare-function vterm-send-up "dbus" ())
-(declare-function projectile-run-vterm "projectile" (x))
+(declare-function vterm "vterm" (x))
+(declare-function vterm-clear "vterm" ())
+(declare-function vterm-insert "vterm" (x))
+(declare-function vterm-send-backspace "vterm" ())
+(declare-function vterm-send-return "vterm" ())
+(declare-function vterm-send-up "vterm" ())
 (declare-function markdown-mark-paragraph "markdown-mode" ())
 (declare-function mermaid-compile-region "mermaid-mode" ())
 (declare-function consult-ripgrep "consult" (x))
@@ -24,7 +24,16 @@
 
 (defun t0yv0/project-shell ()
   "Start a vterm/shell for a project."
-  (projectile-run-vterm nil))
+  (let* ((root (project-root (project-current)))
+         (buffer (concat "*vterm-"
+                         (file-name-nondirectory
+                          (substring root 0 (- (length root) 1)))
+                         "*")))
+    (unless (buffer-live-p (get-buffer buffer))
+      (let ((default-directory root))
+        (vterm buffer)))
+    (switch-to-buffer buffer)
+    buffer))
 
 
 (defun t0yv0/open-shell-for-current-buffer ()

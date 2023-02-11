@@ -22,7 +22,6 @@ with epkgs; [
   orderless
   ormolu
   paredit
-  projectile
   tide
   use-package
   vertico
