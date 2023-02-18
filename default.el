@@ -94,8 +94,9 @@
 
 (use-package consult
   :bind (("M-y" . consult-yank-pop)
+         ("C-x f" . consult-recent-file)
          ("C-x b" . consult-buffer)
-         ("C-x B" . consult-project-buffer)
+         ("C-x C-b" . consult-project-buffer)
          ("C-h a" . consult-apropos)))
 
 (use-package csharp-mode)
@@ -159,11 +160,9 @@
       ("<right>" tab-next "right")
       ("q" tab-close "close"))
 
-    ;; this needs consult-grep, consult-ripgrep, consult-git-grep
     (defhydra t0yv0/search-hydra (:color blue :hint nil)
       "search"
-      ("l" consult-line "line")
-      ("m" consult-line-multi "line-multi")
+      ("f" consult-find "fileset")
       ("d" t0yv0/consult-ripgrep-current-directory "dir")
       ("p" consult-ripgrep "project")
       ("g" consult-git-grep "git"))
@@ -197,8 +196,9 @@
     (defhydra t0yv0/find-hydra (:color blue :hint nil)
       "find-things"
       ("d" t0yv0/diary "diary")
-      ("f" consult-find "file")
-      ("r" consult-recent-file "recent")
+      ("l" consult-line "line")
+      ("L" consult-line-multi "line-multi")
+      ("r" consult-register "register")
       ("i" consult-imenu "imenu")
       ("I" consult-imenu-multi "imenu*")
       ("k" consult-yank-from-kill-ring "kill")
