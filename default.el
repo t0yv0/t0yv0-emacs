@@ -198,12 +198,12 @@
       "find-things"
       ("d" t0yv0/diary "diary")
       ("f" consult-find "file")
+      ("r" consult-recent-file "recent")
       ("i" consult-imenu "imenu")
       ("I" consult-imenu-multi "imenu*")
       ("k" consult-yank-from-kill-ring "kill")
       ("m" consult-mark "mark")
-      ("M" consult-global-mark "mark*")
-      ("r" consult-register "register"))
+      ("M" consult-global-mark "mark*"))
 
     (defhydra t0yv0/compile-hydra (:color blue)
       "compilation"
@@ -284,6 +284,12 @@
 	    #'enable-paredit-mode)
   (add-hook 'racket-mode-hook
 	    #'enable-paredit-mode))
+
+(use-package recentf
+  :config
+  (setq recentf-max-menu-items 15
+        recentf-max-saved-items 100)
+  (recentf-mode 1))
 
 (use-package tide
   :config (add-hook 'typescript-mode-hook #'(lambda ()
