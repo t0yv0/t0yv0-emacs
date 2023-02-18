@@ -186,6 +186,7 @@
     (defhydra t0yv0/register-hydra (:color blue :hint nil)
       "register"
       ("SPC" point-to-register "point")
+      ("c" consult-register "consult")
       ("j" t0yv0/jump-to-register "jump")
       ("s" copy-to-register "copy")
       ("i" insert-register "ins")
