@@ -309,5 +309,17 @@ PATTERN _INDEX _TOTAL as required by orderless."
             ,beg . ,end))))))
 
 
+(defun t0yv0/move-tab-right ()
+  "Move the current tab one position to the right."
+  (interactive)
+  (tab-move 1))
+
+
+(defun t0yv0/move-tab-left ()
+  "Move the current tab one position to the right."
+  (interactive)
+  (tab-move -1))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
