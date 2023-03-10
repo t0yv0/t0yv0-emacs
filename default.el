@@ -231,7 +231,8 @@
       "vterms"
       ("v" t0yv0/vterm "vterm")
       ("p" t0yv0/vterm-proj "vterm-proj")
-      ("d" t0yv0/vterm-dir "vterm-dir"))))
+      ("d" t0yv0/vterm-dir "vterm-dir")
+      ("r" t0yv0/vterm-repeat "vterm-repeat"))))
 
 
 (use-package lsp-mode

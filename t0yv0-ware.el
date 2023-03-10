@@ -386,5 +386,17 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
   (switch-to-buffer buffer))
 
 
+(defun t0yv0/vterm-repeat ()
+  "Clear project shell and re-submit last command to it."
+  (interactive)
+  (save-window-excursion
+    (let ((buf (t0yv0/find-visible-vterm-buffer)))
+      (when buf
+        (with-current-buffer buf
+          (vterm-clear)
+          (vterm-send-up)
+          (vterm-send-return))))))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
