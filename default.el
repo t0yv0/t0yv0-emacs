@@ -76,12 +76,10 @@
 
 ;;; key bindings
 
-(global-set-key (kbd "C-c 2") 't0yv0/open-shell-for-current-buffer)
-(global-set-key (kbd "C-c h") 'vterm)
 (global-set-key (kbd "C-c m") 'kmacro-start-macro-or-insert-counter)
 (global-set-key (kbd "C-c n") 'kmacro-end-or-call-macro)
 (global-set-key (kbd "C-c x") 'delete-frame)
-(global-set-key (kbd "C-c z") 't0yv0/clear-and-repeat-last-command-in-project-shell)
+(global-set-key (kbd "C-c z") 't0yv0/vterm-repeat)
 (global-set-key (kbd "C-c o") 'org-capture)
 (global-set-key (kbd "C-c ?") 't0yv0/cheatsheet)
 

@@ -23,40 +23,6 @@
 (declare-function -filter "dash" (f xs))
 
 
-(defun t0yv0/project-shell ()
-  "Start a vterm/shell for a project."
-  (let* ((root (project-root (project-current)))
-         (buffer (concat "*vterm-"
-                         (file-name-nondirectory
-                          (substring root 0 (- (length root) 1)))
-                         "*")))
-    (unless (buffer-live-p (get-buffer buffer))
-      (let ((default-directory root))
-        (vterm buffer)))
-    (switch-to-buffer buffer)
-    buffer))
-
-
-(defun t0yv0/open-shell-for-current-buffer ()
-  "Command to open a project shell."
-  (interactive)
-  (let ((buf (t0yv0/project-shell)))
-    (with-current-buffer buf
-      (compilation-shell-minor-mode 1))
-    buf))
-
-
-(defun t0yv0/clear-and-repeat-last-command-in-project-shell ()
-  "Clear project shell and re-submit last command to it."
-  (interactive)
-  (save-window-excursion
-    (let ((buf (t0yv0/project-shell)))
-      (with-current-buffer buf
-        (vterm-clear)
-        (vterm-send-up)
-        (vterm-send-return)))))
-
-
 (defun t0yv0/vterm-dabbrev-expand ()
   "Adaps `dabbrev-expand` to vterm."
   (interactive)
