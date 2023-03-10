@@ -20,6 +20,7 @@
 (declare-function markdown-mark-paragraph "markdown-mode" ())
 (declare-function mermaid-compile-region "mermaid-mode" ())
 (declare-function consult-ripgrep "consult" (x))
+(declare-function -filter "dash" (f xs))
 
 
 (defun t0yv0/project-shell ()
@@ -319,6 +320,70 @@ PATTERN _INDEX _TOTAL as required by orderless."
   "Move the current tab one position to the right."
   (interactive)
   (tab-move -1))
+
+
+(defun t0yv0/find-visible-vterm-buffer ()
+  "Find a visible vterm buffer.
+
+This buffer must be associated with one of the windows in the
+current frame. Returns nil if none is found."
+  (let ((vterm-windows
+         (-filter (lambda (it)
+                    (equal 'vterm-mode (with-current-buffer
+                                           (window-buffer it)
+                                         major-mode)))
+                  (window-list))))
+    (if (null vterm-windows)
+        nil
+      (window-buffer (car vterm-windows)))))
+
+
+(defun t0yv0/vterm ()
+  "If a vterm is visible, switch to it, otherwise switch to the project vterm."
+  (interactive)
+  (let ((buf (t0yv0/find-visible-vterm-buffer)))
+    (if buf
+        (switch-to-buffer buf)
+      (t0yv0/vterm-proj))))
+
+
+(defun t0yv0/vterm-proj ()
+  "Switch to the vterm buffer scoped at current project."
+  (interactive)
+  (let* ((root (project-root (project-current)))
+         (buffer (concat "*vterm-"
+                         (file-name-nondirectory
+                          (substring root 0 (- (length root) 1)))
+                         "*")))
+    (t0yv0/vterm-impl root buffer)))
+
+
+(defun t0yv0/vterm-dir ()
+  "Switch to the vterm buffer scoped at current directory."
+  (interactive)
+  (let* ((root (file-name-directory buffer-file-name))
+         (buffer (concat "*vterm-"
+                         (file-name-nondirectory
+                          (substring root 0 (- (length root) 1)))
+                         "*")))
+    (t0yv0/vterm-impl root buffer)))
+
+
+(defun t0yv0/vterm-impl (root buffer)
+  "Backend for varios t0yv0/vterm-* functions.
+
+If there is already a buffer named BUFFER, switch to it.
+
+Otherwise, start a new vterm in ROOT directory in a new buffer
+named BUFFER, and then switch to BUFFER.
+
+Also, enter `compilation-shell-minor-mode' in the new buffer."
+  (unless (buffer-live-p (get-buffer buffer))
+    (let ((default-directory root))
+      (vterm buffer)
+      (with-current-buffer (get-buffer buffer)
+        (compilation-shell-minor-mode 1))))
+  (switch-to-buffer buffer))
 
 
 (provide 't0yv0-ware)

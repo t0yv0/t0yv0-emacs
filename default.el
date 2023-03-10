@@ -140,7 +140,8 @@
          ("C-c w" . t0yv0/windmove-hydra/body)
          ("C-x r" . t0yv0/register-hydra/body)
          ("C-c l" . t0yv0/link-hydra/body)
-         ("C-c c" . t0yv0/compile-hydra/body))
+         ("C-c c" . t0yv0/compile-hydra/body)
+         ("C-c v" . t0yv0/vterm-hydra/body))
   :init
   (progn
     (defhydra t0yv0/link-hydra (:color blue :hint nil)
@@ -224,7 +225,14 @@
     (defhydra t0yv0/compile-hydra (:color blue)
       "compilation"
       ("c" compile "compile")
-      ("m" t0yv0/mermaid-compile "mermaid"))))
+      ("m" t0yv0/mermaid-compile "mermaid"))
+
+    (defhydra t0yv0/vterm-hydra (:color blue)
+      "vterms"
+      ("v" t0yv0/vterm "vterm")
+      ("p" t0yv0/vterm-proj "vterm-proj")
+      ("d" t0yv0/vterm-dir "vterm-dir"))))
+
 
 (use-package lsp-mode
   :defer t
