@@ -316,12 +316,14 @@ current frame. Returns nil if none is found."
 (defun t0yv0/vterm-proj ()
   "Switch to the vterm buffer scoped at current project."
   (interactive)
-  (let* ((root (project-root (project-current)))
-         (buffer (concat "*vterm-"
-                         (file-name-nondirectory
-                          (substring root 0 (- (length root) 1)))
-                         "*")))
-    (t0yv0/vterm-impl root buffer)))
+  (if (null (project-current))
+      (t0yv0/vterm-impl (getenv "HOME") "*vterm*")
+    (let* ((root (project-root (project-current)))
+           (buffer (concat "*vterm-"
+                           (file-name-nondirectory
+                            (substring root 0 (- (length root) 1)))
+                           "*")))
+      (t0yv0/vterm-impl root buffer))))
 
 
 (defun t0yv0/vterm-dir ()
