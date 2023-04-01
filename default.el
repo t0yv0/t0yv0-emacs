@@ -145,7 +145,6 @@
 
     (defhydra t0yv0/search-hydra (:color blue :hint nil)
       "search"
-      ("f" consult-find "fileset")
       ("d" t0yv0/consult-ripgrep-current-directory "dir")
       ("p" consult-ripgrep "project")
       ("g" consult-git-grep "git"))
