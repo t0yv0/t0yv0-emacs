@@ -147,7 +147,8 @@
       "search"
       ("d" t0yv0/consult-ripgrep-current-directory "dir")
       ("p" consult-ripgrep "project")
-      ("g" consult-git-grep "git"))
+      ("g" consult-git-grep "git")
+      ("o" occur "occur"))
 
     (defhydra t0yv0/windmove-hydra (:hint nil)
       "windmove: use arrow keys to nav, add shift to swap\n"
