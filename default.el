@@ -75,6 +75,7 @@
 
 ;;; key bindings
 
+(global-set-key (kbd "C-c C-d") 't0yv0/diary)
 (global-set-key (kbd "C-c x") 'delete-frame)
 (global-set-key (kbd "C-c z") 't0yv0/vterm-repeat)
 (global-set-key (kbd "C-c o") 'org-capture)
@@ -187,7 +188,6 @@
 
     (defhydra t0yv0/find-hydra (:color blue :hint nil)
       "find-things"
-      ("d" t0yv0/diary "diary")
       ("l" consult-line "line")
       ("L" consult-line-multi "line-multi")
       ("r" consult-register "register")
