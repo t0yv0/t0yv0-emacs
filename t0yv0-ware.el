@@ -214,8 +214,8 @@ eol  C-a    C-e      C-x <right> next-buffer
 sntc M-a    M-e      C-x C-SPC   pop-global-mark
 para M-{    M-}      C-u C-SPC   set-mark-command (pop)
 page C-x [  C-x ]    C-SPC C-SPC set-mark-command
-sexp C-M-b  C-M-f
-func C-M-a  C-M-e
+sexp C-M-b  C-M-f    C-x f       consult-recent-file
+func C-M-a  C-M-e    C-x C-b     consult-project-buffer
 buf  M-<    M->"))
   (select-window (display-buffer "*cheat*")))
 
