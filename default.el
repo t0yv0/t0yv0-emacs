@@ -14,7 +14,6 @@
 (global-so-long-mode 1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-(tab-bar-mode 1)
 (tool-bar-mode -1)
 (prefer-coding-system 'utf-8)
 (winner-mode t)
@@ -132,7 +131,6 @@
 (use-package hydra
   :bind (("C-c s" . t0yv0/search-hydra/body)
          ("C-c f" . t0yv0/find-hydra/body)
-         ("C-c t" . t0yv0/tab-hydra/body)
          ("C-c w" . t0yv0/windmove-hydra/body)
          ("C-x r" . t0yv0/register-hydra/body)
          ("C-c l" . t0yv0/link-hydra/body)
@@ -146,23 +144,6 @@
       ("G" t0yv0/github-link-at-point-to-register "gh-register")
       ("o" t0yv0/kill-org-link "org-kill")
       ("O" t0yv0/org-link-to-register "org-register"))
-
-    (defhydra t0yv0/tab-hydra (:hint nil)
-      "tabs"
-      ("<return>" nil "select" :color blue)
-      ("C-j" nil "select" :color blue)
-      ("n" t0yv0/open-tab "new" :color blue)
-      ("r" tab-bar-rename-tab "rename" :color blue)
-      ("," tab-recent "recent" :color blue)
-      ("<left>" tab-previous "<")
-      ("b" tab-previous "<")
-      ("<right>" tab-next ">")
-      ("f" tab-next ">")
-      ("B" t0yv0/move-tab-left "<<")
-      ("S-<left>" t0yv0/move-tab-left "<<")
-      ("F" t0yv0/move-tab-right ">>")
-      ("S-<right>" t0yv0/move-tab-right ">>")
-      ("q" tab-close "close"))
 
     (defhydra t0yv0/search-hydra (:color blue :hint nil)
       "search"

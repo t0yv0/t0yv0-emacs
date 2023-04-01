@@ -84,13 +84,6 @@ PATH should be something like pulumi/pulumi#123"
     (set-register reg s)))
 
 
-(defun t0yv0/open-tab ()
-  "Opens a new tab to *scratch* buffer."
-  (interactive)
-  (tab-bar-new-tab-to -1)
-  (pop-to-buffer-same-window "*scratch*"))
-
-
 (defun t0yv0/shell (cmd &optional dir)
   "Execute a shell command and return the result as a trimmed string.
 
@@ -274,18 +267,6 @@ PATTERN _INDEX _TOTAL as required by orderless."
                      (match-string 2 str)
                      (match-string 3 str))
             ,beg . ,end))))))
-
-
-(defun t0yv0/move-tab-right ()
-  "Move the current tab one position to the right."
-  (interactive)
-  (tab-move 1))
-
-
-(defun t0yv0/move-tab-left ()
-  "Move the current tab one position to the right."
-  (interactive)
-  (tab-move -1))
 
 
 (defun t0yv0/find-visible-vterm-buffer ()
