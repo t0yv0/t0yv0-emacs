@@ -80,8 +80,6 @@
 (global-set-key (kbd "C-c o") 'org-capture)
 (global-set-key (kbd "C-c ?") 't0yv0/cheatsheet)
 
-(global-set-key (kbd "M-n") 'forward-paragraph)
-(global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "RET") 'newline-and-indent)
 
 
