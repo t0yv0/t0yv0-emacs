@@ -75,7 +75,7 @@
 
 ;;; key bindings
 
-(global-set-key (kbd "C-c C-d") 't0yv0/diary)
+(global-set-key (kbd "C-c d") 't0yv0/diary)
 (global-set-key (kbd "C-c z") 't0yv0/vterm-repeat)
 (global-set-key (kbd "C-c o") 'org-capture)
 (global-set-key (kbd "C-c ?") 't0yv0/cheatsheet)
