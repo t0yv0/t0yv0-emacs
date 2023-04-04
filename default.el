@@ -45,8 +45,7 @@
 
 (setq display-buffer-alist
       '((".go$"
-         (display-buffer-reuse-window
-          t0yv0/display-buffer-same-go-window
+         (t0yv0/display-buffer-same-go-window
           display-buffer-reuse-mode-window)
          (inhibit-same-window . nil))
         ("\\*vterm"
