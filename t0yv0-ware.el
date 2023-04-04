@@ -40,12 +40,14 @@
   "Switch to diary entry for today in a dedicated tab."
   (interactive)
   (let ((diary-file (format-time-string "~/my/%Y/%m/%d.org" (current-time))))
-    (if (or (null (buffer-file-name (current-buffer)))
-            (equal
+    (cond ((null (buffer-file-name (current-buffer)))
+           (find-file diary-file))
+          ((equal
              (expand-file-name (buffer-file-name (current-buffer)))
-             (expand-file-name diary-file)))
-        (previous-buffer)
-        (find-file diary-file))))
+             (expand-file-name diary-file))
+           (previous-buffer))
+          (t
+           (find-file diary-file)))))
 
 
 (defun t0yv0/org-follow-gh-link (path _)
