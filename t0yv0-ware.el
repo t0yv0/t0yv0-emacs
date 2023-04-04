@@ -40,9 +40,10 @@
   "Switch to diary entry for today in a dedicated tab."
   (interactive)
   (let ((diary-file (format-time-string "~/my/%Y/%m/%d.org" (current-time))))
-    (if (equal
-         (expand-file-name (buffer-file-name (current-buffer)))
-         (expand-file-name diary-file))
+    (if (or (null (buffer-file-name (current-buffer)))
+            (equal
+             (expand-file-name (buffer-file-name (current-buffer)))
+             (expand-file-name diary-file)))
         (previous-buffer)
         (find-file diary-file))))
 
