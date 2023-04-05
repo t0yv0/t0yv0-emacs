@@ -11,16 +11,19 @@
 (require 'xref)
 
 
+(declare-function -concat "dash" (x y))
+(declare-function -contains-p "dash" (x y))
+(declare-function -filter "dash" (f xs))
+(declare-function -map "dash" (x y))
+(declare-function consult-ripgrep "consult" (x))
+(declare-function markdown-mark-paragraph "markdown-mode" ())
+(declare-function mermaid-compile-region "mermaid-mode" ())
 (declare-function vterm "vterm" (x))
 (declare-function vterm-clear "vterm" ())
 (declare-function vterm-insert "vterm" (x))
 (declare-function vterm-send-backspace "vterm" ())
 (declare-function vterm-send-return "vterm" ())
 (declare-function vterm-send-up "vterm" ())
-(declare-function markdown-mark-paragraph "markdown-mode" ())
-(declare-function mermaid-compile-region "mermaid-mode" ())
-(declare-function consult-ripgrep "consult" (x))
-(declare-function -filter "dash" (f xs))
 
 
 (defun t0yv0/vterm-dabbrev-expand ()
