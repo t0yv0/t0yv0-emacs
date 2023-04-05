@@ -132,9 +132,15 @@
          ("C-x r" . t0yv0/register-hydra/body)
          ("C-c l" . t0yv0/link-hydra/body)
          ("C-c c" . t0yv0/compile-hydra/body)
-         ("C-c v" . t0yv0/vterm-hydra/body))
+         ("C-c v" . t0yv0/vterm-hydra/body)
+         ("C-c p" . t0yv0/project-hydra/body))
   :init
   (progn
+
+    (defhydra t0yv0/project-hydra (:color blue :hint nil)
+      "projects"
+      ("p" t0yv0/switch-project-recent-buffer "switch"))
+
     (defhydra t0yv0/link-hydra (:color blue :hint nil)
       "links"
       ("g" t0yv0/kill-github-link-at-point "gh-kill")

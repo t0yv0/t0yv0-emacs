@@ -355,5 +355,44 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
           (vterm-send-return))))))
 
 
+(defun t0yv0/prompt-for-noncurrent-project ()
+  "Ask the user to select a project. Excludes the current project from the options."
+  (completing-read "Project: "
+                   (project--file-completion-table
+                    (-filter
+                     (lambda (p)
+                       (not
+                        (equal
+                         (car p)
+                         (cdr (project-current nil)))))
+                     project--list))
+                   nil t))
+
+
+(defun t0yv0/switch-project-recent-buffer ()
+  "Ask the user to select a project and switch to its most recent buffer.
+
+If there are no buffers for the project, delegate to `project-switch-project'."
+  (interactive)
+  (let ((sel-proj (t0yv0/prompt-for-noncurrent-project)))
+    (unless (null sel-proj)
+      (let ((sel-bufs
+             (t0yv0/project-buffers sel-proj)))
+        (if (null sel-bufs)
+            (project-switch-project sel-proj)
+          (switch-to-buffer (car sel-bufs)))))))
+
+
+(defun t0yv0/project-buffers (project-root)
+  "Recent-most sorted buffers from PROJECT-ROOT."
+  (let* ((prev-bufs (-map 'car (window-prev-buffers)))
+         (proj (project-current nil project-root))
+         (proj-bufs (project-buffers proj)))
+    (if (null proj) nil
+      (-filter (lambda (b) (not (null (buffer-file-name b))))
+              (-concat (-filter (lambda (b) (-contains-p proj-bufs b)) prev-bufs)
+                       (-filter (lambda (b) (not (-contains-p prev-bufs b))) proj-bufs))))))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
