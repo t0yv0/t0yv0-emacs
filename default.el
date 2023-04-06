@@ -139,7 +139,9 @@
 
     (defhydra t0yv0/project-hydra (:color blue :hint nil)
       "projects"
-      ("p" t0yv0/switch-project-recent-buffer "switch"))
+      ("p" t0yv0/switch-project-recent-buffer "switch")
+      ("f" t0yv0/project-forward "forward")
+      ("b" t0yv0/project-backward "backward"))
 
     (defhydra t0yv0/link-hydra (:color blue :hint nil)
       "links"

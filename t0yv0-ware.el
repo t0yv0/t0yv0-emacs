@@ -14,7 +14,9 @@
 (declare-function -concat "dash" (x y))
 (declare-function -contains-p "dash" (x y))
 (declare-function -filter "dash" (f xs))
+(declare-function -last-item "dash" (x))
 (declare-function -map "dash" (x y))
+(declare-function -remove-item "dash" (x y))
 (declare-function consult-ripgrep "consult" (x))
 (declare-function markdown-mark-paragraph "markdown-mode" ())
 (declare-function mermaid-compile-region "mermaid-mode" ())
@@ -372,18 +374,51 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
                    nil t))
 
 
+(defvar t0yv0/project-ring (list))
+
+
 (defun t0yv0/switch-project-recent-buffer ()
   "Ask the user to select a project and switch to its most recent buffer.
 
 If there are no buffers for the project, delegate to `project-switch-project'."
   (interactive)
   (let ((sel-proj (t0yv0/prompt-for-noncurrent-project)))
+    (t0yv0/switch-project-recent-buffer-to sel-proj)
     (unless (null sel-proj)
-      (let ((sel-bufs
-             (t0yv0/project-buffers sel-proj)))
-        (if (null sel-bufs)
-            (project-switch-project sel-proj)
-          (switch-to-buffer (car sel-bufs)))))))
+      (setq t0yv0/project-ring
+            (cons sel-proj (-remove-item sel-proj t0yv0/project-ring))))))
+
+
+(defun t0yv0/switch-project-recent-buffer-to (sel-proj)
+  "Switch to a recent buffer for SEL-PROJ project."
+  (unless (null sel-proj)
+    (let ((sel-bufs
+           (t0yv0/project-buffers sel-proj)))
+      (if (null sel-bufs)
+          (project-switch-project sel-proj)
+        (switch-to-buffer (car sel-bufs))))))
+
+
+(defun t0yv0/project-forward ()
+  "Switch to the next project."
+  (interactive)
+  (unless (null t0yv0/project-ring)
+    (setq t0yv0/project-ring
+          (let ((i (-last-item t0yv0/project-ring)))
+            (cons i (-remove-item i t0yv0/project-ring))))
+    (t0yv0/switch-project-recent-buffer-to
+     (car t0yv0/project-ring))))
+
+
+(defun t0yv0/project-backward ()
+  "Switch to the previous project."
+  (interactive)
+  (unless (null t0yv0/project-ring)
+    (setq t0yv0/project-ring
+          (-concat (cdr t0yv0/project-ring)
+                   (list (car t0yv0/project-ring))))
+    (t0yv0/switch-project-recent-buffer-to
+     (car t0yv0/project-ring))))
 
 
 (defun t0yv0/project-buffers (project-root)
