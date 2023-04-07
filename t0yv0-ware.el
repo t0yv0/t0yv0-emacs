@@ -8,6 +8,7 @@
 (require 'comint)
 (require 'dabbrev)
 (require 'org)
+(require 'project)
 (require 'xref)
 
 
@@ -362,16 +363,18 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
 
 (defun t0yv0/prompt-for-noncurrent-project ()
   "Ask the user to select a project. Excludes the current project from the options."
-  (completing-read "Project: "
-                   (project--file-completion-table
-                    (-filter
-                     (lambda (p)
-                       (not
-                        (equal
-                         (car p)
-                         (cdr (project-current nil)))))
-                     project--list))
-                   nil t))
+  (if (and (listp project--list) (not (null project--list)))
+      (completing-read "Project: "
+                       (project--file-completion-table
+                        (-filter
+                         (lambda (p)
+                           (not
+                            (equal
+                             (car p)
+                             (cdr (project-current nil)))))
+                         project--list))
+                       nil t)
+    nil))
 
 
 (defvar t0yv0/project-ring (list))
@@ -383,10 +386,12 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
 If there are no buffers for the project, delegate to `project-switch-project'."
   (interactive)
   (let ((sel-proj (t0yv0/prompt-for-noncurrent-project)))
-    (t0yv0/switch-project-recent-buffer-to sel-proj)
-    (unless (null sel-proj)
-      (setq t0yv0/project-ring
-            (cons sel-proj (-remove-item sel-proj t0yv0/project-ring))))))
+    (if (null sel-proj)
+        (project-switch-project nil)
+      (progn
+        (t0yv0/switch-project-recent-buffer-to sel-proj)
+        (setq t0yv0/project-ring
+              (cons sel-proj (-remove-item sel-proj t0yv0/project-ring)))))))
 
 
 (defun t0yv0/switch-project-recent-buffer-to (sel-proj)
