@@ -137,11 +137,12 @@
   :init
   (progn
 
-    (defhydra t0yv0/project-hydra (:color blue :hint nil)
+    (defhydra t0yv0/project-hydra (:hint nil)
       "projects"
-      ("p" t0yv0/switch-project-recent-buffer "switch")
+      ("p" t0yv0/switch-project-recent-buffer "switch" :color blue)
       ("f" t0yv0/project-forward "forward")
-      ("b" t0yv0/project-backward "backward"))
+      ("b" t0yv0/project-backward "backward")
+      ("C-j" nil "select"))
 
     (defhydra t0yv0/link-hydra (:color blue :hint nil)
       "links"
