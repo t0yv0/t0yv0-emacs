@@ -28,6 +28,8 @@
 	  (vertical-scroll-bars . nil)
 	  (horizontal-scroll-bars . nil))))
 
+(setq bookmark-default-file "~/my/bookmarks")
+(setq bookmark-save-flag 1)
 (setq column-number-mode t)
 (setq-default fill-column 120)
 (setq-default indent-tabs-mode nil)
@@ -191,7 +193,8 @@
       ("i" insert-register "ins")
       ("r" copy-rectangle-to-register "copy-rect")
       ("w" window-configuration-to-register "win")
-      ("+" increment-register "increment"))
+      ("+" increment-register "increment")
+      ("m" bookmark-set "bookmark-set"))
 
     (defhydra t0yv0/find-hydra (:color blue :hint nil)
       "find-things"
