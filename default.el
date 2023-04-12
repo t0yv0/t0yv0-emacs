@@ -95,6 +95,9 @@
 
 (use-package csharp-mode)
 
+(use-package dap-mode
+  :init (require 'dap-dlv-go))
+
 (use-package edit-indirect)
 
 (use-package embark

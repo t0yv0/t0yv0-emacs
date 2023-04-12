@@ -4,6 +4,7 @@ with epkgs; [
   company
   consult
   csharp-mode
+  dap-mode
   edit-indirect
   embark
   embark-consult
