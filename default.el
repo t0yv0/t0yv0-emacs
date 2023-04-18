@@ -94,6 +94,8 @@
          ("C-x C-b" . consult-project-buffer)
          ("C-h a" . consult-apropos)))
 
+(use-package consult-flycheck)
+
 (use-package csharp-mode)
 
 (use-package dap-mode
@@ -147,7 +149,8 @@
       "goto"
       ("l" consult-line "line")
       ("m" consult-mark "mark")
-      ("i" consult-imenu "imenu"))
+      ("i" consult-imenu "imenu")
+      ("e" consult-flycheck "flycheck-error"))
 
     (defhydra t0yv0/project-hydra (:hint nil)
       "projects"

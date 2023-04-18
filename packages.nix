@@ -3,6 +3,7 @@
 with epkgs; [
   company
   consult
+  consult-flycheck
   csharp-mode
   dap-mode
   edit-indirect
