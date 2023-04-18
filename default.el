@@ -132,15 +132,21 @@
 
 (use-package hydra
   :bind (("C-c s" . t0yv0/search-hydra/body)
-         ("C-c f" . t0yv0/find-hydra/body)
          ("C-c w" . t0yv0/windmove-hydra/body)
          ("C-x r" . t0yv0/register-hydra/body)
          ("C-c l" . t0yv0/link-hydra/body)
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
-         ("C-c p" . t0yv0/project-hydra/body))
+         ("C-c p" . t0yv0/project-hydra/body)
+         ("C-c g" . t0yv0/goto-hydra/body))
   :init
   (progn
+
+    (defhydra t0yv0/goto-hydra (:color blue :hint nil)
+      "goto"
+      ("l" consult-line "line")
+      ("m" consult-mark "mark")
+      ("i" consult-imenu "imenu"))
 
     (defhydra t0yv0/project-hydra (:hint nil)
       "projects"
@@ -198,17 +204,6 @@
       ("w" window-configuration-to-register "win")
       ("+" increment-register "increment")
       ("m" bookmark-set "bookmark-set"))
-
-    (defhydra t0yv0/find-hydra (:color blue :hint nil)
-      "find-things"
-      ("l" consult-line "line")
-      ("L" consult-line-multi "line-multi")
-      ("r" consult-register "register")
-      ("i" consult-imenu "imenu")
-      ("I" consult-imenu-multi "imenu*")
-      ("k" consult-yank-from-kill-ring "kill")
-      ("m" consult-mark "mark")
-      ("M" consult-global-mark "mark*"))
 
     (defhydra t0yv0/compile-hydra (:color blue)
       "compilation"
