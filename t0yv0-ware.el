@@ -432,5 +432,32 @@ If there are no buffers for the project, delegate to `project-switch-project'."
                        (-filter (lambda (b) (not (-contains-p prev-bufs b))) proj-bufs))))))
 
 
+(defun t0yv0/consult--source-git-status-file ()
+  "Find files that show up via git status for the current project.
+
+Produces a source for use by `consult-buffer'.
+
+See `consult-buffer-sources'."
+  (list
+   :name "Git-Status File"
+   :narrow 103
+   :category 'file
+   :face 'consult-file
+   :history 'file-name-history
+   :state 'consult--file-state
+   :new 'consult--file-action
+   :enabled (lambda () (not (null (project-current nil))))
+   :items (lambda ()
+            (let* ((cur-proj (project-current nil))
+                   (default-directory (project-root cur-proj))
+                   (changed-files
+                    (-map (lambda (p) (string-join (list default-directory (substring p 3)) ""))
+                          (-filter (lambda (p) (not (equal p "")))
+                                   (split-string
+                                    (shell-command-to-string "git status --short")
+                                    "\n")))))
+              changed-files))))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here

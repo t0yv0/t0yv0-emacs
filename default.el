@@ -92,7 +92,9 @@
          ("C-x f" . consult-recent-file)
          ("C-x b" . consult-buffer)
          ("C-x C-b" . consult-project-buffer)
-         ("C-h a" . consult-apropos)))
+         ("C-h a" . consult-apropos))
+  :config
+  (add-to-list 'consult-buffer-sources (t0yv0/consult--source-git-status-file)))
 
 (use-package consult-flycheck)
 
