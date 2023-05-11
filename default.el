@@ -143,9 +143,18 @@
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
          ("C-c p" . t0yv0/project-hydra/body)
-         ("C-c g" . t0yv0/goto-hydra/body))
+         ("C-c g" . t0yv0/goto-hydra/body)
+         ("C-c b" . t0yv0/buffer-hydra/body))
   :init
   (progn
+
+    (defhydra t0yv0/buffer-hydra (:hint nil)
+      "buffer"
+      ("b" t0yv0/window-buffer-back "window-buffer-back")
+      ("f" t0yv0/window-buffer-forward "window-buffer-forward")
+      ("p" previous-buffer "previous-buffer")
+      ("n" next-buffer "next-buffer")
+      ("C-j" nil "select"))
 
     (defhydra t0yv0/goto-hydra (:color blue :hint nil)
       "goto"

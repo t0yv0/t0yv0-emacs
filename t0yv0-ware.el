@@ -421,6 +421,33 @@ If there are no buffers for the project, delegate to `project-switch-project'."
      (car t0yv0/project-ring))))
 
 
+(defun t0yv0/window-buffer-back ()
+  "Like `previous-buffer' but only consulting current window history."
+  (interactive)
+  (let ((pb (window-prev-buffers)))
+    (unless (null pb)
+      (switch-to-buffer (caar pb))
+      (set-window-prev-buffers nil (t0yv0/rotate (-filter (lambda (x) (not (equal (caar pb) (car x))))
+                                                          (window-prev-buffers)))))))
+
+
+(defun t0yv0/window-buffer-forward ()
+  "Inverse of `t0yv0/window-buffer-back'."
+  (interactive)
+  (let ((pb (window-prev-buffers)))
+    (unless (null pb)
+      (let ((b (car (-last-item pb))))
+        (switch-to-buffer b)
+        (set-window-prev-buffers nil (-filter (lambda (x) (not (equal b (car x))))
+                                              (window-prev-buffers)))))))
+
+
+(defun t0yv0/rotate (l)
+  "Transform a list L by moving its head to the end."
+  (if (null l) l
+    (append (cdr l) (list (car l)))))
+
+
 (defun t0yv0/project-buffers (project-root)
   "Recent-most sorted buffers from PROJECT-ROOT."
   (let* ((prev-bufs (-map 'car (window-prev-buffers)))
