@@ -186,16 +186,21 @@ _N_: new-to       ^ ^            _G_: group     _p_:   project-command
       ("p" project-other-tab-command :color blue))
 
     (defhydra t0yv0/frame-hydra (:hint nil)
-      "frame"
-      ("0" delete-frame "" :color blue)
-      ("1" delete-other-frames "" :color blue)
-      ("2" make-frame-command "" :color blue)
-      ("o" other-frame "" :color blue)
-      ("p" (lambda () (interactive) (other-frame -1)) "")
-      ("n" (lambda () (interactive) (other-frame 1)) "")
-      ("C-j" nil "")
-      ("5" other-frame-prefix "prefix" :color blue)
-      ("#" set-frame-name "rename" :color blue))
+      "
+^frame^            ^nav^        ^edit^       ^other-frame
+^^^^^^^^-------------------------------------------------
+_0_: delete        _O_:   prev  _r_: rename  _5_: prefix
+_1_: delete-other  _o_:   next  ^ ^
+_2_: make          _C-j_: done  ^ ^
+"
+      ("0" delete-frame)
+      ("1" delete-other-frames :color blue)
+      ("2" make-frame-command :color blue)
+      ("O" (lambda () (interactive) (other-frame -1)))
+      ("o" other-frame)
+      ("C-j" nil)
+      ("5" other-frame-prefix :color blue)
+      ("r" set-frame-name))
 
     (defhydra t0yv0/buffer-hydra (:hint nil)
       "buffer"
