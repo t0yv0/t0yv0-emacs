@@ -145,9 +145,45 @@
          ("C-c p" . t0yv0/project-hydra/body)
          ("C-c g" . t0yv0/goto-hydra/body)
          ("C-c b" . t0yv0/buffer-hydra/body)
-         ("C-x 5" . t0yv0/frame-hydra/body))
+         ("C-x 5" . t0yv0/frame-hydra/body)
+         ("C-x t" . t0yv0/tab-hydra/body))
   :init
   (progn
+
+    (defhydra t0yv0/tab-hydra (:hint nil)
+      "
+^tabs^            ^nav^          ^edit^         ^other-tab
+^^^^^^^^------------------------------------------------------------------
+_0_: close        _O_:   prev    _m_: move      _t_:   prefix
+_1_: close-other  _o_:   next    _M_: move-to   _b_:   buffer
+_2_: new          _C-j_: done    _r_: rename    _f_:   find-file
+_n_: duplicate    _RET_: switch  _u_: undo      _d_:   dired
+_N_: new-to       ^ ^            _G_: group     _p_:   project-command
+^ ^               ^ ^            ^ ^            _C-r_: find-file-read-only
+"
+      ("0" tab-close)
+      ("1" tab-close-other :color blue)
+      ("2" tab-new :color blue)
+      ("n" tab-duplicate :color blue)
+      ("N" tab-new-to :color blue)
+
+      ("O" tab-previous)
+      ("o" tab-next)
+      ("C-j" nil)
+      ("RET" tab-s :color blue)
+
+      ("m" tab-move)
+      ("M" tab-move-to)
+      ("r" tab-rename)
+      ("u" tab-undo)
+      ("G" tab-group)
+
+      ("t" other-tab-prefix :color blue)
+      ("b" switch-to-buffer-other-tab :color blue)
+      ("f" find-file-other-tab :color blue)
+      ("d" dired-other-tab :color blue)
+      ("C-r" find-file-read-only-other-tab :color blue)
+      ("p" project-other-tab-command :color blue))
 
     (defhydra t0yv0/frame-hydra (:hint nil)
       "frame"
