@@ -144,9 +144,22 @@
          ("C-c v" . t0yv0/vterm-hydra/body)
          ("C-c p" . t0yv0/project-hydra/body)
          ("C-c g" . t0yv0/goto-hydra/body)
-         ("C-c b" . t0yv0/buffer-hydra/body))
+         ("C-c b" . t0yv0/buffer-hydra/body)
+         ("C-x 5" . t0yv0/frame-hydra/body))
   :init
   (progn
+
+    (defhydra t0yv0/frame-hydra (:hint nil)
+      "frame"
+      ("0" delete-frame "" :color blue)
+      ("1" delete-other-frames "" :color blue)
+      ("2" make-frame-command "" :color blue)
+      ("o" other-frame "" :color blue)
+      ("p" (lambda () (interactive) (other-frame -1)) "")
+      ("n" (lambda () (interactive) (other-frame 1)) "")
+      ("C-j" nil "")
+      ("5" other-frame-prefix "prefix" :color blue)
+      ("#" set-frame-name "rename" :color blue))
 
     (defhydra t0yv0/buffer-hydra (:hint nil)
       "buffer"
