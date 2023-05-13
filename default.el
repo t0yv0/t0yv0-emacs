@@ -187,12 +187,8 @@ _N_: new-to       ^ ^            _G_: group     _p_:   project-command
 
     (defhydra t0yv0/frame-hydra (:hint nil)
       "
-^frame^            ^nav^        ^edit^       ^other-frame
-^^^^^^^^-------------------------------------------------
-_0_: delete        _O_:   prev  _r_: rename  _5_: prefix
-_1_: delete-other  _o_:   next  ^ ^
-_2_: make          _C-j_: done  ^ ^
-"
+frame ^ ^    _O_: prev  _2_: make    _0_: delete        _5_: prefix
+_C-j_: done  _o_: next  _r_: rename  _1_: delete-other  _m_: toggle-maximized"
       ("0" delete-frame)
       ("1" delete-other-frames :color blue)
       ("2" make-frame-command :color blue)
@@ -200,7 +196,8 @@ _2_: make          _C-j_: done  ^ ^
       ("o" other-frame)
       ("C-j" nil)
       ("5" other-frame-prefix :color blue)
-      ("r" set-frame-name))
+      ("r" set-frame-name)
+      ("m" toggle-frame-maximized))
 
     (defhydra t0yv0/buffer-hydra (:hint nil)
       "buffer"
