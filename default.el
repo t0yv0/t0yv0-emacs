@@ -169,7 +169,7 @@ _N_: new-to       ^ ^            _G_: group     _p_:   project-command
       ("O" tab-previous)
       ("o" tab-next)
       ("C-j" nil)
-      ("RET" tab-s :color blue)
+      ("RET" tab-switch :color blue)
 
       ("m" tab-move)
       ("M" tab-move-to)
