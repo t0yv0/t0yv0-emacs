@@ -91,7 +91,6 @@
   :bind (("M-y" . consult-yank-pop)
          ("C-x f" . consult-recent-file)
          ("C-x b" . consult-buffer)
-         ("C-x C-b" . consult-project-buffer)
          ("C-h a" . consult-apropos))
   :config
   (add-to-list 'consult-buffer-sources (t0yv0/consult--source-git-status-file)))
@@ -142,7 +141,7 @@
          ("C-c l" . t0yv0/link-hydra/body)
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
-         ("C-c p" . t0yv0/project-hydra/body)
+         ("C-x p" . t0yv0/project-hydra/body)
          ("C-c g" . t0yv0/goto-hydra/body)
          ("C-c b" . t0yv0/buffer-hydra/body)
          ("C-x 5" . t0yv0/frame-hydra/body)
@@ -215,11 +214,27 @@ _C-j_: done  _o_: next  _r_: rename  _1_: delete-other  _m_: toggle-maximized"
       ("e" consult-flycheck "flycheck-error"))
 
     (defhydra t0yv0/project-hydra (:hint nil)
-      "projects"
-      ("p" t0yv0/switch-project-recent-buffer "switch" :color blue)
-      ("f" t0yv0/project-forward "forward")
-      ("b" t0yv0/project-backward "backward")
-      ("C-j" nil "select"))
+      "
+project ^ ^    _w_: switch-recent  _b_: buffer     _!_: shell-command        _k_: kill-buffers
+_C-j_: select  _p_: switch         _f_: find-file  _&_: async-shell-command  _r_: replace
+^ ^            _O_: prev           _d_: find-dir   _c_: compile              _g_: ripgrep
+^ ^            _o_: next           _D_: dired      _v_: vterm"
+      ("b" consult-project-buffer :color blue)
+      ("f" project-find-file :color blue)
+      ("d" project-find-dir :color blue)
+      ("D" project-dired :color blue)
+      ("!" project-shell-command :color blue)
+      ("&" project-async-shell-command :color blue)
+      ("c" project-compile :color blue)
+      ("w" t0yv0/switch-project-recent-buffer :color blue)
+      ("p" project-switch-project :color blue)
+      ("o" t0yv0/project-forward)
+      ("O" t0yv0/project-backward)
+      ("v" t0yv0/vterm-proj :color blue)
+      ("k" project-kill-buffers :color blue)
+      ("r" project-query-replace-regexp :color blue)
+      ("g" consult-ripgrep :color blue)
+      ("C-j" nil))
 
     (defhydra t0yv0/link-hydra (:color blue :hint nil)
       "links"
