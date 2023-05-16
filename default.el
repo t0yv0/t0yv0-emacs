@@ -215,10 +215,10 @@ _C-j_: done  _o_: next  _r_: rename  _1_: delete-other  _m_: toggle-maximized"
 
     (defhydra t0yv0/project-hydra (:hint nil)
       "
-project ^ ^    _w_: switch-recent  _b_: buffer     _!_: shell-command        _k_: kill-buffers
-_C-j_: select  _p_: switch         _f_: find-file  _&_: async-shell-command  _r_: replace
-^ ^            ^ ^                 _d_: find-dir   _c_: compile              _g_: ripgrep
-^ ^            ^ ^                 _D_: dired      _v_: vterm"
+project ^ ^    _b_: buffer     _!_: shell-command        _k_: kill-buffers
+_C-j_: select  _f_: find-file  _&_: async-shell-command  _r_: replace
+_p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
+^ ^            _D_: dired      _v_: vterm"
       ("b" consult-project-buffer :color blue)
       ("f" project-find-file :color blue)
       ("d" project-find-dir :color blue)
@@ -226,7 +226,6 @@ _C-j_: select  _p_: switch         _f_: find-file  _&_: async-shell-command  _r_
       ("!" project-shell-command :color blue)
       ("&" project-async-shell-command :color blue)
       ("c" project-compile :color blue)
-      ("w" t0yv0/switch-project-recent-buffer :color blue)
       ("p" project-switch-project :color blue)
       ("v" t0yv0/vterm-proj :color blue)
       ("k" project-kill-buffers :color blue)
@@ -398,6 +397,18 @@ _C-j_: select  _p_: switch         _f_: find-file  _&_: async-shell-command  _r_
   (setq yas-snippet-dirs '("~/my/snippets"))
   (yas-reload-all)
   (yas-global-mode))
+
+
+(custom-set-variables
+ '(project-switch-commands
+   '((t0yv0/project-recent-buffer "Recent" ?r)
+     (consult-project-buffer "Buffer" ?b)
+     (project-find-file "File" nil)
+     (consult-ripgrep "Ripgrep" ?g)
+     (project-find-dir "Dir" nil)
+     (t0yv0/vterm-proj "VTerm" ?v)
+     (magit-project-status "Magit" nil))))
+
 
 (provide 'default)
 ;;; default.el ends here

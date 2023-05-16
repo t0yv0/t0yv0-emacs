@@ -361,27 +361,10 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
           (vterm-send-return))))))
 
 
-(defun t0yv0/prompt-for-noncurrent-project ()
-  "Ask the user to select a project. Excludes the current project from the options."
-  (project--ensure-read-project-list)
-  (let ((opts (-filter (lambda (p)
-                         (not (equal (car p)
-                           (cdr (project-current nil)))))
-                       project--list)))
-    (if (null opts) nil
-      (completing-read "Project: "
-                       (project--file-completion-table opts)
-                       nil t))))
-
-
-(defun t0yv0/switch-project-recent-buffer ()
-  "Ask the user to select a project and switch to its most recent buffer.
-
-If there are no buffers for the project, delegate to `project-switch-project'."
+(defun t0yv0/project-recent-buffer ()
+  "Switch to the most recently visited buffer in the current project."
   (interactive)
-  (let ((sel-proj (t0yv0/prompt-for-noncurrent-project)))
-    (unless (null sel-proj)
-      (t0yv0/switch-project-recent-buffer-to sel-proj))))
+  (t0yv0/switch-project-recent-buffer-to (project-root (project-current t))))
 
 
 (defun t0yv0/switch-project-recent-buffer-to (sel-proj)
