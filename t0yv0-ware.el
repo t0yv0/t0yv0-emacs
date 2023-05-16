@@ -364,17 +364,13 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
 (defun t0yv0/project-recent-buffer ()
   "Switch to the most recently visited buffer in the current project."
   (interactive)
-  (t0yv0/switch-project-recent-buffer-to (project-root (project-current t))))
-
-
-(defun t0yv0/switch-project-recent-buffer-to (sel-proj)
-  "Switch to a recent buffer for SEL-PROJ project."
-  (unless (null sel-proj)
-    (let ((sel-bufs
-           (t0yv0/project-buffers sel-proj)))
-      (if (null sel-bufs)
-          (project-switch-project sel-proj)
-        (switch-to-buffer (car sel-bufs))))))
+  (let ((sel-proj (project-root (project-current t))))
+    (unless (null sel-proj)
+      (let ((sel-bufs
+             (t0yv0/project-buffers sel-proj)))
+        (if (null sel-bufs)
+            (project-switch-project sel-proj)
+          (switch-to-buffer (car sel-bufs)))))))
 
 
 (defun t0yv0/window-buffer-back ()
