@@ -390,6 +390,22 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
     (append (cdr l) (list (car l)))))
 
 
+(defun t0yv0/consult-buffer-sources (orig-sources)
+  "Computes enhanced `consult-buffer-sources'.
+
+ORIG-SOURCES the original value of `consult-buffer-sources'."
+  (let ((s orig-sources))
+    (setq s (-remove-item 'consult--source-project-buffer s))
+    (setq s (-remove-item 'consult--source-project-recent-file s))
+    (setq s (-filter (lambda (src) (not (equal (plist-get src :name) "Git-Status File"))) s))
+    (setq s (-concat s (list (t0yv0/consult--source-git-status-file))))
+    (-map (lambda (src)
+            (if (and (symbolp src) (equal (plist-get (eval src) :name) "Buffer"))
+                (plist-put (-map (lambda (x) x) (eval src)) :items #'t0yv0/buffers)
+              src))
+          s)))
+
+
 (defun t0yv0/consult-project-buffer-sources (orig-sources)
   "Computes enhanced `consult-project-buffer-sources'.
 
@@ -408,17 +424,25 @@ ORIG-SOURCES the original value of `consult-project-buffer-sources'."
       (-map #'buffer-name (t0yv0/order-buffers proj-bufs)))))
 
 
+(defun t0yv0/buffers ()
+  "Find and sort buffers to switch to."
+  (let ((bufs (consult--buffer-query :sort 'visibility)))
+    (-map #'buffer-name (t0yv0/order-buffers bufs))))
+
+
 (defun t0yv0/order-buffers (bufs)
   "Reorders a list of buffers BUFS to have most recent file buffers first."
   (let ((prev-bufs (-map 'car (window-prev-buffers)))
         (cur-buf (current-buffer)))
-    (let ((priority-bufs
-           (-filter (lambda (b) (and (-contains-p bufs b)
-                                     (not (null (buffer-file-name b)))))
-                    prev-bufs)))
-       (-concat (-filter (lambda (b) (not (equal b cur-buf))) priority-bufs)
-                (-filter (lambda (b) (equal b cur-buf)) priority-bufs)
-                (-filter (lambda (b) (not (-contains-p priority-bufs b))) bufs)))))
+    (let* ((priority-bufs
+            (-filter (lambda (b) (and (-contains-p bufs b)
+                                     (not (null (buffer-file-name b)))
+                                     (not (equal b cur-buf))))
+                     prev-bufs))
+           (rest-bufs (-filter (lambda (b) (not (-contains-p priority-bufs b))) bufs))
+           (rest-file-bufs (-filter (lambda (b) (not (null (buffer-file-name b)))) rest-bufs))
+           (rest-nonfile-bufs (-filter (lambda (b) (null (buffer-file-name b))) rest-bufs)))
+      (-concat priority-bufs rest-file-bufs rest-nonfile-bufs))))
 
 
 (defun t0yv0/consult--source-git-status-file ()

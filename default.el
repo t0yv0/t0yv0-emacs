@@ -93,9 +93,8 @@
          ("C-x b" . consult-buffer)
          ("C-h a" . consult-apropos))
   :config
-  (add-to-list 'consult-buffer-sources (t0yv0/consult--source-git-status-file))
-  (setq consult-project-buffer-sources
-        (t0yv0/consult-project-buffer-sources consult-project-buffer-sources)))
+  (setq consult-buffer-sources (t0yv0/consult-buffer-sources consult-buffer-sources))
+  (setq consult-project-buffer-sources (t0yv0/consult-project-buffer-sources consult-project-buffer-sources)))
 
 
 (use-package consult-flycheck)
