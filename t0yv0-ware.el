@@ -12,7 +12,7 @@
 (require 'xref)
 
 
-(declare-function -concat "dash" (x y))
+(declare-function -concat "dash" (&rest xs))
 (declare-function -contains-p "dash" (x y))
 (declare-function -filter "dash" (f xs))
 (declare-function -last-item "dash" (x))
@@ -404,18 +404,21 @@ ORIG-SOURCES the original value of `consult-project-buffer-sources'."
 (defun t0yv0/project-buffers ()
   "Find and sort buffers belonging to the current project."
   (when-let (root (consult--project-root))
-    (let ((proj-bufs (consult--buffer-query :sort 'visibility :directory root))
-          (prev-bufs (-map 'car (window-prev-buffers)))
-          (cur-buf (current-buffer)))
-      (let ((priority-bufs
-             (-filter (lambda (b) (and (-contains-p proj-bufs b)
-                                       (not (null (buffer-file-name b)))
-                                       (not (equal cur-buf b))))
-                      prev-bufs)))
-        (-map #'buffer-name
-              (-concat priority-bufs
-                       (-filter (lambda (b) (not (-contains-p priority-bufs b)))
-                                proj-bufs)))))))
+    (let ((proj-bufs (consult--buffer-query :sort 'visibility :directory root)))
+      (-map #'buffer-name (t0yv0/order-buffers proj-bufs)))))
+
+
+(defun t0yv0/order-buffers (bufs)
+  "Reorders a list of buffers BUFS to have most recent file buffers first."
+  (let ((prev-bufs (-map 'car (window-prev-buffers)))
+        (cur-buf (current-buffer)))
+    (let ((priority-bufs
+           (-filter (lambda (b) (and (-contains-p bufs b)
+                                     (not (null (buffer-file-name b)))))
+                    prev-bufs)))
+       (-concat (-filter (lambda (b) (not (equal b cur-buf))) priority-bufs)
+                (-filter (lambda (b) (equal b cur-buf)) priority-bufs)
+                (-filter (lambda (b) (not (-contains-p priority-bufs b))) bufs)))))
 
 
 (defun t0yv0/consult--source-git-status-file ()
