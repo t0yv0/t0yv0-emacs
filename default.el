@@ -139,13 +139,12 @@
 (use-package hydra
   :bind (("C-c s" . t0yv0/search-hydra/body)
          ("C-c w" . t0yv0/windmove-hydra/body)
-         ("C-x r" . t0yv0/register-hydra/body)
          ("C-c l" . t0yv0/link-hydra/body)
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
-         ("C-x p" . t0yv0/project-hydra/body)
          ("C-c g" . t0yv0/goto-hydra/body)
-         ("C-c b" . t0yv0/buffer-hydra/body)
+         ("C-x p" . t0yv0/project-hydra/body)
+         ("C-x r" . t0yv0/register-hydra/body)
          ("C-x 5" . t0yv0/frame-hydra/body)
          ("C-x t" . t0yv0/tab-hydra/body))
   :init
@@ -200,14 +199,6 @@ _C-j_: done  _o_: next  _r_: rename  _1_: delete-other  _m_: toggle-maximized"
       ("r" set-frame-name)
       ("m" toggle-frame-maximized))
 
-    (defhydra t0yv0/buffer-hydra (:hint nil)
-      "buffer"
-      ("b" t0yv0/window-buffer-back "window-buffer-back")
-      ("f" t0yv0/window-buffer-forward "window-buffer-forward")
-      ("p" previous-buffer "previous-buffer")
-      ("n" next-buffer "next-buffer")
-      ("C-j" nil "select"))
-
     (defhydra t0yv0/goto-hydra (:color blue :hint nil)
       "goto"
       ("l" consult-line "line")
@@ -250,12 +241,13 @@ _p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
       ("o" occur "occur"))
 
     (defhydra t0yv0/windmove-hydra (:hint nil)
-      "windmove: use arrow keys to nav, add shift to swap\n"
+      "windmove: use arrow keys or fbnp to nav, add shift to swap\n"
       ("<enter>" nil "select")
       ("C-j" nil "select")
-      ("q" delete-window "delete")
-      ("_" split-window-vertically "v-split")
-      ("|" split-window-horizontally "h-split")
+      ("0" delete-window "delete")
+      ("1" delete-other-windows "delete-other")
+      ("v" split-window-vertically "v-split")
+      ("h" split-window-horizontally "h-split")
       ("S-<left>" windmove-swap-states-left)
       ("S-<right>" windmove-swap-states-right)
       ("S-<up>" windmove-swap-states-up)
@@ -271,7 +263,9 @@ _p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
       ("b" windmove-left)
       ("f" windmove-right)
       ("p" windmove-up)
-      ("n" windmove-down))
+      ("n" windmove-down)
+      ("C-b" t0yv0/window-buffer-back "buffer-back")
+      ("C-f" t0yv0/window-buffer-forward "buffer-forward"))
 
     (defhydra t0yv0/register-hydra (:color blue :hint nil)
       "register"
