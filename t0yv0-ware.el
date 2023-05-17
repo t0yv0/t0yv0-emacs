@@ -18,6 +18,8 @@
 (declare-function -last-item "dash" (x))
 (declare-function -map "dash" (x y))
 (declare-function -remove-item "dash" (x y))
+(declare-function consult--buffer-query "consult" (&rest xs))
+(declare-function consult--project-root "consult" ())
 (declare-function consult-ripgrep "consult" (x))
 (declare-function markdown-mark-paragraph "markdown-mode" ())
 (declare-function mermaid-compile-region "mermaid-mode" ())
@@ -361,18 +363,6 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
           (vterm-send-return))))))
 
 
-(defun t0yv0/project-recent-buffer ()
-  "Switch to the most recently visited buffer in the current project."
-  (interactive)
-  (let ((sel-proj (project-root (project-current t))))
-    (unless (null sel-proj)
-      (let ((sel-bufs
-             (t0yv0/project-buffers sel-proj)))
-        (if (null sel-bufs)
-            (project-switch-project sel-proj)
-          (switch-to-buffer (car sel-bufs)))))))
-
-
 (defun t0yv0/window-buffer-back ()
   "Like `previous-buffer' but only consulting current window history."
   (interactive)
@@ -400,15 +390,32 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
     (append (cdr l) (list (car l)))))
 
 
-(defun t0yv0/project-buffers (project-root)
-  "Recent-most sorted buffers from PROJECT-ROOT."
-  (let* ((prev-bufs (-map 'car (window-prev-buffers)))
-         (proj (project-current nil project-root))
-         (proj-bufs (project-buffers proj)))
-    (if (null proj) nil
-      (-filter (lambda (b) (not (null (buffer-file-name b))))
-              (-concat (-filter (lambda (b) (-contains-p proj-bufs b)) prev-bufs)
-                       (-filter (lambda (b) (not (-contains-p prev-bufs b))) proj-bufs))))))
+(defun t0yv0/consult-project-buffer-sources (orig-sources)
+  "Computes enhanced `consult-project-buffer-sources'.
+
+ORIG-SOURCES the original value of `consult-project-buffer-sources'."
+  (-map (lambda (s)
+          (if (equal (plist-get s :name) "Project Buffer")
+              (plist-put (-map (lambda (x) x) s) :items #'t0yv0/project-buffers)
+            s))
+        orig-sources))
+
+
+(defun t0yv0/project-buffers ()
+  "Find and sort buffers belonging to the current project."
+  (when-let (root (consult--project-root))
+    (let ((proj-bufs (consult--buffer-query :sort 'visibility :directory root))
+          (prev-bufs (-map 'car (window-prev-buffers)))
+          (cur-buf (current-buffer)))
+      (let ((priority-bufs
+             (-filter (lambda (b) (and (-contains-p proj-bufs b)
+                                       (not (null (buffer-file-name b)))
+                                       (not (equal cur-buf b))))
+                      prev-bufs)))
+        (-map #'buffer-name
+              (-concat priority-bufs
+                       (-filter (lambda (b) (not (-contains-p priority-bufs b)))
+                                proj-bufs)))))))
 
 
 (defun t0yv0/consult--source-git-status-file ()

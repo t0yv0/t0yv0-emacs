@@ -93,7 +93,10 @@
          ("C-x b" . consult-buffer)
          ("C-h a" . consult-apropos))
   :config
-  (add-to-list 'consult-buffer-sources (t0yv0/consult--source-git-status-file)))
+  (add-to-list 'consult-buffer-sources (t0yv0/consult--source-git-status-file))
+  (setq consult-project-buffer-sources
+        (t0yv0/consult-project-buffer-sources consult-project-buffer-sources)))
+
 
 (use-package consult-flycheck)
 
@@ -401,8 +404,7 @@ _p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
 
 (custom-set-variables
  '(project-switch-commands
-   '((t0yv0/project-recent-buffer "Recent" ?r)
-     (consult-project-buffer "Buffer" ?b)
+   '((consult-project-buffer "Buffer" ?b)
      (project-find-file "File" nil)
      (consult-ripgrep "Ripgrep" ?g)
      (project-find-dir "Dir" nil)
