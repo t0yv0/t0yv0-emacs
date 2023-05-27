@@ -322,7 +322,8 @@ _p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
   (progn
     (setq org-confirm-babel-evaluate nil)
     (org-babel-do-load-languages 'org-babel-load-languages
-                                 '((shell . t)))
+                                 '((shell . t)
+                                   (python . t)))
     (org-link-set-parameters "gh" :follow #'t0yv0/org-follow-gh-link)
     (setq org-default-notes-file "~/my/notes.org")
     (setq org-agenda-files '("~/my/notes.org"
