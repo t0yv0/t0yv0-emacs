@@ -207,6 +207,7 @@ _C-j_: done  _o_: next  _r_: rename  _1_: delete-other  _m_: toggle-maximized"
     (defhydra t0yv0/goto-hydra (:color blue :hint nil)
       "goto"
       ("l" consult-line "line")
+      ("c" t0yv0/consult-changed-line "changed-line")
       ("m" consult-mark "mark")
       ("i" consult-imenu "imenu")
       ("e" consult-flycheck "flycheck-error"))

@@ -12,6 +12,7 @@
 (require 'xref)
 
 
+(declare-function --> "dash" (&rest xs))
 (declare-function -concat "dash" (&rest xs))
 (declare-function -contains-p "dash" (x y))
 (declare-function -filter "dash" (f xs))
@@ -19,6 +20,8 @@
 (declare-function -map "dash" (x y))
 (declare-function -remove-item "dash" (x y))
 (declare-function consult--buffer-query "consult" (&rest xs))
+(declare-function consult--line "consult" (&rest xs))
+(declare-function consult--location-candidate "consult" (&rest xs))
 (declare-function consult--project-root "consult" ())
 (declare-function consult-ripgrep "consult" (x))
 (declare-function markdown-mark-paragraph "markdown-mode" ())
@@ -470,6 +473,67 @@ See `consult-buffer-sources'."
                                     (shell-command-to-string "git status --short")
                                     "\n")))))
               changed-files))))
+
+
+(defun t0yv0/parse-git-diff (lines)
+  "Parse LINES, the output of git diff, into a list with line numbers."
+  (let ((m nil)
+        (offset nil)
+        (line-type nil)
+        (emit (list)))
+    (dolist (line lines)
+      (setq line-type 'skipped)
+      (setq m (string-match (rx "@@" (* space)
+                                "-" (+ digit) "," (+ digit)
+                                (* space)
+                                "+" (group (+ digit)) "," (+ digit))
+                            line))
+      (unless (null m)
+        (setq offset (string-to-number (match-string 1 line)))
+        (setq line-type 'special))
+      (when (equal (string-match (rx (any "+")) line) 0)
+        (setq line-type 'added))
+      (when (equal (string-match (rx (any "-")) line) 0)
+        (setq line-type 'removed))
+      (when (and (not (null offset)) (equal line-type 'added))
+        (setq emit (cons (cons offset line) emit)))
+      (when (and (not (null offset)) (or (equal line-type 'skipped)
+                                         (equal line-type 'added)))
+          (setq offset (+ offset 1))))
+    (reverse emit)))
+
+
+(defun t0yv0/point-at-line (n)
+  "Convert a line number N to a point representing coordinates of that line."
+  (save-excursion
+    (goto-char (point-min))
+    (forward-line (1- n))
+    (point)))
+
+
+(defun t0yv0/reformat-line-candidate (pair)
+  "Formats a PAIR of line-num and line-text into a form suitable for consult-line."
+  (let ((line-num (car pair))
+        (line-text (cdr pair)))
+    (consult--location-candidate line-text
+                                 (cons (current-buffer) (t0yv0/point-at-line line-num))
+                                 line-num)))
+
+
+(defun t0yv0/consult-changed-line ()
+  "Like `consult-line' but only for lines changed according to git diff."
+  (interactive)
+  (let ((it nil))
+    (--> (current-buffer)
+         (buffer-file-name it)
+         (format "git diff %s" it)
+         (shell-command-to-string it)
+         (split-string it "\n")
+         (t0yv0/parse-git-diff it)
+         (-map (lambda (pair) (t0yv0/reformat-line-candidate pair)) it)
+         (consult--line it
+                        :curr-line (line-number-at-pos (point))
+                        :prompt "Changed:"))))
 
 
 (provide 't0yv0-ware)
