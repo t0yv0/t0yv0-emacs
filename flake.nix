@@ -17,5 +17,6 @@
     in {
       packages.x86_64-linux.default = package "x86_64-linux";
       packages.x86_64-darwin.default = package "x86_64-darwin";
+      packages.aarch64-darwin.default = package "aarch64-darwin";
     };
 }
