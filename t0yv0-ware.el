@@ -20,9 +20,12 @@
 (declare-function -map "dash" (x y))
 (declare-function -remove-item "dash" (x y))
 (declare-function consult--buffer-query "consult" (&rest xs))
-(declare-function consult--line "consult" (&rest xs))
+(declare-function consult--line-match "consult" (&rest xs))
+(declare-function consult--line-prefix "consult" (&rest xs))
 (declare-function consult--location-candidate "consult" (&rest xs))
+(declare-function consult--location-state "consult" (&rest xs))
 (declare-function consult--project-root "consult" ())
+(declare-function consult--read "consult" (&rest xs))
 (declare-function consult-ripgrep "consult" (x))
 (declare-function markdown-mark-paragraph "markdown-mode" ())
 (declare-function mermaid-compile-region "mermaid-mode" ())
@@ -517,6 +520,7 @@ See `consult-buffer-sources'."
         (line-text (cdr pair)))
     (consult--location-candidate line-text
                                  (cons (current-buffer) (t0yv0/point-at-line line-num))
+                                 line-num
                                  line-num)))
 
 
@@ -531,9 +535,24 @@ See `consult-buffer-sources'."
          (split-string it "\n")
          (t0yv0/parse-git-diff it)
          (-map (lambda (pair) (t0yv0/reformat-line-candidate pair)) it)
-         (consult--line it
-                        :curr-line (line-number-at-pos (point))
-                        :prompt "Changed:"))))
+         (let ((curr-line (line-number-at-pos (point)))
+               (candidates it))
+           (consult--read
+            candidates
+            :prompt "Go to changed line: "
+            :annotate (consult--line-prefix curr-line)
+            :category 'consult-location
+            :sort nil
+            :require-match t
+            ;; Always add last `isearch-string' to future history
+            :add-history (list (thing-at-point 'symbol) isearch-string)
+            :history '(:input consult--line-history)
+            :lookup #'consult--line-match
+            :default (car candidates)
+            ;; Add `isearch-string' as initial input if starting from Isearch
+            :initial (and isearch-mode (prog1 isearch-string (isearch-done)))
+            :state (consult--location-state candidates))
+           ))))
 
 
 (provide 't0yv0-ware)
