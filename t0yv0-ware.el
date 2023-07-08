@@ -12,7 +12,6 @@
 (require 'xref)
 
 
-(declare-function --> "dash" (&rest xs))
 (declare-function -concat "dash" (&rest xs))
 (declare-function -contains-p "dash" (x y))
 (declare-function -filter "dash" (f xs))
@@ -527,32 +526,26 @@ See `consult-buffer-sources'."
 (defun t0yv0/consult-changed-line ()
   "Like `consult-line' but only for lines changed according to git diff."
   (interactive)
-  (let ((it nil))
-    (--> (current-buffer)
-         (buffer-file-name it)
-         (format "git diff %s" it)
-         (shell-command-to-string it)
-         (split-string it "\n")
-         (t0yv0/parse-git-diff it)
-         (-map (lambda (pair) (t0yv0/reformat-line-candidate pair)) it)
-         (let ((curr-line (line-number-at-pos (point)))
-               (candidates it))
-           (consult--read
-            candidates
-            :prompt "Go to changed line: "
-            :annotate (consult--line-prefix curr-line)
-            :category 'consult-location
-            :sort nil
-            :require-match t
-            ;; Always add last `isearch-string' to future history
-            :add-history (list (thing-at-point 'symbol) isearch-string)
-            :history '(:input consult--line-history)
-            :lookup #'consult--line-match
-            :default (car candidates)
-            ;; Add `isearch-string' as initial input if starting from Isearch
-            :initial (and isearch-mode (prog1 isearch-string (isearch-done)))
-            :state (consult--location-state candidates))
-           ))))
+  (let* ((fn (buffer-file-name (current-buffer)))
+         (diff (shell-command-to-string (format "git diff %s" fn)))
+         (candidates (-map (lambda (pair) (t0yv0/reformat-line-candidate pair))
+                           (t0yv0/parse-git-diff (split-string diff "\n"))))
+         (curr-line (line-number-at-pos (point))))
+    (consult--read
+     candidates
+     :prompt "Go to changed line: "
+     :annotate (consult--line-prefix curr-line)
+     :category 'consult-location
+     :sort nil
+     :require-match t
+     ;; Always add last `isearch-string' to future history
+     :add-history (list (thing-at-point 'symbol) isearch-string)
+     :history '(:input consult--line-history)
+     :lookup #'consult--line-match
+     :default (car candidates)
+     ;; Add `isearch-string' as initial input if starting from Isearch
+     :initial (and isearch-mode (prog1 isearch-string (isearch-done)))
+     :state (consult--location-state candidates))))
 
 
 (provide 't0yv0-ware)
