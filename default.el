@@ -148,10 +148,10 @@
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
          ("C-c g" . t0yv0/goto-hydra/body)
-         ("C-x p" . t0yv0/project-hydra/body)
-         ("C-x r" . t0yv0/register-hydra/body)
-         ("C-x 5" . t0yv0/frame-hydra/body)
-         ("C-x t" . t0yv0/tab-hydra/body))
+         ("C-c p" . t0yv0/project-hydra/body)
+         ("C-c r" . t0yv0/register-hydra/body)
+         ("C-c 5" . t0yv0/frame-hydra/body)
+         ("C-c t" . t0yv0/tab-hydra/body))
   :init
   (progn
 
