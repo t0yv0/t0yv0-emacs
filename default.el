@@ -93,8 +93,7 @@
   :after dash
   :bind (("M-y" . consult-yank-pop)
          ("C-x f" . consult-recent-file)
-         ("C-x b" . consult-buffer)
-         ("C-h a" . consult-apropos))
+         ("C-x b" . consult-buffer))
   :config
   (setq consult-buffer-sources (t0yv0/consult-buffer-sources consult-buffer-sources))
   (setq consult-project-buffer-sources (t0yv0/consult-project-buffer-sources consult-project-buffer-sources)))
