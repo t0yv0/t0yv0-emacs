@@ -416,10 +416,24 @@ ORIG-SOURCES the original value of `consult-buffer-sources'."
 
 ORIG-SOURCES the original value of `consult-project-buffer-sources'."
   (-map (lambda (s)
-          (if (equal (plist-get s :name) "Project Buffer")
-              (plist-put (-map (lambda (x) x) s) :items #'t0yv0/project-buffers)
+          (if (t0yv0/has-name-p "Project Buffer" s)
+              (plist-put (-map (lambda (x) x) (t0yv0/resolve-symbol s))
+                         :items #'t0yv0/project-buffers)
             s))
         orig-sources))
+
+
+(defun t0yv0/resolve-symbol (sym)
+  "If SYM is a symbol, look up its value, otherwise return as-is."
+  (if (symbolp sym)
+      (symbol-value sym)
+    sym))
+
+
+(defun t0yv0/has-name-p (name source)
+  "Check if a buffer SOURCE from consult-project-buffer-sources has a given NAME."
+  (message "has-name-p")
+  (equal name (plist-get (t0yv0/resolve-symbol source) :name)))
 
 
 (defun t0yv0/project-buffers ()
