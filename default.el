@@ -81,8 +81,8 @@
 (global-set-key (kbd "C-c z") 't0yv0/vterm-repeat)
 (global-set-key (kbd "C-c o") 'org-capture)
 (global-set-key (kbd "C-c ?") 't0yv0/cheatsheet)
-(global-set-key (kbd "C-x C-<left>") 't0yv0/window-buffer-back)
-(global-set-key (kbd "C-x C-<right>") 't0yv0/window-buffer-forward)
+(global-set-key (kbd "C-c ,") 't0yv0/window-buffer-back)
+(global-set-key (kbd "C-c .") 't0yv0/window-buffer-forward)
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 
@@ -269,9 +269,7 @@ _p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
       ("b" windmove-left)
       ("f" windmove-right)
       ("p" windmove-up)
-      ("n" windmove-down)
-      ("C-b" t0yv0/window-buffer-back "buffer-back")
-      ("C-f" t0yv0/window-buffer-forward "buffer-forward"))
+      ("n" windmove-down))
 
     (defhydra t0yv0/register-hydra (:color blue :hint nil)
       "register"
