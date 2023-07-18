@@ -405,8 +405,9 @@ ORIG-SOURCES the original value of `consult-buffer-sources'."
     (setq s (-filter (lambda (src) (not (equal (plist-get src :name) "Git-Status File"))) s))
     (setq s (-concat s (list (t0yv0/consult--source-git-status-file))))
     (-map (lambda (src)
-            (if (and (symbolp src) (equal (plist-get (eval src) :name) "Buffer"))
-                (plist-put (-map (lambda (x) x) (eval src)) :items #'t0yv0/buffers)
+            (if (t0yv0/has-name-p "Buffer" src)
+                (plist-put (-map (lambda (x) x) (t0yv0/resolve-symbol src))
+                           :items #'t0yv0/buffers)
               src))
           s)))
 
