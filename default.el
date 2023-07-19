@@ -151,9 +151,17 @@
          ("C-c p" . t0yv0/project-hydra/body)
          ("C-c r" . t0yv0/register-hydra/body)
          ("C-c 5" . t0yv0/frame-hydra/body)
-         ("C-c t" . t0yv0/tab-hydra/body))
+         ("C-c t" . t0yv0/tab-hydra/body)
+         ("C-c /" . t0yv0/copilot-hydra/body))
   :init
   (progn
+
+    (defhydra t0yv0/copilot-hydra ()
+      "copilot"
+      ("." copilot-complete "complete")
+      ("n" copilot-next-completion "next")
+      ("p" copilot-previous-completion "prev")
+      ("C-j" copilot-accept-completion "accept" :color blue))
 
     (defhydra t0yv0/tab-hydra (:hint nil)
       "
