@@ -6,7 +6,7 @@
 ;;; Code:
 
 (require 'use-package)
-(require 'quelpa-use-package)
+;; (require 'quelpa-use-package)
 (require 't0yv0-ware)
 
 
@@ -303,11 +303,11 @@ _p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
       ("d" t0yv0/vterm-dir "vterm-dir")
       ("r" t0yv0/vterm-repeat "vterm-repeat"))))
 
-(use-package copilot
-  :quelpa (copilot :fetcher github
-                   :repo "zerolfx/copilot.el"
-                   :branch "main"
-                   :files ("dist" "*.el")))
+;; (use-package copilot
+;;   :quelpa (copilot :fetcher github
+;;                    :repo "zerolfx/copilot.el"
+;;                    :branch "main"
+;;                    :files ("dist" "*.el")))
 
 (use-package lsp-mode
   :defer t
