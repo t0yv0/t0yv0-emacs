@@ -88,7 +88,6 @@
 (use-package consult
   :after dash
   :bind (("M-y" . consult-yank-pop)
-         ("C-x f" . consult-recent-file)
          ("C-x b" . consult-buffer))
   :config
   (setq consult-buffer-sources (t0yv0/consult-buffer-sources consult-buffer-sources))
@@ -377,6 +376,8 @@ _p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
 	    #'enable-paredit-mode))
 
 (use-package recentf
+  :bind
+  ("C-x C-r" . consult-recent-file)
   :config
   (setq recentf-max-menu-items 15
         recentf-max-saved-items 100)
