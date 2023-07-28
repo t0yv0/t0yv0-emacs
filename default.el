@@ -46,11 +46,7 @@
 (setq visible-bell t)
 
 (setq display-buffer-alist
-      '((".go$"
-         (t0yv0/display-buffer-same-go-window
-          display-buffer-reuse-mode-window)
-         (inhibit-same-window . nil))
-        ("\\*vterm"
+      '(("\\*vterm"
          (display-buffer-reuse-window
           t0yv0/display-buffer-same-vterm-window
           display-buffer-reuse-mode-window
