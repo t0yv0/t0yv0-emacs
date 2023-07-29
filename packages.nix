@@ -24,8 +24,6 @@ with epkgs; [
   orderless
   ormolu
   paredit
-  quelpa
-  quelpa-use-package
   tide
   use-package
   vertico
