@@ -6,34 +6,14 @@
 
 
 (require 'comint)
+(require 'consult)
 (require 'dabbrev)
+(require 'dash)
+(require 'markdown-mode)
 (require 'org)
 (require 'project)
+(require 'vterm)
 (require 'xref)
-
-
-(declare-function -concat "dash" (&rest xs))
-(declare-function -contains-p "dash" (x y))
-(declare-function -filter "dash" (f xs))
-(declare-function -last-item "dash" (x))
-(declare-function -map "dash" (x y))
-(declare-function -remove-item "dash" (x y))
-(declare-function consult--buffer-query "consult" (&rest xs))
-(declare-function consult--line-match "consult" (&rest xs))
-(declare-function consult--line-prefix "consult" (&rest xs))
-(declare-function consult--location-candidate "consult" (&rest xs))
-(declare-function consult--location-state "consult" (&rest xs))
-(declare-function consult--project-root "consult" ())
-(declare-function consult--read "consult" (&rest xs))
-(declare-function consult-ripgrep "consult" (x))
-(declare-function markdown-mark-paragraph "markdown-mode" ())
-(declare-function mermaid-compile-region "mermaid-mode" ())
-(declare-function vterm "vterm" (x))
-(declare-function vterm-clear "vterm" ())
-(declare-function vterm-insert "vterm" (x))
-(declare-function vterm-send-backspace "vterm" ())
-(declare-function vterm-send-return "vterm" ())
-(declare-function vterm-send-up "vterm" ())
 
 
 (defun t0yv0/vterm-dabbrev-expand ()
@@ -562,6 +542,7 @@ See `consult-buffer-sources'."
      :initial (and isearch-mode (prog1 isearch-string (isearch-done)))
      :state (consult--location-state candidates))))
 
+;; umm
 
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here

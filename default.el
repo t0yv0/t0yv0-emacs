@@ -400,10 +400,11 @@ _p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
 
 (use-package yasnippet
   :config
-  (setq yas-snippet-dirs '("~/my/snippets"))
+  (setq yas-snippet-dirs
+        (list "~/my/snippets"
+              (concat (file-name-directory (or load-file-name (buffer-file-name))) "snippets")))
   (yas-reload-all)
   (yas-global-mode))
-
 
 (custom-set-variables
  '(project-switch-commands

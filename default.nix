@@ -9,21 +9,13 @@
 
   # Selector of standard Elisp packages defined in `nixpkgs`.
   standardEmacsPackages ? (import ./packages.nix),
-
-  # Elisp file to auto-load on startup. Customize a `default.el` file
-  # as you would `~/.emacs`.
-  defaultElisp ? ./default.el
 }:
 
 let
 
   userPackages = userEmacsPackages { pkgs = pkgs; };
 
-  defaultPackage = pkgs.emacsPackages.trivialBuild {
-    pname = "default";
-    src = defaultElisp;
-    packageRequires = (standardEmacsPackages { epkgs = pkgs.emacsPackages; }) ++ userPackages;
-  };
+  defaultPackage = import ./default-el.nix { pkgs = pkgs; };
 
   emacsPackages = epkgs: (standardEmacsPackages { epkgs = epkgs; }) ++ userPackages ++ [defaultPackage];
 
