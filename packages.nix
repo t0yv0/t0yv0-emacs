@@ -25,6 +25,7 @@ with epkgs; [
   ormolu
   paredit
   tide
+  typescript-mode
   use-package
   vertico
   vterm
