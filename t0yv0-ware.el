@@ -413,7 +413,6 @@ ORIG-SOURCES the original value of `consult-project-buffer-sources'."
 
 (defun t0yv0/has-name-p (name source)
   "Check if a buffer SOURCE from consult-project-buffer-sources has a given NAME."
-  (message "has-name-p")
   (equal name (plist-get (t0yv0/resolve-symbol source) :name)))
 
 

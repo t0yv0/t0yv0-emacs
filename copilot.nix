@@ -1,5 +1,5 @@
-{
-  pkgs ? import <nixpkgs>{},
+{ pkgs ? import <nixpkgs>{},
+  epkgs ? pkgs.emacsPackages,
   src ? pkgs.fetchFromGitHub {
     owner = "zerolfx";
     repo = "copilot.el";
@@ -8,13 +8,13 @@
   }
 }:
 
-pkgs.emacsPackages.trivialBuild {
+epkgs.trivialBuild {
   pname = "copilot";
   src = src;
   packageRequires = [
-    pkgs.emacsPackages.dash
-    pkgs.emacsPackages.s
-    pkgs.emacsPackages.editorconfig
+    epkgs.dash
+    epkgs.s
+    epkgs.editorconfig
   ];
   postBuild = ''
     mkdir -p $out/share/emacs/site-lisp
