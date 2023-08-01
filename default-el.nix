@@ -16,19 +16,24 @@ let
     src = ./.;
   };
 
+  treesitter = import ./ts.nix {
+    pkgs = pkgs;
+  };
+
 in epkgs.trivialBuild {
   pname = "defaultel";
   src = sources;
   postBuild = ''
-   find $src
    mkdir -p $out/share/emacs/site-lisp
    cp -r $src/snippets $out/share/emacs/site-lisp/
+   mkdir -p $out/share/emacs/site-lisp/tree-sitter
+   ln -s ${treesitter}/go.so $out/share/emacs/site-lisp/tree-sitter/libtree-sitter-go.so
+   ln -s ${treesitter}/gomod.so $out/share/emacs/site-lisp/tree-sitter/libtree-sitter-gomod.so
   '';
   packageRequires = [
     epkgs.company
     epkgs.consult
     epkgs.consult-flycheck
-    epkgs.csharp-mode
     epkgs.dap-mode
     epkgs.edit-indirect
     epkgs.embark
@@ -37,7 +42,6 @@ in epkgs.trivialBuild {
     epkgs.haskell-mode
     epkgs.hydra
     epkgs.json-mode
-    epkgs.lsp-ui
     epkgs.magit
     epkgs.marginalia
     epkgs.mermaid-mode
@@ -46,6 +50,7 @@ in epkgs.trivialBuild {
     epkgs.ormolu
     epkgs.paredit
     epkgs.tide
+    epkgs.tree-sitter-langs
     epkgs.typescript-mode
     epkgs.use-package
     epkgs.vertico

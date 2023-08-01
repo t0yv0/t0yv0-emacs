@@ -9,7 +9,9 @@
 (require 'consult)
 (require 'dabbrev)
 (require 'dash)
+(require 'go-mode)
 (require 'markdown-mode)
+(require 'mermaid-mode)
 (require 'org)
 (require 'project)
 (require 'vterm)
@@ -541,7 +543,24 @@ See `consult-buffer-sources'."
      :initial (and isearch-mode (prog1 isearch-string (isearch-done)))
      :state (consult--location-state candidates))))
 
-;; umm
+
+(defun t0yv0/ensure-tree-sitter-grammar-install ()
+  "Make sure ~/.emacs.d/tree-sitter symlink exists.
+
+Ensures it is up-to-date with ./tree-sitter."
+  (let* ((real-dir (concat (file-name-directory load-file-name) "tree-sitter"))
+         (target-dir (concat user-emacs-directory "tree-sitter")))
+    (unless (equal (file-symlink-p target-dir) real-dir)
+      (delete-file target-dir))
+    (make-symbolic-link real-dir target-dir t)))
+
+
+(defun t0yv0/gofmt-before-save ()
+  "Like `gofmt-before-save' but extended for `go-ts-mode'."
+  (interactive)
+  (when (eq major-mode 'go-ts-mode)
+    (gofmt)))
+
 
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here

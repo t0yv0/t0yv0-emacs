@@ -88,7 +88,9 @@
 
 ;;; package configuration
 
-(use-package company)
+(use-package company
+  :after eglot
+  :hook (eglot-managed-mode . company-mode))
 
 (use-package consult
   :after dash
@@ -103,14 +105,15 @@
 
 (use-package copilot)
 
-(use-package csharp-mode)
-
 (use-package dash)
 
 (use-package dap-mode
   :init (require 'dap-dlv-go))
 
 (use-package edit-indirect)
+
+(use-package eglot
+  :config (add-to-list 'eglot-stay-out-of 'flymake))
 
 (use-package embark
   :bind
@@ -137,10 +140,12 @@
   :init (global-flycheck-mode)
   :bind (("C-c e" . flycheck-next-error)))
 
-(use-package go-mode
-  :init (progn
-	  (add-hook 'before-save-hook 'gofmt-before-save)
-	  (add-hook 'go-mode-hook 'lsp-deferred)))
+(use-package go-ts-mode
+  :mode "\\.go\\'"
+  :init (t0yv0/ensure-tree-sitter-grammar-install)
+  :hook
+  (go-ts-mode . eglot-ensure)
+  (before-save . t0yv0/gofmt-before-save))
 
 (use-package haskell-mode)
 
@@ -300,14 +305,6 @@ _p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
          ("C-c /" . t0yv0/copilot-hydra/body)))
 
 (use-package json-mode)
-
-(use-package lsp-mode
-  :defer t
-  :hook (lsp-mode . lsp-lens-mode)
-  :init (setq lsp-prefer-flymake nil)
-  :config (define-key lsp-mode-map (kbd "C-c i") lsp-command-map))
-
-(use-package lsp-ui :commands lsp-ui-mode)
 
 (use-package nix-mode)
 

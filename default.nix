@@ -5,7 +5,8 @@
 }:
 
 let
-  myEmacs = pkgs.emacsNativeComp;
+  myEmacs = pkgs.emacs29;
+
   emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
 
   myEmacsPackages = epkgs: [

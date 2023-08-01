@@ -8,7 +8,9 @@ epkgs.trivialBuild {
   packageRequires = [
     epkgs.dash
     epkgs.consult
+    epkgs.go-mode
     epkgs.markdown-mode
+    epkgs.mermaid-mode
     epkgs.vterm
   ];
 }
