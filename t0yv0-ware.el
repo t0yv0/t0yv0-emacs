@@ -346,7 +346,7 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
       (when buf
         (with-current-buffer buf
           (vterm-clear)
-          (vterm-send-up)
+          (vterm-send-key "<up>")
           (vterm-send-return))))))
 
 
