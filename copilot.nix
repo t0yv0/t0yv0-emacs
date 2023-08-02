@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs>{},
-  epkgs ? pkgs.emacsPackages,
+  epkgs ? (pkgs.emacsPackagesFor pkgs.emacs29),
   src ? pkgs.fetchFromGitHub {
     owner = "zerolfx";
     repo = "copilot.el";

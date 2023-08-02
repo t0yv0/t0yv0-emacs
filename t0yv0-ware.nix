@@ -1,5 +1,5 @@
 { pkgs ? import <nixpkgs>{},
-  epkgs ? pkgs.emacsPackages
+  epkgs ? (pkgs.emacsPackagesFor pkgs.emacs29)
 }:
 
 epkgs.trivialBuild {

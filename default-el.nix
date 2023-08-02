@@ -1,6 +1,6 @@
 {
   pkgs ? import <nixpkgs>{},
-  epkgs ? pkgs.emacsPackages,
+  epkgs ? (pkgs.emacsPackagesFor pkgs.emacs29),
   t0yv0-ware ? import ./t0yv0-ware.nix { pkgs = pkgs; epkgs = epkgs; },
   copilot ? import ./copilot.nix { pkgs = pkgs; epkgs = epkgs; }
 }:
