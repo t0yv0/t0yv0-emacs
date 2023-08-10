@@ -18,3 +18,8 @@ C-c , buffer navigation conflicts with org-mode settings and stops working when 
 * No working dabbrev in vterms
 
 There is some code for it but it still does not work. Wrong type of argument: stringp, nil.
+
+* Project buffers do not get custom sorting
+
+Switching to per-project buffers with either C-x p b or C-x b p SPC does not seem to respect custom sorting. Improving
+this could make it easier to access recent project buffers.
