@@ -146,7 +146,7 @@
   :mode "\\.go\\'"
   :init (t0yv0/ensure-tree-sitter-grammar-install)
   :after go-mode
-  :bind ("C-c C-a" . go-import-add)
+  :bind (("C-c C-a" . go-import-add))
   :hook
   (go-ts-mode . eglot-ensure)
   (before-save . t0yv0/gofmt-before-save))
