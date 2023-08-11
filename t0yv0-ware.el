@@ -24,16 +24,17 @@
 (defun t0yv0/vterm-dabbrev-expand ()
   "Adaps `dabbrev-expand` to vterm."
   (interactive)
-  (when t0yv0/vterm-dabbrev-state
-    (let-alist t0yv0/vterm-dabbrev-state
-      (let ((p (point)))
-        (if (equal (- p .inserted) .point)
-            (progn
-              (vterm-delete-region (- p .inserted) p)
-              (setq t0yv0/vterm-dabbrev-state (list (cons 'inserted 0)
-                                                    (cons 'point p))))
-          (dabbrev--reset-global-variables)
-          (setq t0yv0/vterm-dabbrev-state nil)))))
+  (if t0yv0/vterm-dabbrev-state
+      (let-alist t0yv0/vterm-dabbrev-state
+        (let ((p (point)))
+          (if (equal (- p .inserted) .point)
+              (progn
+                (vterm-delete-region (- p .inserted) p)
+                (setq t0yv0/vterm-dabbrev-state (list (cons 'inserted 0)
+                                                      (cons 'point p))))
+            (dabbrev--reset-global-variables)
+            (setq t0yv0/vterm-dabbrev-state nil))))
+    (dabbrev--reset-global-variables))
   (let* ((current-dabbrev (dabbrev--abbrev-at-point))
          (expansion (dabbrev--find-expansion current-dabbrev 0 t)))
     (when expansion
