@@ -11,10 +11,6 @@ Expected: the error is opened in the main window already displaying go code
 
 Actual: a new window is opened to show the error
 
-* No working dabbrev in vterms
-
-There is some code for it but it still does not work. Wrong type of argument: stringp, nil.
-
 * Project buffers do not get custom sorting
 
 Switching to per-project buffers with either C-x p b or C-x b p SPC does not seem to respect custom sorting. Improving
