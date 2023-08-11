@@ -18,17 +18,33 @@
 (require 'xref)
 
 
+(defvar-local t0yv0/vterm-dabbrev-state nil)
+
+
 (defun t0yv0/vterm-dabbrev-expand ()
   "Adaps `dabbrev-expand` to vterm."
   (interactive)
+  (when t0yv0/vterm-dabbrev-state
+    (let-alist t0yv0/vterm-dabbrev-state
+      (let ((p (point)))
+        (if (equal (- p .inserted) .point)
+            (progn
+              (vterm-delete-region (- p .inserted) p)
+              (setq t0yv0/vterm-dabbrev-state (list (cons 'inserted 0)
+                                                    (cons 'point p))))
+          (dabbrev--reset-global-variables)
+          (setq t0yv0/vterm-dabbrev-state nil)))))
   (let* ((current-dabbrev (dabbrev--abbrev-at-point))
          (expansion (dabbrev--find-expansion current-dabbrev 0 t)))
-    (if (eq expansion nil)
-        (dabbrev--reset-global-variables)
-      (progn
-        (dotimes (i (length current-dabbrev))
-          (vterm-send-backspace))
-        (vterm-insert expansion)))))
+    (when expansion
+      (let ((ins (substring expansion (length current-dabbrev) (length expansion)))
+            (p (point)))
+        (vterm-insert ins)
+        (setq t0yv0/vterm-dabbrev-state (list (cons 'inserted (length ins))
+                                              (cons 'point p)))))
+    (unless expansion
+      (dabbrev--reset-global-variables)
+      (setq t0yv0/vterm-dabbrev-state nil))))
 
 
 (defun t0yv0/diary ()
