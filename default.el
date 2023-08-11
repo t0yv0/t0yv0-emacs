@@ -75,7 +75,6 @@
 
 ;;; key bindings
 
-(global-set-key (kbd "M-g g") 'consult-goto-line)
 (global-set-key (kbd "C-c d") 't0yv0/diary)
 (global-set-key (kbd "C-c z") 't0yv0/vterm-repeat)
 (global-set-key (kbd "C-c o") 'org-capture)
@@ -95,7 +94,9 @@
 (use-package consult
   :after dash
   :bind (("M-y" . consult-yank-pop)
-         ("C-x b" . consult-buffer))
+         ("C-x b" . consult-buffer)
+         ("M-g g" . consult-goto-line)
+         ("M-g i" . consult-imenu))
   :config
   (setq consult-buffer-sources (t0yv0/consult-buffer-sources consult-buffer-sources))
   (setq consult-project-buffer-sources (t0yv0/consult-project-buffer-sources consult-project-buffer-sources)))
@@ -138,7 +139,8 @@
 
 (use-package flycheck
   :init (global-flycheck-mode)
-  :bind (("C-c e" . flycheck-next-error)))
+  :bind (("M-g n" . flycheck-next-error)
+         ("M-g p" . flycheck-previous-error)))
 
 (use-package go-mode)
 
@@ -210,7 +212,6 @@ _C-j_: done  _o_: next  _r_: rename  _1_: delete-other  _m_: toggle-maximized"
     ("l" consult-line "line")
     ("c" t0yv0/consult-changed-line "changed-line")
     ("m" consult-mark "mark")
-    ("i" consult-imenu "imenu")
     ("e" consult-flycheck "flycheck-error"))
 
   (defhydra t0yv0/project-hydra (:hint nil)
