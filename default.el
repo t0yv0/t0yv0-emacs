@@ -79,8 +79,8 @@
 (global-set-key (kbd "C-c z") 't0yv0/vterm-repeat)
 (global-set-key (kbd "C-c o") 'org-capture)
 (global-set-key (kbd "C-c ?") 't0yv0/cheatsheet)
-(global-set-key (kbd "C-c ,") 't0yv0/window-buffer-back)
-(global-set-key (kbd "C-c .") 't0yv0/window-buffer-forward)
+(global-set-key (kbd "C-c b") 't0yv0/window-buffer-back)
+(global-set-key (kbd "C-c f") 't0yv0/window-buffer-forward)
 
 (global-set-key (kbd "RET") 'newline-and-indent)
 
