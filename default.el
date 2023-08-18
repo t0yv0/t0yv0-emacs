@@ -18,7 +18,7 @@
 (prefer-coding-system 'utf-8)
 (winner-mode t)
 
-(let ((font "Iosevka 16"))
+(let ((font "Iosevka 14"))
   (set-frame-font font)
 
   (setq default-frame-alist
@@ -45,8 +45,10 @@
 (setq switch-to-buffer-obey-display-actions t)
 (setq tab-width 4)
 (setq visible-bell t)
-(setq-default fill-column 120)
+(setq-default fill-column 100)
 (setq-default indent-tabs-mode nil)
+
+(display-fill-column-indicator-mode t)
 
 (setq display-buffer-alist
       '(("\\*vterm"
