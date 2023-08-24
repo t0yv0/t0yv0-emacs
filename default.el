@@ -18,6 +18,12 @@
 (prefer-coding-system 'utf-8)
 (winner-mode t)
 
+(when (boundp 'ns-command-modifier)
+  (setq ns-command-modifier 'meta))
+
+(when (boundp 'ns-right-command-modifier)
+  (setq ns-right-command-modifier 'super))
+
 (let ((font "Iosevka 14"))
   (set-frame-font font)
 
