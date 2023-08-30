@@ -308,6 +308,13 @@ _C-j_: done  _o_: next  _r_: rename  _1_: delete-other  _m_: toggle-maximized"
     ("d" t0yv0/vterm-dir "vterm-dir")
     ("r" t0yv0/vterm-repeat "vterm-repeat"))
 
+  (defhydra t0yv0/copilot-hydra ()
+    "copilot"
+    ("." copilot-complete "complete")
+    ("n" copilot-next-completion "next")
+    ("p" copilot-previous-completion "prev")
+    ("C-j" copilot-accept-completion "accept" :color blue))
+
   :bind (("C-c s" . t0yv0/search-hydra/body)
          ("C-c w" . t0yv0/windmove-hydra/body)
          ("C-c l" . t0yv0/link-hydra/body)
