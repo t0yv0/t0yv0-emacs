@@ -422,6 +422,21 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
       (-concat priority-bufs rest-file-bufs rest-nonfile-bufs))))
 
 
+(defvar t0yv0/consult-source-window-buffer
+  (list
+   :name "Recent Window Buffers"
+   :narrow ?w
+   :category 'buffer
+   :history 'buffer-name-history
+   :state #'consult--buffer-state
+   :items (lambda ()
+            (-map #'buffer-name
+                  (-filter (lambda (b) (not (null (buffer-file-name b))))
+                           (-map #'car
+                                 (window-prev-buffers))))))
+  "Ordered recent buffer candidate source for `consult-buffer' relying on `window-prev-buffers'.")
+
+
 (defvar t0yv0/consult-source-git-status-file
   (list
    :name "Changed File"
