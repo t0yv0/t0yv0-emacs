@@ -394,34 +394,6 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
     (append (cdr l) (list (car l)))))
 
 
-(defun t0yv0/project-buffers ()
-  "Find and sort buffers belonging to the current project."
-  (when-let (root (consult--project-root))
-    (let ((proj-bufs (consult--buffer-query :sort 'visibility :directory root)))
-      (-map #'buffer-name (t0yv0/order-buffers proj-bufs)))))
-
-
-(defun t0yv0/buffers ()
-  "Find and sort buffers to switch to."
-  (let ((bufs (consult--buffer-query :sort 'visibility)))
-    (-map #'buffer-name (t0yv0/order-buffers bufs))))
-
-
-(defun t0yv0/order-buffers (bufs)
-  "Reorders a list of buffers BUFS to have most recent file buffers first."
-  (let ((prev-bufs (-map 'car (window-prev-buffers)))
-        (cur-buf (current-buffer)))
-    (let* ((priority-bufs
-            (-filter (lambda (b) (and (-contains-p bufs b)
-                                     (not (null (buffer-file-name b)))
-                                     (not (equal b cur-buf))))
-                     prev-bufs))
-           (rest-bufs (-filter (lambda (b) (not (-contains-p priority-bufs b))) bufs))
-           (rest-file-bufs (-filter (lambda (b) (not (null (buffer-file-name b)))) rest-bufs))
-           (rest-nonfile-bufs (-filter (lambda (b) (null (buffer-file-name b))) rest-bufs)))
-      (-concat priority-bufs rest-file-bufs rest-nonfile-bufs))))
-
-
 (defvar t0yv0/consult-source-window-buffer
   (list
    :name "Recent Window Buffers"
