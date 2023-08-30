@@ -109,9 +109,20 @@
          ("M-g C-SPC" . consult-mark)
          ("M-g l"     . consult-line)
          ("M-g d"     . t0yv0/consult-changed-line))
-  :config
-  (setq consult-buffer-sources (t0yv0/consult-buffer-sources consult-buffer-sources))
-  (setq consult-project-buffer-sources (t0yv0/consult-project-buffer-sources consult-project-buffer-sources)))
+  :custom
+  (consult-buffer-sources
+   '(consult--source-hidden-buffer
+     consult--source-modified-buffer
+     consult--source-buffer
+     consult--source-recent-file
+     consult--source-file-register
+     consult--source-bookmark
+     consult--source-project-buffer-hidden
+     consult--source-project-recent-file-hidden))
+  (consult-project-buffer-sources
+   '(consult--source-project-buffer
+     consult--source-project-recent-file
+     t0yv0/consult-source-git-status-file)))
 
 (use-package copilot)
 

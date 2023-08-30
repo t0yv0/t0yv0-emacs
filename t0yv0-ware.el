@@ -394,47 +394,6 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
     (append (cdr l) (list (car l)))))
 
 
-(defun t0yv0/consult-buffer-sources (orig-sources)
-  "Computes enhanced `consult-buffer-sources'.
-
-ORIG-SOURCES the original value of `consult-buffer-sources'."
-  (let ((s orig-sources))
-    (setq s (-remove-item 'consult--source-project-buffer s))
-    (setq s (-remove-item 'consult--source-project-recent-file s))
-    (setq s (-filter (lambda (src) (not (equal (plist-get src :name) "Git-Status File"))) s))
-    (setq s (-concat s (list (t0yv0/consult--source-git-status-file))))
-    (-map (lambda (src)
-            (if (t0yv0/has-name-p "Buffer" src)
-                (plist-put (-map (lambda (x) x) (t0yv0/resolve-symbol src))
-                           :items #'t0yv0/buffers)
-              src))
-          s)))
-
-
-(defun t0yv0/consult-project-buffer-sources (orig-sources)
-  "Computes enhanced `consult-project-buffer-sources'.
-
-ORIG-SOURCES the original value of `consult-project-buffer-sources'."
-  (-map (lambda (s)
-          (if (t0yv0/has-name-p "Project Buffer" s)
-              (plist-put (-map (lambda (x) x) (t0yv0/resolve-symbol s))
-                         :items #'t0yv0/project-buffers)
-            s))
-        orig-sources))
-
-
-(defun t0yv0/resolve-symbol (sym)
-  "If SYM is a symbol, look up its value, otherwise return as-is."
-  (if (symbolp sym)
-      (symbol-value sym)
-    sym))
-
-
-(defun t0yv0/has-name-p (name source)
-  "Check if a buffer SOURCE from consult-project-buffer-sources has a given NAME."
-  (equal name (plist-get (t0yv0/resolve-symbol source) :name)))
-
-
 (defun t0yv0/project-buffers ()
   "Find and sort buffers belonging to the current project."
   (when-let (root (consult--project-root))
@@ -463,15 +422,10 @@ ORIG-SOURCES the original value of `consult-project-buffer-sources'."
       (-concat priority-bufs rest-file-bufs rest-nonfile-bufs))))
 
 
-(defun t0yv0/consult--source-git-status-file ()
-  "Find files that show up via git status for the current project.
-
-Produces a source for use by `consult-buffer'.
-
-See `consult-buffer-sources'."
+(defvar t0yv0/consult-source-git-status-file
   (list
-   :name "Git-Status File"
-   :narrow 103
+   :name "Changed File"
+   :narrow ?d
    :category 'file
    :face 'consult-file
    :history 'file-name-history
@@ -487,7 +441,8 @@ See `consult-buffer-sources'."
                                    (split-string
                                     (shell-command-to-string "git status --short")
                                     "\n")))))
-              changed-files))))
+              changed-files)))
+  "Changed file candidate source for `consult-buffer' powered by `git status`.")
 
 
 (defun t0yv0/parse-git-diff (lines)
