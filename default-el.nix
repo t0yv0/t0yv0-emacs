@@ -33,7 +33,6 @@ in epkgs.trivialBuild {
   packageRequires = [
     epkgs.company
     epkgs.consult
-    epkgs.consult-flycheck
     epkgs.dap-mode
     epkgs.edit-indirect
     epkgs.embark

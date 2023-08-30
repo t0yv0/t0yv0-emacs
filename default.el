@@ -101,16 +101,17 @@
 
 (use-package consult
   :after dash
-  :bind (("M-y" . consult-yank-pop)
-         ("C-x b" . consult-buffer)
-         ("M-g g" . consult-goto-line)
-         ("M-g i" . consult-imenu))
+  :bind (("M-y"       . consult-yank-pop)
+         ("C-x b"     . consult-buffer)
+         ("M-g g"     . consult-goto-line)
+         ("M-g M-g"   . consult-goto-line)
+         ("M-g i"     . consult-imenu)
+         ("M-g C-SPC" . consult-mark)
+         ("M-g l"     . consult-line)
+         ("M-g d"     . t0yv0/consult-changed-line))
   :config
   (setq consult-buffer-sources (t0yv0/consult-buffer-sources consult-buffer-sources))
   (setq consult-project-buffer-sources (t0yv0/consult-project-buffer-sources consult-project-buffer-sources)))
-
-
-(use-package consult-flycheck)
 
 (use-package copilot)
 
@@ -122,7 +123,11 @@
 (use-package edit-indirect)
 
 (use-package eglot
-  :config (add-to-list 'eglot-stay-out-of 'flymake))
+  :bind (("M-g n"   . flymake-goto-next-error)
+         ("M-g M-n" . flymake-goto-next-error)
+         ("M-g p"   . flymake-goto-prev-error)
+         ("M-g M-p" . flymake-goto-prev-error)
+         ("M-g e"   . consult-flymake)))
 
 (use-package embark
   :bind
@@ -144,11 +149,6 @@
 
 (use-package embark-consult
   :hook (embark-collect-mode . consult-preview-at-point-mode))
-
-(use-package flycheck
-  :init (global-flycheck-mode)
-  :bind (("M-g n" . flycheck-next-error)
-         ("M-g p" . flycheck-previous-error)))
 
 (use-package go-mode)
 
@@ -214,13 +214,6 @@ _C-j_: done  _o_: next  _r_: rename  _1_: delete-other  _m_: toggle-maximized"
     ("5" other-frame-prefix :color blue)
     ("r" set-frame-name)
     ("m" toggle-frame-maximized))
-
-  (defhydra t0yv0/goto-hydra (:color blue :hint nil)
-    "goto"
-    ("l" consult-line "line")
-    ("c" t0yv0/consult-changed-line "changed-line")
-    ("m" consult-mark "mark")
-    ("e" consult-flycheck "flycheck-error"))
 
   (defhydra t0yv0/project-hydra (:hint nil)
     "
@@ -310,7 +303,6 @@ _p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
          ("C-c l" . t0yv0/link-hydra/body)
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
-         ("C-c g" . t0yv0/goto-hydra/body)
          ("C-c p" . t0yv0/project-hydra/body)
          ("C-c r" . t0yv0/register-hydra/body)
          ("C-c 5" . t0yv0/frame-hydra/body)
