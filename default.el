@@ -108,7 +108,9 @@
          ("M-g i"     . consult-imenu)
          ("M-g C-SPC" . consult-mark)
          ("M-g l"     . consult-line)
-         ("M-g d"     . t0yv0/consult-changed-line))
+         ("M-g d"     . t0yv0/consult-changed-line)
+         ("C-x p b"   . consult-project-buffer)
+         ("C-x p g"   . consult-ripgrep))
   :custom
   (consult-buffer-sources
    '(consult--source-hidden-buffer
@@ -227,26 +229,6 @@ _C-j_: done  _o_: next  _r_: rename  _1_: delete-other  _m_: toggle-maximized"
     ("r" set-frame-name)
     ("m" toggle-frame-maximized))
 
-  (defhydra t0yv0/project-hydra (:hint nil)
-    "
-project ^ ^    _b_: buffer     _!_: shell-command        _k_: kill-buffers
-_C-j_: select  _f_: find-file  _&_: async-shell-command  _r_: replace
-_p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
-^ ^            _D_: dired      _v_: vterm"
-    ("b" consult-project-buffer :color blue)
-    ("f" project-find-file :color blue)
-    ("d" project-find-dir :color blue)
-    ("D" project-dired :color blue)
-    ("!" project-shell-command :color blue)
-    ("&" project-async-shell-command :color blue)
-    ("c" project-compile :color blue)
-    ("p" project-switch-project :color blue)
-    ("v" t0yv0/vterm-proj :color blue)
-    ("k" project-kill-buffers :color blue)
-    ("r" project-query-replace-regexp :color blue)
-    ("g" consult-ripgrep :color blue)
-    ("C-j" nil))
-
   (defhydra t0yv0/link-hydra (:color blue :hint nil)
     "links"
     ("g" t0yv0/kill-github-link-at-point "gh-kill")
@@ -315,7 +297,6 @@ _p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
          ("C-c l" . t0yv0/link-hydra/body)
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
-         ("C-c p" . t0yv0/project-hydra/body)
          ("C-c r" . t0yv0/register-hydra/body)
          ("C-c 5" . t0yv0/frame-hydra/body)
          ("C-c t" . t0yv0/tab-hydra/body)
@@ -411,6 +392,7 @@ _p_:   switch  _d_: find-dir   _c_: compile              _g_: ripgrep
 (use-package vertico :init (vertico-mode))
 
 (use-package vterm
+  :bind (("C-x p v" . t0yv0/vterm-proj))
   :bind (:map vterm-mode-map
               ("M-/" . #'t0yv0/vterm-dabbrev-expand)))
 
