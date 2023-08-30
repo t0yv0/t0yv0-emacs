@@ -579,5 +579,10 @@ Ensures it is up-to-date with ./tree-sitter."
     (gofmt)))
 
 
+(defun t0yv0/consult-project-flymake ()
+  (interactive)
+  (consult-flymake (project-current nil)))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here

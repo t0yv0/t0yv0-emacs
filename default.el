@@ -127,7 +127,8 @@
          ("M-g M-n" . flymake-goto-next-error)
          ("M-g p"   . flymake-goto-prev-error)
          ("M-g M-p" . flymake-goto-prev-error)
-         ("M-g e"   . consult-flymake)))
+         ("M-g e"   . consult-flymake)
+         ("M-g M-e" . t0yv0/consult-project-flymake)))
 
 (use-package embark
   :bind
