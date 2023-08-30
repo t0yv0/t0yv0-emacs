@@ -112,6 +112,20 @@
          ("C-x p b"   . consult-project-buffer)
          ("C-x p g"   . consult-ripgrep))
   :custom
+  (consult-buffer-filter
+   '("\\` "
+     "\\`\\*Completions\\*\\'"
+     "\\`\\*Flymake log\\*\\'"
+     "\\`\\*Semantic SymRef\\*\\'"
+     "\\`\\*tramp/.*\\*\\'"
+     "\\`\\*scratch\\*"
+     "\\`\\*copilot-balancer\\*"
+     "\\`\\*Async-native-compile-log\\*"
+     "\\`magit"
+     "\\`\\*vterm"
+     "\\`\\*Messages"
+     "\\`\\*Apropos"
+     "\\`\\*Help"))
   (consult-buffer-sources
    '(consult--source-hidden-buffer
      consult--source-modified-buffer
