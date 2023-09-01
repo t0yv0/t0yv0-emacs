@@ -191,13 +191,6 @@ ALIST contains options such as `inhibit-same-window'."
     (display-buffer-same-window buffer alist)))
 
 
-(defun t0yv0/jump-to-register ()
-  "Like `jump-to-register' but enables M-, to jump back."
-  (interactive)
-  (xref-push-marker-stack)
-  (jump-to-register (register-read-with-preview "Jump to register:")))
-
-
 (defun t0yv0/current-mode ()
   "Compute the mode of the current buffer."
   (with-current-buffer (window-buffer (selected-window)) major-mode))

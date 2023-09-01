@@ -236,18 +236,6 @@
     ("p" windmove-up)
     ("n" windmove-down))
 
-  (defhydra t0yv0/register-hydra (:color blue :hint nil)
-    "register"
-    ("SPC" point-to-register "point")
-    ("c" consult-register "consult")
-    ("j" t0yv0/jump-to-register "jump")
-    ("s" copy-to-register "copy")
-    ("i" insert-register "ins")
-    ("r" copy-rectangle-to-register "copy-rect")
-    ("w" window-configuration-to-register "win")
-    ("+" increment-register "increment")
-    ("m" bookmark-set "bookmark-set"))
-
   (defhydra t0yv0/compile-hydra (:color blue)
     "compilation"
     ("c" compile "compile")
@@ -272,7 +260,6 @@
          ("C-c l" . t0yv0/link-hydra/body)
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
-         ("C-c r" . t0yv0/register-hydra/body)
          ("C-c /" . t0yv0/copilot-hydra/body)))
 
 (use-package json-mode)
