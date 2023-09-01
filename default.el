@@ -197,55 +197,6 @@
 (use-package hydra
   :init
 
-  (defhydra t0yv0/tab-hydra (:hint nil)
-    "
-^tabs^            ^nav^          ^edit^         ^other-tab
-^^^^^^^^------------------------------------------------------------------
-_0_: close        _O_:   prev    _m_: move      _t_:   prefix
-_1_: close-other  _o_:   next    _M_: move-to   _b_:   buffer
-_2_: new          _C-j_: done    _r_: rename    _f_:   find-file
-_n_: duplicate    _RET_: switch  _u_: undo      _d_:   dired
-_N_: new-to       ^ ^            _G_: group     _p_:   project-command
-^ ^               ^ ^            ^ ^            _C-r_: find-file-read-only
-"
-    ("0" tab-close)
-    ("1" tab-close-other :color blue)
-    ("2" tab-new :color blue)
-    ("n" tab-duplicate :color blue)
-    ("N" tab-new-to :color blue)
-
-    ("O" tab-previous)
-    ("o" tab-next)
-    ("C-j" nil)
-    ("RET" tab-switch :color blue)
-
-    ("m" tab-move)
-    ("M" tab-move-to)
-    ("r" tab-rename)
-    ("u" tab-undo)
-    ("G" tab-group)
-
-    ("t" other-tab-prefix :color blue)
-    ("b" switch-to-buffer-other-tab :color blue)
-    ("f" find-file-other-tab :color blue)
-    ("d" dired-other-tab :color blue)
-    ("C-r" find-file-read-only-other-tab :color blue)
-    ("p" project-other-tab-command :color blue))
-
-  (defhydra t0yv0/frame-hydra (:hint nil)
-    "
-frame ^ ^    _O_: prev  _2_: make    _0_: delete        _5_: prefix
-_C-j_: done  _o_: next  _r_: rename  _1_: delete-other  _m_: toggle-maximized"
-    ("0" delete-frame)
-    ("1" delete-other-frames :color blue)
-    ("2" make-frame-command :color blue)
-    ("O" (lambda () (interactive) (other-frame -1)))
-    ("o" other-frame)
-    ("C-j" nil)
-    ("5" other-frame-prefix :color blue)
-    ("r" set-frame-name)
-    ("m" toggle-frame-maximized))
-
   (defhydra t0yv0/link-hydra (:color blue :hint nil)
     "links"
     ("g" t0yv0/kill-github-link-at-point "gh-kill")
@@ -322,8 +273,6 @@ _C-j_: done  _o_: next  _r_: rename  _1_: delete-other  _m_: toggle-maximized"
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
          ("C-c r" . t0yv0/register-hydra/body)
-         ("C-c 5" . t0yv0/frame-hydra/body)
-         ("C-c t" . t0yv0/tab-hydra/body)
          ("C-c /" . t0yv0/copilot-hydra/body)))
 
 (use-package json-mode)
