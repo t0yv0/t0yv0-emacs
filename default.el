@@ -8,92 +8,6 @@
 (require 'use-package)
 (require 't0yv0-ware)
 
-
-;;; settings
-
-(global-so-long-mode 1)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-(prefer-coding-system 'utf-8)
-(winner-mode t)
-
-(when (boundp 'ns-command-modifier)
-  (setq ns-command-modifier 'meta))
-
-(when (boundp 'ns-right-command-modifier)
-  (setq ns-right-command-modifier 'super))
-
-(let ((font "Iosevka 14"))
-  (set-frame-font font)
-
-  (setq default-frame-alist
-	`((menu-bar-lines . 0)
-	  (tool-bar-lines . 0)
-	  (font . ,font)
-	  (vertical-scroll-bars . nil)
-	  (horizontal-scroll-bars . nil))))
-
-(setq bookmark-default-file "~/my/bookmarks")
-(setq bookmark-save-flag 1)
-(setq column-number-mode t)
-(setq global-mark-ring-max 6)
-(setq inhibit-splash-screen t)
-(setq inhibit-startup-message t)
-(setq initial-major-mode 'text-mode)
-(setq initial-scratch-message "")
-(setq major-mode 'text-mode)
-(setq make-backup-files nil)
-(setq mark-ring-max 6)
-(setq sentence-end-double-space nil)
-(setq set-mark-command-repeat-pop t)
-(setq suggest-key-bindings t)
-(setq switch-to-buffer-obey-display-actions t)
-(setq tab-width 4)
-(setq visible-bell t)
-(setq-default fill-column 100)
-(setq-default indent-tabs-mode nil)
-
-(display-fill-column-indicator-mode t)
-
-(setq display-buffer-alist
-      '(("\\*vterm"
-         (display-buffer-reuse-window
-          t0yv0/display-buffer-same-vterm-window
-          display-buffer-reuse-mode-window
-          display-buffer-in-direction)
-         (inhibit-same-window . nil)
-         (mode vterm-mode vterm-copy-mode)
-         (direction . bottom)
-         (window . root)
-         (window-height . 0.381)
-         (dedicated . t))))
-
-
-;;; faces
-
-(custom-set-faces
- '(region ((t (:extend t :background "khaki")))))
-
-
-;;; hooks
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-
-;;; key bindings
-
-(global-set-key (kbd "C-c d") 't0yv0/diary)
-(global-set-key (kbd "C-c z") 't0yv0/vterm-repeat)
-(global-set-key (kbd "C-c o") 'org-capture)
-(global-set-key (kbd "C-c ?") 't0yv0/cheatsheet)
-(global-set-key (kbd "C-x C-b") 't0yv0/window-buffer-back)
-(global-set-key (kbd "C-x M-b") 't0yv0/window-buffer-forward)
-(global-set-key (kbd "C-x C-M-b") 't0yv0/window-buffer-forward)
-
-(global-set-key (kbd "RET") 'newline-and-indent)
-
-
 ;;; package configuration
 
 (use-package company
@@ -164,10 +78,57 @@
   (add-hook 'eglot-managed-mode-hook #'t0yv0/disable-eglot-inlay-hints))
 
 (use-package emacs
-  :bind* (("M-s d" . t0yv0/consult-ripgrep-current-directory)
-          ("M-s p" . t0yv0/consult-ripgrep-current-project))
+  :bind* (("C-c d"     . t0yv0/diary)
+          ("C-c z"     . t0yv0/vterm-repeat)
+          ("C-c o"     . org-capture)
+          ("C-c ?"     . t0yv0/cheatsheet)
+          ("C-x C-b"   . t0yv0/window-buffer-back)
+          ("C-x M-b"   . t0yv0/window-buffer-forward)
+          ("C-x C-M-b" . t0yv0/window-buffer-forward)
+          ("M-s d"     . t0yv0/consult-ripgrep-current-directory)
+          ("M-s p"     . t0yv0/consult-ripgrep-current-project))
+
+  :hook
+  (before-save-hook . delete-trailing-whitespace)
+
+  :custom-face
+  (region ((t (:extend t :background "khaki"))))
+
   :custom
-  (fill-column 100))
+  (bookmark-default-file "~/my/bookmarks")
+  (bookmark-save-flag 1)
+  (column-number-mode t)
+  (display-fill-column-indicator-mode t)
+  (fill-column 100)
+  (global-mark-ring-max 6)
+  (global-so-long-mode 1)
+  (indent-tabs-mode nil)
+  (inhibit-splash-screen t)
+  (inhibit-startup-message t)
+  (initial-major-mode 'text-mode)
+  (initial-scratch-message "")
+  (major-mode 'text-mode)
+  (make-backup-files nil)
+  (mark-ring-max 6)
+  (menu-bar-mode nil)
+  (ns-command-modifier 'meta)
+  (ns-right-command-modifier 'super)
+  (prefer-coding-system 'utf-8)
+  (scroll-bar-mode nil)
+  (sentence-end-double-space nil)
+  (set-mark-command-repeat-pop t)
+  (suggest-key-bindings t)
+  (switch-to-buffer-obey-display-actions t)
+  (tab-width 4)
+  (tool-bar-mode nil)
+  (visible-bell t)
+  (winner-mode t)
+
+  (default-frame-alist '((menu-bar-lines . 0)
+	                     (tool-bar-lines . 0)
+	                     (font . "Iosevka 14")
+	                     (vertical-scroll-bars . nil)
+	                     (horizontal-scroll-bars . nil))))
 
 (use-package embark
   :bind
@@ -357,7 +318,20 @@
 (use-package vterm
   :bind (("C-x p v" . t0yv0/vterm-proj))
   :bind (:map vterm-mode-map
-              ("M-/" . #'t0yv0/vterm-dabbrev-expand)))
+              ("M-/" . #'t0yv0/vterm-dabbrev-expand))
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\*vterm"
+                 (display-buffer-reuse-window
+                  t0yv0/display-buffer-same-vterm-window
+                  display-buffer-reuse-mode-window
+                  display-buffer-in-direction)
+                 (inhibit-same-window . nil)
+                 (mode vterm-mode vterm-copy-mode)
+                 (direction . bottom)
+                 (window . root)
+                 (window-height . 0.381)
+                 (dedicated . t))))
 
 (use-package yaml-mode)
 
