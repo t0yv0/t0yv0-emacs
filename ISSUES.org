@@ -20,7 +20,3 @@ Still sends requests of this form just from mousing around:
 - textDocument/signatureHelp
 
 Would like to disable.
-
-* Go INDENT
-
-Something started fighting gofmt over how to indent Go code.
