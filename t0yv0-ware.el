@@ -218,18 +218,15 @@ ALIST contains options such as `inhibit-same-window'."
   (with-output-to-temp-buffer "*cheat*"
     (princ "Emacs Refcard
 
-Motion               Fluency
-
-char C-b    C-f      M-h  mark-paragraph
-word M-b    M-f      M-m  back-to-indentation
-line C-p    C-n      C-x <left>  previous-buffer
-eol  C-a    C-e      C-x <right> next-buffer
-sntc M-a    M-e      C-x C-SPC   pop-global-mark
-para M-{    M-}      C-u C-SPC   set-mark-command (pop)
-page C-x [  C-x ]    C-SPC C-SPC set-mark-command
-sexp C-M-b  C-M-f    C-x f       consult-recent-file
-func C-M-a  C-M-e    C-x C-b     consult-project-buffer
-buf  M-<    M->"))
+C-c ?   t0yv0/cheatsheet (here)       C-c /   copilot
+C-c d   t0yv0/diary                   C-c v   vterms
+C-c z   t0yv0/vterm-repeat            C-c c   compilation
+C-c o   org-capture                   C-c w   window
+C-x C-b t0yv0/window-buffer-back      M-s ?   search
+C-x M-b t0yv0/window-buffer-forward   M-g ?   goto
+M-h     mark-paragraph                C-x p ? project
+M-m     back-to-indentation           C-c l   link 
+"))
   (select-window (display-buffer "*cheat*")))
 
 
