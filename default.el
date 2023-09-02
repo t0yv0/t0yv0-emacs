@@ -163,6 +163,12 @@
   :config
   (add-hook 'eglot-managed-mode-hook #'t0yv0/disable-eglot-inlay-hints))
 
+(use-package emacs
+  :bind* (("M-s d" . t0yv0/consult-ripgrep-current-directory)
+          ("M-s p" . t0yv0/consult-ripgrep-current-project))
+  :custom
+  (fill-column 100))
+
 (use-package embark
   :bind
   (("C-." . embark-act)
@@ -206,13 +212,6 @@
     ("G" t0yv0/github-link-at-point-to-register "gh-register")
     ("o" t0yv0/kill-org-link "org-kill")
     ("O" t0yv0/org-link-to-register "org-register"))
-
-  (defhydra t0yv0/search-hydra (:color blue :hint nil)
-    "search"
-    ("d" t0yv0/consult-ripgrep-current-directory "dir")
-    ("p" consult-ripgrep "project")
-    ("g" consult-git-grep "git")
-    ("o" occur "occur"))
 
   (defhydra t0yv0/windmove-hydra (:hint nil)
     "windmove: use arrow keys or fbnp to nav, add shift to swap\n"
@@ -258,8 +257,7 @@
     ("p" copilot-previous-completion "prev")
     ("C-j" copilot-accept-completion "accept" :color blue))
 
-  :bind (("C-c s" . t0yv0/search-hydra/body)
-         ("C-c w" . t0yv0/windmove-hydra/body)
+  :bind (("C-c w" . t0yv0/windmove-hydra/body)
          ("C-c l" . t0yv0/link-hydra/body)
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
@@ -335,7 +333,9 @@
   (add-hook 'scheme-mode-hook
 	    #'enable-paredit-mode)
   (add-hook 'racket-mode-hook
-	    #'enable-paredit-mode))
+	    #'enable-paredit-mode)
+  :bind (:map paredit-mode-map
+              ("M-s" . nil)))
 
 (use-package recentf
   :bind
@@ -373,7 +373,7 @@
  '(project-switch-commands
    '((consult-project-buffer "Buffer" ?b)
      (project-find-file "File" nil)
-     (consult-ripgrep "Ripgrep" ?g)
+     (t0yv0/consult-ripgrep-current-project "Ripgrep" ?g)
      (project-find-dir "Dir" nil)
      (t0yv0/vterm-proj "VTerm" ?v)
      (magit-project-status "Magit" nil))))

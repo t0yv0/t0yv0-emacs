@@ -239,6 +239,12 @@ buf  M-<    M->"))
   (consult-ripgrep default-directory))
 
 
+(defun t0yv0/consult-ripgrep-current-project ()
+  "Search current project."
+  (interactive)
+  (consult-ripgrep))
+
+
 (defun t0yv0/flex-if-twiddle (pattern _index _total)
   "See `t0yv0/orderless-style-dispatchers'.
 PATTERN _INDEX _TOTAL as required by orderless."
