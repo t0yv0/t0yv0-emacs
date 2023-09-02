@@ -12,7 +12,9 @@
 
 (use-package company
   :after eglot
-  :hook (eglot-managed-mode . company-mode))
+  :hook (eglot-managed-mode . company-mode)
+  :custom (company-idle-delay nil)
+  :bind ("C-M-i" . company-complete-common-or-cycle))
 
 (use-package consult
   :after dash
