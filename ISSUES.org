@@ -10,13 +10,3 @@ Context: editing go. To reproduce:
 Expected: the error is opened in the main window already displaying go code
 
 Actual: a new window is opened to show the error
-
-* EGLOT features to disable
-
-Still sends requests of this form just from mousing around:
-
-- textDocument/hover
-- textDocument/documentHighlight
-- textDocument/signatureHelp
-
-Would like to disable.

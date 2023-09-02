@@ -75,7 +75,13 @@
          ("M-g M-p" . flymake-goto-prev-error)
          ("M-g e"   . consult-flymake)
          ("M-g M-e" . t0yv0/consult-project-flymake))
-  :custom (eglot-stay-out-of (list 'eldoc))
+  :custom
+  (eglot-stay-out-of (list 'eldoc))
+  (eglot-ignored-server-capabilities '(:hoverProvider
+                                       :signatureHelpProvider
+                                       :documentHighlightProvider
+                                       :codeLensProivder
+                                       :inlayHintProvier))
   :config
   (add-hook 'eglot-managed-mode-hook #'t0yv0/disable-eglot-inlay-hints))
 
