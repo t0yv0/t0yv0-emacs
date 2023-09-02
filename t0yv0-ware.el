@@ -519,5 +519,9 @@ Ensures it is up-to-date with ./tree-sitter."
   (consult-flymake (project-current nil)))
 
 
+(defun t0yv0/disable-eglot-inlay-hints ()
+  (eglot-inlay-hints-mode -1))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here

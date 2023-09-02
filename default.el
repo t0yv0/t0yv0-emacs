@@ -158,7 +158,10 @@
          ("M-g p"   . flymake-goto-prev-error)
          ("M-g M-p" . flymake-goto-prev-error)
          ("M-g e"   . consult-flymake)
-         ("M-g M-e" . t0yv0/consult-project-flymake)))
+         ("M-g M-e" . t0yv0/consult-project-flymake))
+  :custom (eglot-stay-out-of (list 'eldoc))
+  :config
+  (add-hook 'eglot-managed-mode-hook #'t0yv0/disable-eglot-inlay-hints))
 
 (use-package embark
   :bind
