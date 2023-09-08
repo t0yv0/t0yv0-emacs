@@ -526,5 +526,66 @@ Ensures it is up-to-date with ./tree-sitter."
   (eglot-inlay-hints-mode -1))
 
 
+(defun t0yv0/treesit-backward ()
+  "Move point to the beginning of current or previous treesitter node."
+  (interactive)
+  (let* ((p (point))
+         (n (treesit-node-at p))
+         (ns (treesit-node-start n))
+         (pn (t0yv0/treesit-prev-node n)))
+    (cond
+     ;; when not at start of current node, go there
+     ((< ns p) (goto-char ns))
+     ;; when there is a previous node, go to its start
+     (pn (goto-char (treesit-node-start pn)))
+     ;; otherwise step back one char
+     ((> p 0) (goto-char (- p 1))))))
+
+
+(defun t0yv0/treesit-forward ()
+  "Move point to the beginning of next treesitter node."
+  (interactive)
+  (let* ((p (point))
+         (n (treesit-node-at p))
+         (nn (t0yv0/treesit-next-node n)))
+    (cond
+     ;; when there is a next node, go to its start
+     (nn (goto-char (treesit-node-start nn)))
+     ;; otherwise go to end of current
+     (t (goto-char (treesit-node-end n))))))
+
+
+(defun t0yv0/treesit-prev-node (n)
+  (let ((ps (treesit-node-prev-sibling n))
+        (p (treesit-node-parent n)))
+    (if ps (t0yv0/treesit-last-child ps)
+      (if p (t0yv0/treesit-prev-node p)
+        nil))))
+
+
+(defun t0yv0/treesit-next-node (n)
+  (let ((ns (treesit-node-next-sibling n))
+        (p (treesit-node-parent n)))
+    (if ns (t0yv0/treesit-first-child ns)
+      (if p (t0yv0/treesit-next-node p)
+        nil))))
+
+
+(defun t0yv0/treesit-last-child (n)
+  (let ((k (treesit-node-child-count n)))
+    (if (> k 0)
+        (t0yv0/treesit-last-child
+         (treesit-node-child n (- k 1)))
+      n)))
+
+
+(defun t0yv0/treesit-first-child (n)
+  (let ((k (treesit-node-child-count n)))
+    (if (> k 0)
+        (t0yv0/treesit-first-child
+         (treesit-node-child n 0))
+      n)))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
