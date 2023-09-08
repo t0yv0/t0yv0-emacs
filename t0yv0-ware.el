@@ -587,5 +587,33 @@ Ensures it is up-to-date with ./tree-sitter."
       n)))
 
 
+(defun t0yv0/treesit-expand-region ()
+  (interactive)
+  (if (region-active-p)
+      (let* ((n (treesit-node-on (region-beginning)
+                                 (region-end)))
+             (p (treesit-wider-node n
+                                    (treesit-node-start n)
+                                    (treesit-node-end n))))
+        (when p
+          (goto-char (treesit-node-start p))
+          (set-mark (treesit-node-end p))))
+    (let ((n (treesit-node-at (point))))
+      (goto-char (treesit-node-start n))
+      (set-mark (treesit-node-end n)))))
+
+
+(defun t0yv0/wider-node (n b e)
+  (cond
+   ((< (treesit-node-start n) b)
+    n)
+   ((> (treesit-node-end n) e)
+    n)
+   ((and (treesit-node-parent n) (treesit-node-parent (treesit-node-parent n)))
+    (t0yv0/wider-node (treesit-node-parent n) b e))
+   (t
+    n)))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
