@@ -592,9 +592,9 @@ Ensures it is up-to-date with ./tree-sitter."
   (if (region-active-p)
       (let* ((n (treesit-node-on (region-beginning)
                                  (region-end)))
-             (p (treesit-wider-node n
-                                    (treesit-node-start n)
-                                    (treesit-node-end n))))
+             (p (t0yv0/wider-node n
+                                  (treesit-node-start n)
+                                  (treesit-node-end n))))
         (when p
           (goto-char (treesit-node-start p))
           (set-mark (treesit-node-end p))))
