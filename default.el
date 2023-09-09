@@ -171,7 +171,7 @@
          ("C-M-f"   . t0yv0/treesit-forward)
          ("C-M-h"   . t0yv0/treesit-expand-region)
          ("C-M-p"   . t0yv0/treesit-previous)
-         ("C-M-n"   . t0yv0/treesit-next))
+         ("C-M-n"   . t0yv0/treesit-next)
          ("C-M-d"   . t0yv0/treesit-down)
          ("C-M-u"   . t0yv0/treesit-up))
   :hook
