@@ -647,7 +647,6 @@ Ensures it is up-to-date with ./tree-sitter."
     (while (and (treesit-node-parent n)
                 (equal s (treesit-node-start (treesit-node-parent n))))
       (setq n (treesit-node-parent n)))
-    (message (format "--> %s" n))
     n))
 
 
