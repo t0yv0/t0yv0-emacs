@@ -642,12 +642,33 @@ Ensures it is up-to-date with ./tree-sitter."
 
 
 (defun t0yv0/treesit-topmost-starting-here-node ()
-  (let* ((n (treesit-node-at (point)))
-         (s (treesit-node-start n)))
+  (t0yv0/treesit-topmost-starting-from-node
+   (treesit-node-at (point))))
+
+
+(defun t0yv0/treesit-topmost-starting-from-node (n)
+  (let ((s (treesit-node-start n)))
     (while (and (treesit-node-parent n)
                 (equal s (treesit-node-start (treesit-node-parent n))))
       (setq n (treesit-node-parent n)))
     n))
+
+
+(defun t0yv0/treesit-down ()
+  (interactive)
+  (let ((n (treesit-node-at (point)))
+         (loop t)
+         (i 0))
+    (while (and loop (< i 100))
+      (setq n (t0yv0/treesit-next-node n))
+      (when (equal "{" (treesit-node-type n))
+        (setq loop nil))
+      (setq i (+ 1 i)))
+    (when (and (equal "{" (treesit-node-type n))
+               (treesit-node-next-sibling n))
+      (goto-char
+       (treesit-node-start
+        (treesit-node-next-sibling n))))))
 
 
 (provide 't0yv0-ware)
