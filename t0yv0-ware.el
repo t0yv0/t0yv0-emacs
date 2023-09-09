@@ -632,13 +632,14 @@ Ensures it is up-to-date with ./tree-sitter."
   (interactive)
   (back-to-indentation)
   (let ((n (t0yv0/treesit-topmost-starting-here-node)))
-    (let ((x (treesit-node-next-sibling n)))
+    (let ((x (or (treesit-node-next-sibling n)
+                 (t0yv0/treesit-next-node n))))
       (when x
-        (while (and (equal "\n" (treesit-node-type x))
-                    (treesit-node-next-sibling x))
-          (setq x (treesit-node-next-sibling x)))
-        (goto-char (treesit-node-start x))
-        (back-to-indentation)))))
+          (while (and (equal "\n" (treesit-node-type x))
+                      (treesit-node-next-sibling x))
+            (setq x (treesit-node-next-sibling x)))
+          (goto-char (treesit-node-start x))
+          (back-to-indentation)))))
 
 
 (defun t0yv0/treesit-topmost-starting-here-node ()
