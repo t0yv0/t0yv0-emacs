@@ -672,5 +672,14 @@ Ensures it is up-to-date with ./tree-sitter."
         (treesit-node-next-sibling n))))))
 
 
+(defun t0yv0/treesit-up ()
+  (interactive)
+  (let ((n (t0yv0/treesit-topmost-starting-here-node)))
+    (when (treesit-node-parent n)
+      (goto-char
+       (treesit-node-start
+        (treesit-node-parent n))))))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here

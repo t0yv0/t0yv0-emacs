@@ -172,7 +172,8 @@
          ("C-M-h"   . t0yv0/treesit-expand-region)
          ("C-M-p"   . t0yv0/treesit-previous)
          ("C-M-n"   . t0yv0/treesit-next))
-         ("C-M-d"   . t0yv0/treesit-down))
+         ("C-M-d"   . t0yv0/treesit-down)
+         ("C-M-u"   . t0yv0/treesit-up))
   :hook
   (go-ts-mode . eglot-ensure)
   (before-save . t0yv0/gofmt-before-save))
