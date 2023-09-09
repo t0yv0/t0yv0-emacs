@@ -169,7 +169,9 @@
   :bind (("C-c C-a" . go-import-add)
          ("C-M-b"   . t0yv0/treesit-backward)
          ("C-M-f"   . t0yv0/treesit-forward)
-         ("C-M-h"   . t0yv0/treesit-expand-region))
+         ("C-M-h"   . t0yv0/treesit-expand-region)
+         ("C-M-p"   . t0yv0/treesit-previous)
+         ("C-M-n"   . t0yv0/treesit-next))
   :hook
   (go-ts-mode . eglot-ensure)
   (before-save . t0yv0/gofmt-before-save))

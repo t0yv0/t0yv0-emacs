@@ -615,5 +615,41 @@ Ensures it is up-to-date with ./tree-sitter."
     n)))
 
 
+(defun t0yv0/treesit-previous ()
+  (interactive)
+  (back-to-indentation)
+  (let ((n (t0yv0/treesit-topmost-starting-here-node)))
+    (let ((x (treesit-node-prev-sibling n)))
+      (when x
+        (while (and (equal "\n" (treesit-node-type x))
+                    (treesit-node-prev-sibling x))
+          (setq x (treesit-node-prev-sibling x)))
+        (goto-char (treesit-node-start x))
+        (back-to-indentation)))))
+
+
+(defun t0yv0/treesit-next ()
+  (interactive)
+  (back-to-indentation)
+  (let ((n (t0yv0/treesit-topmost-starting-here-node)))
+    (let ((x (treesit-node-next-sibling n)))
+      (when x
+        (while (and (equal "\n" (treesit-node-type x))
+                    (treesit-node-next-sibling x))
+          (setq x (treesit-node-next-sibling x)))
+        (goto-char (treesit-node-start x))
+        (back-to-indentation)))))
+
+
+(defun t0yv0/treesit-topmost-starting-here-node ()
+  (let* ((n (treesit-node-at (point)))
+         (s (treesit-node-start n)))
+    (while (and (treesit-node-parent n)
+                (equal s (treesit-node-start (treesit-node-parent n))))
+      (setq n (treesit-node-parent n)))
+    (message (format "--> %s" n))
+    n))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
