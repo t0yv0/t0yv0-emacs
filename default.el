@@ -94,7 +94,8 @@
           ("C-x M-b"   . t0yv0/window-buffer-forward)
           ("C-x C-M-b" . t0yv0/window-buffer-forward)
           ("M-s d"     . t0yv0/consult-ripgrep-current-directory)
-          ("M-s p"     . t0yv0/consult-ripgrep-current-project))
+          ("M-s p"     . t0yv0/consult-ripgrep-current-project)
+          ("M-`"       . other-frame))
 
   :hook
   (before-save-hook . delete-trailing-whitespace)
