@@ -109,6 +109,8 @@
   (column-number-mode t)
   (display-fill-column-indicator-mode t)
   (fill-column 100)
+  (gc-cons-threshold 16777216)
+  (gc-cons-percentage 0.2)
   (global-mark-ring-max 6)
   (global-so-long-mode 1)
   (indent-tabs-mode nil)
