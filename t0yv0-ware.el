@@ -615,19 +615,6 @@ Ensures it is up-to-date with ./tree-sitter."
     n)))
 
 
-(defun t0yv0/treesit-previous ()
-  (interactive)
-  (back-to-indentation)
-  (let ((n (t0yv0/treesit-topmost-starting-here-node)))
-    (let ((x (treesit-node-prev-sibling n)))
-      (when x
-        (while (and (equal "\n" (treesit-node-type x))
-                    (treesit-node-prev-sibling x))
-          (setq x (treesit-node-prev-sibling x)))
-        (goto-char (treesit-node-start x))
-        (back-to-indentation)))))
-
-
 (defun t0yv0/treesit-notable-node (x)
   (let ((nt (treesit-node-type x)))
     (cond ((equal nt "literal_element") t)
@@ -646,17 +633,33 @@ Ensures it is up-to-date with ./tree-sitter."
     (while (and
             (not (and (t0yv0/treesit-notable-node n)
                       (> (treesit-node-start n) p0)))
-            (t0yv0/treesit-node-next-sibling-or-following n))
-      (setq n (t0yv0/treesit-node-next-sibling-or-following n)))
+            (t0yv0/treesit-node-next-sibling-or-parent n))
+      (setq n (t0yv0/treesit-node-next-sibling-or-parent n)))
     (goto-char (treesit-node-start n))
     (back-to-indentation)))
 
 
-(defun t0yv0/treesit-node-next-sibling-or-following (n)
+(defun t0yv0/treesit-previous ()
+  (interactive)
+  (let ((n (t0yv0/treesit-topmost-starting-here-node))
+        (p0 (point)))
+    (while (and
+            (not (and (t0yv0/treesit-notable-node n)
+                      (< (treesit-node-start n) p0)))
+            (t0yv0/treesit-node-prev-sibling-or-parent n))
+      (setq n (t0yv0/treesit-node-prev-sibling-or-parent n)))
+    (goto-char (treesit-node-start n))
+    (back-to-indentation)))
+
+
+(defun t0yv0/treesit-node-next-sibling-or-parent (n)
   (or (treesit-node-next-sibling n)
-      (if (treesit-node-parent n)
-          (t0yv0/treesit-node-next-sibling-or-following (treesit-node-parent n))
-        nil)))
+      (treesit-node-parent n)))
+
+
+(defun t0yv0/treesit-node-prev-sibling-or-parent (n)
+  (or (treesit-node-prev-sibling n)
+      (treesit-node-parent n)))
 
 
 (defun t0yv0/treesit-topmost-starting-here-node ()
