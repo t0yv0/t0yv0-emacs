@@ -628,18 +628,35 @@ Ensures it is up-to-date with ./tree-sitter."
         (back-to-indentation)))))
 
 
+(defun t0yv0/treesit-notable-node (x)
+  (let ((nt (treesit-node-type x)))
+    (cond ((equal nt "literal_element") t)
+          ((equal nt "keyed_element") t)
+          ((equal nt "function_declaration") t)
+          ((equal nt "return_statement") t)
+          ((equal nt "short_var_declaration") t)
+          ((equal nt "type_declaration") t)
+          (t nil))))
+
+
 (defun t0yv0/treesit-next ()
   (interactive)
-  (back-to-indentation)
-  (let ((n (t0yv0/treesit-topmost-starting-here-node)))
-    (let ((x (or (treesit-node-next-sibling n)
-                 (t0yv0/treesit-next-node n))))
-      (when x
-          (while (and (equal "\n" (treesit-node-type x))
-                      (treesit-node-next-sibling x))
-            (setq x (treesit-node-next-sibling x)))
-          (goto-char (treesit-node-start x))
-          (back-to-indentation)))))
+  (let ((n (t0yv0/treesit-topmost-starting-here-node))
+        (p0 (point)))
+    (while (and
+            (not (and (t0yv0/treesit-notable-node n)
+                      (> (treesit-node-start n) p0)))
+            (t0yv0/treesit-node-next-sibling-or-following n))
+      (setq n (t0yv0/treesit-node-next-sibling-or-following n)))
+    (goto-char (treesit-node-start n))
+    (back-to-indentation)))
+
+
+(defun t0yv0/treesit-node-next-sibling-or-following (n)
+  (or (treesit-node-next-sibling n)
+      (if (treesit-node-parent n)
+          (t0yv0/treesit-node-next-sibling-or-following (treesit-node-parent n))
+        nil)))
 
 
 (defun t0yv0/treesit-topmost-starting-here-node ()
