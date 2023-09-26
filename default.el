@@ -99,7 +99,7 @@
           ("M-`"       . other-frame))
 
   :hook
-  (before-save-hook . delete-trailing-whitespace)
+  (before-save . delete-trailing-whitespace)
 
   :custom-face
   (region ((t (:extend t :background "khaki"))))
