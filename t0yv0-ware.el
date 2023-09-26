@@ -691,11 +691,15 @@ Ensures it is up-to-date with ./tree-sitter."
 
 (defun t0yv0/treesit-up ()
   (interactive)
-  (let ((n (t0yv0/treesit-topmost-starting-here-node)))
-    (when (treesit-node-parent n)
-      (goto-char
-       (treesit-node-start
-        (treesit-node-parent n))))))
+  (let* ((p0 (point))
+         (n (t0yv0/search
+             (t0yv0/treesit-topmost-starting-here-node)
+             #'treesit-node-parent
+             (lambda (n)
+               (and (t0yv0/treesit-notable-node n)
+                    (< (treesit-node-start n) p0))))))
+    (when n
+      (goto-char (treesit-node-start n)))))
 
 
 (provide 't0yv0-ware)
