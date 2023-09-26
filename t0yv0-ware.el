@@ -225,7 +225,7 @@ C-c o   org-capture                   C-c w   window
 C-x C-b t0yv0/window-buffer-back      M-s ?   search
 C-x M-b t0yv0/window-buffer-forward   M-g ?   goto
 M-h     mark-paragraph                C-x p ? project
-M-m     back-to-indentation           C-c l   link 
+M-m     back-to-indentation           C-c l   link
 "))
   (select-window (display-buffer "*cheat*")))
 
@@ -626,40 +626,41 @@ Ensures it is up-to-date with ./tree-sitter."
           (t nil))))
 
 
+(defun t0yv0/search (start next found)
+  (let ((x start))
+    (while (and x (not (funcall found x)))
+      (setq x (funcall next x)))
+    (if (and x (funcall found x)) x nil)))
+
+
 (defun t0yv0/treesit-next ()
   (interactive)
-  (let ((n (t0yv0/treesit-topmost-starting-here-node))
-        (p0 (point)))
-    (while (and
-            (not (and (t0yv0/treesit-notable-node n)
-                      (> (treesit-node-start n) p0)))
-            (t0yv0/treesit-node-next-sibling-or-parent n))
-      (setq n (t0yv0/treesit-node-next-sibling-or-parent n)))
-    (goto-char (treesit-node-start n))
-    (back-to-indentation)))
+  (let* ((p0 (point))
+         (n (t0yv0/search
+             (t0yv0/treesit-topmost-starting-here-node)
+             (lambda (n)
+               (or (treesit-node-next-sibling n)
+                   (treesit-node-parent n)))
+             (lambda (n)
+               (and (t0yv0/treesit-notable-node n)
+                    (> (treesit-node-start n) p0))))))
+    (when n
+      (goto-char (treesit-node-start n)))))
 
 
 (defun t0yv0/treesit-previous ()
   (interactive)
-  (let ((n (t0yv0/treesit-topmost-starting-here-node))
-        (p0 (point)))
-    (while (and
-            (not (and (t0yv0/treesit-notable-node n)
-                      (< (treesit-node-start n) p0)))
-            (t0yv0/treesit-node-prev-sibling-or-parent n))
-      (setq n (t0yv0/treesit-node-prev-sibling-or-parent n)))
-    (goto-char (treesit-node-start n))
-    (back-to-indentation)))
-
-
-(defun t0yv0/treesit-node-next-sibling-or-parent (n)
-  (or (treesit-node-next-sibling n)
-      (treesit-node-parent n)))
-
-
-(defun t0yv0/treesit-node-prev-sibling-or-parent (n)
-  (or (treesit-node-prev-sibling n)
-      (treesit-node-parent n)))
+  (let* ((p0 (point))
+         (n (t0yv0/search
+             (t0yv0/treesit-topmost-starting-here-node)
+             (lambda (n)
+               (or (treesit-node-prev-sibling n)
+                   (treesit-node-parent n)))
+             (lambda (n)
+               (and (t0yv0/treesit-notable-node n)
+                    (< (treesit-node-start n) p0))))))
+    (when n
+      (goto-char (treesit-node-start n)))))
 
 
 (defun t0yv0/treesit-topmost-starting-here-node ()
