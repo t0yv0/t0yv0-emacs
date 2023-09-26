@@ -678,19 +678,15 @@ Ensures it is up-to-date with ./tree-sitter."
 
 (defun t0yv0/treesit-down ()
   (interactive)
-  (let ((n (treesit-node-at (point)))
-         (loop t)
-         (i 0))
-    (while (and loop (< i 100))
-      (setq n (t0yv0/treesit-next-node n))
-      (when (equal "{" (treesit-node-type n))
-        (setq loop nil))
-      (setq i (+ 1 i)))
-    (when (and (equal "{" (treesit-node-type n))
-               (treesit-node-next-sibling n))
-      (goto-char
-       (treesit-node-start
-        (treesit-node-next-sibling n))))))
+  (let* ((p0 (point))
+         (n (treesit-search-subtree
+             (t0yv0/treesit-topmost-starting-here-node)
+             (lambda (n)
+               (and (t0yv0/treesit-notable-node
+                     (t0yv0/treesit-topmost-starting-from-node n))
+                    (> (treesit-node-start n) p0))))))
+    (when n
+      (goto-char (treesit-node-start n)))))
 
 
 (defun t0yv0/treesit-up ()
