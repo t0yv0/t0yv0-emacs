@@ -556,35 +556,15 @@ Ensures it is up-to-date with ./tree-sitter."
 
 
 (defun t0yv0/treesit-prev-node (n)
-  (let ((ps (treesit-node-prev-sibling n))
-        (p (treesit-node-parent n)))
-    (if ps (t0yv0/treesit-last-child ps)
-      (if p (t0yv0/treesit-prev-node p)
-        nil))))
+  (treesit-search-forward n (lambda (x) (< (treesit-node-start x)
+                                           (treesit-node-start n)))
+                          t t))
 
 
 (defun t0yv0/treesit-next-node (n)
-  (let ((ns (treesit-node-next-sibling n))
-        (p (treesit-node-parent n)))
-    (if ns (t0yv0/treesit-first-child ns)
-      (if p (t0yv0/treesit-next-node p)
-        nil))))
-
-
-(defun t0yv0/treesit-last-child (n)
-  (let ((k (treesit-node-child-count n)))
-    (if (> k 0)
-        (t0yv0/treesit-last-child
-         (treesit-node-child n (- k 1)))
-      n)))
-
-
-(defun t0yv0/treesit-first-child (n)
-  (let ((k (treesit-node-child-count n)))
-    (if (> k 0)
-        (t0yv0/treesit-first-child
-         (treesit-node-child n 0))
-      n)))
+  (treesit-search-forward n (lambda (x) (> (treesit-node-start x)
+                                           (treesit-node-start n)))
+                          nil t))
 
 
 (defun t0yv0/treesit-expand-region ()
