@@ -638,9 +638,7 @@ Ensures it is up-to-date with ./tree-sitter."
   (let* ((p0 (point))
          (n (t0yv0/search
              (t0yv0/treesit-topmost-starting-here-node)
-             (lambda (n)
-               (or (treesit-node-next-sibling n)
-                   (treesit-node-parent n)))
+             #'treesit-node-next-sibling
              (lambda (n)
                (and (t0yv0/treesit-notable-node n)
                     (> (treesit-node-start n) p0))))))
@@ -653,9 +651,7 @@ Ensures it is up-to-date with ./tree-sitter."
   (let* ((p0 (point))
          (n (t0yv0/search
              (t0yv0/treesit-topmost-starting-here-node)
-             (lambda (n)
-               (or (treesit-node-prev-sibling n)
-                   (treesit-node-parent n)))
+             #'treesit-node-prev-sibling
              (lambda (n)
                (and (t0yv0/treesit-notable-node n)
                     (< (treesit-node-start n) p0))))))
