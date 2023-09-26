@@ -76,6 +76,7 @@
          ("M-g e"   . consult-flymake)
          ("M-g M-e" . t0yv0/consult-project-flymake))
   :custom
+  (eglot-events-buffer-size 0)
   (eglot-stay-out-of (list 'eldoc))
   (eglot-ignored-server-capabilities '(:hoverProvider
                                        :signatureHelpProvider
@@ -125,6 +126,7 @@
   (ns-command-modifier 'meta)
   (ns-right-command-modifier 'super)
   (prefer-coding-system 'utf-8)
+  (read-process-output-max 4194304)
   (scroll-bar-mode nil)
   (sentence-end-double-space nil)
   (set-mark-command-repeat-pop t)
