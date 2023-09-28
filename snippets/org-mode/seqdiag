@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: seqdiag
+# key: seqdiag_
+# --
+
+#+begin_src mermaid
+  sequenceDiagram
+      participant Alice$0
+      participant Bob
+      Alice->>Bob: Hi Bob
+      Bob->>Alice: Hi Alice
+#+end_src

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: shellblock
+# key: sh_
+# --
+
+#+begin_src shell :results output verbatim
+  $0
+#+end_src

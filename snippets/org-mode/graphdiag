@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: graphdiag
+# key: graphdiag_
+# --
+
+#+begin_src mermaid
+  graph LR
+      A[Square Rect] -- Link text --> B((Circle))$0
+      A --> C(Round Rect)
+      B --> D{Rhombus}
+      C --> D
+      #+end_src
