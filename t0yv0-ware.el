@@ -596,7 +596,13 @@ Ensures it is up-to-date with ./tree-sitter."
 
 
 (defvar t0yv0/treesit-notable-go-node-regex
-  (rx (or "default_case"
+  (rx (or "assignment_statement"
+          "continue_statement"
+          "default_case"
+          "expression_switch_statement"
+          "expression_case"
+          "if_statement"
+          "for_statement"
           "function_declaration"
           "keyed_element"
           "literal_element"
@@ -604,7 +610,8 @@ Ensures it is up-to-date with ./tree-sitter."
           "short_var_declaration"
           "type_case"
           "type_declaration"
-          "type_switch_statement")))
+          "type_switch_statement"
+          "var_declaration")))
 
 
 (defun t0yv0/treesit-notable-node (x)
