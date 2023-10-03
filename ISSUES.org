@@ -27,3 +27,13 @@ Possibly this one actually: https://github.com/emacsfodder/move-text
 * Bind M-n, M-p
 
 * Kill current line and select current line
+
+* Consider puni
+
+Might be a good replacement for paredit:
+https://github.com/AmaiKinono/puni#what-is-it
+
+* Improve xref-find-apropos
+
+This is useful but does not have the same UX polish as VS Code. There could be a consult package
+around it.
