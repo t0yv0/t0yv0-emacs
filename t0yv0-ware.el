@@ -595,15 +595,21 @@ Ensures it is up-to-date with ./tree-sitter."
     n)))
 
 
+(defvar t0yv0/treesit-notable-go-node-regex
+  (rx (or "default_case"
+          "function_declaration"
+          "keyed_element"
+          "literal_element"
+          "return_statement"
+          "short_var_declaration"
+          "type_case"
+          "type_declaration"
+          "type_switch_statement")))
+
+
 (defun t0yv0/treesit-notable-node (x)
-  (let ((nt (treesit-node-type x)))
-    (cond ((equal nt "literal_element") t)
-          ((equal nt "keyed_element") t)
-          ((equal nt "function_declaration") t)
-          ((equal nt "return_statement") t)
-          ((equal nt "short_var_declaration") t)
-          ((equal nt "type_declaration") t)
-          (t nil))))
+  (if (string-match-p t0yv0/treesit-notable-go-node-regex (treesit-node-type x))
+      t nil))
 
 
 (defun t0yv0/search (start next found)
@@ -676,7 +682,6 @@ Ensures it is up-to-date with ./tree-sitter."
                     (< (treesit-node-start n) p0))))))
     (when n
       (goto-char (treesit-node-start n)))))
-
 
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
