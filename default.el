@@ -10,12 +10,6 @@
 
 ;;; package configuration
 
-(use-package company
-  :after eglot
-  :hook (eglot-managed-mode . company-mode)
-  :custom (company-idle-delay nil)
-  :bind ("C-M-i" . company-complete-common-or-cycle))
-
 (use-package consult
   :after dash
   :bind (("M-y"       . consult-yank-pop)
@@ -60,6 +54,14 @@
      consult--source-project-recent-file)))
 
 (use-package copilot)
+
+(use-package corfu
+  :init
+  (global-corfu-mode)
+
+  :bind
+  (:map corfu-map
+        ("C-j" . corfu-insert)))
 
 (use-package dash)
 
@@ -108,6 +110,7 @@
   (bookmark-default-file "~/my/bookmarks")
   (bookmark-save-flag 1)
   (column-number-mode t)
+  (completion-cycle-threshold 3)
   (display-fill-column-indicator-mode t)
   (fill-column 100)
   (gc-cons-threshold 16777216)
@@ -133,6 +136,7 @@
   (suggest-key-bindings t)
   (switch-to-buffer-obey-display-actions t)
   (default-tab-width 8)
+  (tab-always-indent 'complete)
   (tab-width 8)
   (tool-bar-mode nil)
   (visible-bell t)
@@ -329,7 +333,6 @@
 
 (use-package tide
   :config (add-hook 'typescript-mode-hook #'(lambda ()
-					      (company-mode +1)
 					      (tide-setup))))
 
 (use-package typescript-mode)

@@ -31,8 +31,8 @@ in epkgs.trivialBuild {
    ln -s ${treesitter}/gomod.so $out/share/emacs/site-lisp/tree-sitter/libtree-sitter-gomod.so
   '';
   packageRequires = [
-    epkgs.company
     epkgs.consult
+    epkgs.corfu
     epkgs.dap-mode
     epkgs.edit-indirect
     epkgs.embark
