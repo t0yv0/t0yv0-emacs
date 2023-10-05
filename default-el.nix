@@ -38,6 +38,7 @@ in epkgs.trivialBuild {
     epkgs.edit-indirect
     epkgs.embark
     epkgs.embark-consult
+    epkgs.expand-region
     epkgs.go-mode
     epkgs.haskell-mode
     epkgs.hydra

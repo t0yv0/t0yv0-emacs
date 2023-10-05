@@ -176,6 +176,10 @@
 (use-package embark-consult
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
+(use-package expand-region
+  :init
+  (keymap-global-set "M-h" 'er/expand-region))
+
 (use-package go-mode)
 
 (use-package go-ts-mode
