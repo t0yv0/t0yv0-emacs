@@ -10,6 +10,13 @@
 
 ;;; package configuration
 
+(use-package avy
+  :init
+  (avy-setup-default)
+  (keymap-global-set "C-:" 'avy-goto-char)
+  (keymap-global-set "C-'" 'avy-goto-char-2)
+  (keymap-global-set "M-g w" 'avy-goto-word-1))
+
 (use-package consult
   :after dash
   :bind (("M-y"       . consult-yank-pop)
