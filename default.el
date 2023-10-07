@@ -196,7 +196,8 @@
          ("C-M-p"   . t0yv0/treesit-previous)
          ("C-M-n"   . t0yv0/treesit-next)
          ("C-M-d"   . t0yv0/treesit-down)
-         ("C-M-u"   . t0yv0/treesit-up))
+         ("C-M-u"   . t0yv0/treesit-up)
+         ("C-M-k"   . t0yv0/treesit-kill))
   :hook
   (go-ts-mode . eglot-ensure)
   (before-save . t0yv0/gofmt-before-save))

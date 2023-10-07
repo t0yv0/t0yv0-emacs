@@ -626,6 +626,27 @@ Ensures it is up-to-date with ./tree-sitter."
     (if (and x (funcall found x)) x nil)))
 
 
+(defun t0yv0/treesit-kill ()
+  (interactive)
+  (let* ((p0 (point))
+         (nh (t0yv0/treesit-topmost-starting-here-node))
+         (n (t0yv0/search
+             nh
+             #'treesit-node-next-sibling
+             (lambda (n)
+               (and (t0yv0/treesit-notable-node n)
+                    (> (treesit-node-start n) p0))))))
+    (if n
+      (kill-region p0 (treesit-node-start n))
+      (when (t0yv0/treesit-notable-node nh)
+        (kill-region (treesit-node-start nh)
+                     (treesit-node-end nh))
+        (when  (equal ","
+                      (buffer-substring-no-properties (point) (+ 1 (point))))
+          (append-next-kill)
+          (kill-region (point) (+ 1 (point))))))))
+
+
 (defun t0yv0/treesit-next ()
   (interactive)
   (let* ((p0 (point))
@@ -638,6 +659,7 @@ Ensures it is up-to-date with ./tree-sitter."
     (when n
       (goto-char (treesit-node-start n)))))
 
+(global-set-key (kbd "C-M-k") #'t0yv0/treesit-kill)
 
 (defun t0yv0/treesit-previous ()
   (interactive)
@@ -689,6 +711,7 @@ Ensures it is up-to-date with ./tree-sitter."
                     (< (treesit-node-start n) p0))))))
     (when n
       (goto-char (treesit-node-start n)))))
+
 
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
