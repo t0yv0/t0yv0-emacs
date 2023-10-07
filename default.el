@@ -75,6 +75,8 @@
 (use-package dap-mode
   :init (require 'dap-dlv-go))
 
+(use-package diminish)
+
 (use-package edit-indirect)
 
 (use-package eglot

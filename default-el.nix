@@ -35,6 +35,7 @@ in epkgs.trivialBuild {
     epkgs.consult
     epkgs.corfu
     epkgs.dap-mode
+    epkgs.diminish
     epkgs.edit-indirect
     epkgs.embark
     epkgs.embark-consult
