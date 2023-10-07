@@ -11,10 +11,6 @@ Expected: the error is opened in the main window already displaying go code
 
 Actual: a new window is opened to show the error
 
-* Improve Go treesitter navigation
-
-C-M-n and C-M-p still do not work great; the n one gets stuck. Try a larger Go file.
-
 * Try vertico unobtrusive
 
 vertico-unobtrusive-mode seems to stay out of the way more now that we learned how to use it.
@@ -25,13 +21,6 @@ shift-text-up and shift-text down have to be useful.
 Possibly this one actually: https://github.com/emacsfodder/move-text
 
 * Bind M-n, M-p
-
-* Kill current line and select current line
-
-* Consider puni
-
-Might be a good replacement for paredit:
-https://github.com/AmaiKinono/puni#what-is-it
 
 * Improve xref-find-apropos
 
