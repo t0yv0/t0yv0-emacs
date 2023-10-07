@@ -1,16 +1,3 @@
-* Clicking on a compilation error opens a new window
-
-Context: editing go. To reproduce:
-
-- simulate a compilation error
-- open project vterm
-- build the project
-- click on the error
-
-Expected: the error is opened in the main window already displaying go code
-
-Actual: a new window is opened to show the error
-
 * Try shift-text package
 
 shift-text-up and shift-text down have to be useful.
