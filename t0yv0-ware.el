@@ -350,6 +350,7 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
          (vterm buffer)
          (with-current-buffer (get-buffer buffer)
            (compilation-shell-minor-mode 1))))
+     (set-window-dedicated-p (get-buffer-window buffer) t)
      (switch-to-buffer buffer))))
 
 
