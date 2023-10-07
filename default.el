@@ -152,11 +152,16 @@
   (visible-bell t)
   (winner-mode t)
 
-  (default-frame-alist '((menu-bar-lines . 0)
-	                     (tool-bar-lines . 0)
-	                     (font . "Iosevka 14")
-	                     (vertical-scroll-bars . nil)
-	                     (horizontal-scroll-bars . nil))))
+  (initial-frame-alist
+   '((unsplittable t)))
+
+  (default-frame-alist
+   '((unsplittable . t)
+     (menu-bar-lines . 0)
+     (tool-bar-lines . 0)
+     (font . "Iosevka 14")
+     (vertical-scroll-bars . nil)
+     (horizontal-scroll-bars . nil))))
 
 (use-package embark
   :bind
