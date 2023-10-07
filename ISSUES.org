@@ -9,3 +9,13 @@ Possibly this one actually: https://github.com/emacsfodder/move-text
 
 This is useful but does not have the same UX polish as VS Code. There could be a consult package
 around it.
+
+* Mismatched compilation error links
+
+As explained here:
+
+https://stackoverflow.com/questions/10451242/how-to-adjust-the-path-that-emacs-compile-goto-error-gets-from-the-compilation
+
+The errors may point to the wrong directory, but it can be fixed.
+
+Also, consult-project-flymake can be preferable to looking at errors in the compilation buffer.
