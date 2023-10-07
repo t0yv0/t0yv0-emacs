@@ -110,8 +110,9 @@
   :hook
   (before-save . delete-trailing-whitespace)
 
-  :custom-face
-  (region ((t (:extend t :background "khaki"))))
+  :config
+  (require-theme 'modus-themes)
+  (load-theme 'modus-operandi)
 
   :custom
   (bookmark-default-file "~/my/bookmarks")
