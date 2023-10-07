@@ -11,10 +11,6 @@ Expected: the error is opened in the main window already displaying go code
 
 Actual: a new window is opened to show the error
 
-* Try vertico unobtrusive
-
-vertico-unobtrusive-mode seems to stay out of the way more now that we learned how to use it.
-
 * Try shift-text package
 
 shift-text-up and shift-text down have to be useful.

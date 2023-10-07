@@ -352,7 +352,11 @@
 
 (use-package typescript-mode)
 
-(use-package vertico :init (vertico-mode))
+(use-package vertico
+  :init
+  (vertico-mode)
+  (vertico-multiform-mode)
+  (vertico-unobtrusive-mode))
 
 (use-package vterm
   :bind (("C-x p v" . t0yv0/vterm-proj))
