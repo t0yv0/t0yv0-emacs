@@ -212,24 +212,6 @@ ALIST contains options such as `inhibit-same-window'."
       (revert-buffer nil t))))
 
 
-(defun t0yv0/cheatsheet ()
-  "Reminders on Emacs bindings."
-  (interactive)
-  (with-output-to-temp-buffer "*cheat*"
-    (princ "Emacs Refcard
-
-C-c ?   t0yv0/cheatsheet (here)       C-c /   copilot
-C-c d   t0yv0/diary                   C-c v   vterms
-C-c z   t0yv0/vterm-repeat            C-c c   compilation
-C-c o   org-capture                   C-c w   window
-C-x C-b t0yv0/window-buffer-back      M-s ?   search
-C-x M-b t0yv0/window-buffer-forward   M-g ?   goto
-M-h     mark-paragraph                C-x p ? project
-M-m     back-to-indentation           C-c l   link
-"))
-  (select-window (display-buffer "*cheat*")))
-
-
 (defun t0yv0/consult-ripgrep-current-directory ()
   "Search only current dirrectory."
   (interactive)
@@ -373,33 +355,6 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
           (vterm-clear)
           (vterm-send-key "<up>")
           (vterm-send-return))))))
-
-
-(defun t0yv0/window-buffer-back ()
-  "Like `previous-buffer' but only consulting current window history."
-  (interactive)
-  (let ((pb (window-prev-buffers)))
-    (unless (null pb)
-      (switch-to-buffer (caar pb))
-      (set-window-prev-buffers nil (t0yv0/rotate (-filter (lambda (x) (not (equal (caar pb) (car x))))
-                                                          (window-prev-buffers)))))))
-
-
-(defun t0yv0/window-buffer-forward ()
-  "Inverse of `t0yv0/window-buffer-back'."
-  (interactive)
-  (let ((pb (window-prev-buffers)))
-    (unless (null pb)
-      (let ((b (car (-last-item pb))))
-        (switch-to-buffer b)
-        (set-window-prev-buffers nil (-filter (lambda (x) (not (equal b (car x))))
-                                              (window-prev-buffers)))))))
-
-
-(defun t0yv0/rotate (l)
-  "Transform a list L by moving its head to the end."
-  (if (null l) l
-    (append (cdr l) (list (car l)))))
 
 
 (defvar t0yv0/consult-source-window-buffer
