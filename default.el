@@ -185,6 +185,8 @@
   :init
   (keymap-global-set "M-h" 'er/expand-region))
 
+(use-package git-link)
+
 (use-package go-mode)
 
 (use-package go-ts-mode
@@ -207,14 +209,14 @@
 (use-package haskell-mode)
 
 (use-package hydra
+  :after git-link
   :init
 
   (defhydra t0yv0/link-hydra (:color blue :hint nil)
     "links"
-    ("g" t0yv0/kill-github-link-at-point "gh-kill")
-    ("G" t0yv0/github-link-at-point-to-register "gh-register")
-    ("o" t0yv0/kill-org-link "org-kill")
-    ("O" t0yv0/org-link-to-register "org-register"))
+    ("l" git-link "git-link")
+    ("c" git-link-commit "git-link-commit")
+    ("h" git-link-homepage "git-link-homepage"))
 
   (defhydra t0yv0/windmove-hydra (:hint nil)
     "windmove: use arrow keys or fbnp to nav, add shift to swap\n"

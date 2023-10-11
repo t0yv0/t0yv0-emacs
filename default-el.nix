@@ -40,6 +40,7 @@ in epkgs.trivialBuild {
     epkgs.embark
     epkgs.embark-consult
     epkgs.expand-region
+    epkgs.git-link
     epkgs.go-mode
     epkgs.haskell-mode
     epkgs.hydra
