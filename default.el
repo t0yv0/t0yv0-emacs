@@ -115,6 +115,7 @@
   :config
   (require-theme 'modus-themes)
   (load-theme 'modus-operandi)
+  (define-key isearch-mode-map (kbd "C-j") 'isearch-exit)
 
   :custom
   (bookmark-default-file "~/my/bookmarks")
