@@ -85,33 +85,6 @@ DIR working directory"
     (replace-regexp-in-string "\n\\'" "" (buffer-string))))
 
 
-(defun t0yv0/region-line-bounds ()
-  "Compute active region line bounds or return current line."
-  (interactive)
-
-  (if (region-active-p)
-      (let ((rb (region-bounds)))
-        (if (= 1 (length rb))
-            (let* ((bounds-pair (car rb))
-                   (pos1 (car bounds-pair))
-                   (pos2 (cdr bounds-pair))
-                   (line1 (line-number-at-pos pos1 t))
-                   (line2 (line-number-at-pos pos2 t)))
-              (cons line1 line2))
-          (cons (line-number-at-pos) (line-number-at-pos))))
-    (cons (line-number-at-pos) (line-number-at-pos))))
-
-
-(defun t0yv0/display-buffer-same-go-window (buffer alist)
-  "Like `display-buffer-same-window' if the selected window is in go-mode.
-
-BUFFER is a buffer to display.
-
-ALIST contains options such as `inhibit-same-window'."
-  (when (eq 'go-mode (t0yv0/current-mode))
-    (display-buffer-same-window buffer alist)))
-
-
 (defun t0yv0/display-buffer-same-vterm-window (buffer alist)
   "Like `display-buffer-same-window' if the selected window is in vterm-mode.
 
