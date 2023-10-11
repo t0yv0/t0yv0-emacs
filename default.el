@@ -344,11 +344,10 @@
               ("M-s" . nil)))
 
 (use-package recentf
-  :bind
-  ("C-x C-r" . consult-recent-file)
   :config
   (setq recentf-max-menu-items 15
         recentf-max-saved-items 100)
+  :init
   (recentf-mode 1))
 
 (use-package tide
