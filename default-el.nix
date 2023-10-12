@@ -44,6 +44,7 @@ in epkgs.trivialBuild {
     epkgs.go-mode
     epkgs.haskell-mode
     epkgs.hydra
+    epkgs.jinx # This requires dictionaries; not so easy
     epkgs.json-mode
     epkgs.magit
     epkgs.marginalia
