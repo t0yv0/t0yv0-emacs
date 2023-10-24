@@ -44,7 +44,10 @@ in epkgs.trivialBuild {
     epkgs.go-mode
     epkgs.haskell-mode
     epkgs.hydra
-    epkgs.jinx # This requires dictionaries; not so easy
+    # Note on JINX: this spell-checking package requires additional packages; on NixOS installing
+    # pkgs.nuspell and pkgs.hunspellDicts.en_US works fine; TBD on MacOS. I have not taken the time
+    # to find how to inline this into t0yv0-emacs so it installs a local copy.
+    epkgs.jinx # This requires
     epkgs.json-mode
     epkgs.magit
     epkgs.marginalia
