@@ -281,7 +281,10 @@
 
   :init (marginalia-mode))
 
-(use-package mermaid-mode)
+(use-package mermaid-mode
+  :custom
+  (mermaid-mmdc-location
+   (concat (file-name-directory (or load-file-name (buffer-file-name))) "bin/mmdc")))
 
 (use-package org
   :mode (("\\.org$" . org-mode))

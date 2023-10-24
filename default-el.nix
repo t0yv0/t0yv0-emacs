@@ -20,15 +20,19 @@ let
     pkgs = pkgs;
   };
 
+  mermaid = pkgs.nodePackages.mermaid-cli;
+
 in epkgs.trivialBuild {
   pname = "defaultel";
   src = sources;
   postBuild = ''
    mkdir -p $out/share/emacs/site-lisp
+   mkdir -p $out/share/emacs/site-lisp/bin
    cp -r $src/snippets $out/share/emacs/site-lisp/
    mkdir -p $out/share/emacs/site-lisp/tree-sitter
    ln -s ${treesitter}/go.so $out/share/emacs/site-lisp/tree-sitter/libtree-sitter-go.so
    ln -s ${treesitter}/gomod.so $out/share/emacs/site-lisp/tree-sitter/libtree-sitter-gomod.so
+   ln -s ${mermaid}/bin/mmdc $out/share/emacs/site-lisp/bin/mmdc
   '';
   packageRequires = [
     epkgs.avy
