@@ -281,6 +281,11 @@
 
   :init (marginalia-mode))
 
+(use-package meow
+  :config
+  (meow-global-mode 1)
+  (t0yv0/meow-setup))
+
 (use-package mermaid-mode
   :custom
   (mermaid-mmdc-location

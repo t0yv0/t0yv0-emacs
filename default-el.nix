@@ -54,6 +54,7 @@ in epkgs.trivialBuild {
     epkgs.jinx
     epkgs.json-mode
     epkgs.magit
+    epkgs.meow
     epkgs.marginalia
     epkgs.mermaid-mode
     epkgs.nix-mode
