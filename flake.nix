@@ -1,9 +1,10 @@
 {
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs?rev=b7cde1c47b7316f6138a2b36ef6627f3d16d645c;
+    nixpkgs_22_11.url = github:NixOS/nixpkgs/22.11;
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, nixpkgs_22_11 }:
     let
 
       systems = [
@@ -15,9 +16,9 @@
       packages = sys:
         let
           pkgs = import nixpkgs { system = sys; };
+          pkgs_22_11 = import nixpkgs_22_11 { system = sys; };
         in {
-          default = import ./default.nix { pkgs = pkgs; };
-          default-el = import ./default-el.nix { pkgs = pkgs; };
+          default = import ./default.nix { pkgs = pkgs; pkgs_22_11 = pkgs_22_11; };
           t0yv0-ware = import ./t0yv0-ware.nix { pkgs = pkgs; };
           copilot = import ./copilot.nix { pkgs = pkgs; };
           ts = import ./ts.nix { pkgs = pkgs; };

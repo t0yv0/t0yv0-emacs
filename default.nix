@@ -2,6 +2,7 @@
 
 {
   pkgs ? import <nixpkgs>{},
+  pkgs_22_11
 }:
 
 let
@@ -9,8 +10,10 @@ let
 
   emacsWithPackages = (pkgs.emacsPackagesFor myEmacs).emacsWithPackages;
 
+  default-el = import ./default-el.nix { pkgs = pkgs; pkgs_22_11 = pkgs_22_11; };
+
   myEmacsPackages = epkgs: [
-    (import ./default-el.nix { pkgs = pkgs; epkgs = epkgs; })
+    default-el
   ];
 
 in

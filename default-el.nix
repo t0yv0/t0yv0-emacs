@@ -2,7 +2,8 @@
   pkgs ? import <nixpkgs>{},
   epkgs ? (pkgs.emacsPackagesFor pkgs.emacs29),
   t0yv0-ware ? import ./t0yv0-ware.nix { pkgs = pkgs; epkgs = epkgs; },
-  copilot ? import ./copilot.nix { pkgs = pkgs; epkgs = epkgs; }
+  copilot ? import ./copilot.nix { pkgs = pkgs; epkgs = epkgs; },
+  pkgs_22_11
 }:
 
 let
@@ -20,7 +21,7 @@ let
     pkgs = pkgs;
   };
 
-  mermaid = pkgs.nodePackages.mermaid-cli;
+  mermaid = pkgs_22_11.nodePackages.mermaid-cli;
 
 in epkgs.trivialBuild {
   pname = "defaultel";
