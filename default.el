@@ -21,6 +21,7 @@
   :after dash
   :bind (("M-y"       . consult-yank-pop)
          ("C-x b"     . consult-buffer)
+         ("C-x C-b"   . consult-buffer)
          ("M-g g"     . consult-goto-line)
          ("M-g M-g"   . consult-goto-line)
          ("M-g i"     . consult-imenu)
