@@ -438,23 +438,23 @@ Ensures it is up-to-date with ./tree-sitter."
                           nil t))
 
 
-(defun t0yv0/treesit-expand-region (arg)
-  (interactive "P")
-  (if (region-active-p)
-      (if (and arg (listp arg))
-          (t0yv0/treesit-expand-region-to-node)
-        (if (> (point) (mark))
-            (t0yv0/treesit-expand-region-forward)
-          (t0yv0/treesit-expand-region-backward)))
-    (let ((n (treesit-node-at (point))))
-      (while (< (- (treesit-node-end n)
-                   (treesit-node-start n))
-                2)
-        (setq n (treesit-node-parent n)))
-      (meow--select (meow--make-selection
-                     '(tree . expand)
-                     (treesit-node-start n)
-                     (treesit-node-end n))))))
+(defun t0yv0/treesit-expand-region ()
+  (interactive)
+  (if (not (region-active-p))
+      (t0yv0/treesit-expand-region-start)
+    (t0yv0/treesit-expand-region-to-node)))
+
+
+(defun t0yv0/treesit-expand-region-start ()
+  (let ((n (treesit-node-at (point))))
+    (while (< (- (treesit-node-end n)
+                 (treesit-node-start n))
+              2)
+      (setq n (treesit-node-parent n)))
+    (meow--select (meow--make-selection
+                   '(tree . expand)
+                   (treesit-node-start n)
+                   (treesit-node-end n)))))
 
 
 (defun t0yv0/treesit-expand-region-to-node ()
@@ -471,51 +471,57 @@ Ensures it is up-to-date with ./tree-sitter."
 
 
 (defun t0yv0/treesit-expand-region-backward ()
-  (let* ((b (region-beginning))
-         (e (region-end))
-         (n (treesit-node-on b e))
-         (c (treesit-filter-child
-             n
-             (lambda (c)
-               (and (>= b (treesit-node-start c))
-                    (<= b (treesit-node-end c))))))
-         (x (or (if c (treesit-node-prev-sibling (car c)) nil) n)))
-    (while (and x
-                (>= (treesit-node-end x) b)
-                (>= (treesit-node-start x) b))
-      (setq x (or (treesit-node-prev-sibling x)
-                  (treesit-node-parent x))))
-    (when x
-      (meow--select (meow--make-selection
-                     '(tree . expand)
-                     e
-                     (if (< (treesit-node-end x) b)
-                         (treesit-node-end x)
-                       (treesit-node-start x)))))))
+  (interactive)
+  (if (not (region-active-p))
+      (t0yv0/treesit-expand-region-start)
+      (let* ((b (region-beginning))
+             (e (region-end))
+             (n (treesit-node-on b e))
+             (c (treesit-filter-child
+                 n
+                 (lambda (c)
+                   (and (>= b (treesit-node-start c))
+                        (<= b (treesit-node-end c))))))
+             (x (or (if c (treesit-node-prev-sibling (car c)) nil) n)))
+        (while (and x
+                    (>= (treesit-node-end x) b)
+                    (>= (treesit-node-start x) b))
+          (setq x (or (treesit-node-prev-sibling x)
+                      (treesit-node-parent x))))
+        (when x
+          (meow--select (meow--make-selection
+                         '(tree . expand)
+                         e
+                         (if (< (treesit-node-end x) b)
+                             (treesit-node-end x)
+                           (treesit-node-start x))))))))
 
 
 (defun t0yv0/treesit-expand-region-forward ()
-  (let* ((b (region-beginning))
-         (e (region-end))
-         (n (treesit-node-on b e))
-         (c (treesit-filter-child
-             n
-             (lambda (c)
-               (and (>= e (treesit-node-start c))
-                    (<= e (treesit-node-end c))))))
-         (x (or (if c (treesit-node-next-sibling (car c)) nil) n)))
-    (while (and x
-                (<= (treesit-node-end x) e)
-                (<= (treesit-node-start x) e))
-      (setq x (or (treesit-node-next-sibling x)
-                  (treesit-node-parent x))))
-    (when x
-      (meow--select (meow--make-selection
-                     '(tree . expand)
-                     b
-                     (if (> (treesit-node-start x) e)
-                         (treesit-node-start x)
-                       (treesit-node-end x)))))))
+  (interactive)
+  (if (not (region-active-p))
+      (t0yv0/treesit-expand-region-start)
+    (let* ((b (region-beginning))
+           (e (region-end))
+           (n (treesit-node-on b e))
+           (c (treesit-filter-child
+               n
+               (lambda (c)
+                 (and (>= e (treesit-node-start c))
+                      (<= e (treesit-node-end c))))))
+           (x (or (if c (treesit-node-next-sibling (car c)) nil) n)))
+      (while (and x
+                  (<= (treesit-node-end x) e)
+                  (<= (treesit-node-start x) e))
+        (setq x (or (treesit-node-next-sibling x)
+                    (treesit-node-parent x))))
+      (when x
+        (meow--select (meow--make-selection
+                       '(tree . expand)
+                       b
+                       (if (> (treesit-node-start x) e)
+                           (treesit-node-start x)
+                         (treesit-node-end x))))))))
 
 
 (defun t0yv0/wider-node (n b e)
@@ -732,6 +738,9 @@ Ensures it is up-to-date with ./tree-sitter."
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
    '("'" . repeat)
+   '("}" . t0yv0/treesit-expand-region-forward)
+   '("{" . t0yv0/treesit-expand-region-backward)
+   '("=" . t0yv0/treesit-expand-region)
    '("<escape>" . ignore)))
 
 (provide 't0yv0-ware)
