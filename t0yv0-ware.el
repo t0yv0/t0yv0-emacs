@@ -600,7 +600,6 @@ Ensures it is up-to-date with ./tree-sitter."
     (when n
       (goto-char (treesit-node-start n)))))
 
-(global-set-key (kbd "C-M-k") #'t0yv0/treesit-kill)
 
 (defun t0yv0/treesit-previous ()
   (interactive)
