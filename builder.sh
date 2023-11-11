@@ -1,5 +1,7 @@
 PATH=$coreutils/bin
+version="$1"
 mkdir -p $out/bin
+echo "$version" >"$out/version.txt"
 e="$out/bin/t0yv0-emacs"
 echo "#!/usr/bin/env sh" >> $e
 echo "export PATH=$emacs/bin:\$PATH" >> $e

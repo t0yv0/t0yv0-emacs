@@ -18,7 +18,8 @@
           pkgs = import nixpkgs { system = sys; };
           pkgs_22_11 = import nixpkgs_22_11 { system = sys; };
         in {
-          default = import ./default.nix { pkgs = pkgs; pkgs_22_11 = pkgs_22_11; };
+          default = import ./default.nix { pkgs = pkgs; pkgs_22_11 = pkgs_22_11;
+                                           version = self.rev or "dirty"; };
           t0yv0-ware = import ./t0yv0-ware.nix { pkgs = pkgs; };
           copilot = import ./copilot.nix { pkgs = pkgs; };
           ts = import ./ts.nix { pkgs = pkgs; };

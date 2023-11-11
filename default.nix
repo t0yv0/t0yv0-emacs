@@ -2,7 +2,8 @@
 
 {
   pkgs ? import <nixpkgs>{},
-  pkgs_22_11
+  pkgs_22_11,
+  version
 }:
 
 let
@@ -19,9 +20,9 @@ let
 in
 
 pkgs.stdenv.mkDerivation {
-  name = "t0yv0-emacs-0.0.1";
+  name = "t0yv0-emacs-${version}";
   builder = "${pkgs.bash}/bin/bash";
   coreutils = pkgs.coreutils;
   emacs = emacsWithPackages myEmacsPackages;
-  args = [ ./builder.sh ];
+  args = [ ./builder.sh "${version}" ];
 }
