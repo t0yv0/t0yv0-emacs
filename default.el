@@ -271,6 +271,11 @@
          ("C-c v" . t0yv0/vterm-hydra/body)
          ("C-c /" . t0yv0/copilot-hydra/body)))
 
+(use-package jinx
+  :hook (emacs-startup . global-jinx-mode)
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
+
 (use-package json-mode)
 
 (use-package nix-mode)
@@ -309,13 +314,14 @@
                              "~/my/tickler.org"))
 
     ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
-    (setq org-capture-templates
-          '(("t" "Todo [inbox]" entry
-             (file+headline "~/my/notes.org" "Tasks")
-             "* TODO %i%?\n  %a")
-            ("T" "Tickler" entry
-             (file+headline "~/my/tickler.org" "Tickler")
-             "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
+    (setq org-capture-templates nil)
+    ;; (setq org-capture-templates
+    ;;       '(("t" "Todo [inbox]" entry
+    ;;          (file+headline "~/my/notes.org" "Tasks")
+    ;;          "* TODO %i%?\n  %a")
+    ;;         ("T" "Tickler" entry
+    ;;          (file+headline "~/my/tickler.org" "Tickler")
+    ;;          "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
     (setq org-refile-targets '(("~/my/gtd.org" :maxlevel . 3)
                                ("~/my/someday.org" :level . 1)
                                ("~/my/tickler.org" :maxlevel . 2)))))
