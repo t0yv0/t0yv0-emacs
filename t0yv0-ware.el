@@ -656,11 +656,11 @@ Ensures it is up-to-date with ./tree-sitter."
       (goto-char (treesit-node-start n)))))
 
 
-(defun t0yv0/meow-save-or-mark-word ()
-  (interactive)
+(defun t0yv0/meow-save-or-mark-word (n)
+  (interactive "p")
   (if (region-active-p)
       (meow-save)
-    (meow-mark-word)))
+    (meow-mark-word n)))
 
 
 (defun t0yv0/meow-setup ()
@@ -705,15 +705,15 @@ Ensures it is up-to-date with ./tree-sitter."
    '("]" . meow-end-of-thing)
    '("a" . meow-append)
    '("A" . meow-open-below)
-   '("b" . meow-left)
-   '("B" . meow-left-expand)
+   '("b" . meow-back-word)
+   '("B" . meow-back-symbol)
    '("c" . meow-change)
    '("d" . meow-delete)
    '("D" . meow-backward-delete)
-   '("e" . meow-next-word)
-   '("E" . meow-next-symbol)
-   '("f" . meow-right)
-   '("F" . meow-right-expand)
+   '("e" . ignore)
+   '("E" . ignore)
+   '("f" . meow-next-word)
+   '("F" . meow-next-symbol)
    '("g" . meow-cancel-selection)
    '("G" . meow-grab)
    '("i" . meow-insert)
@@ -727,8 +727,8 @@ Ensures it is up-to-date with ./tree-sitter."
    '("O" . meow-to-block)
    '("p" . meow-prev)
    '("P" . meow-prev-expand)
-   '("q" . meow-back-word)
-   '("Q" . meow-back-symbol)
+   '("q" . meow-quit)
+   '("Q" . ignore)
    '("r" . meow-replace)
    '("R" . meow-swap-grab)
    '("s" . meow-search)
@@ -744,7 +744,6 @@ Ensures it is up-to-date with ./tree-sitter."
    '("X" . meow-goto-line)
    '("y" . meow-yank)
    '("z" . meow-pop-selection)
-   '("Z" . meow-quit)
    '("'" . repeat)
    '("}" . t0yv0/treesit-expand-region-forward)
    '("{" . t0yv0/treesit-expand-region-backward)
@@ -756,6 +755,7 @@ Ensures it is up-to-date with ./tree-sitter."
    '("l" . ignore)
    '("L" . ignore)
    '("<escape>" . ignore)))
+
 
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
