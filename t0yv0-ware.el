@@ -656,13 +656,6 @@ Ensures it is up-to-date with ./tree-sitter."
       (goto-char (treesit-node-start n)))))
 
 
-(defun t0yv0/meow-save-or-mark-word (n)
-  (interactive "p")
-  (if (region-active-p)
-      (meow-save)
-    (meow-mark-word n)))
-
-
 (defun t0yv0/meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
@@ -738,8 +731,8 @@ Ensures it is up-to-date with ./tree-sitter."
    '("u" . meow-undo)
    '("U" . meow-undo-in-selection)
    '("v" . meow-visit)
-   '("w" . t0yv0/meow-save-or-mark-word)
-   '("W" . meow-mark-symbol)
+   '("w" . meow-save)
+   '("W" . ignore)
    '("x" . meow-line)
    '("X" . meow-goto-line)
    '("y" . meow-yank)
