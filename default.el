@@ -314,14 +314,14 @@
                              "~/my/tickler.org"))
 
     ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
-    (setq org-capture-templates nil)
-    ;; (setq org-capture-templates
-    ;;       '(("t" "Todo [inbox]" entry
-    ;;          (file+headline "~/my/notes.org" "Tasks")
-    ;;          "* TODO %i%?\n  %a")
-    ;;         ("T" "Tickler" entry
-    ;;          (file+headline "~/my/tickler.org" "Tickler")
-    ;;          "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
+    (setq org-capture-templates
+          '(("t" "Todo [inbox]" entry
+             (file+headline "~/my/notes.org" "Tasks")
+             "* TODO %i%?\n  %a")
+            ("T" "Tickler" entry
+             (file+headline "~/my/tickler.org" "Tickler")
+             "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
+
     (setq org-refile-targets '(("~/my/gtd.org" :maxlevel . 3)
                                ("~/my/someday.org" :level . 1)
                                ("~/my/tickler.org" :maxlevel . 2)))))
@@ -374,9 +374,7 @@
 
 (use-package vertico
   :init
-  (vertico-mode)
-  (vertico-multiform-mode)
-  (vertico-unobtrusive-mode))
+  (vertico-mode))
 
 (use-package vterm
   :bind (("C-x p v" . t0yv0/vterm-proj))
