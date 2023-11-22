@@ -438,14 +438,19 @@ Ensures it is up-to-date with ./tree-sitter."
                           nil t))
 
 
-(defun t0yv0/treesit-expand-region ()
-  (interactive)
-  (if (null (treesit-parser-list))
-      (er/expand-region 1)
-    (treesit-available-p)
-    (if (not (region-active-p))
-        (t0yv0/treesit-expand-region-start)
-      (t0yv0/treesit-expand-region-to-node))))
+(defun t0yv0/treesit-expand-region (arg)
+  (interactive "P")
+  (cond
+   ((null (treesit-parser-list))
+    (er/expand-region (or arg 1)))
+   ((not (region-active-p))
+    (t0yv0/treesit-expand-region-start))
+   ((equal arg (list 4))
+    (t0yv0/treesit-expand-region-to-node))
+   ((<= (mark) (point)) ;; meow-direction-forward-p
+    (t0yv0/treesit-expand-region-forward))
+   (t ;; remaining case is meow-direction-backward-p
+    (t0yv0/treesit-expand-region-backward))))
 
 
 (defun t0yv0/treesit-expand-region-start ()
@@ -738,10 +743,7 @@ Ensures it is up-to-date with ./tree-sitter."
    '("y" . meow-yank)
    '("z" . meow-pop-selection)
    '("'" . repeat)
-   '("}" . t0yv0/treesit-expand-region-forward)
-   '("{" . t0yv0/treesit-expand-region-backward)
    '("h" . t0yv0/treesit-expand-region)
-   '("=" . t0yv0/treesit-expand-region)
    '("H" . ignore)
    '("j" . ignore)
    '("J" . ignore)

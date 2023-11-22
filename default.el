@@ -184,7 +184,10 @@
 
 (use-package expand-region
   :init
-  (keymap-global-set "M-h" 'er/expand-region))
+  (keymap-global-set "M-h" 'er/expand-region)
+  :custom
+  (expand-region-contract-fast-key "z")
+  (expand-region-reset-fast-key "0"))
 
 (use-package git-link)
 
