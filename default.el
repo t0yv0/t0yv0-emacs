@@ -184,7 +184,7 @@
 
 (use-package expand-region
   :init
-  (keymap-global-set "M-h" 'er/expand-region)
+  (keymap-global-set "M-h" 't0yv0/expand-region)
   :custom
   (expand-region-contract-fast-key "z")
   (expand-region-reset-fast-key "0"))
@@ -197,18 +197,7 @@
   :mode "\\.go\\'"
   :init (t0yv0/ensure-tree-sitter-grammar-install)
   :after go-mode
-  :bind (("C-c C-a" . go-import-add)
-         ("C-M-b"   . t0yv0/treesit-backward)
-         ("C-M-f"   . t0yv0/treesit-forward)
-         ("C-M-h"   . t0yv0/treesit-expand-region)
-         ("C-M-p"   . t0yv0/treesit-previous)
-         ("C-M-n"   . t0yv0/treesit-next)
-         ("C-M-d"   . t0yv0/treesit-down)
-         ("C-M-u"   . t0yv0/treesit-up)
-         ("C-M-k"   . t0yv0/treesit-kill)
-         ("C-}"     . t0yv0/treesit-expand-region-forward)
-         ("C-{"     . t0yv0/treesit-expand-region-backward)
-         ("C-="     . t0yv0/treesit-expand-region))
+  :bind (("C-c C-a" . go-import-add))
   :hook
   (go-ts-mode . eglot-ensure)
   (before-save . t0yv0/gofmt-before-save))

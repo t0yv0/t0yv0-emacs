@@ -397,48 +397,7 @@ Ensures it is up-to-date with ./tree-sitter."
   (eglot-inlay-hints-mode -1))
 
 
-(defun t0yv0/treesit-backward ()
-  "Move point to the beginning of current or previous treesitter node."
-  (interactive)
-  (let* ((p (point))
-         (n (treesit-node-at p))
-         (ns (treesit-node-start n))
-         (pn (t0yv0/treesit-prev-node n)))
-    (cond
-     ;; when not at start of current node, go there
-     ((< ns p) (goto-char ns))
-     ;; when there is a previous node, go to its start
-     (pn (goto-char (treesit-node-start pn)))
-     ;; otherwise step back one char
-     ((> p 0) (goto-char (- p 1))))))
-
-
-(defun t0yv0/treesit-forward ()
-  "Move point to the beginning of next treesitter node."
-  (interactive)
-  (let* ((p (point))
-         (n (treesit-node-at p))
-         (nn (t0yv0/treesit-next-node n)))
-    (cond
-     ;; when there is a next node, go to its start
-     (nn (goto-char (treesit-node-start nn)))
-     ;; otherwise go to end of current
-     (t (goto-char (treesit-node-end n))))))
-
-
-(defun t0yv0/treesit-prev-node (n)
-  (treesit-search-forward n (lambda (x) (< (treesit-node-start x)
-                                           (treesit-node-start n)))
-                          t t))
-
-
-(defun t0yv0/treesit-next-node (n)
-  (treesit-search-forward n (lambda (x) (> (treesit-node-start x)
-                                           (treesit-node-start n)))
-                          nil t))
-
-
-(defun t0yv0/treesit-expand-region (arg)
+(defun t0yv0/expand-region (arg)
   (interactive "P")
   (cond
    ((null (treesit-parser-list))
@@ -532,135 +491,6 @@ Ensures it is up-to-date with ./tree-sitter."
                          (treesit-node-end x))))))))
 
 
-(defun t0yv0/wider-node (n b e)
-  (cond
-   ((< (treesit-node-start n) b)
-    n)
-   ((> (treesit-node-end n) e)
-    n)
-   ((and (treesit-node-parent n) (treesit-node-parent (treesit-node-parent n)))
-    (t0yv0/wider-node (treesit-node-parent n) b e))
-   (t
-    n)))
-
-
-(defvar t0yv0/treesit-notable-go-node-regex
-  (rx (or "assignment_statement"
-          "continue_statement"
-          "default_case"
-          "expression_switch_statement"
-          "expression_case"
-          "if_statement"
-          "for_statement"
-          "function_declaration"
-          "keyed_element"
-          "literal_element"
-          "return_statement"
-          "short_var_declaration"
-          "type_case"
-          "type_declaration"
-          "type_switch_statement"
-          "var_declaration")))
-
-
-(defun t0yv0/treesit-notable-node (x)
-  (if (string-match-p t0yv0/treesit-notable-go-node-regex (treesit-node-type x))
-      t nil))
-
-
-(defun t0yv0/search (start next found)
-  (let ((x start))
-    (while (and x (not (funcall found x)))
-      (setq x (funcall next x)))
-    (if (and x (funcall found x)) x nil)))
-
-
-(defun t0yv0/treesit-kill ()
-  (interactive)
-  (let* ((p0 (point))
-         (nh (t0yv0/treesit-topmost-starting-here-node))
-         (n (t0yv0/search
-             nh
-             #'treesit-node-next-sibling
-             (lambda (n)
-               (and (t0yv0/treesit-notable-node n)
-                    (> (treesit-node-start n) p0))))))
-    (if n
-      (kill-region p0 (treesit-node-start n))
-      (when (t0yv0/treesit-notable-node nh)
-        (kill-region (treesit-node-start nh)
-                     (treesit-node-end nh))
-        (when  (equal ","
-                      (buffer-substring-no-properties (point) (+ 1 (point))))
-          (append-next-kill)
-          (kill-region (point) (+ 1 (point))))))))
-
-
-(defun t0yv0/treesit-next ()
-  (interactive)
-  (let* ((p0 (point))
-         (n (t0yv0/search
-             (t0yv0/treesit-topmost-starting-here-node)
-             #'treesit-node-next-sibling
-             (lambda (n)
-               (and (t0yv0/treesit-notable-node n)
-                    (> (treesit-node-start n) p0))))))
-    (when n
-      (goto-char (treesit-node-start n)))))
-
-
-(defun t0yv0/treesit-previous ()
-  (interactive)
-  (let* ((p0 (point))
-         (n (t0yv0/search
-             (t0yv0/treesit-topmost-starting-here-node)
-             #'treesit-node-prev-sibling
-             (lambda (n)
-               (and (t0yv0/treesit-notable-node n)
-                    (< (treesit-node-start n) p0))))))
-    (when n
-      (goto-char (treesit-node-start n)))))
-
-
-(defun t0yv0/treesit-topmost-starting-here-node ()
-  (t0yv0/treesit-topmost-starting-from-node
-   (treesit-node-at (point))))
-
-
-(defun t0yv0/treesit-topmost-starting-from-node (n)
-  (let ((s (treesit-node-start n)))
-    (while (and (treesit-node-parent n)
-                (equal s (treesit-node-start (treesit-node-parent n))))
-      (setq n (treesit-node-parent n)))
-    n))
-
-
-(defun t0yv0/treesit-down ()
-  (interactive)
-  (let* ((p0 (point))
-         (n (treesit-search-subtree
-             (t0yv0/treesit-topmost-starting-here-node)
-             (lambda (n)
-               (and (t0yv0/treesit-notable-node
-                     (t0yv0/treesit-topmost-starting-from-node n))
-                    (> (treesit-node-start n) p0))))))
-    (when n
-      (goto-char (treesit-node-start n)))))
-
-
-(defun t0yv0/treesit-up ()
-  (interactive)
-  (let* ((p0 (point))
-         (n (t0yv0/search
-             (t0yv0/treesit-topmost-starting-here-node)
-             #'treesit-node-parent
-             (lambda (n)
-               (and (t0yv0/treesit-notable-node n)
-                    (< (treesit-node-start n) p0))))))
-    (when n
-      (goto-char (treesit-node-start n)))))
-
-
 (defun t0yv0/meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
@@ -743,7 +573,7 @@ Ensures it is up-to-date with ./tree-sitter."
    '("y" . meow-yank)
    '("z" . meow-pop-selection)
    '("'" . repeat)
-   '("h" . t0yv0/treesit-expand-region)
+   '("h" . t0yv0/expand-region)
    '("H" . ignore)
    '("j" . ignore)
    '("J" . ignore)
