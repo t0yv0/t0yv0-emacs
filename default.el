@@ -113,6 +113,7 @@
   (require-theme 'modus-themes)
   (load-theme 'modus-operandi)
   (define-key isearch-mode-map (kbd "C-j") 'isearch-exit)
+  (global-set-key (kbd "C-c h") 'help-command)
 
   :custom
   (bookmark-default-file "~/my/bookmarks")
@@ -283,6 +284,7 @@
   :init (marginalia-mode))
 
 (use-package meow
+  :bind (("C-h" . meow-backward-delete))
   :config
   (meow-global-mode 1)
   (t0yv0/meow-setup))
