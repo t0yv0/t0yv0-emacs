@@ -104,6 +104,7 @@
           ("C-c o"     . org-capture)
           ("M-s d"     . t0yv0/consult-ripgrep-current-directory)
           ("M-s p"     . t0yv0/consult-ripgrep-current-project)
+          ("C-h"       . t0yv0/backspace)
           ("M-`"       . other-frame))
 
   :hook
@@ -284,8 +285,9 @@
   :init (marginalia-mode))
 
 (use-package meow
-  :bind (("C-h" . meow-backward-delete))
   :config
+  (meow-define-state disable "dummy state")
+  (add-to-list 'meow-mode-state-list '(vterm-mode . disable))
   (meow-global-mode 1)
   (t0yv0/meow-setup))
 
@@ -374,6 +376,7 @@
 (use-package vterm
   :bind (("C-x p v" . t0yv0/vterm-proj))
   :bind (:map vterm-mode-map
+              ("M-w" . kill-ring-save)
               ("M-/" . #'t0yv0/vterm-dabbrev-expand))
   :config
   (add-to-list 'display-buffer-alist

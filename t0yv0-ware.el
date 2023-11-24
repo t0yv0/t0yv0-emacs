@@ -582,5 +582,12 @@ Ensures it is up-to-date with ./tree-sitter."
    '("<escape>" . ignore)))
 
 
+(defun t0yv0/backspace (arg)
+  (interactive "P")
+  (if (eq major-mode 'vterm-mode)
+      (vterm-send-backspace)
+    (delete-backward-char (or arg 1))))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
