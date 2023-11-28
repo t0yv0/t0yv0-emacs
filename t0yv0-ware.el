@@ -406,10 +406,35 @@ Ensures it is up-to-date with ./tree-sitter."
     (t0yv0/treesit-expand-region-start))
    ((equal arg (list 4))
     (t0yv0/treesit-expand-region-to-node))
-   ((<= (mark) (point)) ;; meow-direction-forward-p
+   ((<= (mark) (point))
     (t0yv0/treesit-expand-region-forward))
-   (t ;; remaining case is meow-direction-backward-p
-    (t0yv0/treesit-expand-region-backward))))
+   (t ;; remaining case is backward direction
+    (t0yv0/treesit-expand-region-backward)))
+  (t0yv0/selection-hydra/body))
+
+
+(defun t0yv0/expand-region-reset ()
+  (interactive)
+  (er/expand-region 0)
+  (deactivate-mark))
+
+
+(defun t0yv0/expand-region-contract (arg)
+  (interactive "P")
+  (er/contract-region (or arg 1)))
+
+
+(defvar er/history '()
+  "A history of start and end points so we can contract after expanding.")
+
+;; history is always local to a single buffer
+(make-variable-buffer-local 'er/history)
+
+
+(defun t0yv0/remember-selection (start end)
+  (push (cons start end) er/history)
+  (set-mark start)
+  (goto-char end))
 
 
 (defun t0yv0/treesit-expand-region-start ()
@@ -418,10 +443,9 @@ Ensures it is up-to-date with ./tree-sitter."
                  (treesit-node-start n))
               2)
       (setq n (treesit-node-parent n)))
-    (meow--select (meow--make-selection
-                   '(tree . expand)
-                   (treesit-node-start n)
-                   (treesit-node-end n)))))
+    (t0yv0/remember-selection
+     (treesit-node-start n)
+     (treesit-node-end n))))
 
 
 (defun t0yv0/treesit-expand-region-to-node ()
@@ -431,10 +455,9 @@ Ensures it is up-to-date with ./tree-sitter."
     (while (and (>= (treesit-node-start n) b)
                 (<= (treesit-node-end n) e))
       (setq n (treesit-node-parent n)))
-    (meow--select (meow--make-selection
-                   '(tree . expand)
-                   (treesit-node-start n)
-                   (treesit-node-end n)))))
+    (t0yv0/remember-selection
+     (treesit-node-start n)
+     (treesit-node-end n))))
 
 
 (defun t0yv0/treesit-expand-region-backward ()
@@ -456,12 +479,11 @@ Ensures it is up-to-date with ./tree-sitter."
           (setq x (or (treesit-node-prev-sibling x)
                       (treesit-node-parent x))))
         (when x
-          (meow--select (meow--make-selection
-                         '(tree . expand)
-                         e
-                         (if (< (treesit-node-end x) b)
-                             (treesit-node-end x)
-                           (treesit-node-start x))))))))
+          (t0yv0/remember-selection
+           e
+           (if (< (treesit-node-end x) b)
+               (treesit-node-end x)
+             (treesit-node-start x)))))))
 
 
 (defun t0yv0/treesit-expand-region-forward ()
@@ -483,103 +505,11 @@ Ensures it is up-to-date with ./tree-sitter."
         (setq x (or (treesit-node-next-sibling x)
                     (treesit-node-parent x))))
       (when x
-        (meow--select (meow--make-selection
-                       '(tree . expand)
-                       b
-                       (if (> (treesit-node-start x) e)
-                           (treesit-node-start x)
-                         (treesit-node-end x))))))))
-
-
-(defun t0yv0/meow-setup ()
-  (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
-  (meow-motion-overwrite-define-key
-   '("n" . meow-next)
-   '("p" . meow-prev)
-   '("<escape>" . ignore))
-  (meow-leader-define-key
-   ;; SPC n/p will run the original command in MOTION state.
-   '("n" . "H-n")
-   '("p" . "H-p")
-   ;; Use SPC (0-9) for digit arguments.
-   '("1" . meow-digit-argument)
-   '("2" . meow-digit-argument)
-   '("3" . meow-digit-argument)
-   '("4" . meow-digit-argument)
-   '("5" . meow-digit-argument)
-   '("6" . meow-digit-argument)
-   '("7" . meow-digit-argument)
-   '("8" . meow-digit-argument)
-   '("9" . meow-digit-argument)
-   '("0" . meow-digit-argument)
-   '("/" . meow-keypad-describe-key)
-   '("?" . meow-cheatsheet))
-  (meow-normal-define-key
-   '("0" . meow-expand-0)
-   '("9" . meow-expand-9)
-   '("8" . meow-expand-8)
-   '("7" . meow-expand-7)
-   '("6" . meow-expand-6)
-   '("5" . meow-expand-5)
-   '("4" . meow-expand-4)
-   '("3" . meow-expand-3)
-   '("2" . meow-expand-2)
-   '("1" . meow-expand-1)
-   '("-" . negative-argument)
-   '(";" . meow-reverse)
-   '("," . meow-inner-of-thing)
-   '("." . meow-bounds-of-thing)
-   '("[" . meow-beginning-of-thing)
-   '("]" . meow-end-of-thing)
-   '("a" . meow-append)
-   '("A" . meow-open-below)
-   '("b" . meow-back-word)
-   '("B" . meow-back-symbol)
-   '("c" . meow-change)
-   '("d" . meow-delete)
-   '("D" . meow-backward-delete)
-   '("e" . ignore)
-   '("E" . ignore)
-   '("f" . meow-next-word)
-   '("F" . meow-next-symbol)
-   '("g" . meow-cancel-selection)
-   '("G" . meow-grab)
-   '("i" . meow-insert)
-   '("I" . meow-open-above)
-   '("k" . meow-kill)
-   '("K" . ignore)
-   '("m" . meow-join)
-   '("n" . meow-next)
-   '("N" . meow-next-expand)
-   '("o" . meow-block)
-   '("O" . meow-to-block)
-   '("p" . meow-prev)
-   '("P" . meow-prev-expand)
-   '("q" . meow-quit)
-   '("Q" . ignore)
-   '("r" . meow-replace)
-   '("R" . meow-swap-grab)
-   '("s" . meow-search)
-   '("S" . meow-sync-grab)
-   '("t" . meow-till)
-   '("T" . meow-find)
-   '("u" . meow-undo)
-   '("U" . meow-undo-in-selection)
-   '("v" . meow-visit)
-   '("w" . meow-save)
-   '("W" . ignore)
-   '("x" . meow-line)
-   '("X" . meow-goto-line)
-   '("y" . meow-yank)
-   '("z" . meow-pop-selection)
-   '("'" . repeat)
-   '("h" . t0yv0/expand-region)
-   '("H" . ignore)
-   '("j" . ignore)
-   '("J" . ignore)
-   '("l" . ignore)
-   '("L" . ignore)
-   '("<escape>" . ignore)))
+        (t0yv0/remember-selection
+         b
+         (if (> (treesit-node-start x) e)
+             (treesit-node-start x)
+           (treesit-node-end x)))))))
 
 
 (defun t0yv0/backspace (arg)
@@ -587,6 +517,14 @@ Ensures it is up-to-date with ./tree-sitter."
   (if (eq major-mode 'vterm-mode)
       (vterm-send-backspace)
     (delete-backward-char (or arg 1))))
+
+
+(defun t0yv0/quit ()
+  "Quit current window or buffer."
+  (interactive)
+  (if (> (seq-length (window-list (selected-frame))) 1)
+      (quit-window)
+    (previous-buffer)))
 
 
 (provide 't0yv0-ware)

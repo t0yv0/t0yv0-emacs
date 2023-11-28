@@ -185,11 +185,8 @@
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package expand-region
-  :init
-  (keymap-global-set "M-h" 't0yv0/expand-region)
-  :custom
-  (expand-region-contract-fast-key "z")
-  (expand-region-reset-fast-key "0"))
+  :bind (("M-h" . t0yv0/expand-region)
+         ("C-M-h" . er/contract-region)))
 
 (use-package git-link)
 
@@ -209,6 +206,12 @@
 (use-package hydra
   :after git-link
   :init
+
+  (defhydra t0yv0/selection-hydra (:hint nil)
+    "select"
+    ("h" t0yv0/expand-region "expand")
+    ("g" t0yv0/expand-region-reset "reset" :color blue)
+    ("z" t0yv0/expand-region-contract "contract"))
 
   (defhydra t0yv0/link-hydra (:color blue :hint nil)
     "links"
@@ -260,7 +263,8 @@
     ("p" copilot-previous-completion "prev")
     ("C-j" copilot-accept-completion "accept" :color blue))
 
-  :bind (("C-c w" . t0yv0/windmove-hydra/body)
+  :bind (("M-h"   . t0yv0/expand-region)
+         ("C-c w" . t0yv0/windmove-hydra/body)
          ("C-c l" . t0yv0/link-hydra/body)
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
@@ -283,13 +287,6 @@
          ("M-A" . marginalia-cycle))
 
   :init (marginalia-mode))
-
-(use-package meow
-  :config
-  (meow-define-state disable "dummy state")
-  (add-to-list 'meow-mode-state-list '(vterm-mode . disable))
-  (meow-global-mode 1)
-  (t0yv0/meow-setup))
 
 (use-package mermaid-mode
   :custom
