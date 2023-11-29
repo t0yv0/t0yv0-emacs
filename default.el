@@ -105,6 +105,7 @@
           ("M-s d"     . t0yv0/consult-ripgrep-current-directory)
           ("M-s p"     . t0yv0/consult-ripgrep-current-project)
           ("C-h"       . t0yv0/backspace)
+          ("C-c q"     . t0yv0/quit)
           ("M-`"       . other-frame))
 
   :hook
