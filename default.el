@@ -186,7 +186,9 @@
 
 (use-package expand-region
   :bind (("M-h" . t0yv0/expand-region)
-         ("C-M-h" . er/contract-region)))
+         ("C-M-h" . t0yv0/expand-region))
+  :custom
+  (expand-region-fast-keys-enabled . nil))
 
 (use-package git-link)
 
