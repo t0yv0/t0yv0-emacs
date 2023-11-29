@@ -55,8 +55,8 @@
     (cond ((null (buffer-file-name (current-buffer)))
            (find-file diary-file))
           ((equal
-             (expand-file-name (buffer-file-name (current-buffer)))
-             (expand-file-name diary-file))
+            (expand-file-name (buffer-file-name (current-buffer)))
+            (expand-file-name diary-file))
            (previous-buffer))
           (t
            (find-file diary-file)))))
@@ -403,6 +403,7 @@ Ensures it is up-to-date with ./tree-sitter."
    ((null (treesit-parser-list))
     (er/expand-region (or arg 1)))
    ((not (region-active-p))
+    (setq t0yv0/region-history '())
     (t0yv0/treesit-expand-region-start))
    ((equal arg (list 4))
     (t0yv0/treesit-expand-region-to-node))
@@ -413,26 +414,54 @@ Ensures it is up-to-date with ./tree-sitter."
   (t0yv0/selection-hydra/body))
 
 
-(defun t0yv0/expand-region-reset ()
+(defun t0yv0/goto-region ()
   (interactive)
-  (er/expand-region 0)
-  (deactivate-mark))
+  (cond
+   ((null (treesit-parser-list))
+    (let ((p (point)))
+      (er/contract-region 0)
+      (deactivate-mark)
+      (goto-char p)))
+   (t
+    (deactivate-mark)
+    (setq t0yv0/region-history '()))))
 
 
-(defun t0yv0/expand-region-contract (arg)
+(defun t0yv0/reset-region ()
+  (interactive)
+  (cond
+   ((null (treesit-parser-list))
+    (er/contract-region 0)
+    (deactivate-mark))
+   (t
+    (when (not (null t0yv0/region-history))
+      (goto-char (car (car (last t0yv0/region-history)))))
+    (deactivate-mark)
+    (setq t0yv0/region-history '()))))
+
+
+(defun t0yv0/contract-region (arg)
   (interactive "P")
-  (er/contract-region (or arg 1)))
+  (cond
+   ((null (treesit-parser-list))
+    (er/contract-region (or arg 1)))
+   ((> (length t0yv0/region-history) 1)
+    (set-mark (car (car t0yv0/region-history)))
+    (goto-char (cdr (car t0yv0/region-history)))
+    (setq t0yv0/region-history (cdr t0yv0/region-history)))
+   (t
+    (t0yv0/reset-region))))
 
 
-(defvar er/history '()
+(defvar t0yv0/region-history '()
   "A history of start and end points so we can contract after expanding.")
 
 ;; history is always local to a single buffer
-(make-variable-buffer-local 'er/history)
+(make-variable-buffer-local 't0yv0/region-history)
 
 
 (defun t0yv0/remember-selection (start end)
-  (push (cons start end) er/history)
+  (push (cons start end) t0yv0/region-history)
   (set-mark start)
   (goto-char end))
 
