@@ -61,6 +61,7 @@ in epkgs.trivialBuild {
     epkgs.orderless
     epkgs.ormolu
     epkgs.paredit
+    epkgs.selected
     epkgs.tide
     epkgs.tree-sitter-langs
     epkgs.typescript-mode

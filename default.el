@@ -106,7 +106,8 @@
           ("M-s p"     . t0yv0/consult-ripgrep-current-project)
           ("C-h"       . t0yv0/backspace)
           ("C-c q"     . t0yv0/quit)
-          ("M-`"       . other-frame))
+          ("M-`"       . other-frame)
+          ("M-h"       . t0yv0/expand-region))
 
   :hook
   (before-save . delete-trailing-whitespace)
@@ -271,12 +272,7 @@
          ("C-c l" . t0yv0/link-hydra/body)
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
-         ("C-c /" . t0yv0/copilot-hydra/body)
-         ("M-h"   . (lambda ()
-                      (interactive)
-                      (unless (region-active-p)
-                        (t0yv0/expand-region 1))
-                      (t0yv0/selection-hydra/body)))))
+         ("C-c /" . t0yv0/copilot-hydra/body)))
 
 (use-package jinx
   :hook (emacs-startup . global-jinx-mode)
@@ -367,6 +363,22 @@
         recentf-max-saved-items 100)
   :init
   (recentf-mode 1))
+
+(use-package selected
+  :commands selected-minor-mode
+  :init (selected-global-mode)
+  :bind (:map selected-keymap
+              ("q" . selected-off)
+              ("u" . upcase-region)
+              ("d" . downcase-region)
+              ("w" . count-words-region)
+              ("m" . apply-macro-to-region-lines)
+              ("h" . t0yv0/expand-region)
+              ("z" . t0yv0/contract-region)
+              ("g" . t0yv0/goto-region)
+              ("C-g" . t0yv0/reset-region)
+              (";" . exchange-point-and-mark)
+              ("w" . t0yv0/widen-region)))
 
 (use-package tide
   :config (add-hook 'typescript-mode-hook #'(lambda ()

@@ -413,6 +413,18 @@ Ensures it is up-to-date with ./tree-sitter."
     (t0yv0/treesit-expand-region-backward))))
 
 
+(defun t0yv0/widen-region (arg)
+  (interactive "P")
+  (cond
+   ((null (treesit-parser-list))
+    (er/expand-region (or arg 1)))
+   ((not (region-active-p))
+    (setq t0yv0/region-history '())
+    (t0yv0/treesit-expand-region-start))
+   (t
+    (t0yv0/treesit-expand-region-to-node))))
+
+
 (defun t0yv0/goto-region ()
   (interactive)
   (cond
