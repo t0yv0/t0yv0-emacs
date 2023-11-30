@@ -186,8 +186,6 @@
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package expand-region
-  :bind (("M-h" . t0yv0/expand-region)
-         ("C-M-h" . t0yv0/expand-region))
   :custom
   (expand-region-fast-keys-enabled . nil))
 
@@ -269,12 +267,16 @@
     ("p" copilot-previous-completion "prev")
     ("C-j" copilot-accept-completion "accept" :color blue))
 
-  :bind (("M-h"   . t0yv0/expand-region)
-         ("C-c w" . t0yv0/windmove-hydra/body)
+  :bind (("C-c w" . t0yv0/windmove-hydra/body)
          ("C-c l" . t0yv0/link-hydra/body)
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
-         ("C-c /" . t0yv0/copilot-hydra/body)))
+         ("C-c /" . t0yv0/copilot-hydra/body)
+         ("M-h"   . (lambda ()
+                      (interactive)
+                      (unless (region-active-p)
+                        (t0yv0/expand-region 1))
+                      (t0yv0/selection-hydra/body)))))
 
 (use-package jinx
   :hook (emacs-startup . global-jinx-mode)

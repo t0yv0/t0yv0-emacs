@@ -410,8 +410,7 @@ Ensures it is up-to-date with ./tree-sitter."
    ((<= (mark) (point))
     (t0yv0/treesit-expand-region-forward))
    (t ;; remaining case is backward direction
-    (t0yv0/treesit-expand-region-backward)))
-  (t0yv0/selection-hydra/body))
+    (t0yv0/treesit-expand-region-backward))))
 
 
 (defun t0yv0/goto-region ()
