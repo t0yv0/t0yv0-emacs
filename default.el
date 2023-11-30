@@ -209,15 +209,6 @@
   :after git-link
   :init
 
-  (defhydra t0yv0/selection-hydra (:hint nil)
-    "select"
-    ("h" t0yv0/expand-region "expand")
-    ("H" (lambda () (interactive) (t0yv0/expand-region '(4))) "widen")
-    ("C-g" t0yv0/reset-region "reset" :color blue)
-    ("g" t0yv0/goto-region "go" :color blue)
-    ("z" t0yv0/contract-region "contract")
-    (";" exchange-point-and-mark "reverse"))
-
   (defhydra t0yv0/link-hydra (:color blue :hint nil)
     "links"
     ("l" git-link "git-link")
