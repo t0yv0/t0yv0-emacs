@@ -13,8 +13,7 @@
 (use-package avy
   :init
   (avy-setup-default)
-  (keymap-global-set "C-c ;" 'avy-goto-char)
-  (keymap-global-set "C-c '" 'avy-goto-char-2)
+  (keymap-global-set "M-g j" 'avy-goto-char-2)
   (keymap-global-set "M-g w" 'avy-goto-word-1))
 
 (use-package consult
