@@ -57,6 +57,7 @@ in epkgs.trivialBuild {
     epkgs.magit
     epkgs.marginalia
     epkgs.mermaid-mode
+    epkgs.multiple-cursors
     epkgs.nix-mode
     epkgs.orderless
     epkgs.ormolu

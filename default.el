@@ -287,6 +287,8 @@
   (mermaid-mmdc-location
    (concat (file-name-directory (or load-file-name (buffer-file-name))) "bin/mmdc")))
 
+(use-package multiple-cursors)
+
 (use-package org
   :mode (("\\.org$" . org-mode))
   :config
@@ -356,8 +358,12 @@
 
 (use-package selected
   :commands selected-minor-mode
+  :after multiple-cursors
   :init (selected-global-mode)
   :bind (:map selected-keymap
+              ("c" . mc/edit-lines)
+              (">" . mc/mark-next-like-this)
+              ("<" . mc/mark-previous-like-this)
               ("q" . selected-off)
               ("u" . upcase-region)
               ("d" . downcase-region)
