@@ -405,6 +405,8 @@
                  (window-height . 0.381)
                  (dedicated . t))))
 
+(use-package wgrep)
+
 (use-package yaml-mode)
 
 (use-package yasnippet

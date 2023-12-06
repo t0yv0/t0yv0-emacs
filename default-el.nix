@@ -68,6 +68,7 @@ in epkgs.trivialBuild {
     epkgs.typescript-mode
     epkgs.use-package
     epkgs.vertico
+    epkgs.wgrep
     epkgs.yaml-mode
     epkgs.yasnippet
 
