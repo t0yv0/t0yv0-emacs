@@ -5,32 +5,33 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs_22_11 }: let
-    systems = [
-      "x86_64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
 
     packages = sys: let
       pkgs = import nixpkgs { system = sys; };
       pkgs_22_11 = import nixpkgs_22_11 { system = sys; };
-    in {
-      default = import ./default.nix {
+      software = import ./default.nix {
         pkgs = pkgs;
         pkgs_22_11 = pkgs_22_11;
         version = self.rev or "dirty";
       };
-      t0yv0-ware = import ./t0yv0-ware.nix { pkgs = pkgs; };
-      copilot = import ./copilot.nix { pkgs = pkgs; };
-      ts = import ./ts.nix { pkgs = pkgs; };
+    in {
+      default = software.t0yv0-emacs;
+      copilot = software.copilot;
+      mermaid = software.mermaid;
+      t0yv0-emacs = software.t0yv0-emacs;
+      t0yv0-emacs-lisp = software.t0yv0-emacs-lisp;
+      t0yv0-ware = software.t0yv0-ware;
+      treesitter = software.treesitter;
     };
 
-    pkgsMap = builtins.listToAttrs (builtins.map (sys: {
+  in {
+    packages = builtins.listToAttrs (builtins.map (sys: {
       name = sys;
       value = packages sys;
-    }) systems);
-
-  in {
-    packages = pkgsMap;
+    }) [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ]);
   };
 }
