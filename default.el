@@ -153,6 +153,14 @@
   (visible-bell t)
   (winner-mode t)
 
+  (project-switch-commands
+   '((consult-project-buffer "Buffer" ?b)
+     (project-find-file "File" nil)
+     (t0yv0/consult-ripgrep-current-project "Ripgrep" ?g)
+     (project-find-dir "Dir" nil)
+     (t0yv0/vterm-proj "VTerm" ?v)
+     (magit-project-status "Magit" nil)))
+
   (initial-frame-alist
    '((unsplittable t)))
 
@@ -416,16 +424,6 @@
               (concat (file-name-directory (or load-file-name (buffer-file-name))) "snippets")))
   (yas-reload-all)
   (yas-global-mode))
-
-(custom-set-variables
- '(project-switch-commands
-   '((consult-project-buffer "Buffer" ?b)
-     (project-find-file "File" nil)
-     (t0yv0/consult-ripgrep-current-project "Ripgrep" ?g)
-     (project-find-dir "Dir" nil)
-     (t0yv0/vterm-proj "VTerm" ?v)
-     (magit-project-status "Magit" nil))))
-
 
 (provide 'default)
 ;;; default.el ends here
