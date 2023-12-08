@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs?rev=b7cde1c47b7316f6138a2b36ef6627f3d16d645c;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
     nixpkgs_22_11.url = github:NixOS/nixpkgs/22.11;
     copilot_src.url = github:zerolfx/copilot.el?rev=4f83577b3a3c120e9b1063b5a793c20a6ed9ece0;
     copilot_src.flake = false;
@@ -16,8 +16,9 @@
       epkgs = pkgs.emacsPackagesFor pkgs.emacs29;
 
       t0yv0-ware = epkgs.trivialBuild {
-        pname = "t0yv0-ware-${version}";
+        pname = "t0yv0-ware";
         src = ./t0yv0-ware.el;
+        version = "${version}";
         packageRequires = [
           epkgs.dash
           epkgs.consult
@@ -29,7 +30,8 @@
       };
 
       copilot = epkgs.trivialBuild {
-        pname = "copilot-${version}";
+        pname = "copilot";
+        version = "${version}";
         src = copilot_src;
         packageRequires = [
           epkgs.dash
@@ -56,7 +58,8 @@
       mermaid = pkgs_22_11.nodePackages.mermaid-cli;
 
       t0yv0-emacs-lisp = epkgs.trivialBuild {
-        pname = "t0yv0-emacs-lisp-${version}";
+        pname = "t0yv0-emacs-lisp";
+        version = "${version}";
         src = sources;
         postBuild = ''
           mkdir -p $out/share/emacs/site-lisp
@@ -111,6 +114,7 @@
 
       t0yv0-emacs = pkgs.stdenv.mkDerivation {
         name = "t0yv0-emacs-${version}";
+        version = "${version}";
         builder = "${pkgs.bash}/bin/bash";
         coreutils = pkgs.coreutils;
         emacs = epkgs.emacsWithPackages (epkgs: [
