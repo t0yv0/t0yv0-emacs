@@ -5,24 +5,25 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs_22_11 }: let
-
     systems = [
       "x86_64-linux"
       "x86_64-darwin"
       "aarch64-darwin"
     ];
 
-    packages = sys:
-      let
-        pkgs = import nixpkgs { system = sys; };
-        pkgs_22_11 = import nixpkgs_22_11 { system = sys; };
-      in {
-        default = import ./default.nix { pkgs = pkgs; pkgs_22_11 = pkgs_22_11;
-                                         version = self.rev or "dirty"; };
-        t0yv0-ware = import ./t0yv0-ware.nix { pkgs = pkgs; };
-        copilot = import ./copilot.nix { pkgs = pkgs; };
-        ts = import ./ts.nix { pkgs = pkgs; };
+    packages = sys: let
+      pkgs = import nixpkgs { system = sys; };
+      pkgs_22_11 = import nixpkgs_22_11 { system = sys; };
+    in {
+      default = import ./default.nix {
+        pkgs = pkgs;
+        pkgs_22_11 = pkgs_22_11;
+        version = self.rev or "dirty";
       };
+      t0yv0-ware = import ./t0yv0-ware.nix { pkgs = pkgs; };
+      copilot = import ./copilot.nix { pkgs = pkgs; };
+      ts = import ./ts.nix { pkgs = pkgs; };
+    };
 
     pkgsMap = builtins.listToAttrs (builtins.map (sys: {
       name = sys;
