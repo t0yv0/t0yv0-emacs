@@ -375,14 +375,13 @@
               ("q" . selected-off)
               ("u" . upcase-region)
               ("d" . downcase-region)
-              ("w" . count-words-region)
               ("m" . apply-macro-to-region-lines)
-              ("h" . t0yv0/expand-region)
+              ("j" . t0yv0/expand-region)
+              ("h" . t0yv0/widen-region)
               ("z" . t0yv0/contract-region)
               ("g" . t0yv0/goto-region)
               ("C-g" . t0yv0/reset-region)
-              (";" . exchange-point-and-mark)
-              ("w" . t0yv0/widen-region)))
+              (";" . exchange-point-and-mark)))
 
 (use-package tide
   :config (add-hook 'typescript-mode-hook #'(lambda ()
