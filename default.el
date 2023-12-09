@@ -60,6 +60,13 @@
      consult--source-project-buffer
      consult--source-project-recent-file)))
 
+(use-package consult-dir
+  :after vertico
+  :bind (("C-x C-d" . consult-dir)
+         :map vertico-map
+         ("C-x C-d" . consult-dir)
+         ("C-x C-j" . consult-dir-jump-file)))
+
 (use-package copilot)
 
 (use-package corfu

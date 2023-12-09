@@ -73,6 +73,7 @@
         packageRequires = [
           epkgs.avy
           epkgs.consult
+          epkgs.consult-dir
           epkgs.corfu
           epkgs.dap-mode
           epkgs.diminish
