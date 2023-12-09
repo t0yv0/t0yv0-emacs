@@ -11,10 +11,9 @@
 ;;; package configuration
 
 (use-package avy
-  :init
-  (avy-setup-default)
-  (keymap-global-set "M-g j" 'avy-goto-char-2)
-  (keymap-global-set "M-g w" 'avy-goto-word-1))
+  :bind (("C-c j" . avy-goto-char-2))
+  :bind (:map isearch-mode-map
+              (("C-c j" . avy-isearch))))
 
 (use-package consult
   :after dash
