@@ -132,6 +132,10 @@
       t0yv0-emacs-lisp = t0yv0-emacs-lisp;
       t0yv0-ware = t0yv0-ware;
       treesitter = treesitter;
+
+      # Needs a manual step to install on Mac OS. `nix build && cd result`, select and open all the
+      # font files simultaneously, this prompts the installer.
+      iosevka = pkgs.iosevka;
     };
 
   in {
