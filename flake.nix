@@ -136,6 +136,9 @@
       # Needs a manual step to install on Mac OS. `nix build && cd result`, select and open all the
       # font files simultaneously, this prompts the installer.
       iosevka = pkgs.iosevka;
+
+      # On Macs need to copy these manually into ~/Library/Spelling for jinx to work.
+      dicts = pkgs.hunspellDicts.en_US;
     };
 
   in {
