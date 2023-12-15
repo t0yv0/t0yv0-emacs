@@ -104,15 +104,19 @@
   (add-hook 'eglot-managed-mode-hook #'t0yv0/disable-eglot-inlay-hints))
 
 (use-package emacs
-  :bind* (("C-c d"     . t0yv0/diary)
-          ("C-c z"     . t0yv0/vterm-repeat)
-          ("C-c o"     . org-capture)
-          ("M-s d"     . t0yv0/consult-ripgrep-current-directory)
-          ("M-s p"     . t0yv0/consult-ripgrep-current-project)
-          ("C-h"       . t0yv0/backspace)
-          ("C-c q"     . t0yv0/quit)
-          ("M-`"       . other-frame)
-          ("M-h"       . t0yv0/expand-region))
+  :bind* (("C-c d" . t0yv0/diary)
+          ("C-c z" . t0yv0/vterm-repeat)
+          ("C-c o" . org-capture)
+          ("M-s d" . t0yv0/consult-ripgrep-current-directory)
+          ("M-s p" . t0yv0/consult-ripgrep-current-project)
+          ("C-h"   . t0yv0/backspace)
+          ("C-c q" . t0yv0/quit)
+          ("M-`"   . other-frame)
+          ("M-h"   . t0yv0/expand-region)
+          ("M-c"   . kill-ring-save)
+          ("M-v"   . yank)
+          ("M-x"   . kill-region)
+          ("M-z"   . undo))
 
   :hook
   (before-save . delete-trailing-whitespace)
