@@ -406,6 +406,9 @@
 (use-package vterm
   :bind (("C-x p v" . t0yv0/vterm-proj))
   :bind (:map vterm-mode-map
+              ("M-c" . kill-ring-save)
+              ("M-v" . yank)
+              ("M-z" . undo)
               ("M-w" . kill-ring-save)
               ("M-/" . #'t0yv0/vterm-dabbrev-expand))
   :config
