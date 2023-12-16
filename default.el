@@ -111,6 +111,7 @@
           ("M-s p" . t0yv0/consult-ripgrep-current-project)
           ("C-h"   . t0yv0/backspace)
           ("C-c q" . t0yv0/quit)
+          ("C-c x" . execute-extended-command)
           ("M-`"   . other-frame)
           ("M-h"   . t0yv0/expand-region)
           ("M-c"   . kill-ring-save)
@@ -226,11 +227,6 @@
   :after git-link
   :init
 
-  (defhydra t0yv0/dispatch-hydra (:color blue :hint nil)
-    "dispatch"
-    ("," self-insert-command "comma")
-    ("x" execute-extended-command "M-x"))
-
   (defhydra t0yv0/link-hydra (:color blue :hint nil)
     "links"
     ("l" git-link "git-link")
@@ -281,8 +277,7 @@
     ("p" copilot-previous-completion "prev")
     ("C-j" copilot-accept-completion "accept" :color blue))
 
-  :bind ((","     . t0yv0/dispatch-hydra/body)
-         ("C-c w" . t0yv0/windmove-hydra/body)
+  :bind (("C-c w" . t0yv0/windmove-hydra/body)
          ("C-c l" . t0yv0/link-hydra/body)
          ("C-c c" . t0yv0/compile-hydra/body)
          ("C-c v" . t0yv0/vterm-hydra/body)
