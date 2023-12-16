@@ -386,12 +386,12 @@
               ("u" . upcase-region)
               ("d" . downcase-region)
               ("m" . apply-macro-to-region-lines)
-              ("j" . t0yv0/expand-region)
+              ("f" . t0yv0/expand-region)
               ("h" . t0yv0/widen-region)
               ("z" . t0yv0/contract-region)
-              ("g" . t0yv0/goto-region)
+              ("C-j" . t0yv0/goto-region)
               ("C-g" . t0yv0/reset-region)
-              (";" . exchange-point-and-mark)))
+              ("x" . exchange-point-and-mark)))
 
 (use-package tide
   :config (add-hook 'typescript-mode-hook #'(lambda ()
