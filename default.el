@@ -263,7 +263,7 @@
     ("c" compile "compile")
     ("m" t0yv0/mermaid-compile "mermaid"))
 
-  (defhydra t0yv0/vterm-hydra (:color blue)
+  (defhydra t0yv0/vterm-hydra (:color blue :idle 1.0)
     "vterms"
     ("v" t0yv0/vterm "vterm")
     ("p" t0yv0/vterm-proj "vterm-proj")
