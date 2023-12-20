@@ -567,5 +567,25 @@ Ensures it is up-to-date with ./tree-sitter."
     (previous-buffer)))
 
 
+(defun t0yv0/bottom-window ()
+  "Returns the window closest to the bottom of current frame."
+  (let ((win nil)
+        (edge 0))
+    (walk-window-tree
+     (lambda (w)
+       (let ((w-edge (cadddr (window-edges w))))
+         (when (or (null win) (> w-edge edge))
+           (setq edge w-edge)
+           (setq win w)))))
+    win))
+
+
+(defun t0yv0/display-buffer-at-bottom (buffer alist)
+  "Picks the bottom window to display the buffer in, splitting if needed."
+  (when (equal (length (window-list)) 1)
+    (split-window-below (ceiling (* 0.62 (window-height (selected-window))))))
+  (window--display-buffer buffer (t0yv0/bottom-window) 'reuse alist))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here

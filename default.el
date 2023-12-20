@@ -129,6 +129,12 @@
   (global-set-key (kbd "C-c h") 'help-command)
 
   :custom
+  (display-buffer-alist
+   '(("\\*Gofmt Error"
+      (t0yv0/display-buffer-at-bottom))
+     ("\\*vterm"
+      (t0yv0/display-buffer-at-bottom))))
+
   (bookmark-default-file "~/my/bookmarks")
   (bookmark-save-flag 1)
   (column-number-mode t)
@@ -411,20 +417,7 @@
               ("M-v" . yank)
               ("M-z" . undo)
               ("M-w" . kill-ring-save)
-              ("M-/" . #'t0yv0/vterm-dabbrev-expand))
-  :config
-  (add-to-list 'display-buffer-alist
-               '("\\*vterm"
-                 (display-buffer-reuse-window
-                  t0yv0/display-buffer-same-vterm-window
-                  display-buffer-reuse-mode-window
-                  display-buffer-in-direction)
-                 (inhibit-same-window . nil)
-                 (mode vterm-mode vterm-copy-mode)
-                 (direction . bottom)
-                 (window . root)
-                 (window-height . 0.381)
-                 (dedicated . t))))
+              ("M-/" . #'t0yv0/vterm-dabbrev-expand)))
 
 (use-package wgrep)
 
