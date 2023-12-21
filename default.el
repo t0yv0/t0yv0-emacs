@@ -132,6 +132,8 @@
   (display-buffer-alist
    '(("\\*Gofmt Error"
       (t0yv0/display-buffer-at-bottom))
+     ("\\*Occur"
+      (t0yv0/display-buffer-at-bottom))
      ("\\*vterm"
       (t0yv0/display-buffer-at-bottom))))
 
