@@ -695,5 +695,20 @@ available falls back to `backward-word'."
     x))
 
 
+(defun t0yv0/mark-sexp (&optional arg)
+  (interactive "P")
+  (cond
+   ((null (treesit-parser-list))
+    (mark-sexp (or arg 1)))
+   ((region-active-p)
+    (if (> (point) (mark))
+        (t0yv0/forward-sexp arg)
+      (t0yv0/backward-sexp arg)))
+   (t
+    (let ((n (t0yv0/treesit-topmost-node (point))))
+      (set-mark (treesit-node-start n))
+      (goto-char (treesit-node-end n))))))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
