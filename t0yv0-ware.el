@@ -710,5 +710,12 @@ available falls back to `backward-word'."
       (goto-char (treesit-node-end n))))))
 
 
+(defun t0yv0/kill-sexp (&optional arg)
+  (interactive "P")
+  (let ((opoint (point)))
+    (t0yv0/forward-sexp (or arg 1))
+    (kill-region opoint (point))))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
