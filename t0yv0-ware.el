@@ -397,159 +397,9 @@ Ensures it is up-to-date with ./tree-sitter."
   (eglot-inlay-hints-mode -1))
 
 
-(defun t0yv0/expand-region (arg)
-  (interactive "P")
-  (cond
-   ((null (treesit-parser-list))
-    (er/expand-region (or arg 1)))
-   ((not (region-active-p))
-    (setq t0yv0/region-history '())
-    (t0yv0/treesit-expand-region-start))
-   ((equal arg (list 4))
-    (t0yv0/treesit-expand-region-to-node))
-   ((<= (mark) (point))
-    (t0yv0/treesit-expand-region-forward))
-   (t ;; remaining case is backward direction
-    (t0yv0/treesit-expand-region-backward))))
-
-
-(defun t0yv0/widen-region (arg)
-  (interactive "P")
-  (cond
-   ((null (treesit-parser-list))
-    (er/expand-region (or arg 1)))
-   ((not (region-active-p))
-    (setq t0yv0/region-history '())
-    (t0yv0/treesit-expand-region-start))
-   (t
-    (t0yv0/treesit-expand-region-to-node))))
-
-
-(defun t0yv0/goto-region ()
-  (interactive)
-  (cond
-   ((null (treesit-parser-list))
-    (let ((p (point)))
-      (er/contract-region 0)
-      (deactivate-mark)
-      (goto-char p)))
-   (t
-    (deactivate-mark)
-    (setq t0yv0/region-history '()))))
-
-
 (defun t0yv0/reset-region ()
   (interactive)
-  (cond
-   ((null (treesit-parser-list))
-    (er/contract-region 0)
-    (deactivate-mark))
-   (t
-    (when (not (null t0yv0/region-history))
-      (goto-char (car (car (last t0yv0/region-history)))))
-    (deactivate-mark)
-    (setq t0yv0/region-history '()))))
-
-
-(defun t0yv0/contract-region (arg)
-  (interactive "P")
-  (cond
-   ((null (treesit-parser-list))
-    (er/contract-region (or arg 1)))
-   ((> (length t0yv0/region-history) 1)
-    (set-mark (car (car t0yv0/region-history)))
-    (goto-char (cdr (car t0yv0/region-history)))
-    (setq t0yv0/region-history (cdr t0yv0/region-history)))
-   (t
-    (t0yv0/reset-region))))
-
-
-(defvar t0yv0/region-history '()
-  "A history of start and end points so we can contract after expanding.")
-
-;; history is always local to a single buffer
-(make-variable-buffer-local 't0yv0/region-history)
-
-
-(defun t0yv0/remember-selection (start end)
-  (push (cons start end) t0yv0/region-history)
-  (set-mark start)
-  (goto-char end))
-
-
-(defun t0yv0/treesit-expand-region-start ()
-  (let ((n (treesit-node-at (point))))
-    (while (< (- (treesit-node-end n)
-                 (treesit-node-start n))
-              2)
-      (setq n (treesit-node-parent n)))
-    (t0yv0/remember-selection
-     (treesit-node-start n)
-     (treesit-node-end n))))
-
-
-(defun t0yv0/treesit-expand-region-to-node ()
-  (let* ((b (region-beginning))
-         (e (region-end))
-         (n (treesit-node-on b e)))
-    (while (and (>= (treesit-node-start n) b)
-                (<= (treesit-node-end n) e))
-      (setq n (treesit-node-parent n)))
-    (t0yv0/remember-selection
-     (treesit-node-start n)
-     (treesit-node-end n))))
-
-
-(defun t0yv0/treesit-expand-region-backward ()
-  (interactive)
-  (if (not (region-active-p))
-      (t0yv0/treesit-expand-region-start)
-      (let* ((b (region-beginning))
-             (e (region-end))
-             (n (treesit-node-on b e))
-             (c (treesit-filter-child
-                 n
-                 (lambda (c)
-                   (and (>= b (treesit-node-start c))
-                        (<= b (treesit-node-end c))))))
-             (x (or (if c (treesit-node-prev-sibling (car c)) nil) n)))
-        (while (and x
-                    (>= (treesit-node-end x) b)
-                    (>= (treesit-node-start x) b))
-          (setq x (or (treesit-node-prev-sibling x)
-                      (treesit-node-parent x))))
-        (when x
-          (t0yv0/remember-selection
-           e
-           (if (< (treesit-node-end x) b)
-               (treesit-node-end x)
-             (treesit-node-start x)))))))
-
-
-(defun t0yv0/treesit-expand-region-forward ()
-  (interactive)
-  (if (not (region-active-p))
-      (t0yv0/treesit-expand-region-start)
-    (let* ((b (region-beginning))
-           (e (region-end))
-           (n (treesit-node-on b e))
-           (c (treesit-filter-child
-               n
-               (lambda (c)
-                 (and (>= e (treesit-node-start c))
-                      (<= e (treesit-node-end c))))))
-           (x (or (if c (treesit-node-next-sibling (car c)) nil) n)))
-      (while (and x
-                  (<= (treesit-node-end x) e)
-                  (<= (treesit-node-start x) e))
-        (setq x (or (treesit-node-next-sibling x)
-                    (treesit-node-parent x))))
-      (when x
-        (t0yv0/remember-selection
-         b
-         (if (> (treesit-node-start x) e)
-             (treesit-node-start x)
-           (treesit-node-end x)))))))
+  (er/contract-region 0))
 
 
 (defun t0yv0/backspace (arg)
@@ -765,6 +615,39 @@ available falls back to `backward-word'."
     (goto-char pos)
     (back-to-indentation)
     (equal (point) pos)))
+
+
+(defun t0yv0/expand-region (arg)
+  (interactive "P")
+  (cond
+   ((and (not (null (treesit-parser-list)))
+         (region-active-p))
+    (let* ((new-region (t0yv0/treesit-compute-expanded-region (region-beginning)
+                                                              (region-end)))
+           (b (car new-region))
+           (e (cdr new-region)))
+      (setq er/history (cons (cons (point) (mark)) er/history))
+      (if (> (point) (mark))
+          (progn
+            (set-mark b)
+            (goto-char e))
+        (progn
+          (goto-char b)
+          (set-mark e)))))
+   (t
+    (er/expand-region (or arg 1)))))
+
+
+(defun t0yv0/treesit-compute-expanded-region (b e)
+  (let ((n (treesit-node-on b e)))
+    (while (and n
+                (treesit-node-parent n)
+                (>= (treesit-node-start n) b)
+                (<= (treesit-node-end n) e))
+      (setq n (treesit-node-parent n)))
+    (if n (cons (treesit-node-start n)
+                (treesit-node-end n))
+      (cons b e))))
 
 
 (provide 't0yv0-ware)

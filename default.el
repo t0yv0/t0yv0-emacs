@@ -404,11 +404,10 @@
               ("u" . upcase-region)
               ("d" . downcase-region)
               ("m" . apply-macro-to-region-lines)
-              ("f" . t0yv0/expand-region)
-              ("h" . t0yv0/widen-region)
-              ("z" . t0yv0/contract-region)
-              ("C-j" . t0yv0/goto-region)
-              ("C-g" . t0yv0/reset-region)
+              ("h" . t0yv0/expand-region)
+              ("z" . er/contract-region)
+              ("j" . set-mark-command)
+              ("g" . t0yv0/reset-region)
               ("x" . exchange-point-and-mark)))
 
 (use-package tide
