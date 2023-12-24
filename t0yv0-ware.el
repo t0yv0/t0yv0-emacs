@@ -717,5 +717,55 @@ available falls back to `backward-word'."
     (kill-region opoint (point))))
 
 
+(defun t0yv0/forward-list (&optional arg)
+  (interactive "P")
+  (cond
+   ((null (treesit-parser-list))
+    (forard-list (or arg 1)))
+   (t
+    (goto-char (t0yv0/treesit-search-large-node (point))))))
+
+
+(defun t0yv0/backward-list (&optional arg)
+  (interactive "P")
+  (cond
+   ((null (treesit-parser-list))
+    (forard-list (or arg 1)))
+   (t
+    (goto-char (t0yv0/treesit-search-large-node (point) 'backward)))))
+
+
+(defun t0yv0/treesit-search-large-node (pos &optional backward)
+  (let ((nn (treesit-search-forward
+             (treesit-node-at pos)
+             (lambda (n)
+               (and (if backward
+                        (t0yv0/line-gt pos (treesit-node-start n))
+                      (t0yv0/line-gt (treesit-node-start n) pos))
+                    (t0yv0/at-indentation-p (treesit-node-start n))))
+             (if backward t nil)
+             t)))
+    (if nn (treesit-node-start nn) pos)))
+
+
+(defun t0yv0/line-gt (pos1 pos2)
+  (save-excursion
+    (let ((p1 nil) (p2 nil))
+      (goto-char pos1)
+      (beginning-of-line)
+      (setq p1 (point))
+      (goto-char pos2)
+      (beginning-of-line)
+      (setq p2 (point))
+      (> p1 p2))))
+
+
+(defun t0yv0/at-indentation-p (pos)
+  (save-excursion
+    (goto-char pos)
+    (back-to-indentation)
+    (equal (point) pos)))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here

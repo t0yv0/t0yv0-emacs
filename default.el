@@ -225,6 +225,8 @@
   :init (t0yv0/ensure-tree-sitter-grammar-install)
   :after go-mode
   :bind (("C-c C-a" . go-import-add)
+         ("<remap> <forward-list>" . t0yv0/forward-list)
+         ("<remap> <backward-list>" . t0yv0/backward-list)
          ("<remap> <kill-sexp>" . t0yv0/kill-sexp)
          ("<remap> <mark-sexp>" . t0yv0/mark-sexp)
          ("<remap> <forward-word>" . t0yv0/forward-word)
