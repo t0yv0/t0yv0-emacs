@@ -638,5 +638,62 @@ available falls back to `backward-word'."
         (if nn (treesit-node-start nn) pos)))))
 
 
+(defun t0yv0/forward-sexp (&optional arg)
+  (interactive "P")
+  (cond
+   ((null (treesit-parser-list))
+    (forward-sexp (or arg 1)))
+   (t
+    (goto-char (t0yv0/treesit-forward-sexp (point))))))
+
+
+(defun t0yv0/backward-sexp (&optional arg)
+  (interactive "P")
+  (cond
+   ((null (treesit-parser-list))
+    (backward-sexp (or arg 1)))
+   (t
+    (goto-char (t0yv0/treesit-backward-sexp (point))))))
+
+
+(defun t0yv0/treesit-forward-sexp (pos)
+  (let* ((x (t0yv0/treesit-topmost-node pos)))
+    (while (and x (<= (treesit-node-start x) pos))
+      (setq x (or (treesit-node-next-sibling x)
+                  (treesit-node-parent x))))
+    (if x (treesit-node-start x) pos)))
+
+
+(defun t0yv0/treesit-backward-sexp (pos)
+  (let* ((x (t0yv0/treesit-topmost-node pos)))
+    (while (and x (>= (treesit-node-start x) pos))
+      (setq x (or (treesit-node-prev-sibling x)
+                  (treesit-node-parent x))))
+    (if x (treesit-node-start x) pos)))
+
+
+(defun t0yv0/backward-up-list (&optional arg)
+  (interactive "P")
+  (cond
+   ((null (treesit-parser-list))
+    (backward-up-list (or arg 1)))
+   (t
+    (goto-char (t0yv0/treesit-backward-up-list (point))))))
+
+
+(defun t0yv0/treesit-backward-up-list (pos)
+  (let ((x (t0yv0/treesit-topmost-node pos)))
+    (treesit-node-start (or (treesit-node-parent x) x))))
+
+
+(defun t0yv0/treesit-topmost-node (pos)
+  (let ((x (treesit-node-at pos)))
+    (while (let ((p (treesit-node-parent x)))
+             (and p (equal (treesit-node-start p)
+                          (treesit-node-start x))))
+      (setq x (treesit-node-parent x)))
+    x))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here

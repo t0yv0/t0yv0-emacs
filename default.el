@@ -224,7 +224,12 @@
   :mode "\\.go\\'"
   :init (t0yv0/ensure-tree-sitter-grammar-install)
   :after go-mode
-  :bind (("C-c C-a" . go-import-add))
+  :bind (("C-c C-a" . go-import-add)
+         ("<remap> <forward-word>" . t0yv0/forward-word)
+         ("<remap> <backward-word>" . t0yv0/backward-word)
+         ("<remap> <forward-sexp>" . t0yv0/forward-sexp)
+         ("<remap> <backward-sexp>" . t0yv0/backward-sexp)
+         ("<remap> <backward-up-list>" . t0yv0/backward-up-list))
   :hook
   (go-ts-mode . eglot-ensure)
   (before-save . t0yv0/gofmt-before-save))
