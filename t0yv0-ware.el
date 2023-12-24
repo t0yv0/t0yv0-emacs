@@ -587,5 +587,56 @@ Ensures it is up-to-date with ./tree-sitter."
   (window--display-buffer buffer (t0yv0/bottom-window) 'reuse alist))
 
 
+;; motion ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defun t0yv0/forward-word (&optional arg)
+  (interactive "P")
+  "Moves point forward by tree-sitter nodes. If tree-sitter is not
+available falls back to `forward-word'."
+  (cond
+   ((null (treesit-parser-list))
+    (forward-word (or arg 1)))
+   (t
+    (goto-char (t0yv0/treesit-forward-node (point))))))
+
+
+(defun t0yv0/treesit-forward-node (pos)
+  "Computes a position forward one node from original POS."
+  (let* ((n (treesit-node-at pos))
+         (ne (treesit-node-end n)))
+    (if (> ne pos) ne
+      (let ((nn (treesit-search-forward
+                 n
+                 (lambda (n) (> (treesit-node-end n) pos))
+                 nil
+                 t)))
+        (if nn (treesit-node-end nn) pos)))))
+
+
+(defun t0yv0/backward-word (&optional arg)
+  (interactive "P")
+  "Moves point backward by tree-sitter nodes. If tree-sitter is not
+available falls back to `backward-word'."
+  (cond
+   ((null (treesit-parser-list))
+    (backward-word (or arg 1)))
+   (t
+    (goto-char (t0yv0/treesit-backward-node (point))))))
+
+
+(defun t0yv0/treesit-backward-node (pos)
+  "Computes a position backward one node from original POS."
+  (let* ((n (treesit-node-at pos))
+         (ns (treesit-node-start n)))
+    (if (< ns pos) ns
+      (let ((nn (treesit-search-forward
+                 n
+                 (lambda (n) (< (treesit-node-start n) pos))
+                 t
+                 t)))
+        (if nn (treesit-node-start nn) pos)))))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
