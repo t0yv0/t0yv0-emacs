@@ -85,6 +85,9 @@
 
 (use-package edit-indirect)
 
+(use-package envrc
+  :init (envrc-global-mode))
+
 (use-package eglot
   :bind (("M-g n"   . flymake-goto-next-error)
          ("M-g M-n" . flymake-goto-next-error)

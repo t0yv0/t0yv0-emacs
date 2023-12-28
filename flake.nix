@@ -80,6 +80,7 @@
           epkgs.edit-indirect
           epkgs.embark
           epkgs.embark-consult
+          epkgs.envrc
           epkgs.expand-region
           epkgs.git-link
           epkgs.go-mode
