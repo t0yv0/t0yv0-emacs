@@ -86,6 +86,7 @@
 (use-package edit-indirect)
 
 (use-package envrc
+  :diminish envrc-mode
   :init (envrc-global-mode))
 
 (use-package eglot
@@ -304,6 +305,7 @@
          ("C-c /" . t0yv0/copilot-hydra/body)))
 
 (use-package jinx
+  :diminish jinx-mode
   :hook (emacs-startup . global-jinx-mode)
   :bind (("M-$" . jinx-correct)
          ("C-M-$" . jinx-languages)))
@@ -396,6 +398,7 @@
   (recentf-mode 1))
 
 (use-package selected
+  :diminish selected-minor-mode
   :commands selected-minor-mode
   :after multiple-cursors
   :init (selected-global-mode)
