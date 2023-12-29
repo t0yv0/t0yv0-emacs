@@ -77,6 +77,7 @@
           epkgs.corfu
           epkgs.dap-mode
           epkgs.diminish
+          epkgs.doom-modeline
           epkgs.edit-indirect
           epkgs.embark
           epkgs.embark-consult

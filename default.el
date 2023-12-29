@@ -83,6 +83,10 @@
 
 (use-package diminish)
 
+(use-package doom-modeline
+  :after nerd-icons
+  :init (doom-modeline-mode 1))
+
 (use-package edit-indirect)
 
 (use-package envrc
@@ -311,6 +315,15 @@
          ("C-M-$" . jinx-languages)))
 
 (use-package json-mode)
+
+;; Requires a font installed from https://www.nerdfonts.com
+(use-package nerd-icons
+  ;; :custom
+  ;; The Nerd Font you want to use in GUI
+  ;; "Symbols Nerd Font Mono" is the default and is recommended
+  ;; but you can use any other Nerd Font if you want
+  ;; (nerd-icons-font-family "Symbols Nerd Font Mono")
+  )
 
 (use-package nix-mode)
 
