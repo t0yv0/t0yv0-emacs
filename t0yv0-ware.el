@@ -85,16 +85,6 @@ DIR working directory"
     (replace-regexp-in-string "\n\\'" "" (buffer-string))))
 
 
-(defun t0yv0/display-buffer-same-vterm-window (buffer alist)
-  "Like `display-buffer-same-window' if the selected window is in vterm-mode.
-
-BUFFER is a buffer to display.
-
-ALIST contains options such as `inhibit-same-window'."
-  (when (eq 'vterm-mode (t0yv0/current-mode))
-    (display-buffer-same-window buffer alist)))
-
-
 (defun t0yv0/current-mode ()
   "Compute the mode of the current buffer."
   (with-current-buffer (window-buffer (selected-window)) major-mode))
