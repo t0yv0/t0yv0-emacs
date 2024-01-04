@@ -139,11 +139,11 @@
   :custom
   (display-buffer-alist
    '(("\\*Gofmt Error"
-      (t0yv0/display-buffer-at-bottom))
+      (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*Occur"
-      (t0yv0/display-buffer-at-bottom))
+      (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*vterm"
-      (t0yv0/display-buffer-at-bottom))))
+      (t0yv0/display-buffer-at-bottom (dedicated . t)))))
 
   (bookmark-default-file "~/my/bookmarks")
   (bookmark-save-flag 1)
