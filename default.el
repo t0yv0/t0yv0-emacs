@@ -142,6 +142,8 @@
       (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*Occur"
       (t0yv0/display-buffer-at-bottom (dedicated . t)))
+     ("\\*Org Help"
+      (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*vterm"
       (t0yv0/display-buffer-at-bottom (dedicated . t)))))
 
