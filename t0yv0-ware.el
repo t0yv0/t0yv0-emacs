@@ -657,5 +657,30 @@ available falls back to `backward-word'."
       (cons b e))))
 
 
+(defun t0yv0/go-defun-name (defun-body)
+  (unless (null (string-match
+                 (rx bos (seq "func") (* (any " ")) (group (* (not "("))) )
+                 defun-body))
+    (match-string-no-properties 1 defun-body)))
+
+
+(defun t0yv0/embark-execute-identifier (ident)
+  (cond
+   ((and (equal major-mode 'go-ts-mode)
+         (string-prefix-p "Test" ident))
+    (shell-command (format "go test -test.v -test.run '^%s'" ident) "*test*" "*test*"))
+   (t
+    (message "Do not know how to execute identifier: %s" ident))))
+
+
+(defun t0yv0/embark-execute-defun (defun-body)
+  (cond
+   ((and (equal major-mode 'go-ts-mode)
+         (string-prefix-p "Test" (t0yv0/go-defun-name defun-body)))
+    (t0yv0/embark-execute-identifier (t0yv0/go-defun-name defun-body)))
+   (t
+    (message "Do not know how to execute defun: %s" defun-body))))
+
+
 (provide 't0yv0-ware)
 ;;; t0yv0-ware.el ends here
