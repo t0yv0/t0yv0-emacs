@@ -407,41 +407,17 @@ Ensures it is up-to-date with ./tree-sitter."
     (previous-buffer)))
 
 
-(defun t0yv0/bottom-window ()
-  "Returns the window closest to the bottom of current frame.
-
-Never returns the minibuffer window."
-  (let ((win nil)
-        (edge 0))
-    (walk-window-tree
-     (lambda (w)
-       (let ((w-edge (cadddr (window-edges w))))
-         (when (and (or (null win) (> w-edge edge))
-                    (not (minibuffer-window-active-p w)))
-           (setq edge w-edge)
-           (setq win w)))))
-    win))
-
-
-(defun t0yv0/single-window ()
-  "Check if the current frame has a single window only.
-
-The count excludes the minibuffer window."
-  (let ((n 0)
-        (win nil))
-    (walk-window-tree (lambda (w)
-                        (unless (minibuffer-window-active-p w)
-                          (setq win w)
-                          (setq n (+ n 1)))))
-    (if (= n 1) win nil)))
-
-
 (defun t0yv0/display-buffer-at-bottom (buffer alist)
   "Picks the bottom window to display the buffer in, splitting if needed."
-  (let ((w (t0yv0/single-window)))
-    (when w
-      (split-window-below (ceiling (* 0.62 (window-height w))) w))
-    (window--display-buffer buffer (t0yv0/bottom-window) 'reuse alist)))
+  (let ((w (selected-window))
+        (candidates (-difference (window-at-side-list nil 'bottom)
+                                 (window-at-side-list nil 'top))))
+    (window--display-buffer buffer
+                            (if (null candidates)
+                                (split-window-below
+                                 (ceiling (* 0.62 (window-height w))) w)
+                              (car candidates))
+                            'reuse alist)))
 
 
 ;; motion ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
