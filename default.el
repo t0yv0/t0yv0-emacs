@@ -207,13 +207,14 @@
 
 (use-package embark
   :bind
+  ("C-." . embark-act)
+  ("C-;" . embark-dwim)
+
+  :bind
   ((:map embark-identifier-map
          ("x" . t0yv0/embark-execute-identifier))
    (:map embark-defun-map
-         ("x" . t0yv0/embark-execute-defun))
-   ("C-." . embark-act)
-   ("C-;" . embark-dwim)
-   ("C-h B" . embark-bindings))
+         ("x" . t0yv0/embark-execute-defun)))
 
   :init
   (setq prefix-help-command #'embark-prefix-help-command)
