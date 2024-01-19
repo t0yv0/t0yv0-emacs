@@ -409,7 +409,8 @@ Ensures it is up-to-date with ./tree-sitter."
 
 (defun t0yv0/display-buffer-at-bottom (buffer alist)
   "Picks the bottom window to display the buffer in, splitting if needed."
-  (let ((w (selected-window))
+  (let ((w (or (minibuffer-selected-window)
+               (selected-window)))
         (candidates (-difference (window-at-side-list nil 'bottom)
                                  (window-at-side-list nil 'top))))
     (window--display-buffer buffer
