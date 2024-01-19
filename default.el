@@ -146,6 +146,8 @@
       (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*Embark Actions"
       (t0yv0/display-buffer-at-bottom (dedicated . t)))
+     ("\\*Embark Collect"
+      (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*test"
       (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*vterm"
