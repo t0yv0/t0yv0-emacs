@@ -123,7 +123,8 @@
           ("M-c"   . kill-ring-save)
           ("M-v"   . yank)
           ("M-x"   . kill-region)
-          ("M-z"   . undo))
+          ("M-z"   . undo)
+          ("<remap> <dabbrev-expand>" . hippie-expand))
 
   :hook
   (before-save . delete-trailing-whitespace)
