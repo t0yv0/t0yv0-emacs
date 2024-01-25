@@ -93,6 +93,7 @@
           epkgs.jinx
           epkgs.json-mode
           epkgs.magit
+          epkgs.major-mode-hydra
           epkgs.marginalia
           epkgs.mermaid-mode
           epkgs.multiple-cursors

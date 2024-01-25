@@ -97,9 +97,7 @@
   :bind (("M-g n"   . flymake-goto-next-error)
          ("M-g M-n" . flymake-goto-next-error)
          ("M-g p"   . flymake-goto-prev-error)
-         ("M-g M-p" . flymake-goto-prev-error)
-         ("M-g e"   . consult-flymake)
-         ("M-g M-e" . t0yv0/consult-project-flymake))
+         ("M-g M-p" . flymake-goto-prev-error))
   :custom
   (eglot-events-buffer-size 0)
   (eglot-stay-out-of (list 'eldoc))
@@ -245,7 +243,8 @@
   :mode "\\.go\\'"
   :init (t0yv0/ensure-tree-sitter-grammar-install)
   :after go-mode
-  :bind (("C-c C-a" . go-import-add)
+  :bind (("M-p" . flymake-goto-prev-error)
+         ("M-n" . flymake-goto-next-error)
          ("<remap> <forward-list>" . t0yv0/forward-list)
          ("<remap> <backward-list>" . t0yv0/backward-list)
          ("<remap> <kill-sexp>" . t0yv0/kill-sexp)
@@ -343,9 +342,29 @@
 (use-package magit
   :bind (("C-x g" . magit-status)))
 
+(use-package major-mode-hydra
+  :bind ("C-c C-c" . major-mode-hydra)
+  :config
+  (major-mode-hydra-define go-ts-mode nil
+    ("Consult"
+     (("e" consult-flymake "errors")
+      ("E" t0yv0/consult-project-flymake "project-errors")
+      ("m" consult-imenu "imenu"))
+     "Find"
+     (("im" eglot-find-implementation "impls")
+      ("rs" xref-find-references "refs"))
+     "Refactor"
+     (("ia" go-import-add "add-import")
+      ("re" eglot-rename "rename")
+      ("in" eglot-code-action-inline "inline")
+      ("xt" eglot-code-action-extract "extract"))
+     "Narrow"
+     (("n" narrow-to-defun "narrow")
+      ("w" widen "widen")))))
+
 (use-package marginalia
   :bind (:map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
+              ("M-A" . marginalia-cycle))
 
   :init (marginalia-mode))
 
