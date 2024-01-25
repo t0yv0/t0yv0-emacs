@@ -149,6 +149,8 @@
      ("\\*test"
       (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*vterm"
+      (t0yv0/display-buffer-at-bottom (dedicated . t)))
+     ("\\*xref"
       (t0yv0/display-buffer-at-bottom (dedicated . t)))))
 
   (bookmark-default-file "~/my/bookmarks")
