@@ -346,9 +346,15 @@
   :bind (("C-x g" . magit-status)))
 
 (use-package major-mode-hydra
-  :bind ("C-c C-c" . major-mode-hydra)
+  :bind ("C-c SPC" . major-mode-hydra)
   :config
-  (major-mode-hydra-define go-ts-mode nil
+  (major-mode-hydra-define
+    grep-mode nil
+    ("wgrep"
+     (("p" wgrep-change-to-wgrep-mode "wgrep-change-to-wgrep-mode [C-c C-p]")
+      ("s" wgrep-save-all-buffers "wgrep-save-all-buffers"))))
+  (major-mode-hydra-define
+    go-ts-mode nil
     ("Consult"
      (("e" consult-flymake "errors")
       ("E" t0yv0/consult-project-flymake "project-errors")
@@ -368,7 +374,6 @@
 (use-package marginalia
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle))
-
   :init (marginalia-mode))
 
 (use-package mermaid-mode
