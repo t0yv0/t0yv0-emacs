@@ -164,6 +164,7 @@
   (gc-cons-percentage 0.2)
   (global-mark-ring-max 6)
   (global-so-long-mode 1)
+  (enable-recursive-minibuffers t)
   (indent-tabs-mode nil)
   (inhibit-splash-screen t)
   (inhibit-startup-message t)
