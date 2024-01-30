@@ -2,7 +2,7 @@
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
     nixpkgs_22_11.url = github:NixOS/nixpkgs/22.11;
-    copilot_src.url = github:zerolfx/copilot.el?rev=4f83577b3a3c120e9b1063b5a793c20a6ed9ece0;
+    copilot_src.url = github:copilot-emacs/copilot.el?rev=8f5e45405ead77fcbe85b5c02193f23449d2d518;
     copilot_src.flake = false;
   };
 

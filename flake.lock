@@ -3,17 +3,17 @@
     "copilot_src": {
       "flake": false,
       "locked": {
-        "lastModified": 1690249218,
-        "narHash": "sha256-TokWEMyWcqPU1V0FX7faxbl5gUBXf8DoqFeXHwIKP8Y=",
-        "owner": "zerolfx",
+        "lastModified": 1705243570,
+        "narHash": "sha256-t83Uub8d9t24BXutjPuOav+giLVGwjGr8ameFJvFUTw=",
+        "owner": "copilot-emacs",
         "repo": "copilot.el",
-        "rev": "4f83577b3a3c120e9b1063b5a793c20a6ed9ece0",
+        "rev": "8f5e45405ead77fcbe85b5c02193f23449d2d518",
         "type": "github"
       },
       "original": {
-        "owner": "zerolfx",
+        "owner": "copilot-emacs",
         "repo": "copilot.el",
-        "rev": "4f83577b3a3c120e9b1063b5a793c20a6ed9ece0",
+        "rev": "8f5e45405ead77fcbe85b5c02193f23449d2d518",
         "type": "github"
       }
     },
