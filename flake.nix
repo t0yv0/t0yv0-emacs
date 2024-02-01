@@ -2,138 +2,117 @@
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
     nixpkgs_22_11.url = github:NixOS/nixpkgs/22.11;
-    copilot_src.url = github:copilot-emacs/copilot.el?rev=8f5e45405ead77fcbe85b5c02193f23449d2d518;
-    copilot_src.flake = false;
+    copilot_flake.url = github:t0yv0/copilot.el?rev=a0a8a69cf924c2b45f1ad3d0eb9fbe3a762e58f4;
   };
 
-  outputs = { self, nixpkgs, nixpkgs_22_11, copilot_src }: let
+  outputs = { self, nixpkgs, nixpkgs_22_11, copilot_flake }: let
+
+    version = self.rev or "dirty";
 
     packages = sys: let
       pkgs = import nixpkgs { system = sys; };
       pkgs_22_11 = import nixpkgs_22_11 { system = sys; };
-      version = self.rev or "dirty";
-
       epkgs = pkgs.emacsPackagesFor pkgs.emacs29-macport;
+      treesitter = pkgs.tree-sitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
+      mermaid = pkgs_22_11.nodePackages.mermaid-cli;
+      copilot = (builtins.getAttr sys copilot_flake.packages).default;
 
-      t0yv0-ware = epkgs.trivialBuild {
-        pname = "t0yv0-ware";
-        src = ./t0yv0-ware.el;
+      t0yv0-basics = epkgs.trivialBuild {
+        pname = "t0yv0-basics";
         version = "${version}";
+        src = [ ./t0yv0-basics.el ];
         packageRequires = [
-          epkgs.dash
           epkgs.consult
-          epkgs.go-mode
-          epkgs.markdown-mode
-          epkgs.mermaid-mode
+          epkgs.dash
           epkgs.vterm
         ];
       };
 
-      copilot = epkgs.trivialBuild {
-        pname = "copilot";
+      t0yv0-treesit = epkgs.trivialBuild {
+        pname = "t0yv0-treesit";
         version = "${version}";
-        src = copilot_src;
-        packageRequires = [
-          epkgs.dash
-          epkgs.s
-          epkgs.editorconfig
-        ];
-        postBuild = ''
-          mkdir -p $out/share/emacs/site-lisp
-          cp -r $src/dist $out/share/emacs/site-lisp/
-        '';
+        src = [ ./t0yv0-treesit.el ];
       };
 
-      matching = x: ty:
-        pkgs.lib.hasSuffix "default.el" x ||
-        builtins.match ".*snippets.*" x != null;
-
-      sources = pkgs.lib.cleanSourceWith {
-        filter = matching;
-        src = ./.;
-      };
-
-      treesitter = pkgs.tree-sitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
-
-      mermaid = pkgs_22_11.nodePackages.mermaid-cli;
-
-      t0yv0-emacs-lisp = epkgs.trivialBuild {
-        pname = "t0yv0-emacs-lisp";
+      prebuilt = pkgs.symlinkJoin {
+        name = "t0yv0-emacs-prebuilt-${version}";
         version = "${version}";
-        src = sources;
-        postBuild = ''
-          mkdir -p $out/share/emacs/site-lisp
-          mkdir -p $out/share/emacs/site-lisp/bin
-          cp -r $src/snippets $out/share/emacs/site-lisp/
-          mkdir -p $out/share/emacs/site-lisp/tree-sitter
-          ln -s ${treesitter}/go.so $out/share/emacs/site-lisp/tree-sitter/libtree-sitter-go.so
-          ln -s ${treesitter}/gomod.so $out/share/emacs/site-lisp/tree-sitter/libtree-sitter-gomod.so
-          ln -s ${mermaid}/bin/mmdc $out/share/emacs/site-lisp/bin/mmdc
-        '';
-        packageRequires = [
+        paths = [
           epkgs.avy
-          epkgs.consult
-          epkgs.consult-dir
-          epkgs.corfu
-          epkgs.dap-mode
-          epkgs.diminish
-          epkgs.doom-modeline
-          epkgs.edit-indirect
           epkgs.embark
           epkgs.embark-consult
-          epkgs.envrc
           epkgs.expand-region
+          epkgs.git-commit
           epkgs.git-link
           epkgs.go-mode
           epkgs.haskell-mode
-          epkgs.hydra
-          # Note on JINX: this spell-checking package requires additional packages; on NixOS installing
-          # pkgs.nuspell and pkgs.hunspellDicts.en_US works fine; TBD on MacOS. I have not taken the time
-          # to find how to inline this into t0yv0-emacs so it installs a local copy.
-          epkgs.jinx
-          epkgs.json-mode
           epkgs.magit
+          epkgs.magit-section
           epkgs.major-mode-hydra
-          epkgs.marginalia
           epkgs.mermaid-mode
           epkgs.multiple-cursors
           epkgs.nix-mode
-          epkgs.orderless
           epkgs.ormolu
-          epkgs.paredit
-          epkgs.selected
-          epkgs.tide
-          epkgs.tree-sitter-langs
+          epkgs.pretty-hydra
+          epkgs.reformatter
+          epkgs.transient
           epkgs.typescript-mode
-          epkgs.use-package
-          epkgs.vertico
-          epkgs.wgrep
+          epkgs.with-editor
           epkgs.yaml-mode
-          epkgs.yasnippet
-
-          copilot
-          t0yv0-ware
+          t0yv0-basics
+          t0yv0-treesit
         ];
       };
 
-      t0yv0-emacs = pkgs.stdenv.mkDerivation {
-        name = "t0yv0-emacs-${version}";
+      bootstrap = pkgs.stdenv.mkDerivation {
+        name = "t0yv0-emacs-bootstrap-${version}";
         version = "${version}";
         builder = "${pkgs.bash}/bin/bash";
         coreutils = pkgs.coreutils;
-        emacs = epkgs.emacsWithPackages (epkgs: [
-          t0yv0-emacs-lisp
-        ]);
-        args = [ ./builder.sh "${version}" ];
+        args = [ ./bootstrap.sh "${prebuilt}" ./default.el
+                 "${treesitter}" "${mermaid}/bin/mmdc" ./snippets ];
       };
 
+      default-el = epkgs.trivialBuild {
+        pname = "t0yv0-emacs-default-el";
+        version = "${version}";
+        src = [ "${bootstrap}" ];
+        packageRequires = [
+          t0yv0-basics
+          epkgs.hydra
+        ];
+      };
+
+      eager-packages = epkgs: [
+        copilot
+        default-el
+        epkgs.corfu
+        epkgs.diminish
+        epkgs.doom-modeline
+        epkgs.envrc
+        epkgs.hydra
+        # Note on JINX: this spell-checking package requires additional packages; on NixOS
+        # installing pkgs.nuspell and pkgs.hunspellDicts.en_US works fine; TBD on MacOS. I have not
+        # taken the time to find how to inline this into t0yv0-emacs so it installs a local copy.
+        epkgs.jinx
+        epkgs.marginalia
+        epkgs.orderless
+        epkgs.vertico
+        epkgs.wgrep
+        epkgs.yasnippet
+      ];
+
+      default = epkgs.emacsWithPackages eager-packages;
+
     in {
+      default = default;
       copilot = copilot;
-      default = t0yv0-emacs;
+      bootstrap = bootstrap;
+      default-el = default-el;
       mermaid = mermaid;
-      t0yv0-emacs = t0yv0-emacs;
-      t0yv0-emacs-lisp = t0yv0-emacs-lisp;
-      t0yv0-ware = t0yv0-ware;
+      prebuilt = prebuilt;
+      t0yv0-basics = t0yv0-basics;
+      t0yv0-treesit = t0yv0-treesit;
       treesitter = treesitter;
 
       # Needs a manual step to install on Mac OS. `nix build && cd result`, select and open all the

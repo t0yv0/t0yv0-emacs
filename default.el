@@ -5,15 +5,14 @@
 ;;;
 ;;; Code:
 
+(require 'hydra)
+(require 't0yv0-basics)
 (require 'use-package)
-(require 't0yv0-ware)
-
-;;; package configuration
 
 (use-package avy
-  :bind (("C-c j" . avy-goto-char-2))
+  :bind (("C-c s" . avy-goto-char-2))
   :bind (:map isearch-mode-map
-              (("C-c j" . avy-isearch))))
+              (("C-c s" . avy-isearch))))
 
 (use-package consult
   :after dash
@@ -59,14 +58,44 @@
      consult--source-project-buffer
      consult--source-project-recent-file)))
 
-(use-package consult-dir
-  :after vertico
-  :bind (("C-x C-d" . consult-dir)
-         :map vertico-map
-         ("C-x C-d" . consult-dir)
-         ("C-x C-j" . consult-dir-jump-file)))
-
-(use-package copilot)
+(use-package copilot
+  :bind (("C-c /" . t0yv0/copilot-hydra/body)
+         ("C-c n" . copilot-next-completion)
+         ("C-c p" . copilot-previous-completion)
+         ("C-c j" . copilot-accept-completion)
+         ("C-c g" . copilot-clear-overlay))
+  :custom (copilot-disable-predicates
+           (list
+            (lambda ()
+              (member major-mode '(shell-mode
+                                   inferior-python-mode
+                                   eshell-mode
+                                   term-mode
+                                   vterm-mode
+                                   comint-mode
+                                   compilation-mode
+                                   debugger-mode
+                                   dired-mode-hook
+                                   compilation-mode-hook
+                                   minibuffer-mode-hook)))))
+  :config
+  (eval '(pretty-hydra-define
+          t0yv0/copilot-hydra
+          (:color amaranth :quit-key "C-g")
+          ("Completions"
+           (("/" copilot-complete "complete")
+            ("g" copilot-clear-overlay "clear" :color blue)
+            ("j" copilot-accept-completion "accept" :color blue))
+           "Nav"
+           (("n" copilot-next-completion "next")
+            ("p" copilot-previous-completion "prev"))
+           "Login"
+           (("L" copilot-login "login" :color blue)
+            ("Q" copilot-logout "logout" :color blue))
+           "Copilot System"
+           (("G" global-copilot-mode "global-mode" :color blue)
+            ("X" (lambda () (interactive) (global-copilot-mode -1)) "global-mode-off" :color blue)
+            ("D" copilot-diagnose "diagnose" :color blue))))))
 
 (use-package corfu
   :init
@@ -76,28 +105,17 @@
   (:map corfu-map
         ("C-j" . corfu-insert)))
 
-(use-package dash)
-
-(use-package dap-mode
-  :init (require 'dap-dlv-go))
-
 (use-package diminish)
 
 (use-package doom-modeline
   :after nerd-icons
   :init (doom-modeline-mode 1))
 
-(use-package edit-indirect)
-
 (use-package envrc
   :diminish envrc-mode
   :init (envrc-global-mode))
 
 (use-package eglot
-  :bind (("M-g n"   . flymake-goto-next-error)
-         ("M-g M-n" . flymake-goto-next-error)
-         ("M-g p"   . flymake-goto-prev-error)
-         ("M-g M-p" . flymake-goto-prev-error))
   :custom
   (eglot-events-buffer-size 0)
   (eglot-stay-out-of (list 'eldoc))
@@ -107,19 +125,18 @@
                                        :codeLensProivder
                                        :inlayHintProvier))
   :config
-  (add-hook 'eglot-managed-mode-hook #'t0yv0/disable-eglot-inlay-hints))
+  (add-hook 'eglot-managed-mode-hook (lambda ()
+                                       (eglot-inlay-hints-mode -1))))
 
 (use-package emacs
   :bind* (("C-c d" . t0yv0/diary)
-          ("C-c z" . t0yv0/vterm-repeat)
+          ("C-c q" . t0yv0/quit)
           ("C-c o" . org-capture)
           ("M-s d" . t0yv0/consult-ripgrep-current-directory)
-          ("M-s p" . t0yv0/consult-ripgrep-current-project)
+          ("M-s p" . consult-ripgrep)
           ("C-h"   . t0yv0/backspace)
-          ("C-c q" . t0yv0/quit)
           ("C-c x" . execute-extended-command)
           ("M-`"   . other-frame)
-          ("M-h"   . t0yv0/expand-region)
           ("M-c"   . kill-ring-save)
           ("M-v"   . yank)
           ("M-x"   . kill-region)
@@ -151,6 +168,8 @@
       (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*vterm"
       (t0yv0/display-buffer-at-bottom (dedicated . t)))
+     ("current-region.png"
+      (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*xref"
       (t0yv0/display-buffer-at-bottom (dedicated . t)))))
 
@@ -170,12 +189,12 @@
   (inhibit-startup-message t)
   (initial-major-mode 'text-mode)
   (initial-scratch-message "")
-  (mac-pass-command-to-system nil)
-  (mac-pass-control-to-system nil)
   (major-mode 'text-mode)
   (make-backup-files nil)
   (mark-ring-max 6)
   (menu-bar-mode nil)
+  (mac-pass-command-to-system nil)
+  (mac-pass-control-to-system nil)
   (ns-command-modifier 'meta)
   (ns-right-command-modifier 'super)
   (prefer-coding-system 'utf-8)
@@ -238,101 +257,65 @@
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package expand-region
-  :custom
-  (expand-region-fast-keys-enabled . nil))
+  :bind (("C-=" . er/expand-region)))
 
-(use-package git-link)
+(use-package flymake
+  :bind (("M-n" . flymake-goto-next-error)
+         ("M-p" . flymake-goto-prev-error)))
 
-(use-package go-mode)
-
-(use-package go-ts-mode
-  :mode "\\.go\\'"
-  :init (t0yv0/ensure-tree-sitter-grammar-install)
-  :after go-mode
-  :bind (("M-p" . flymake-goto-prev-error)
-         ("M-n" . flymake-goto-next-error)
-         ("<remap> <forward-list>" . t0yv0/forward-list)
-         ("<remap> <backward-list>" . t0yv0/backward-list)
-         ("<remap> <kill-sexp>" . t0yv0/kill-sexp)
-         ("<remap> <mark-sexp>" . t0yv0/mark-sexp)
-         ("<remap> <forward-word>" . t0yv0/forward-word)
-         ("<remap> <backward-word>" . t0yv0/backward-word)
-         ("<remap> <forward-sexp>" . t0yv0/forward-sexp)
-         ("<remap> <backward-sexp>" . t0yv0/backward-sexp)
-         ("<remap> <backward-up-list>" . t0yv0/backward-up-list))
-  :hook
-  (go-ts-mode . eglot-ensure)
-  (before-save . t0yv0/gofmt-before-save))
-
-(use-package haskell-mode)
-
-(use-package hydra
-  :after git-link
+(use-package git-link
+  :bind (("C-c l" . (lambda ()
+                      (interactive)
+                      (require 'git-link)
+                      (t0yv0/link-hydra/body))))
   :init
-
   (defhydra t0yv0/link-hydra (:color blue :hint nil)
     "links"
     ("l" git-link "git-link")
     ("c" git-link-commit "git-link-commit")
-    ("h" git-link-homepage "git-link-homepage"))
+    ("h" git-link-homepage "git-link-homepage")))
 
-  (defhydra t0yv0/windmove-hydra (:hint nil)
-    "windmove: use arrow keys or fbnp to nav, add shift to swap\n"
-    ("<enter>" nil "select")
-    ("C-j" nil "select")
-    ("0" delete-window "delete")
-    ("1" delete-other-windows "delete-other")
-    ("v" split-window-vertically "v-split")
-    ("h" split-window-horizontally "h-split")
-    ("S-<left>" windmove-swap-states-left)
-    ("S-<right>" windmove-swap-states-right)
-    ("S-<up>" windmove-swap-states-up)
-    ("S-<down>" windmove-swap-states-down)
-    ("B" windmove-swap-states-left)
-    ("F" windmove-swap-states-right)
-    ("P" windmove-swap-states-up)
-    ("N" windmove-swap-states-down)
-    ("<left>" windmove-left)
-    ("<right>" windmove-right)
-    ("<up>" windmove-up)
-    ("<down>" windmove-down)
-    ("b" windmove-left)
-    ("f" windmove-right)
-    ("p" windmove-up)
-    ("n" windmove-down))
+(use-package go-ts-mode
+  :mode "\\.go\\'"
+  :config
+  (require 'go-mode)
+  (require 'major-mode-hydra)
+  (require 't0yv0-treesit)
+  (t0yv0/ensure-tree-sitter-grammar-install)
+  (eval '(major-mode-hydra-define
+          go-ts-mode nil
+          ("Consult"
+           (("e" consult-flymake "errors")
+            ("E" (lambda () (interactive) (consult-flymake (project-current nil))) "project-errors")
+            ("m" consult-imenu "imenu"))
+           "Find"
+           (("im" eglot-find-implementation "impls")
+            ("rs" xref-find-references "refs"))
+           "Refactor"
+           (("ia" go-import-add "add-import")
+            ("re" eglot-rename "rename")
+            ("in" eglot-code-action-inline "inline")
+            ("xt" eglot-code-action-extract "extract"))
+           "Narrow"
+           (("n" narrow-to-defun "narrow-to-defun")
+            ("w" widen "widen")))))
+  :catch (lambda (keyword err)
+           (message (error-message-string err)))
+  :hook
+  (go-ts-mode . eglot-ensure)
+  (before-save . (lambda ()
+                   (interactive)
+                   (when (eq major-mode 'go-ts-mode) (gofmt)))))
 
-  (defhydra t0yv0/compile-hydra (:color blue)
-    "compilation"
-    ("c" compile "compile")
-    ("m" t0yv0/mermaid-compile "mermaid"))
-
-  (defhydra t0yv0/vterm-hydra (:color blue :idle 1.0)
-    "vterms"
-    ("v" t0yv0/vterm "vterm")
-    ("p" t0yv0/vterm-proj "vterm-proj")
-    ("d" t0yv0/vterm-dir "vterm-dir")
-    ("r" t0yv0/vterm-repeat "vterm-repeat"))
-
-  (defhydra t0yv0/copilot-hydra ()
-    "copilot"
-    ("." copilot-complete "complete")
-    ("n" copilot-next-completion "next")
-    ("p" copilot-previous-completion "prev")
-    ("C-j" copilot-accept-completion "accept" :color blue))
-
-  :bind (("C-c w" . t0yv0/windmove-hydra/body)
-         ("C-c l" . t0yv0/link-hydra/body)
-         ("C-c c" . t0yv0/compile-hydra/body)
-         ("C-c v" . t0yv0/vterm-hydra/body)
-         ("C-c /" . t0yv0/copilot-hydra/body)))
+(use-package haskell-mode
+  ;; TODO: run-hooks: Symbol’s function definition is void: haskell-mode-after-save-handler
+  :mode "\\.hs\\'")
 
 (use-package jinx
   :diminish jinx-mode
   :hook (emacs-startup . global-jinx-mode)
   :bind (("M-$" . jinx-correct)
          ("C-M-$" . jinx-languages)))
-
-(use-package json-mode)
 
 ;; Requires a font installed from https://www.nerdfonts.com
 (use-package nerd-icons
@@ -343,36 +326,14 @@
   ;; (nerd-icons-font-family "Symbols Nerd Font Mono")
   )
 
-(use-package nix-mode)
+(use-package nix-mode
+  :mode "\\.nix\\'")
 
 (use-package magit
   :bind (("C-x g" . magit-status)))
 
 (use-package major-mode-hydra
-  :bind ("C-c SPC" . major-mode-hydra)
-  :config
-  (major-mode-hydra-define
-    grep-mode nil
-    ("wgrep"
-     (("p" wgrep-change-to-wgrep-mode "wgrep-change-to-wgrep-mode [C-c C-p]")
-      ("s" wgrep-save-all-buffers "wgrep-save-all-buffers"))))
-  (major-mode-hydra-define
-    go-ts-mode nil
-    ("Consult"
-     (("e" consult-flymake "errors")
-      ("E" t0yv0/consult-project-flymake "project-errors")
-      ("m" consult-imenu "imenu"))
-     "Find"
-     (("im" eglot-find-implementation "impls")
-      ("rs" xref-find-references "refs"))
-     "Refactor"
-     (("ia" go-import-add "add-import")
-      ("re" eglot-rename "rename")
-      ("in" eglot-code-action-inline "inline")
-      ("xt" eglot-code-action-extract "extract"))
-     "Narrow"
-     (("n" narrow-to-defun "narrow")
-      ("w" widen "widen")))))
+  :bind ("C-c SPC" . major-mode-hydra))
 
 (use-package marginalia
   :bind (:map minibuffer-local-map
@@ -380,26 +341,47 @@
   :init (marginalia-mode))
 
 (use-package mermaid-mode
+  :bind ("C-c M" . t0yv0/mermaid-compile)
+  :config
+  (defun t0yv0/mermaid-compile ()
+    "Compiles and displays a Mermaid diagram from current region."
+    (interactive)
+    (save-excursion
+      (when (and (eq 'markdown-mode major-mode)
+                 (not (use-region-p)))
+        (markdown-mark-paragraph))
+      (when (and (eq 'org-mode major-mode)
+                 (not (use-region-p)))
+        (org-babel-mark-block))
+      (mermaid-compile-region)
+      (deactivate-mark t)
+      (with-current-buffer "current-region.png"
+        (revert-buffer nil t))))
   :custom
-  (mermaid-mmdc-location
-   (concat (file-name-directory (or load-file-name (buffer-file-name))) "bin/mmdc")))
+  (mermaid-mmdc-location t0yv0/mermaid-mmdc-location))
 
-(use-package multiple-cursors)
+(use-package multiple-cursors
+  :bind (("C-c m" . mc/edit-lines)))
 
 (use-package org
-  :mode (("\\.org$" . org-mode))
   :config
   (progn
     (setq org-confirm-babel-evaluate nil)
     (org-babel-do-load-languages 'org-babel-load-languages
                                  '((shell . t)
                                    (python . t)))
-    (org-link-set-parameters "gh" :follow #'t0yv0/org-follow-gh-link)
+    (org-link-set-parameters
+     "gh"
+     :follow #'(lambda (path _)
+                 (browse-url
+                  (concat "https://github.com/"
+                          (replace-regexp-in-string
+                           (regexp-quote "#")
+                           "/issues/" path nil 'literal)))))
     (setq org-default-notes-file "~/my/notes.org")
     (setq org-agenda-files '("~/my/notes.org"
                              "~/my/gtd.org"
                              "~/my/tickler.org"))
-
     ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
     (setq org-capture-templates
           '(("t" "Todo [inbox]" entry
@@ -408,7 +390,6 @@
             ("T" "Tickler" entry
              (file+headline "~/my/tickler.org" "Tickler")
              "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
-
     (setq org-refile-targets '(("~/my/gtd.org" :maxlevel . 3)
                                ("~/my/someday.org" :level . 1)
                                ("~/my/tickler.org" :maxlevel . 2)))))
@@ -426,26 +407,6 @@
   (:map haskell-mode-map
         ("C-c q" . ormolu-format-buffer)))
 
-(use-package paredit
-  :diminish paredit-mode
-  :init
-  (add-hook 'emacs-lisp-mode-hook
-	    #'enable-paredit-mode)
-  (add-hook 'eval-expression-minibuffer-setup-hook
-	    #'enable-paredit-mode)
-  (add-hook 'ielm-mode-hook
-	    #'enable-paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook
-            #'enable-paredit-mode)
-  (add-hook 'lisp-mode-hook
-	    #'enable-paredit-mode)
-  (add-hook 'scheme-mode-hook
-	    #'enable-paredit-mode)
-  (add-hook 'racket-mode-hook
-	    #'enable-paredit-mode)
-  :bind (:map paredit-mode-map
-              ("M-s" . nil)))
-
 (use-package recentf
   :config
   (setq recentf-max-menu-items 15
@@ -453,53 +414,82 @@
   :init
   (recentf-mode 1))
 
-(use-package selected
-  :diminish selected-minor-mode
-  :commands selected-minor-mode
-  :after multiple-cursors
-  :init (selected-global-mode)
-  :bind (:map selected-keymap
-              ("c" . mc/edit-lines)
-              (">" . mc/mark-next-like-this)
-              ("<" . mc/mark-previous-like-this)
-              ("q" . selected-off)
-              ("u" . upcase-region)
-              ("d" . downcase-region)
-              ("m" . apply-macro-to-region-lines)
-              ("h" . t0yv0/expand-region)
-              ("z" . er/contract-region)
-              ("j" . set-mark-command)
-              ("g" . t0yv0/reset-region)
-              ("x" . exchange-point-and-mark)))
+(use-package t0yv0/treesit
+  :bind (("<remap> <forward-list>" . t0yv0/forward-list)
+         ("<remap> <backward-list>" . t0yv0/backward-list)
+         ("<remap> <kill-sexp>" . t0yv0/kill-sexp)
+         ("<remap> <mark-sexp>" . t0yv0/mark-sexp)
+         ("<remap> <forward-word>" . t0yv0/forward-word)
+         ("<remap> <backward-word>" . t0yv0/backward-word)
+         ("<remap> <forward-sexp>" . t0yv0/forward-sexp)
+         ("<remap> <backward-sexp>" . t0yv0/backward-sexp)
+         ("<remap> <backward-up-list>" . t0yv0/backward-up-list)))
 
-(use-package tide
-  :config (add-hook 'typescript-mode-hook #'(lambda ()
-					      (tide-setup))))
-
-(use-package typescript-mode)
+(use-package typescript-mode
+  :mode "\\.ts\\'"
+  :config
+  (require 't0yv0-treesit)
+  (t0yv0/ensure-tree-sitter-grammar-install)
+  :hook
+  (typescript-mode . (lambda ()
+                       (eglot-ensure)
+                       (treesit-parser-create 'typescript))))
 
 (use-package vertico
   :init
   (vertico-mode))
 
 (use-package vterm
-  :bind (("C-x p v" . t0yv0/vterm-proj))
+  :bind (("C-x p v" . t0yv0/vterm-proj)
+         ("C-c z"   . t0yv0/vterm-repeat)
+         ("C-c v"   . t0yv0/vterm-hydra/body))
   :bind (:map vterm-mode-map
               ("M-c" . kill-ring-save)
               ("M-v" . yank)
               ("M-z" . undo)
               ("M-w" . kill-ring-save)
-              ("M-/" . #'t0yv0/vterm-dabbrev-expand)))
+              ("M-/" . #'t0yv0/vterm-dabbrev-expand))
+  :init (defhydra t0yv0/vterm-hydra (:color blue :idle 1.0)
+          "vterms"
+          ("v" t0yv0/vterm "vterm")
+          ("p" t0yv0/vterm-proj "vterm-proj")
+          ("d" t0yv0/vterm-dir "vterm-dir")
+          ("r" t0yv0/vterm-repeat "vterm-repeat")))
 
-(use-package wgrep)
+(use-package windmove
+  :bind (("C-c w" . t0yv0/windmove-hydra/body))
+  :init
+  (defhydra t0yv0/windmove-hydra (:hint nil)
+    "windmove: use fbnp to navigate, FBNP to swap\n"
+    ("C-j" nil "select")
+    ("0" delete-window "delete")
+    ("1" delete-other-windows "delete-other")
+    ("2" split-window-vertically "v-split")
+    ("3" split-window-horizontally "h-split")
+    ("B" windmove-swap-states-left)
+    ("F" windmove-swap-states-right)
+    ("P" windmove-swap-states-up)
+    ("N" windmove-swap-states-down)
+    ("b" windmove-left)
+    ("f" windmove-right)
+    ("p" windmove-up)
+    ("n" windmove-down)))
 
-(use-package yaml-mode)
+(use-package wgrep
+  :config
+  (require 'major-mode-hydra)
+  (eval '(major-mode-hydra-define
+          grep-mode nil
+          ("wgrep"
+           (("p" wgrep-change-to-wgrep-mode "wgrep-change-to-wgrep-mode [C-c C-p]")
+            ("s" wgrep-save-all-buffers "wgrep-save-all-buffers"))))))
+
+(use-package yaml-mode
+  :mode ("\\.yaml\\'" "\\.yml\\'"))
 
 (use-package yasnippet
   :config
-  (setq yas-snippet-dirs
-        (list "~/my/snippets"
-              (concat (file-name-directory (or load-file-name (buffer-file-name))) "snippets")))
+  (setq yas-snippet-dirs (list "~/my/snippets" t0yv0/yas-snippets))
   (yas-reload-all)
   (yas-global-mode))
 

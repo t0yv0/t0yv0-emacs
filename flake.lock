@@ -1,29 +1,47 @@
 {
   "nodes": {
-    "copilot_src": {
-      "flake": false,
+    "copilot_flake": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
       "locked": {
-        "lastModified": 1705243570,
-        "narHash": "sha256-t83Uub8d9t24BXutjPuOav+giLVGwjGr8ameFJvFUTw=",
-        "owner": "copilot-emacs",
+        "lastModified": 1706986968,
+        "narHash": "sha256-OG/d6E2QJk/HgsGhIrhSqspAnPxl/1OuavOXK+PjBo4=",
+        "owner": "t0yv0",
         "repo": "copilot.el",
-        "rev": "8f5e45405ead77fcbe85b5c02193f23449d2d518",
+        "rev": "a0a8a69cf924c2b45f1ad3d0eb9fbe3a762e58f4",
         "type": "github"
       },
       "original": {
-        "owner": "copilot-emacs",
+        "owner": "t0yv0",
         "repo": "copilot.el",
-        "rev": "8f5e45405ead77fcbe85b5c02193f23449d2d518",
+        "rev": "a0a8a69cf924c2b45f1ad3d0eb9fbe3a762e58f4",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1704420045,
-        "narHash": "sha256-C36QmoJd5tdQ5R9MC1jM7fBkZW9zBUqbUCsgwS6j4QU=",
+        "lastModified": 1706826059,
+        "narHash": "sha256-N69Oab+cbt3flLvYv8fYnEHlBsWwdKciNZHUbynVEOA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c1be43e8e837b8dbee2b3665a007e761680f0c3d",
+        "rev": "25e3d4c0d3591c99929b1ec07883177f6ea70c9d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-23.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1706826059,
+        "narHash": "sha256-N69Oab+cbt3flLvYv8fYnEHlBsWwdKciNZHUbynVEOA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "25e3d4c0d3591c99929b1ec07883177f6ea70c9d",
         "type": "github"
       },
       "original": {
@@ -51,8 +69,8 @@
     },
     "root": {
       "inputs": {
-        "copilot_src": "copilot_src",
-        "nixpkgs": "nixpkgs",
+        "copilot_flake": "copilot_flake",
+        "nixpkgs": "nixpkgs_2",
         "nixpkgs_22_11": "nixpkgs_22_11"
       }
     }
