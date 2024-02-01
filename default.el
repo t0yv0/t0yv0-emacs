@@ -170,6 +170,8 @@
   (inhibit-startup-message t)
   (initial-major-mode 'text-mode)
   (initial-scratch-message "")
+  (mac-pass-command-to-system nil)
+  (mac-pass-control-to-system nil)
   (major-mode 'text-mode)
   (make-backup-files nil)
   (mark-ring-max 6)

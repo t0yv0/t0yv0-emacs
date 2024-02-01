@@ -13,7 +13,7 @@
       pkgs_22_11 = import nixpkgs_22_11 { system = sys; };
       version = self.rev or "dirty";
 
-      epkgs = pkgs.emacsPackagesFor pkgs.emacs29;
+      epkgs = pkgs.emacsPackagesFor pkgs.emacs29-macport;
 
       t0yv0-ware = epkgs.trivialBuild {
         pname = "t0yv0-ware";
@@ -149,7 +149,6 @@
       name = sys;
       value = packages sys;
     }) [
-      "x86_64-linux"
       "x86_64-darwin"
       "aarch64-darwin"
     ]);
