@@ -9,10 +9,10 @@
 
     version = self.rev or "dirty";
 
-    packages = sys: let
+    packages = sys: emacs-flavor: let
       pkgs = import nixpkgs { system = sys; };
       pkgs_22_11 = import nixpkgs_22_11 { system = sys; };
-      epkgs = pkgs.emacsPackagesFor pkgs.emacs29-macport;
+      epkgs = pkgs.emacsPackagesFor (emacs-flavor pkgs);
       treesitter = pkgs.tree-sitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
       mermaid = pkgs_22_11.nodePackages.mermaid-cli;
       copilot = (builtins.getAttr sys copilot_flake.packages).default;
@@ -124,12 +124,10 @@
     };
 
   in {
-    packages = builtins.listToAttrs (builtins.map (sys: {
-      name = sys;
-      value = packages sys;
-    }) [
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ]);
+    packages = {
+      "x86_64-darwin"  = packages "x86_64-darwin"  (pkgs: pkgs.emacs29-macport);
+      "aarch64-darwin" = packages "aarch64-darwin" (pkgs: pkgs.emacs29-macport);
+      "x86_64-linux"   = packages "x86_64-linux"   (pkgs: pkgs.emacs29);
+    };
   };
 }
