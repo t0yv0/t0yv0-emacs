@@ -414,7 +414,7 @@
   :init
   (recentf-mode 1))
 
-(use-package t0yv0/treesit
+(use-package t0yv0-treesit
   :bind (("<remap> <forward-list>" . t0yv0/forward-list)
          ("<remap> <backward-list>" . t0yv0/backward-list)
          ("<remap> <kill-sexp>" . t0yv0/kill-sexp)
