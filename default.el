@@ -275,10 +275,14 @@
     ("c" git-link-commit "git-link-commit")
     ("h" git-link-homepage "git-link-homepage")))
 
+(use-package go-mode
+  :bind (("C-c C-a" . go-import-add))
+  :config
+  (setq auto-mode-alist (assq-delete-all "\\.go\\'" auto-mode-alist)))
+
 (use-package go-ts-mode
   :mode "\\.go\\'"
   :config
-  (require 'go-mode)
   (require 'major-mode-hydra)
   (require 't0yv0-treesit)
   (t0yv0/ensure-tree-sitter-grammar-install)
@@ -299,8 +303,6 @@
            "Narrow"
            (("n" narrow-to-defun "narrow-to-defun")
             ("w" widen "widen")))))
-  :catch (lambda (keyword err)
-           (message (error-message-string err)))
   :hook
   (go-ts-mode . eglot-ensure)
   (before-save . (lambda ()
