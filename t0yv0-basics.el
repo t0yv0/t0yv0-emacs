@@ -130,13 +130,19 @@ relying on `window-prev-buffers'.")
                             'reuse alist)))
 
 
-(defun t0yv0/embark-execute-defun (defun-body)
-  (cond
-   ((and (equal major-mode 'go-ts-mode)
-         (string-prefix-p "Test" (t0yv0/embark-go-defun-name defun-body)))
-    (t0yv0/embark-execute-identifier (t0yv0/embark-go-defun-name defun-body)))
-   (t
-    (message "Do not know how to execute defun: %s" defun-body))))
+(defun t0yv0/embark-execute-defun (&optional defun-body)
+  (let* ((source (or defun-body (save-excursion
+                                  (mark-defun)
+                                  (buffer-substring-no-properties
+                                   (region-beginning) (region-end)))))
+         (name (t0yv0/embark-go-defun-name source)))
+    (pop-mark)
+    (cond
+     ((and (equal major-mode 'go-ts-mode)
+           (string-prefix-p "Test" name))
+      (t0yv0/embark-execute-identifier name))
+     (t
+      (message "Do not know how to execute defun: %s" defun-body)))))
 
 
 (defun t0yv0/embark-execute-identifier (ident)
@@ -150,7 +156,7 @@ relying on `window-prev-buffers'.")
 
 (defun t0yv0/embark-go-defun-name (defun-body)
   (unless (null (string-match
-                 (rx bos (seq "func") (* (any " ")) (group (* (not "("))) )
+                 (rx (seq "func") (* (any " ")) (group (* (not "("))) )
                  defun-body))
     (match-string-no-properties 1 defun-body)))
 

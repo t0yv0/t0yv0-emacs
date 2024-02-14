@@ -294,8 +294,10 @@
            (("e" consult-flymake "errors")
             ("E" (lambda () (interactive) (consult-flymake (project-current nil))) "project-errors")
             ("m" consult-imenu "imenu"))
-           "Compile"
-           (("c" (lambda () (interactive) (compile "go build .")) "compile"))
+           "Code"
+           (("c" (lambda () (interactive) (compile "go build .")) "compile")
+            ("t" (lambda () (interactive) (t0yv0/embark-execute-defun)) "test-defun")
+            ("T" (lambda () (interactive) (compile "go test .")) "test-package"))
            "Find"
            (("im" eglot-find-implementation "impls")
             ("rs" xref-find-references "refs"))
