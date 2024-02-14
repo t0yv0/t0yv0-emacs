@@ -170,6 +170,8 @@
       (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("current-region.png"
       (t0yv0/display-buffer-at-bottom (dedicated . t)))
+     ("\\*compilation"
+      (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*xref"
       (t0yv0/display-buffer-at-bottom (dedicated . t)))))
 
@@ -287,11 +289,13 @@
   (require 't0yv0-treesit)
   (t0yv0/ensure-tree-sitter-grammar-install)
   (eval '(major-mode-hydra-define
-          go-ts-mode nil
+          go-ts-mode (:idle 0.5)
           ("Consult"
            (("e" consult-flymake "errors")
             ("E" (lambda () (interactive) (consult-flymake (project-current nil))) "project-errors")
             ("m" consult-imenu "imenu"))
+           "Compile"
+           (("c" (lambda () (interactive) (compile "go build .")) "compile"))
            "Find"
            (("im" eglot-find-implementation "impls")
             ("rs" xref-find-references "refs"))
