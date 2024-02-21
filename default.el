@@ -313,7 +313,9 @@
   (go-ts-mode . eglot-ensure)
   (before-save . (lambda ()
                    (interactive)
-                   (when (eq major-mode 'go-ts-mode) (gofmt)))))
+                   (when (eq major-mode 'go-ts-mode)
+                     (require 'go-mode)
+                     (gofmt)))))
 
 (use-package haskell-mode
   ;; TODO: run-hooks: Symbol’s function definition is void: haskell-mode-after-save-handler
