@@ -280,7 +280,7 @@
 (use-package go-mode
   :bind (("C-c C-a" . go-import-add))
   :config
-  (setq auto-mode-alist (assq-delete-all "\\.go\\'" auto-mode-alist)))
+  (setq auto-mode-alist (rassq-delete-all 'go-mode auto-mode-alist)))
 
 (use-package go-ts-mode
   :mode "\\.go\\'"
