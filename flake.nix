@@ -40,6 +40,7 @@
         version = "${version}";
         paths = [
           epkgs.avy
+          epkgs.emacsql
           epkgs.embark
           epkgs.embark-consult
           epkgs.expand-region
@@ -53,6 +54,7 @@
           epkgs.mermaid-mode
           epkgs.multiple-cursors
           epkgs.nix-mode
+          epkgs.org-roam
           epkgs.ormolu
           epkgs.pretty-hydra
           epkgs.reformatter

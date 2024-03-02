@@ -383,35 +383,74 @@
 
 (use-package org
   :config
-  (progn
-    (setq org-startup-indented t)
-    (setq org-confirm-babel-evaluate nil)
-    (org-babel-do-load-languages 'org-babel-load-languages
-                                 '((shell . t)
-                                   (python . t)))
-    (org-link-set-parameters
-     "gh"
-     :follow #'(lambda (path _)
-                 (browse-url
-                  (concat "https://github.com/"
-                          (replace-regexp-in-string
-                           (regexp-quote "#")
-                           "/issues/" path nil 'literal)))))
-    (setq org-default-notes-file "~/my/notes.org")
-    (setq org-agenda-files '("~/my/notes.org"
-                             "~/my/gtd.org"
-                             "~/my/tickler.org"))
-    ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
-    (setq org-capture-templates
-          '(("t" "Todo [inbox]" entry
-             (file+headline "~/my/notes.org" "Tasks")
-             "* TODO %i%?\n  %a")
-            ("T" "Tickler" entry
-             (file+headline "~/my/tickler.org" "Tickler")
-             "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
-    (setq org-refile-targets '(("~/my/gtd.org" :maxlevel . 3)
-                               ("~/my/someday.org" :level . 1)
-                               ("~/my/tickler.org" :maxlevel . 2)))))
+  (setq org-startup-indented t)
+  (setq org-confirm-babel-evaluate nil)
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((shell . t)
+                                 (python . t)))
+  (org-link-set-parameters
+   "gh"
+   :follow #'(lambda (path _)
+               (browse-url
+                (concat "https://github.com/"
+                        (replace-regexp-in-string
+                         (regexp-quote "#")
+                         "/issues/" path nil 'literal)))))
+  (setq org-default-notes-file "~/my/notes.org")
+  (setq org-agenda-files '("~/my/notes.org"
+                           "~/my/gtd.org"
+                           "~/my/tickler.org"))
+  ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
+  (setq org-capture-templates
+        '(("t" "Todo [inbox]" entry
+           (file+headline "~/my/notes.org" "Tasks")
+           "* TODO %i%?\n  %a")
+          ("T" "Tickler" entry
+           (file+headline "~/my/tickler.org" "Tickler")
+           "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
+  (setq org-refile-targets '(("~/my/gtd.org" :maxlevel . 3)
+                             ("~/my/someday.org" :level . 1)
+                             ("~/my/tickler.org" :maxlevel . 2)))
+  (advice-add 'org-capture
+              :before
+              (lambda (&optional goto keys)
+                (set-frame-parameter nil 'unsplittable nil)))
+  (add-hook 'org-capture-after-finalize-hook
+            (lambda ()
+              (set-frame-parameter nil 'unsplittable t))))
+
+(use-package org-roam
+  :after (major-mode-hydra org)
+  :custom
+  (org-roam-directory (file-truename "~/workshare/org-roam/"))
+  :bind (("C-c r" . t0yv0/org-roam-hydra/body))
+  :config
+  ;; If you're using a vertical completion framework, you might want a more informative completion interface
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode)
+  ;; If using org-roam-protocol
+  (require 'org-roam-protocol)
+  (require 'org-roam-dailies)
+  ;; Setup org-roam-dailies
+  (setq org-roam-dailies-directory "daily/")
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n"))))
+  (eval '(pretty-hydra-define
+          t0yv0/org-roam-hydra
+          (:color blue :quit-key "C-g")
+          ("Node"
+           (("c" org-roam-capture "capture")
+            ("f" org-roam-node-find "find")
+            ("i" org-roam-node-insert "insert"))
+           "Relations"
+           (("b" org-roam-buffer-toggle "buffer-toggle"))
+           "Dailies"
+           (("t" org-roam-dailies-capture-today "capture-today")
+            ("d" org-roam-dailies-goto-today "goto-today")
+            ("D" org-roam-dailies-goto-date "goto-date"))))))
 
 (use-package orderless
   :custom
