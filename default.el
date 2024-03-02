@@ -260,6 +260,13 @@
 (use-package embark-consult
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
+(use-package epa
+  :config
+  (advice-add 'epa-file-write-region
+              :before (lambda (&rest args)
+                        (setq-local epa-file-encrypt-to '("0x9E15CD89706EE947"))
+                        (message "NOTE: bypassing recipient selector and encrypting for self"))))
+
 (use-package expand-region
   :bind (("C-=" . er/expand-region)))
 
