@@ -67,11 +67,28 @@
         "type": "github"
       }
     },
+    "nixpkgs_darwin": {
+      "locked": {
+        "lastModified": 1709251216,
+        "narHash": "sha256-YIqYA4e1561zvBK2F7h9ilScnBy+0stgLHb3zOzpmOA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "1f50575dc92e39cdec74ab832987f41a57de7f68",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-23.11-darwin",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "copilot_flake": "copilot_flake",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs_22_11": "nixpkgs_22_11"
+        "nixpkgs_22_11": "nixpkgs_22_11",
+        "nixpkgs_darwin": "nixpkgs_darwin"
       }
     }
   },

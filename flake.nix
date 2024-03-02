@@ -2,14 +2,15 @@
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
     nixpkgs_22_11.url = github:NixOS/nixpkgs/22.11;
+    nixpkgs_darwin.url = github:NixOS/nixpkgs/nixpkgs-23.11-darwin;
     copilot_flake.url = github:t0yv0/copilot.el?rev=a0a8a69cf924c2b45f1ad3d0eb9fbe3a762e58f4;
   };
 
-  outputs = { self, nixpkgs, nixpkgs_22_11, copilot_flake }: let
+  outputs = { self, nixpkgs, nixpkgs_22_11, nixpkgs_darwin, copilot_flake }: let
 
     version = self.rev or "dirty";
 
-    packages = sys: emacs-flavor: let
+    packages = nixpkgs: sys: emacs-flavor: let
       pkgs = import nixpkgs { system = sys; };
       pkgs_22_11 = import nixpkgs_22_11 { system = sys; };
       epkgs = pkgs.emacsPackagesFor (emacs-flavor pkgs);
@@ -125,9 +126,9 @@
 
   in {
     packages = {
-      "x86_64-darwin"  = packages "x86_64-darwin"  (pkgs: pkgs.emacs29-macport);
-      "aarch64-darwin" = packages "aarch64-darwin" (pkgs: pkgs.emacs29-macport);
-      "x86_64-linux"   = packages "x86_64-linux"   (pkgs: pkgs.emacs29);
+      "x86_64-darwin" = packages nixpkgs_darwin "x86_64-darwin"  (pkgs: pkgs.emacs29-macport);
+      "aarch64-darwin" = packages nixpkgs_darwin "aarch64-darwin" (pkgs: pkgs.emacs29-macport);
+      "x86_64-linux" = packages nixpkgs "x86_64-linux" (pkgs: pkgs.emacs29);
     };
   };
 }
