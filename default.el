@@ -172,6 +172,8 @@
       (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*compilation"
       (t0yv0/display-buffer-at-bottom (dedicated . t)))
+     ("\\*Org Links"
+      (t0yv0/display-buffer-at-bottom (dedicated . t)))
      ("\\*xref"
       (t0yv0/display-buffer-at-bottom (dedicated . t)))))
 
@@ -271,11 +273,16 @@
                       (require 'git-link)
                       (t0yv0/link-hydra/body))))
   :init
-  (defhydra t0yv0/link-hydra (:color blue :hint nil)
-    "links"
-    ("l" git-link "git-link")
-    ("c" git-link-commit "git-link-commit")
-    ("h" git-link-homepage "git-link-homepage")))
+  (eval '(pretty-hydra-define
+          t0yv0/link-hydra
+          (:color blue :quit-key "C-g")
+          ("Git Links"
+           (("g" git-link "git-link")
+            ("c" git-link-commit "git-link-commit")
+            ("h" git-link-homepage "git-link-homepage"))
+           "Org Links"
+           (("l" org-store-link "org-store-link")
+            ("C-l" org-insert-link "org-insert-link [C-c C-l]"))))))
 
 (use-package go-mode
   :bind (("C-c C-a" . go-import-add))
