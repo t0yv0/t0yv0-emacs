@@ -268,11 +268,12 @@
          ("M-p" . flymake-goto-prev-error)))
 
 (use-package git-link
+  :after major-mode-hydra
   :bind (("C-c l" . (lambda ()
                       (interactive)
                       (require 'git-link)
                       (t0yv0/link-hydra/body))))
-  :init
+  :config
   (eval '(pretty-hydra-define
           t0yv0/link-hydra
           (:color blue :quit-key "C-g")
@@ -383,6 +384,7 @@
 (use-package org
   :config
   (progn
+    (setq org-startup-indented t)
     (setq org-confirm-babel-evaluate nil)
     (org-babel-do-load-languages 'org-babel-load-languages
                                  '((shell . t)
