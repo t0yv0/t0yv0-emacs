@@ -435,16 +435,19 @@
   ;; If you're using a vertical completion framework, you might want a more informative completion interface
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode)
-  ;; If using org-roam-protocol
-  (require 'org-roam-protocol)
   (require 'org-roam-dailies)
   ;; Setup org-roam-dailies
   (setq org-roam-dailies-directory "daily/")
   (setq org-roam-dailies-capture-templates
         '(("d" "default" entry
            "* %?"
-           :target (file+head "%<%Y-%m-%d>.org"
+           :target (file+head "%<%Y-%m-%d>.org.gpg"
                               "#+title: %<%Y-%m-%d>\n"))))
+  (setq org-roam-capture-templates
+        '(("d" "default" plain "%?"
+           :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org.gpg"
+                              "#+title: ${title}\n")
+           :unnarrowed t)))
   (eval '(pretty-hydra-define
           t0yv0/org-roam-hydra
           (:color blue :quit-key "C-g")
