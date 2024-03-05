@@ -422,6 +422,14 @@
               :before
               (lambda (&optional goto keys)
                 (set-frame-parameter nil 'unsplittable nil)))
+  (advice-add 'org-capture-goto-target
+              :after
+              (lambda (&optional template-key)
+                (set-frame-parameter nil 'unsplittable t)))
+  (advice-add 'org-capture-goto-last-stored
+              :after
+              (lambda ()
+                (set-frame-parameter nil 'unsplittable t)))
   (add-hook 'org-capture-after-finalize-hook
             (lambda ()
               (set-frame-parameter nil 'unsplittable t))))
