@@ -181,7 +181,7 @@
   (column-number-mode t)
   (completion-cycle-threshold 3)
   (display-fill-column-indicator-mode t)
-  (fill-column 100)
+  (fill-column 120)
   (gc-cons-threshold 16777216)
   (gc-cons-percentage 0.2)
   (global-mark-ring-max 6)
