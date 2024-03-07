@@ -131,7 +131,6 @@
 (use-package emacs
   :bind* (("C-c d" . t0yv0/diary)
           ("C-c q" . t0yv0/quit)
-          ("C-c o" . org-capture)
           ("M-s d" . t0yv0/consult-ripgrep-current-directory)
           ("M-s p" . consult-ripgrep)
           ("C-h"   . t0yv0/backspace)
@@ -389,6 +388,8 @@
   :bind (("C-c m" . mc/edit-lines)))
 
 (use-package org
+  :bind (("C-c c" . org-capture)
+         ("C-c a" . org-agenda))
   :config
   (setq org-startup-indented t)
   (setq org-confirm-babel-evaluate nil)
