@@ -403,21 +403,21 @@
                         (replace-regexp-in-string
                          (regexp-quote "#")
                          "/issues/" path nil 'literal)))))
-  (setq org-default-notes-file "~/my/notes.org")
-  (setq org-agenda-files '("~/my/notes.org"
-                           "~/my/gtd.org"
-                           "~/my/tickler.org"))
+  (setq org-default-notes-file "~/workshare/org/notes.org.gpg")
+  (setq org-agenda-files '("~/workshare/org/notes.org.gpg"
+                           "~/workshare/org/gtd.org.gpg"
+                           "~/workshare/org/tickler.org.gpg"))
   ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
   (setq org-capture-templates
         '(("t" "Todo [inbox]" entry
-           (file+headline "~/my/notes.org" "Tasks")
+           (file+headline "~/workshare/org/notes.org.gpg" "Tasks")
            "* TODO %i%?\n  %a")
           ("T" "Tickler" entry
-           (file+headline "~/my/tickler.org" "Tickler")
+           (file+headline "~/workshare/org/tickler.org.gpg" "Tickler")
            "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
-  (setq org-refile-targets '(("~/my/gtd.org" :maxlevel . 3)
-                             ("~/my/someday.org" :level . 1)
-                             ("~/my/tickler.org" :maxlevel . 2)))
+  (setq org-refile-targets '(("~/workshare/org/gtd.org.gpg" :maxlevel . 3)
+                             ("~/workshare/org/someday.org.gpg" :level . 1)
+                             ("~/workshare/org/tickler.org.gpg" :maxlevel . 2)))
   (advice-add 'org-capture
               :before
               (lambda (&optional goto keys)
