@@ -319,9 +319,7 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
          (vterm buffer)
          (with-current-buffer (get-buffer buffer)
            (compilation-shell-minor-mode 1))))
-     (let ((result (switch-to-buffer buffer)))
-       (set-window-dedicated-p (get-buffer-window buffer) t)
-       result))))
+     (switch-to-buffer buffer))))
 
 
 (defun t0yv0/vterm-proj ()

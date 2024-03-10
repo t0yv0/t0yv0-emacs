@@ -153,28 +153,36 @@
 
   :custom
   (display-buffer-alist
-   '(("\\*Gofmt Error"
-      (t0yv0/display-buffer-at-bottom (dedicated . t)))
-     ("\\*Occur"
-      (t0yv0/display-buffer-at-bottom (dedicated . t)))
-     ("\\*Org Help"
-      (t0yv0/display-buffer-at-bottom (dedicated . t)))
-     ("\\*Embark Actions"
-      (t0yv0/display-buffer-at-bottom (dedicated . t)))
-     ("\\*Embark Collect"
-      (t0yv0/display-buffer-at-bottom (dedicated . t)))
-     ("\\*test"
-      (t0yv0/display-buffer-at-bottom (dedicated . t)))
-     ("\\*vterm"
-      (t0yv0/display-buffer-at-bottom (dedicated . t)))
-     ("current-region.png"
-      (t0yv0/display-buffer-at-bottom (dedicated . t)))
-     ("\\*compilation"
-      (t0yv0/display-buffer-at-bottom (dedicated . t)))
-     ("\\*Org Links"
-      (t0yv0/display-buffer-at-bottom (dedicated . t)))
-     ("\\*xref"
-      (t0yv0/display-buffer-at-bottom (dedicated . t)))))
+   `(((or "\\*vterm"
+          "\\*Org Links"
+          "\\*Org Select"
+          "\\*Gofmt"
+          "\\*Occur"
+          "\\*Embark"
+          "\\*test"
+          "current-region.png"
+          "\\*compilation"
+          "\\*xref")
+      (display-buffer-reuse-window
+       display-buffer-reuse-mode-window
+       display-buffer-in-direction)
+      (window . root)
+      (window-height . 0.2356)
+      (direction . bottom))
+
+     ((or (derived-mode . magit-mode)
+          (derived-mode . org-mode))
+      (display-buffer-reuse-mode-window
+       display-buffer-in-direction)
+      (mode magit-mode org-mode)
+      (window . root)
+      (window-width . 0.38)
+      (direction . right))
+
+     ((derived-mode . prog-mode)
+      (display-buffer-reuse-mode-window
+       display-buffer-pop-up-window)
+      (mode prog-mode))))
 
   (bookmark-default-file "~/my/bookmarks")
   (bookmark-save-flag 1)
@@ -222,12 +230,8 @@
      (t0yv0/vterm-proj "VTerm" ?v)
      (magit-project-status "Magit" nil)))
 
-  (initial-frame-alist
-   '((unsplittable t)))
-
   (default-frame-alist
-   '((unsplittable . t)
-     (menu-bar-lines . 0)
+   '((menu-bar-lines . 0)
      (tool-bar-lines . 0)
      (font . "Iosevka 13")
      (vertical-scroll-bars . nil)
@@ -418,22 +422,7 @@
            "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
   (setq org-refile-targets '(("~/workshare/org/gtd.org.gpg" :maxlevel . 3)
                              ("~/workshare/org/someday.org.gpg" :level . 1)
-                             ("~/workshare/org/tickler.org.gpg" :maxlevel . 2)))
-  (advice-add 'org-capture
-              :before
-              (lambda (&optional goto keys)
-                (set-frame-parameter nil 'unsplittable nil)))
-  (advice-add 'org-capture-goto-target
-              :after
-              (lambda (&optional template-key)
-                (set-frame-parameter nil 'unsplittable t)))
-  (advice-add 'org-capture-goto-last-stored
-              :after
-              (lambda ()
-                (set-frame-parameter nil 'unsplittable t)))
-  (add-hook 'org-capture-after-finalize-hook
-            (lambda ()
-              (set-frame-parameter nil 'unsplittable t))))
+                             ("~/workshare/org/tickler.org.gpg" :maxlevel . 2))))
 
 (use-package org-roam
   :bind (("C-c r" . t0yv0/org-roam-hydra/body))
