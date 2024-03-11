@@ -368,6 +368,8 @@
   :mode "\\.nix\\'")
 
 (use-package magit
+  :config
+  (setq magit-display-buffer-function #'display-buffer)
   :bind (("C-x g" . magit-status)))
 
 (use-package major-mode-hydra
