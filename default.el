@@ -181,10 +181,12 @@
       (direction . bottom))
 
      ((or (derived-mode . magit-mode)
-          (derived-mode . org-mode))
+          (derived-mode . org-mode)
+          (mode . text-mode)
+          (mode . go-dot-mod-mode))
       (display-buffer-reuse-mode-window
        display-buffer-in-direction)
-      (mode magit-mode org-mode)
+      (mode magit-mode org-mode text-mode go-dot-mod-mode)
       (window . root)
       (window-width . 0.38)
       (direction . right))
