@@ -153,8 +153,7 @@
 
   :custom
   (display-buffer-alist
-   `(((or "\\*vterm"
-          "\\*Org Links"
+   `(((or "\\*Org Links"
           "\\*Org Select"
           "\\*Gofmt"
           "\\*Occur"
@@ -166,6 +165,15 @@
       (display-buffer-reuse-window
        display-buffer-reuse-mode-window
        display-buffer-in-direction)
+      (window . root)
+      (window-height . 0.2356)
+      (direction . bottom))
+
+     ("\\*vterm"
+      (display-buffer-reuse-window
+       display-buffer-reuse-mode-window
+       display-buffer-in-direction)
+      (mode vterm-mode vterm-copy-mode)
       (window . root)
       (window-height . 0.2356)
       (direction . bottom))
