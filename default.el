@@ -64,20 +64,22 @@
          ("C-c p" . copilot-previous-completion)
          ("C-c j" . copilot-accept-completion)
          ("C-c g" . copilot-clear-overlay))
-  :custom (copilot-disable-predicates
-           (list
-            (lambda ()
-              (member major-mode '(shell-mode
-                                   inferior-python-mode
-                                   eshell-mode
-                                   term-mode
-                                   vterm-mode
-                                   comint-mode
-                                   compilation-mode
-                                   debugger-mode
-                                   dired-mode-hook
-                                   compilation-mode-hook
-                                   minibuffer-mode-hook)))))
+  :custom
+  (copilot-indent-offset-warning-disable t)
+  (copilot-disable-predicates
+   (list
+    (lambda ()
+      (member major-mode '(shell-mode
+                           inferior-python-mode
+                           eshell-mode
+                           term-mode
+                           vterm-mode
+                           comint-mode
+                           compilation-mode
+                           debugger-mode
+                           dired-mode-hook
+                           compilation-mode-hook
+                           minibuffer-mode-hook)))))
   :config
   (eval '(pretty-hydra-define
           t0yv0/copilot-hydra
