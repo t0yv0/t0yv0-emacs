@@ -51,6 +51,7 @@
           epkgs.magit
           epkgs.magit-section
           epkgs.major-mode-hydra
+          epkgs.markdown-mode
           epkgs.mermaid-mode
           epkgs.multiple-cursors
           epkgs.nix-mode

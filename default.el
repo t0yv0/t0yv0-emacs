@@ -382,6 +382,9 @@
               ("M-A" . marginalia-cycle))
   :init (marginalia-mode))
 
+(use-package markdown-mode
+  :mode ("\\.md\\'" . gfm-mode))
+
 (use-package mermaid-mode
   :bind ("C-c M" . t0yv0/mermaid-compile)
   :config
