@@ -78,9 +78,17 @@
                            compilation-mode
                            debugger-mode
                            dired-mode-hook
-                           compilation-mode-hook
-                           minibuffer-mode-hook)))))
+                           compilation-mode
+                           minibuffer-mode)))))
   :config
+  (advice-add 'copilot--mode-enter
+              :around (lambda (orig-fun &rest args)
+                        (when (not (member major-mode '(minibuffer-mode)))
+                          (apply orig-fun args))))
+  (advice-add 'copilot--mode-exit
+              :around (lambda (orig-fun &rest args)
+                        (when (not (member major-mode '(minibuffer-mode)))
+                          (apply orig-fun args))))
   (eval '(pretty-hydra-define
           t0yv0/copilot-hydra
           (:color amaranth :quit-key "C-g")
