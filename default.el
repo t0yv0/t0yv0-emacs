@@ -10,7 +10,7 @@
 (require 'use-package)
 
 (use-package avy
-  :bind (("C-c s" . avy-goto-char-2))
+  :bind (("C-c s" . avy-goto-char-timer))
   :bind (:map isearch-mode-map
               (("C-c s" . avy-isearch))))
 
