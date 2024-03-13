@@ -171,7 +171,8 @@
           "\\*test"
           "current-region.png"
           "\\*compilation"
-          "\\*xref")
+          "\\*xref"
+          "\\*Warnings")
       (display-buffer-reuse-window
        display-buffer-reuse-mode-window
        display-buffer-in-direction)
