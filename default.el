@@ -9,6 +9,9 @@
 (require 't0yv0-basics)
 (require 'use-package)
 
+(use-package ace-window
+  :bind (("M-o" . ace-window)))
+
 (use-package avy
   :bind (("C-c s" . avy-goto-char-timer))
   :bind (:map isearch-mode-map

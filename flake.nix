@@ -39,6 +39,7 @@
         name = "t0yv0-emacs-prebuilt-${version}";
         version = "${version}";
         paths = [
+          epkgs.ace-window
           epkgs.avy
           epkgs.emacsql
           epkgs.embark
