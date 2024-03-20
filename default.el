@@ -59,7 +59,7 @@
      consult--source-project-recent-file)))
 
 (use-package copilot
-  :bind (("C-c /" . t0yv0/copilot-hydra/body)
+  :bind (("C-c t" . t0yv0/copilot-hydra/body)
          ("C-c n" . copilot-next-completion)
          ("C-c p" . copilot-previous-completion)
          ("C-c j" . copilot-accept-completion)
