@@ -43,8 +43,7 @@
      "\\`\\*Apropos"
      "\\`\\*Help"))
   (consult-buffer-sources
-   '(t0yv0/consult-source-window-buffer
-     t0yv0/consult-source-git-status-file
+   '(t0yv0/consult-source-git-status-file
      consult--source-hidden-buffer
      consult--source-modified-buffer
      consult--source-buffer
