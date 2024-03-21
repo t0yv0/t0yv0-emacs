@@ -296,6 +296,12 @@
 (use-package expand-region
   :bind (("C-=" . er/expand-region)))
 
+(use-package forge
+  :after magit
+  :config
+  (require 'auth-source)
+  (auth-source-pass-enable))
+
 (use-package flymake
   :bind (("M-n" . flymake-goto-next-error)
          ("M-p" . flymake-goto-prev-error)))
