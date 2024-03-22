@@ -4,9 +4,11 @@
     nixpkgs_22_11.url = github:NixOS/nixpkgs/22.11;
     nixpkgs_darwin.url = github:NixOS/nixpkgs/nixpkgs-23.11-darwin;
     copilot_flake.url = github:t0yv0/copilot.el?rev=a0a8a69cf924c2b45f1ad3d0eb9fbe3a762e58f4;
+    dape_src.url = github:svaante/dape?rev=d1a96de51cbee7c410d1f2680f860d09048e2fc5;
+    dape_src.flake = false;
   };
 
-  outputs = { self, nixpkgs, nixpkgs_22_11, nixpkgs_darwin, copilot_flake }: let
+  outputs = { self, nixpkgs, nixpkgs_22_11, nixpkgs_darwin, copilot_flake, dape_src }: let
 
     version = self.rev or "dirty";
 
@@ -17,6 +19,27 @@
       treesitter = pkgs.tree-sitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
       mermaid = pkgs_22_11.nodePackages.mermaid-cli;
       copilot = (builtins.getAttr sys copilot_flake.packages).default;
+
+      jsonrpc = epkgs.elpaBuild {
+        pname = "jsonrpc";
+        ename = "jsonrpc";
+        version = "1.0.25";
+        src = pkgs.fetchurl {
+          url = "https://elpa.gnu.org/packages/jsonrpc-1.0.25.tar";
+          sha256 = "sha256-zsBYbvpNWncnLpkUImgCzcJWhDaaiHloHEWNSjs4jEI=";
+        };
+        packageRequires = [];
+        meta = {
+          homepage = "https://elpa.gnu.org/packages/jsonrpc.html";
+        };
+      };
+
+      dape = epkgs.trivialBuild {
+        pname = "dape";
+        version = "0.0.1";
+        src = dape_src;
+        packageRequires = [jsonrpc];
+      };
 
       t0yv0-basics = epkgs.trivialBuild {
         pname = "t0yv0-basics";
@@ -64,6 +87,7 @@
           epkgs.typescript-mode
           epkgs.with-editor
           epkgs.yaml-mode
+          dape
           t0yv0-basics
           t0yv0-treesit
         ];
@@ -90,6 +114,7 @@
 
       eager-packages = epkgs: [
         copilot
+        jsonrpc
         default-el
         epkgs.corfu
         epkgs.diminish
@@ -114,7 +139,9 @@
       default = default;
       copilot = copilot;
       bootstrap = bootstrap;
+      dape = dape;
       default-el = default-el;
+      jsonrpc = jsonrpc;
       mermaid = mermaid;
       prebuilt = prebuilt;
       t0yv0-basics = t0yv0-basics;

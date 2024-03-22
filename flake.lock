@@ -19,6 +19,23 @@
         "type": "github"
       }
     },
+    "dape_src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1710755368,
+        "narHash": "sha256-AiH+WuDaPcSjxLEXeD+7961eePOSVwClqqxs4NGZNqg=",
+        "owner": "svaante",
+        "repo": "dape",
+        "rev": "d1a96de51cbee7c410d1f2680f860d09048e2fc5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "svaante",
+        "repo": "dape",
+        "rev": "d1a96de51cbee7c410d1f2680f860d09048e2fc5",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1706826059,
@@ -86,6 +103,7 @@
     "root": {
       "inputs": {
         "copilot_flake": "copilot_flake",
+        "dape_src": "dape_src",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs_22_11": "nixpkgs_22_11",
         "nixpkgs_darwin": "nixpkgs_darwin"

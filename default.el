@@ -117,6 +117,10 @@
   (:map corfu-map
         ("C-j" . corfu-insert)))
 
+(use-package dape
+  :config
+  (dape-breakpoint-global-mode))
+
 (use-package diminish)
 
 (use-package doom-modeline

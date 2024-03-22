@@ -131,12 +131,7 @@ relying on `window-prev-buffers'.")
 
 
 (defun t0yv0/embark-execute-defun (&optional defun-body)
-  (let* ((source (or defun-body (save-excursion
-                                  (mark-defun)
-                                  (buffer-substring-no-properties
-                                   (region-beginning) (region-end)))))
-         (name (t0yv0/embark-go-defun-name source)))
-    (pop-mark)
+  (let ((name (t0yv0/go-defun-name defun-body)))
     (cond
      ((and (equal major-mode 'go-ts-mode)
            (string-prefix-p "Test" name))
@@ -152,13 +147,6 @@ relying on `window-prev-buffers'.")
     (shell-command (format "go test -test.v -test.run '^%s'" ident) "*test*" "*test*"))
    (t
     (message "Do not know how to execute identifier: %s" ident))))
-
-
-(defun t0yv0/embark-go-defun-name (defun-body)
-  (unless (null (string-match
-                 (rx (seq "func") (* (any " ")) (group (* (not "("))) )
-                 defun-body))
-    (match-string-no-properties 1 defun-body)))
 
 
 (defun t0yv0/embark-target-gh-ref ()
@@ -179,6 +167,42 @@ relying on `window-prev-buffers'.")
                      (match-string 2 str)
                      (match-string 3 str))
             ,beg . ,end))))))
+
+
+(defun t0yv0/go-defun-name (&optional defun-body)
+  (let* ((source (or defun-body (save-excursion
+                                  (mark-defun)
+                                  (buffer-substring-no-properties
+                                   (region-beginning) (region-end)))))
+         (name (t0yv0/go-defun-name-from-body source)))
+    (pop-mark)
+    name))
+
+
+(defun t0yv0/go-defun-name-from-body (defun-body)
+  (unless (null (string-match
+                 (rx (seq "func") (* (any " ")) (group (* (not "("))) )
+                 defun-body))
+    (match-string-no-properties 1 defun-body)))
+
+
+(defun t0yv0/go-debug-current-test ()
+  "Run dape debugger for the Go test currently surrounding point."
+  (interactive)
+  (let ((name (t0yv0/go-defun-name))
+        (cwd default-directory))
+    (dape `(modes (go-mode go-ts-mode)
+            ensure dape-ensure-command
+            command "dlv"
+            command-args ("dap" "--listen" "127.0.0.1::autoport")
+            command-cwd ,cwd
+            port :autoport
+            :request "launch"
+            :type "test"
+            :mode "test"
+            :cwd "."
+            :program ,cwd
+            :args ("--test.run" ,name)))))
 
 
 (defun t0yv0/orderless-flex-if-twiddle (pattern _index _total)
