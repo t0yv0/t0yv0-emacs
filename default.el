@@ -339,6 +339,24 @@
   (require 'major-mode-hydra)
   (require 't0yv0-treesit)
   (t0yv0/ensure-tree-sitter-grammar-install)
+
+  (eval '(pretty-hydra-define
+          t0yv0/dape-hydra
+          (:color blue :quit-key "C-g")
+          ("Debug"
+           (("n" dape-next "next" :color red)
+            ("c" dape-continue "continue" :color red)
+            ("o" dape-step-out "step-out" :color red)
+            ("r" dape-restart "restart" :color red)
+            ("p" dape-pause "pause" :color red))
+           "Breakpoints"
+           (("b" dape-breakpoint-toggle "toggle" :color red)
+            ("B" dape-breakpoint-remove-all "remove-all" :color red))
+           "Dape"
+           (("t" t0yv0/go-debug-current-test "debug-current-test" :color red)
+            ("R" dape-repl "repl")
+            ("q" dape-quit "quit")))))
+
   (eval '(major-mode-hydra-define
           go-ts-mode (:idle 0.5)
           ("Consult"
@@ -348,7 +366,8 @@
            "Code"
            (("c" (lambda () (interactive) (compile "go build .")) "compile")
             ("t" (lambda () (interactive) (t0yv0/embark-execute-defun)) "test-defun")
-            ("T" (lambda () (interactive) (compile "go test .")) "test-package"))
+            ("T" (lambda () (interactive) (compile "go test .")) "test-package")
+            ("d" t0yv0/dape-hydra/body "debug"))
            "Find"
            (("im" eglot-find-implementation "impls")
             ("rs" xref-find-references "refs"))
@@ -360,6 +379,7 @@
            "Narrow"
            (("n" narrow-to-defun "narrow-to-defun")
             ("w" widen "widen")))))
+
   :hook
   (go-ts-mode . eglot-ensure)
   (before-save . (lambda ()
