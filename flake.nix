@@ -34,6 +34,20 @@
         };
       };
 
+      eglot = epkgs.elpaBuild {
+        pname = "eglot";
+        ename = "eglot";
+        version = "1.17";
+        src = pkgs.fetchurl {
+          url = "https://elpa.gnu.org/packages/eglot-1.17.tar";
+          sha256 = "sha256-flJX2hEj34Ah9eeyhWz0RSYdvmwKPU5kA7bh0xBKVrE=";
+        };
+        packageRequires = [jsonrpc];
+        meta = {
+          homepage = "https://elpa.gnu.org/packages/eglot.html";
+        };
+      };
+
       dape = epkgs.trivialBuild {
         pname = "dape";
         version = "0.0.1";
@@ -114,6 +128,7 @@
 
       eager-packages = epkgs: [
         copilot
+        eglot
         jsonrpc
         default-el
         epkgs.corfu
@@ -139,6 +154,7 @@
       default = default;
       copilot = copilot;
       bootstrap = bootstrap;
+      eglot = eglot;
       dape = dape;
       default-el = default-el;
       jsonrpc = jsonrpc;
