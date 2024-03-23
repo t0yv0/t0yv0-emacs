@@ -136,6 +136,7 @@
         epkgs.doom-modeline
         epkgs.envrc
         epkgs.forge
+        epkgs.gptel
         epkgs.hydra
         # Note on JINX: this spell-checking package requires additional packages; on NixOS
         # installing pkgs.nuspell and pkgs.hunspellDicts.en_US works fine; TBD on MacOS. I have not

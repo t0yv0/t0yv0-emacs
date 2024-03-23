@@ -64,8 +64,7 @@
   :bind (("C-c t" . t0yv0/copilot-hydra/body)
          ("C-c n" . copilot-next-completion)
          ("C-c p" . copilot-previous-completion)
-         ("C-c j" . copilot-accept-completion)
-         ("C-c g" . copilot-clear-overlay))
+         ("C-c j" . copilot-accept-completion))
   :custom
   (copilot-indent-offset-warning-disable t)
   (copilot-disable-predicates
@@ -310,6 +309,25 @@
 (use-package flymake
   :bind (("M-n" . flymake-goto-next-error)
          ("M-p" . flymake-goto-prev-error)))
+
+(use-package gptel
+  :bind (("C-c g" . t0yv0/gptel-hydra/body))
+  :config
+  (setq
+   gptel-model "llama2:latest"
+   gptel-backend (gptel-make-ollama "llama2"
+                                    :host "localhost:11434"
+                                    :stream t
+                                    :models '("llama2:latest")))
+  (eval '(pretty-hydra-define
+          t0yv0/gptel-hydra
+          (:color blue :quit-key "C-g")
+          ("GPT"
+           (("g" gptel-send "send")
+            ("b" gptel "create-buffer")
+            ("m" gptel-menu "menu"))
+           "Org"
+           (("t" gptel-set-topic "set-topic [org-mode]"))))))
 
 (use-package git-link
   :after major-mode-hydra
