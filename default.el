@@ -91,6 +91,7 @@
               :around (lambda (orig-fun &rest args)
                         (when (not (member major-mode '(minibuffer-mode)))
                           (apply orig-fun args))))
+  (copilot-diagnose)
   (eval '(pretty-hydra-define
           t0yv0/copilot-hydra
           (:color amaranth :quit-key "C-g")

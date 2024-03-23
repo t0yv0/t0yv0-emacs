@@ -3,7 +3,7 @@
     nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
     nixpkgs_22_11.url = github:NixOS/nixpkgs/22.11;
     nixpkgs_darwin.url = github:NixOS/nixpkgs/nixpkgs-23.11-darwin;
-    copilot_flake.url = github:t0yv0/copilot.el?rev=a0a8a69cf924c2b45f1ad3d0eb9fbe3a762e58f4;
+    copilot_flake.url = github:t0yv0/copilot.el/v20240323;
     dape_src.url = github:svaante/dape?rev=d1a96de51cbee7c410d1f2680f860d09048e2fc5;
     dape_src.flake = false;
   };
