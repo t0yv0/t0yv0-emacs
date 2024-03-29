@@ -46,15 +46,15 @@
      "\\`\\*Apropos"
      "\\`\\*Help"))
   (consult-buffer-sources
-   '(t0yv0/consult-source-git-status-file
-     consult--source-hidden-buffer
+   '(consult--source-hidden-buffer
      consult--source-modified-buffer
      consult--source-buffer
      consult--source-recent-file
      consult--source-file-register
      consult--source-bookmark
      consult--source-project-buffer-hidden
-     consult--source-project-recent-file-hidden))
+     consult--source-project-recent-file-hidden
+     t0yv0/consult-source-git-status-file))
   (consult-project-buffer-sources
    '(t0yv0/consult-source-git-status-file
      consult--source-project-buffer
