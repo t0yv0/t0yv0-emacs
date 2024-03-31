@@ -13,9 +13,8 @@
   :bind (("M-o" . ace-window)))
 
 (use-package avy
-  :bind (("C-c s" . avy-goto-char-timer))
   :bind (:map isearch-mode-map
-              (("C-c s" . avy-isearch))))
+              (("C-M-s" . avy-isearch))))
 
 (use-package consult
   :after dash
