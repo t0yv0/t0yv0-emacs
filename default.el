@@ -599,25 +599,6 @@
           ("d" t0yv0/vterm-dir "vterm-dir")
           ("r" t0yv0/vterm-repeat "vterm-repeat")))
 
-(use-package windmove
-  :bind (("C-c w" . t0yv0/windmove-hydra/body))
-  :init
-  (defhydra t0yv0/windmove-hydra (:hint nil)
-    "windmove: use fbnp to navigate, FBNP to swap\n"
-    ("C-j" nil "select")
-    ("0" delete-window "delete")
-    ("1" delete-other-windows "delete-other")
-    ("2" split-window-vertically "v-split")
-    ("3" split-window-horizontally "h-split")
-    ("B" windmove-swap-states-left)
-    ("F" windmove-swap-states-right)
-    ("P" windmove-swap-states-up)
-    ("N" windmove-swap-states-down)
-    ("b" windmove-left)
-    ("f" windmove-right)
-    ("p" windmove-up)
-    ("n" windmove-down)))
-
 (use-package wgrep
   :config
   (require 'major-mode-hydra)
