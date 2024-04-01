@@ -61,8 +61,6 @@
 
 (use-package copilot
   :bind (("C-c t" . t0yv0/copilot-hydra/body)
-         ("C-c n" . copilot-next-completion)
-         ("C-c p" . copilot-previous-completion)
          ("C-c j" . copilot-accept-completion))
   :custom
   (copilot-indent-offset-warning-disable t)
@@ -144,8 +142,7 @@
                                        (eglot-inlay-hints-mode -1))))
 
 (use-package emacs
-  :bind* (("C-c d" . t0yv0/diary)
-          ("C-c q" . t0yv0/quit)
+  :bind* (("C-c q" . t0yv0/quit)
           ("M-s d" . t0yv0/consult-ripgrep-current-directory)
           ("M-s p" . consult-ripgrep)
           ("C-h"   . t0yv0/backspace)
