@@ -146,12 +146,7 @@
           ("M-s d" . t0yv0/consult-ripgrep-current-directory)
           ("M-s p" . consult-ripgrep)
           ("C-h"   . t0yv0/backspace)
-          ("C-c x" . execute-extended-command)
           ("M-`"   . other-frame)
-          ("M-c"   . kill-ring-save)
-          ("M-v"   . yank)
-          ("M-x"   . kill-region)
-          ("M-z"   . undo)
           ("<remap> <dabbrev-expand>" . hippie-expand))
 
   :hook
