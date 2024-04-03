@@ -395,6 +395,13 @@
            (("n" narrow-to-defun "narrow-to-defun")
             ("w" widen "widen")))))
 
+  (setq compilation-error-regexp-alist-alist
+        (remove 'go-panic (remove 'go-test compilation-error-regexp-alist-alist)))
+
+  (add-to-list
+   'compilation-error-regexp-alist-alist
+   (cons 'go-panic (list (rx (seq bol "\t") (group (* (not ":"))) (any ":") (group (+ digit))) 1 2)))
+
   :hook
   (go-ts-mode . eglot-ensure)
   (before-save . (lambda ()

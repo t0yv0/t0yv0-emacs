@@ -144,7 +144,7 @@ relying on `window-prev-buffers'.")
   (cond
    ((and (equal major-mode 'go-ts-mode)
          (string-prefix-p "Test" ident))
-    (shell-command (format "go test -test.v -test.run '^%s'" ident) "*test*" "*test*"))
+    (compile "go test -test.v -test.run '^%s'" ident))
    (t
     (message "Do not know how to execute identifier: %s" ident))))
 
