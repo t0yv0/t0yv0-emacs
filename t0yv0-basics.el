@@ -116,6 +116,12 @@ relying on `window-prev-buffers'.")
            (find-file diary-file)))))
 
 
+(defun t0yv0/display-buffer-same-prog-mode-window (buffer alist)
+  (if (derived-mode-p 'prog-mode)
+      (display-buffer-same-window buffer alist)
+    nil))
+
+
 (defun t0yv0/display-buffer-at-bottom (buffer alist)
   "Picks the bottom window to display the buffer in, splitting if needed."
   (let ((w (or (minibuffer-selected-window)

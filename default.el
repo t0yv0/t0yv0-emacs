@@ -198,7 +198,9 @@
       (direction . right))
 
      ((derived-mode . prog-mode)
-      (display-buffer-reuse-mode-window
+      (t0yv0/display-buffer-same-prog-mode-window
+       display-buffer-reuse-window
+       display-buffer-reuse-mode-window
        display-buffer-pop-up-window)
       (mode prog-mode))))
 
