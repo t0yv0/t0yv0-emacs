@@ -86,54 +86,10 @@
   "Changed file candidate source for `consult-buffer' powered by `git status`.")
 
 
-(defvar t0yv0/consult-source-window-buffer
-  (list
-   :name "Recent Window Buffers"
-   :narrow ?w
-   :category 'buffer
-   :history 'buffer-name-history
-   :state #'consult--buffer-state
-   :items (lambda ()
-            (-map #'buffer-name
-                  (-filter (lambda (b) (not (null (buffer-file-name b))))
-                           (-map #'car
-                                 (window-prev-buffers))))))
-  "Ordered recent buffer candidate source for `consult-buffer'
-relying on `window-prev-buffers'.")
-
-
-(defun t0yv0/diary ()
-  "Switch to diary entry for today in a dedicated tab."
-  (interactive)
-  (let ((diary-file (format-time-string "~/my/%Y/%m/%d.org" (current-time))))
-    (cond ((null (buffer-file-name (current-buffer)))
-           (find-file diary-file))
-          ((equal
-            (expand-file-name (buffer-file-name (current-buffer)))
-            (expand-file-name diary-file))
-           (previous-buffer))
-          (t
-           (find-file diary-file)))))
-
-
 (defun t0yv0/display-buffer-same-prog-mode-window (buffer alist)
   (if (derived-mode-p 'prog-mode)
       (display-buffer-same-window buffer alist)
     nil))
-
-
-(defun t0yv0/display-buffer-at-bottom (buffer alist)
-  "Picks the bottom window to display the buffer in, splitting if needed."
-  (let ((w (or (minibuffer-selected-window)
-               (selected-window)))
-        (candidates (-difference (window-at-side-list nil 'bottom)
-                                 (window-at-side-list nil 'top))))
-    (window--display-buffer buffer
-                            (if (null candidates)
-                                (split-window-below
-                                 (ceiling (* 0.62 (window-height w))) w)
-                              (car candidates))
-                            'reuse alist)))
 
 
 (defun t0yv0/embark-execute-defun (&optional defun-body)
