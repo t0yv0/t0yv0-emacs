@@ -312,14 +312,12 @@ Otherwise, start a new vterm in ROOT directory in a new buffer
 named BUFFER, and then switch to BUFFER.
 
 Also, enter `compilation-shell-minor-mode' in the new buffer."
-  (t0yv0/with-splittable-frame
-   (lambda ()
-     (unless (buffer-live-p (get-buffer buffer))
-       (let ((default-directory root))
-         (vterm buffer)
-         (with-current-buffer (get-buffer buffer)
-           (compilation-shell-minor-mode 1))))
-     (switch-to-buffer buffer))))
+  (unless (buffer-live-p (get-buffer buffer))
+    (let ((default-directory root))
+      (vterm buffer)
+      (with-current-buffer (get-buffer buffer)
+        (compilation-shell-minor-mode 1))))
+  (switch-to-buffer buffer))
 
 
 (defun t0yv0/vterm-proj ()
@@ -345,14 +343,6 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
           (vterm-clear)
           (vterm-send-key "<up>")
           (vterm-send-return))))))
-
-
-(defun t0yv0/with-splittable-frame (f)
-  (let ((prior (frame-parameter nil 'unsplittable)))
-    (set-frame-parameter nil 'unsplittable nil)
-    (let ((result (funcall f)))
-      (set-frame-parameter nil 'unsplittable prior)
-      result)))
 
 
 (defun t0yv0/quit ()
