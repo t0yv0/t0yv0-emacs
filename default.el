@@ -346,9 +346,10 @@
 (use-package go-ts-mode
   :mode "\\.go\\'"
   :config
-  (require 'major-mode-hydra)
-  (require 't0yv0-treesit)
   (t0yv0/ensure-tree-sitter-grammar-install)
+  (require 'major-mode-hydra)
+  (require 'treesitedit)
+  (treesitedit-mode)
 
   (eval '(pretty-hydra-define
           t0yv0/dape-hydra
@@ -556,21 +557,11 @@
   :init
   (recentf-mode 1))
 
-(use-package t0yv0-treesit
-  :bind (("<remap> <forward-list>" . t0yv0/forward-list)
-         ("<remap> <backward-list>" . t0yv0/backward-list)
-         ("<remap> <kill-sexp>" . t0yv0/kill-sexp)
-         ("<remap> <mark-sexp>" . t0yv0/mark-sexp)
-         ("<remap> <forward-word>" . t0yv0/forward-word)
-         ("<remap> <backward-word>" . t0yv0/backward-word)
-         ("<remap> <forward-sexp>" . t0yv0/forward-sexp)
-         ("<remap> <backward-sexp>" . t0yv0/backward-sexp)
-         ("<remap> <backward-up-list>" . t0yv0/backward-up-list)))
-
 (use-package typescript-mode
   :mode "\\.ts\\'"
   :config
-  (require 't0yv0-treesit)
+  (require 'treesitedit)
+  (treesitedit-mode)
   (t0yv0/ensure-tree-sitter-grammar-install)
   :hook
   (typescript-mode . (lambda ()

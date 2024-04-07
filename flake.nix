@@ -4,11 +4,12 @@
     nixpkgs_22_11.url = github:NixOS/nixpkgs/22.11;
     nixpkgs_darwin.url = github:NixOS/nixpkgs/nixpkgs-23.11-darwin;
     copilot_flake.url = github:t0yv0/copilot.el/v20240323;
+    treesitedit_flake.url = github:t0yv0/treesitedit.el/main;
     dape_src.url = github:svaante/dape?rev=d1a96de51cbee7c410d1f2680f860d09048e2fc5;
     dape_src.flake = false;
   };
 
-  outputs = { self, nixpkgs, nixpkgs_22_11, nixpkgs_darwin, copilot_flake, dape_src }: let
+  outputs = { self, nixpkgs, nixpkgs_22_11, nixpkgs_darwin, copilot_flake, dape_src, treesitedit_flake }: let
 
     version = self.rev or "dirty";
 
@@ -19,6 +20,7 @@
       treesitter = pkgs.tree-sitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
       mermaid = pkgs_22_11.nodePackages.mermaid-cli;
       copilot = (builtins.getAttr sys copilot_flake.packages).default;
+      treesitedit = (builtins.getAttr sys treesitedit_flake.packages).default;
 
       jsonrpc = epkgs.elpaBuild {
         pname = "jsonrpc";
@@ -66,12 +68,6 @@
         ];
       };
 
-      t0yv0-treesit = epkgs.trivialBuild {
-        pname = "t0yv0-treesit";
-        version = "${version}";
-        src = [ ./t0yv0-treesit.el ];
-      };
-
       prebuilt = pkgs.symlinkJoin {
         name = "t0yv0-emacs-prebuilt-${version}";
         version = "${version}";
@@ -103,7 +99,6 @@
           epkgs.yaml-mode
           dape
           t0yv0-basics
-          t0yv0-treesit
         ];
       };
 
@@ -127,6 +122,7 @@
       };
 
       eager-packages = epkgs: [
+        treesitedit
         copilot
         eglot
         jsonrpc
@@ -162,7 +158,6 @@
       mermaid = mermaid;
       prebuilt = prebuilt;
       t0yv0-basics = t0yv0-basics;
-      t0yv0-treesit = t0yv0-treesit;
       treesitter = treesitter;
 
       # Needs a manual step to install on Mac OS. `nix build && cd result`, select and open all the

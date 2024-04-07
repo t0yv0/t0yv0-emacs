@@ -169,6 +169,20 @@ relying on `window-prev-buffers'.")
             ,beg . ,end))))))
 
 
+(defun t0yv0/ensure-tree-sitter-grammar-install ()
+  "Make sure ~/.emacs.d/tree-sitter symlink exists.
+
+Ensures it is up-to-date with ./tree-sitter."
+  (interactive)
+  (let* ((real-dir (symbol-value 't0yv0/treesitter-dir))
+         (target-dir (concat user-emacs-directory "tree-sitter")))
+    (unless (equal (file-symlink-p target-dir) real-dir)
+      (message (format "removing %s to reset treesit grammars" target-dir))
+      (delete-file target-dir))
+    (message (format "relinking %s to reset treesit grammars" target-dir))
+    (make-symbolic-link real-dir target-dir t)))
+
+
 (defun t0yv0/go-defun-name (&optional defun-body)
   (let* ((source (or defun-body (save-excursion
                                   (mark-defun)
