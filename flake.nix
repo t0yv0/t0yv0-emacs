@@ -140,6 +140,7 @@
         epkgs.jinx
         epkgs.marginalia
         epkgs.orderless
+        epkgs.org-present
         epkgs.vertico
         epkgs.wgrep
         epkgs.yasnippet

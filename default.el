@@ -502,6 +502,8 @@
                              ("~/workshare/org/someday.org.gpg" :level . 1)
                              ("~/workshare/org/tickler.org.gpg" :maxlevel . 2))))
 
+(use-package org-present)
+
 (use-package org-roam
   :bind (("C-c r" . t0yv0/org-roam-hydra/body))
   :custom
