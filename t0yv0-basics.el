@@ -63,6 +63,18 @@
   (consult-ripgrep default-directory))
 
 
+(defvar t0yv0/consult-source-important-buffer
+  `(:name     "Important Buffer"
+    :narrow   ?i
+    :category buffer
+    :face     consult-buffer
+    :history  buffer-name-history
+    :state    ,#'consult--buffer-state
+    :items
+    ,(lambda () (mapcar #'buffer-name (ring-elements t0yv0/impbuf--ring))))
+  "Important buffer candidate source for `consult-buffer'.")
+
+
 (defvar t0yv0/consult-source-git-status-file
   (list
    :name "Changed File"
@@ -179,6 +191,50 @@ Ensures it is up-to-date with ./tree-sitter."
             :cwd "."
             :program ,cwd
             :args ("--test.run" ,name)))))
+
+
+(defvar t0yv0/impbuf--ring (make-ring 0))
+
+
+(defun t0yv0/impbuf-consult ()
+  "Consult an important buffer."
+  (interactive)
+  (consult-buffer (list t0yv0/consult-source-important-buffer)))
+
+
+(defun t0yv0/impbuf-toggle ()
+  "Toggle the important status of current buffer."
+  (interactive)
+  (let* ((b (current-buffer))
+         (i (ring-member t0yv0/impbuf--ring b)))
+    (if i
+        (progn
+          (message (format "%s is no longer important" b))
+          (ring-remove t0yv0/impbuf--ring i))
+      (message (format "%s is now important" b))
+      (ring-insert+extend t0yv0/impbuf--ring b t))))
+
+
+(defun t0yv0/impbuf-next ()
+  "Goto the next buffer in the important buffer ring."
+  (interactive)
+  (t0yv0/impbuf-next-prev #'ring-next))
+
+
+(defun t0yv0/impbuf-prev ()
+  "Goto the previous buffer in the important buffer ring."
+  (interactive)
+  (t0yv0/impbuf-next-prev #'ring-previous))
+
+
+(defun t0yv0/impbuf-next-prev (delta)
+  (if (equal 0 (ring-length t0yv0/impbuf--ring))
+      (error "No buffers marked important yet")
+    (let* ((b (current-buffer))
+           (ref-buf (if (ring-member t0yv0/impbuf--ring b)
+                        b
+                      (ring-ref t0yv0/impbuf--ring 0))))
+      (switch-to-buffer (funcall delta t0yv0/impbuf--ring ref-buf)))))
 
 
 (defun t0yv0/orderless-flex-if-twiddle (pattern _index _total)

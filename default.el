@@ -142,11 +142,13 @@
                                        (eglot-inlay-hints-mode -1))))
 
 (use-package emacs
-  :bind* (("C-c q" . t0yv0/quit)
-          ("M-s d" . t0yv0/consult-ripgrep-current-directory)
-          ("M-s p" . consult-ripgrep)
-          ("C-h"   . t0yv0/backspace)
-          ("M-`"   . other-frame)
+  :bind* (("C-c q"   . t0yv0/quit)
+          ("M-s d"   . t0yv0/consult-ripgrep-current-directory)
+          ("M-s p"   . consult-ripgrep)
+          ("C-h"     . t0yv0/backspace)
+          ("C-c i"   . t0yv0/impbuf-consult)
+          ("C-c C-i" . t0yv0/impbuf-toggle)
+          ("M-`"     . other-frame)
           ("<remap> <dabbrev-expand>" . hippie-expand))
 
   :hook
