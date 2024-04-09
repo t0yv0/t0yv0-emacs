@@ -215,28 +215,6 @@ Ensures it is up-to-date with ./tree-sitter."
       (ring-insert+extend t0yv0/impbuf--ring b t))))
 
 
-(defun t0yv0/impbuf-next ()
-  "Goto the next buffer in the important buffer ring."
-  (interactive)
-  (t0yv0/impbuf-next-prev #'ring-next))
-
-
-(defun t0yv0/impbuf-prev ()
-  "Goto the previous buffer in the important buffer ring."
-  (interactive)
-  (t0yv0/impbuf-next-prev #'ring-previous))
-
-
-(defun t0yv0/impbuf-next-prev (delta)
-  (if (equal 0 (ring-length t0yv0/impbuf--ring))
-      (error "No buffers marked important yet")
-    (let* ((b (current-buffer))
-           (ref-buf (if (ring-member t0yv0/impbuf--ring b)
-                        b
-                      (ring-ref t0yv0/impbuf--ring 0))))
-      (switch-to-buffer (funcall delta t0yv0/impbuf--ring ref-buf)))))
-
-
 (defun t0yv0/orderless-flex-if-twiddle (pattern _index _total)
   "See `t0yv0/orderless-style-dispatchers'.
 PATTERN _INDEX _TOTAL as required by orderless."
