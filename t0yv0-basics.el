@@ -274,6 +274,33 @@ PATTERN _INDEX _TOTAL as required by orderless."
     (point)))
 
 
+(defun t0yv0/register-find-free ()
+  "Find a register that is not yet used in `register-alist'."
+  (seq-find
+   (lambda (c)
+     (null (alist-get c register-alist nil)))
+   "1234567890qwertyuiopasdfghjklzxcvbnm"))
+
+
+(defun t0yv0/register-save-point (&optional arg)
+  "Pick a free register and save current POINT to it."
+  (interactive "P")
+  (let ((r (t0yv0/free-register)))
+    (if r
+        (progn
+          (point-to-register r arg)
+          (message (format "Saved to register %s" (string r))))
+      (message "No free registers left"))))
+
+
+(defun t0yv0/register-clear ()
+  "Picks a register and clears it."
+  (interactive)
+  (let ((s (completing-read "Clear register: " (mapcar (lambda (p) (string (car p))) register-alist))))
+    (message (format "Clearing %s" (seq-elt s 0)))
+    (setf (alist-get (seq-elt s 0) register-alist nil 'remove) nil)))
+
+
 (defun t0yv0/vterm ()
   "If a vterm is visible, switch to it, otherwise switch to the project vterm."
   (interactive)

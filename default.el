@@ -28,7 +28,9 @@
          ("M-g l"     . consult-line)
          ("M-g d"     . t0yv0/consult-changed-line)
          ("C-x p b"   . consult-project-buffer)
-         ("C-x p g"   . consult-ripgrep))
+         ("C-x p g"   . consult-ripgrep)
+         ("C-x r s"   . consult-register)
+         ("C-x r DEL" . t0yv0/register-clear))
   :custom
   (consult-buffer-filter
    '("\\` "
@@ -149,6 +151,8 @@
           ("C-c i"   . t0yv0/impbuf-consult)
           ("C-c C-i" . t0yv0/impbuf-toggle)
           ("M-`"     . other-frame)
+
+          ("C-x r SPC" . t0yv0/register-save-point)
           ("<remap> <dabbrev-expand>" . hippie-expand))
 
   :hook
