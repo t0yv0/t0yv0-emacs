@@ -352,8 +352,6 @@
   :config
   (t0yv0/ensure-tree-sitter-grammar-install)
   (require 'major-mode-hydra)
-  (require 'treesitedit)
-  (treesitedit-mode)
 
   (eval '(pretty-hydra-define
           t0yv0/dape-hydra
@@ -403,7 +401,10 @@
    (cons 'go-panic (list (rx (seq bol "\t") (group (* (not ":"))) (any ":") (group (+ digit))) 1 2)))
 
   :hook
-  (go-ts-mode . eglot-ensure)
+  (go-ts-mode . (lambda ()
+                  (eglot-ensure)
+                  (message (format "enabling treesitedit-mode"))
+                  (treesitedit-mode 1)))
   (before-save . (lambda ()
                    (interactive)
                    (when (eq major-mode 'go-ts-mode)
