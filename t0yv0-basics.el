@@ -285,7 +285,7 @@ PATTERN _INDEX _TOTAL as required by orderless."
 (defun t0yv0/register-save-point (&optional arg)
   "Pick a free register and save current POINT to it."
   (interactive "P")
-  (let ((r (t0yv0/free-register)))
+  (let ((r (t0yv0/register-find-free)))
     (if r
         (progn
           (point-to-register r arg)
