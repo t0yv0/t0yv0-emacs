@@ -21,6 +21,8 @@
   :bind (("M-y"       . consult-yank-pop)
          ("C-x b"     . consult-buffer)
          ("C-x C-b"   . consult-buffer)
+         ("M-s d"     . t0yv0/consult-ripgrep-current-directory)
+         ("M-s p"     . consult-ripgrep)
          ("M-g g"     . consult-goto-line)
          ("M-g M-g"   . consult-goto-line)
          ("M-g i"     . consult-imenu)
@@ -29,8 +31,8 @@
          ("M-g d"     . t0yv0/consult-changed-line)
          ("C-x p b"   . consult-project-buffer)
          ("C-x p g"   . consult-ripgrep)
-         ("C-x r s"   . consult-register)
-         ("C-x r DEL" . t0yv0/register-clear))
+         ("C-x r b"   . consult-bookmark)
+         ("C-x r s"   . consult-register))
   :custom
   (consult-buffer-filter
    '("\\` "
@@ -145,11 +147,7 @@
 
 (use-package emacs
   :bind* (("C-c q"   . t0yv0/quit)
-          ("M-s d"   . t0yv0/consult-ripgrep-current-directory)
-          ("M-s p"   . consult-ripgrep)
           ("C-h"     . t0yv0/backspace)
-          ("C-c i"   . t0yv0/impbuf-consult)
-          ("C-c C-i" . t0yv0/impbuf-toggle)
           ("M-`"     . other-frame)
 
           ("C-x r SPC" . t0yv0/register-save-point)

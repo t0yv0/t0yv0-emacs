@@ -63,18 +63,6 @@
   (consult-ripgrep default-directory))
 
 
-(defvar t0yv0/consult-source-important-buffer
-  `(:name     "Important Buffer"
-    :narrow   ?i
-    :category buffer
-    :face     consult-buffer
-    :history  buffer-name-history
-    :state    ,#'consult--buffer-state
-    :items
-    ,(lambda () (mapcar #'buffer-name (ring-elements t0yv0/impbuf--ring))))
-  "Important buffer candidate source for `consult-buffer'.")
-
-
 (defvar t0yv0/consult-source-git-status-file
   (list
    :name "Changed File"
@@ -193,28 +181,6 @@ Ensures it is up-to-date with ./tree-sitter."
             :args ("--test.run" ,name)))))
 
 
-(defvar t0yv0/impbuf--ring (make-ring 0))
-
-
-(defun t0yv0/impbuf-consult ()
-  "Consult an important buffer."
-  (interactive)
-  (consult-buffer (list t0yv0/consult-source-important-buffer)))
-
-
-(defun t0yv0/impbuf-toggle ()
-  "Toggle the important status of current buffer."
-  (interactive)
-  (let* ((b (current-buffer))
-         (i (ring-member t0yv0/impbuf--ring b)))
-    (if i
-        (progn
-          (message (format "%s is no longer important" b))
-          (ring-remove t0yv0/impbuf--ring i))
-      (message (format "%s is now important" b))
-      (ring-insert+extend t0yv0/impbuf--ring b t))))
-
-
 (defun t0yv0/orderless-flex-if-twiddle (pattern _index _total)
   "See `t0yv0/orderless-style-dispatchers'.
 PATTERN _INDEX _TOTAL as required by orderless."
@@ -272,33 +238,6 @@ PATTERN _INDEX _TOTAL as required by orderless."
     (goto-char (point-min))
     (forward-line (1- n))
     (point)))
-
-
-(defun t0yv0/register-find-free ()
-  "Find a register that is not yet used in `register-alist'."
-  (seq-find
-   (lambda (c)
-     (null (alist-get c register-alist nil)))
-   "1234567890qwertyuiopasdfghjklzxcvbnm"))
-
-
-(defun t0yv0/register-save-point (&optional arg)
-  "Pick a free register and save current POINT to it."
-  (interactive "P")
-  (let ((r (t0yv0/register-find-free)))
-    (if r
-        (progn
-          (point-to-register r arg)
-          (message (format "Saved to register %s" (string r))))
-      (message "No free registers left"))))
-
-
-(defun t0yv0/register-clear ()
-  "Picks a register and clears it."
-  (interactive)
-  (let ((s (completing-read "Clear register: " (mapcar (lambda (p) (string (car p))) register-alist))))
-    (message (format "Clearing %s" (seq-elt s 0)))
-    (setf (alist-get (seq-elt s 0) register-alist nil 'remove) nil)))
 
 
 (defun t0yv0/vterm ()
