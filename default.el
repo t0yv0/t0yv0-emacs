@@ -163,6 +163,7 @@
   (load-theme 'modus-operandi)
   (define-key isearch-mode-map (kbd "C-j") 'isearch-exit)
   (global-set-key (kbd "C-c h") 'help-command)
+  (global-hl-line-mode 1)
 
   :custom
   (display-buffer-alist
