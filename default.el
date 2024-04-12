@@ -488,6 +488,9 @@
              ("u" outline-up-heading              "[C-c C-u] up"       :color red))
             "Jump"
             (("j" consult-org-heading "consult-heading" :color blue))
+            "Narrow"
+            (("n" org-narrow-to-subtree "narrow" :color blue)
+             ("w" widen :color blue))
             "Special"
             (("/" org-sparse-tree "sparse-tree [C-c /]" :color blue)
              ("x" org-columns "columns [C-c C-x C-c]" :color blue)))))
