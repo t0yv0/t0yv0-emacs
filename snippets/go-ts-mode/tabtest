@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: tabtest
+# key: tabtest
+# --
+func Test$1(t *testing.T) {
+	type testCase struct {
+	        name string
+	$0
+        }
+        testCases := []testCase{}
+        for _, tc := range testCases {
+		t.Run(tc.name, func (t *testing.T) {
+                })
+        }
+}
