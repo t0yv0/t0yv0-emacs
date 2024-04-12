@@ -15,13 +15,6 @@
 (defvar-local t0yv0/vterm-dabbrev-state nil)
 
 
-(defun t0yv0/backspace (arg)
-  (interactive "P")
-  (if (eq major-mode 'vterm-mode)
-      (vterm-send-backspace)
-    (delete-char (- (or arg 1)))))
-
-
 (defun t0yv0/consult-changed-line ()
   "Like `consult-line' but only for lines changed according to git diff."
   (interactive)

@@ -146,9 +146,8 @@
                                        (eglot-inlay-hints-mode -1))))
 
 (use-package emacs
-  :bind* (("C-c q"   . t0yv0/quit)
-          ("C-h"     . t0yv0/backspace)
-          ("M-`"     . other-frame)
+  :bind* (("C-c q" . t0yv0/quit)
+          ("M-`"   . other-frame)
 
           ("C-x r SPC" . t0yv0/register-save-point)
           ("<remap> <dabbrev-expand>" . hippie-expand))
@@ -160,7 +159,6 @@
   (require-theme 'modus-themes)
   (load-theme 'modus-operandi)
   (define-key isearch-mode-map (kbd "C-j") 'isearch-exit)
-  (global-set-key (kbd "C-c h") 'help-command)
   (global-hl-line-mode 1)
 
   :custom
