@@ -477,6 +477,20 @@
   :bind (("C-c c" . org-capture)
          ("C-c a" . org-agenda))
   :config
+  (require 'major-mode-hydra)
+  (eval '(major-mode-hydra-define
+           org-mode (:idle 0.5)
+           ("Walk"
+            (("p" org-previous-visible-heading    "[C-c C-p] prev"     :color red)
+             ("n" org-next-visible-heading        "[C-c C-n] next"     :color red)
+             ("f" org-forward-heading-same-level  "[C-c C-f] forward"  :color red)
+             ("b" org-backward-heading-same-level "[C-c c-b] backward" :color red)
+             ("u" outline-up-heading              "[C-c C-u] up"       :color red))
+            "Jump"
+            (("j" consult-org-heading "consult-heading" :color blue))
+            "Special"
+            (("/" org-sparse-tree "sparse-tree [C-c /]" :color blue)
+             ("x" org-columns "columns [C-c C-x C-c]" :color blue)))))
   (setq org-startup-indented t)
   (setq org-confirm-babel-evaluate nil)
   (org-babel-do-load-languages 'org-babel-load-languages
