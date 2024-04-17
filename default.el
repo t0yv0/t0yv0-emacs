@@ -611,7 +611,10 @@
           ("v" t0yv0/vterm "vterm")
           ("p" t0yv0/vterm-proj "vterm-proj")
           ("d" t0yv0/vterm-dir "vterm-dir")
-          ("r" t0yv0/vterm-repeat "vterm-repeat")))
+          ("r" t0yv0/vterm-repeat "vterm-repeat"))
+  :config
+  (add-hook 'vterm-mode-hook (lambda ()
+                               (setq-local global-hl-line-mode nil))))
 
 (use-package wgrep
   :config
