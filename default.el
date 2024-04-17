@@ -483,7 +483,7 @@
             (("p" org-previous-visible-heading    "[C-c C-p] prev"     :color red)
              ("n" org-next-visible-heading        "[C-c C-n] next"     :color red)
              ("f" org-forward-heading-same-level  "[C-c C-f] forward"  :color red)
-             ("b" org-backward-heading-same-level "[C-c c-b] backward" :color red)
+             ("b" org-backward-heading-same-level "[C-c C-b] backward" :color red)
              ("u" outline-up-heading              "[C-c C-u] up"       :color red))
             "Jump"
             (("j" consult-org-heading "consult-heading" :color blue))
