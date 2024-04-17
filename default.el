@@ -149,7 +149,6 @@
   :bind* (("C-c q" . t0yv0/quit)
           ("M-`"   . other-frame)
 
-          ("C-x r SPC" . t0yv0/register-save-point)
           ("<remap> <dabbrev-expand>" . hippie-expand))
 
   :hook
@@ -489,8 +488,8 @@
             "Jump"
             (("j" consult-org-heading "consult-heading" :color blue))
             "Narrow"
-            (("n" org-narrow-to-subtree "narrow" :color blue)
-             ("w" widen :color blue))
+            (("N" org-narrow-to-subtree "narrow" :color blue)
+             ("W" widen :color blue))
             "Special"
             (("/" org-sparse-tree "sparse-tree [C-c /]" :color blue)
              ("x" org-columns "columns [C-c C-x C-c]" :color blue)))))
