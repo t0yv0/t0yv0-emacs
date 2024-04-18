@@ -335,7 +335,7 @@
           t0yv0/link-hydra
           (:color blue :quit-key "C-g")
           ("Git Links"
-           (("g" git-link "git-link")
+           (("g" t0yv0/git-link "git-link")
             ("c" git-link-commit "git-link-commit")
             ("h" git-link-homepage "git-link-homepage"))
            "Org Links"

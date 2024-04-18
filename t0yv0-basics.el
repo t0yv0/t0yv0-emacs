@@ -138,6 +138,44 @@ Ensures it is up-to-date with ./tree-sitter."
     (make-symbolic-link real-dir target-dir t)))
 
 
+(defun t0yv0/git-link (&optional arg)
+  "Like git-link but also understands files in Go package cache that have no Git repo."
+  (interactive "P")
+  (if (t0yv0/git-link-file-name-to-github-remote (buffer-file-name))
+      (t0yv0/git-link-go)
+    (call-interactively #'git-link arg)))
+
+
+(defun t0yv0/git-link-go ()
+  (interactive)
+  (let ((url (t0yv0/git-link-file-name-to-github-remote (buffer-file-name))))
+    (if url
+        (progn
+          (let ((link (format "%s#L%s" url (line-number-at-pos (point)))))
+            (kill-new link)
+            ;; prevent URL escapes from being interpreted as format strings
+            (message (replace-regexp-in-string "%" "%%" link t t))
+            (setq deactivate-mark t))))))
+
+
+(defun t0yv0/git-link-file-name-to-github-remote (file-name)
+  (let ((s file-name))
+    (when (string-match
+           (rx "go/pkg/mod/github.com/"
+               (group (+ (not "/"))) "/"
+               (group (+ (not (any "/@"))))
+               "@"
+               (group (+ (not "/")))
+               "/"
+               (group (+ any)))
+           s)
+      (let ((gh-org (match-string 1 s))
+            (gh-repo (match-string 2 s))
+            (gh-tag (match-string 3 s))
+            (gh-rest (match-string 4 s)))
+        (format "https://github.com/%s/%s/blob/%s/%s" gh-org gh-repo gh-tag gh-rest)))))
+
+
 (defun t0yv0/go-defun-name (&optional defun-body)
   (let* ((source (or defun-body (save-excursion
                                   (mark-defun)
