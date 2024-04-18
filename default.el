@@ -120,7 +120,37 @@
 
 (use-package dape
   :config
-  (dape-breakpoint-global-mode))
+  (dape-breakpoint-global-mode)
+
+  (require 'major-mode-hydra)
+
+  (eval '(pretty-hydra-define
+          t0yv0/dape-hydra
+          (:color pink :quit-key "C-g")
+          ("Debug"
+           (("C-M-n" dape-next     "next"     :color red)
+            ("C-M-c" dape-continue "continue" :color red)
+            ("C-M-o" dape-step-out "step-out" :color red)
+            ("C-M-i" dape-step-in  "step-in"  :color red))
+           "Breakpoint"
+           (("C-M-b"           dape-breakpoint-toggle     "toggle"       :color red)
+            ("C-M-<backspace>" dape-breakpoint-remove-all "remove-all"   :color red)
+            ("C-M-e"           dape-breakpoint-expression "expression"   :color red)
+            ("C-M-l"           dape-breakpoint-log        "log"          :color red))
+           "Stack"
+           (("C-M-<" dape-stack-select-up       "select-up"    :color red)
+            ("C-M->" dape-stack-select-down     "select-down"  :color red)
+            ("C-M-S" dape-select-stack          "select-stack" :color red))
+           "Session"
+           (("C-M-r" dape-restart         "restart"         :color red)
+            ("C-M-p" dape-pause           "pause"           :color red)
+            ("C-M-q" dape-quit            "quit"            :color blue)
+            ("C-M-D" dape-disconnect-quit "disconnect-quit" :color red))
+           "Advanced"
+           (("C-M-x" dape-evaluate-expression "evaluate-expression" :color red)
+            ("C-M-w" dape-watch-dwim          "watch-dwim"          :color red)
+            ("C-M-m" dape-read-memory         "read-memory"         :color red)
+            ("C-M-t" dape-select-thread       "select-thread"       :color red))))))
 
 (use-package diminish)
 
@@ -353,23 +383,6 @@
   (t0yv0/ensure-tree-sitter-grammar-install)
   (require 'major-mode-hydra)
 
-  (eval '(pretty-hydra-define
-          t0yv0/dape-hydra
-          (:color blue :quit-key "C-g")
-          ("Debug"
-           (("n" dape-next "next" :color red)
-            ("c" dape-continue "continue" :color red)
-            ("o" dape-step-out "step-out" :color red)
-            ("r" dape-restart "restart" :color red)
-            ("p" dape-pause "pause" :color red))
-           "Breakpoints"
-           (("b" dape-breakpoint-toggle "toggle" :color red)
-            ("B" dape-breakpoint-remove-all "remove-all" :color red))
-           "Dape"
-           (("t" t0yv0/go-debug-current-test "debug-current-test" :color red)
-            ("R" dape-repl "repl")
-            ("q" dape-quit "quit")))))
-
   (eval '(major-mode-hydra-define
           go-ts-mode (:idle 0.5)
           ("Consult"
@@ -380,7 +393,7 @@
            (("c" (lambda () (interactive) (compile "go build .")) "compile")
             ("t" (lambda () (interactive) (t0yv0/embark-execute-defun)) "test-defun")
             ("T" (lambda () (interactive) (compile "go test .")) "test-package")
-            ("d" t0yv0/dape-hydra/body "debug"))
+            ("d" t0yv0/go-debug-current-test "debug-defun"))
            "Find"
            (("im" eglot-find-implementation "impls")
             ("rs" xref-find-references "refs"))
@@ -633,6 +646,9 @@
   (setq yas-snippet-dirs (list "~/my/snippets" t0yv0/yas-snippets))
   (yas-reload-all)
   (yas-global-mode))
+
+
+
 
 (provide 'default)
 ;;; default.el ends here

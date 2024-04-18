@@ -209,7 +209,8 @@ Ensures it is up-to-date with ./tree-sitter."
             :mode "test"
             :cwd "."
             :program ,cwd
-            :args ("--test.run" ,name)))))
+            :args ("--test.run" ,name)))
+    (t0yv0/dape-hydra/body)))
 
 
 (defun t0yv0/orderless-flex-if-twiddle (pattern _index _total)
