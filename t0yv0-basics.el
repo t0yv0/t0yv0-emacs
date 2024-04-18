@@ -196,20 +196,25 @@ Ensures it is up-to-date with ./tree-sitter."
 (defun t0yv0/go-debug-current-test ()
   "Run dape debugger for the Go test currently surrounding point."
   (interactive)
-  (let ((name (t0yv0/go-defun-name))
-        (cwd default-directory))
-    (dape `(modes (go-mode go-ts-mode)
-            ensure dape-ensure-command
-            command "dlv"
-            command-args ("dap" "--listen" "127.0.0.1::autoport")
-            command-cwd ,cwd
-            port :autoport
-            :request "launch"
-            :type "test"
-            :mode "test"
-            :cwd "."
-            :program ,cwd
-            :args ("--test.run" ,name)))
+  (let* ((name (t0yv0/go-defun-name))
+         (cwd default-directory)
+         (dape-config `(modes (go-mode go-ts-mode)
+                              ensure dape-ensure-command
+                              command "dlv"
+                              command-args ("dap" "--listen" "127.0.0.1::autoport")
+                              command-cwd ,cwd
+                              port :autoport
+                              :request "launch"
+                              :type "test"
+                              :mode "test"
+                              :cwd "."
+                              :program ,cwd
+                              :args ["--test.run" ,name]))
+         (dape-confs (dape--config-to-string 'go-last-test dape-config)))
+    (setf (alist-get 'go-last-test dape-configs) dape-config)
+    (unless (and dape-history (not (equal dape-confs (car dape-history))))
+      (setq dape-history (cons dape-confs dape-history)))
+    (dape dape-config)
     (t0yv0/dape-hydra/body)))
 
 
