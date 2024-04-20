@@ -1,3 +1,5 @@
+;;; -*- mode: emacs-lisp; lexical-binding: t; -*-
+;;;
 ;;; t0yv0-basics --- definitions without heavy external dependencies
 ;;;
 ;;; Commentary:
@@ -10,6 +12,16 @@
 (require 'dash)
 (require 'project)
 (require 'vterm)
+
+
+(defvar dape-configs)
+(defvar dape-history)
+
+
+(declare-function dape "dape" (arg))
+(declare-function dape--config-to-string "dape" (arg1 arg2))
+(declare-function git-link "git-link" ())
+(declare-function t0yv0/dape-hydra/body "default" ())
 
 
 (defvar-local t0yv0/vterm-dabbrev-state nil)
@@ -139,7 +151,8 @@ Ensures it is up-to-date with ./tree-sitter."
 
 
 (defun t0yv0/git-link (&optional arg)
-  "Like git-link but also understands files in Go package cache that have no Git repo."
+  "Like git-link but also understands files in Go package cache that
+have no Git repo."
   (interactive "P")
   (if (t0yv0/git-link-file-name-to-github-remote (buffer-file-name))
       (t0yv0/git-link-go)
@@ -391,4 +404,4 @@ Also, enter `compilation-shell-minor-mode' in the new buffer."
 
 
 (provide 't0yv0-basics)
-;;; t0yv0-ware.el ends here
+;;; t0yv0-basics.el ends here
