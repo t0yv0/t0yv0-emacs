@@ -1,9 +1,16 @@
-;;; -*- mode: emacs-lisp; lexical-binding: t; -*-
-;;;
-;;; t0yv0-basics --- definitions without heavy external dependencies
-;;;
+;;; t0yv0-basics.el --- helper code that is too small to have its own package  -*- lexical-binding:t -*-
+
 ;;; Commentary:
-;;;
+
+;; Utilities implemented here include:
+;;
+;;   1) vterm helpers and dabbrev support
+;;   2) quick jumping to files and lines that are changed according to git
+;;   3) go debugging and testing helpers
+;;   4) orderless selection styles
+;;   5) consult helpers for searching files and directories
+;;   6) embark support for github references
+
 ;;; Code:
 
 
@@ -53,7 +60,7 @@
 
 
 (defun t0yv0/consult-reformat-line-candidate (pair)
-  "Formats a PAIR of line-num and line-text into a form suitable for consult-line."
+  "Formats a PAIR of line-num and line-text into a form suitable for `consult-line'."
   (let ((line-num (car pair))
         (line-text (cdr pair)))
     (consult--location-candidate line-text
@@ -151,8 +158,8 @@ Ensures it is up-to-date with ./tree-sitter."
 
 
 (defun t0yv0/git-link (&optional arg)
-  "Like git-link but also understands files in Go package cache that
-have no Git repo."
+  "Like `git-link' but supports Go module cache.
+Optional argument ARG is passed to `git-link'."
   (interactive "P")
   (if (t0yv0/git-link-file-name-to-github-remote (buffer-file-name))
       (t0yv0/git-link-go)
