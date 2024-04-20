@@ -35,7 +35,7 @@
 
 
 (defun t0yv0/consult-changed-line ()
-  "Like `consult-line' but only for lines changed according to git diff."
+  "Act like `consult-line' but only for lines changed according to git diff."
   (interactive)
   (let* ((fn (buffer-file-name (current-buffer)))
          (diff (shell-command-to-string (format "git diff %s" fn)))
@@ -60,7 +60,7 @@
 
 
 (defun t0yv0/consult-reformat-line-candidate (pair)
-  "Formats a PAIR of line-num and line-text into a form suitable for `consult-line'."
+  "Format a PAIR of line-num and line-text into a form suitable for `consult-line'."
   (let ((line-num (car pair))
         (line-text (cdr pair)))
     (consult--location-candidate line-text
@@ -99,12 +99,15 @@
 
 
 (defun t0yv0/display-buffer-same-prog-mode-window (buffer alist)
+  "Display `BUFFER' in a window already showing code.
+Argument ALIST is ignored."
   (if (derived-mode-p 'prog-mode)
       (display-buffer-same-window buffer alist)
     nil))
 
 
 (defun t0yv0/embark-execute-defun (&optional defun-body)
+  "Extract func name from its code given by DEFUN-BODY and test it."
   (let ((name (t0yv0/go-defun-name defun-body)))
     (cond
      ((and (equal major-mode 'go-ts-mode)
@@ -115,6 +118,7 @@
 
 
 (defun t0yv0/embark-execute-identifier (ident)
+  "Run go test specifically on IDENT."
   (cond
    ((and (equal major-mode 'go-ts-mode)
          (string-prefix-p "Test" ident))
@@ -145,7 +149,6 @@
 
 (defun t0yv0/ensure-tree-sitter-grammar-install ()
   "Make sure ~/.emacs.d/tree-sitter symlink exists.
-
 Ensures it is up-to-date with ./tree-sitter."
   (interactive)
   (let* ((real-dir (symbol-value 't0yv0/treesitter-dir))
@@ -158,7 +161,7 @@ Ensures it is up-to-date with ./tree-sitter."
 
 
 (defun t0yv0/git-link (&optional arg)
-  "Like `git-link' but supports Go module cache.
+  "Act like `git-link' but supports Go module cache.
 Optional argument ARG is passed to `git-link'."
   (interactive "P")
   (if (t0yv0/git-link-file-name-to-github-remote (buffer-file-name))
@@ -167,6 +170,7 @@ Optional argument ARG is passed to `git-link'."
 
 
 (defun t0yv0/git-link-go ()
+  "Infer a git link from current buffer file name in go mod cache."
   (interactive)
   (let ((url (t0yv0/git-link-file-name-to-github-remote (buffer-file-name))))
     (if url
@@ -179,6 +183,7 @@ Optional argument ARG is passed to `git-link'."
 
 
 (defun t0yv0/git-link-file-name-to-github-remote (file-name)
+  "Parse go mod cache FILE-NAME and reformat as git link."
   (let ((s file-name))
     (when (string-match
            (rx "go/pkg/mod/github.com/"
@@ -197,6 +202,9 @@ Optional argument ARG is passed to `git-link'."
 
 
 (defun t0yv0/go-defun-name (&optional defun-body)
+  "Extract go func name from DEFUN-BODY source.
+
+If DEFUN-BODY is not given, grab one from around point."
   (let* ((source (or defun-body (save-excursion
                                   (mark-defun)
                                   (buffer-substring-no-properties
@@ -207,6 +215,7 @@ Optional argument ARG is passed to `git-link'."
 
 
 (defun t0yv0/go-defun-name-from-body (defun-body)
+  "Extract go func name from DEFUN-BODY source."
   (unless (null (string-match
                  (rx (seq "func") (* (any " ")) (group (* (not "("))) )
                  defun-body))
