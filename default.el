@@ -116,9 +116,11 @@
 
   :bind
   (:map corfu-map
+        ("C-SPC" . corfu-insert-separator)
         ("C-j" . corfu-insert)))
 
 (use-package dape
+  :bind (("C-c d" . t0yv0/dape-hydra/body))
   :config
   (dape-breakpoint-global-mode)
 
@@ -126,31 +128,32 @@
 
   (eval '(pretty-hydra-define
           t0yv0/dape-hydra
-          (:color pink :quit-key "C-g")
+          (:color blue :quit-key "C-g")
           ("Debug"
-           (("C-M-n" dape-next     "next"     :color red)
-            ("C-M-c" dape-continue "continue" :color red)
-            ("C-M-o" dape-step-out "step-out" :color red)
-            ("C-M-i" dape-step-in  "step-in"  :color red))
+           (("n" dape-next     "next"     :color red)
+            ("c" dape-continue "continue" :color red)
+            ("o" dape-step-out "step-out" :color red)
+            ("i" dape-step-in  "step-in"  :color red))
            "Breakpoint"
-           (("C-M-b"           dape-breakpoint-toggle     "toggle"       :color red)
-            ("C-M-<backspace>" dape-breakpoint-remove-all "remove-all"   :color red)
-            ("C-M-e"           dape-breakpoint-expression "expression"   :color red)
-            ("C-M-l"           dape-breakpoint-log        "log"          :color red))
+           (("b"           dape-breakpoint-toggle     "toggle"       :color red)
+            ("<backspace>" dape-breakpoint-remove-all "remove-all"   :color red)
+            ("e"           dape-breakpoint-expression "expression"   :color red)
+            ("l"           dape-breakpoint-log        "log"          :color red))
            "Stack"
-           (("C-M-<" dape-stack-select-up       "select-up"    :color red)
-            ("C-M->" dape-stack-select-down     "select-down"  :color red)
-            ("C-M-S" dape-select-stack          "select-stack" :color red))
+           (("<" dape-stack-select-up       "select-up"    :color red)
+            (">" dape-stack-select-down     "select-down"  :color red)
+            ("S" dape-select-stack          "select-stack" :color red))
            "Session"
-           (("C-M-r" dape-restart         "restart"         :color red)
-            ("C-M-p" dape-pause           "pause"           :color red)
-            ("C-M-q" dape-quit            "quit"            :color blue)
-            ("C-M-D" dape-disconnect-quit "disconnect-quit" :color red))
+           (("d" t0yv0/go-debug-current-test "debug-defun" :color red)
+            ("r" dape-restart         "restart"         :color red)
+            ("p" dape-pause           "pause"           :color red)
+            ("q" dape-quit            "quit"            :color blue)
+            ("D" dape-disconnect-quit "disconnect-quit" :color red))
            "Advanced"
-           (("C-M-x" dape-evaluate-expression "evaluate-expression" :color red)
-            ("C-M-w" dape-watch-dwim          "watch-dwim"          :color red)
-            ("C-M-m" dape-read-memory         "read-memory"         :color red)
-            ("C-M-t" dape-select-thread       "select-thread"       :color red))))))
+           (("x" dape-evaluate-expression "evaluate-expression" :color red)
+            ("w" dape-watch-dwim          "watch-dwim"          :color red)
+            ("m" dape-read-memory         "read-memory"         :color red)
+            ("t" dape-select-thread       "select-thread"       :color red))))))
 
 (use-package diminish)
 
