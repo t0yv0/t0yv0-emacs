@@ -396,7 +396,7 @@
            (("c" (lambda () (interactive) (compile "go build .")) "compile")
             ("t" (lambda () (interactive) (t0yv0/embark-execute-defun)) "test-defun")
             ("T" (lambda () (interactive) (compile "go test .")) "test-package")
-            ("d" t0yv0/go-debug-current-test "debug-defun"))
+            ("d" t0yv0/dape-hydra/body "debug"))
            "Find"
            (("im" eglot-find-implementation "impls")
             ("rs" xref-find-references "refs"))
