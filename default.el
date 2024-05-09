@@ -510,6 +510,7 @@
             (("/" org-sparse-tree "sparse-tree [C-c /]" :color blue)
              ("x" org-columns "columns [C-c C-x C-c]" :color blue)))))
   (setq org-startup-indented t)
+  (setq org-archive-location "%s_archive.gpg::")
   (setq org-confirm-babel-evaluate nil)
   (org-babel-do-load-languages 'org-babel-load-languages
                                '((shell . t)
