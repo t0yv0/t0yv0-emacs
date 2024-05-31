@@ -591,6 +591,19 @@
   (:map haskell-mode-map
         ("C-c q" . ormolu-format-buffer)))
 
+(use-package python-ts-mode
+  :mode "\\.py\\'"
+  :config
+  (t0yv0/ensure-tree-sitter-grammar-install)
+  :hook
+  (python-ts-mode . (lambda ()
+                      (eglot-ensure)
+                      (pyvenv-mode t))))
+
+(use-package pyvenv
+  :config
+  (pyvenv-mode t))
+
 (use-package recentf
   :config
   (setq recentf-max-menu-items 15

@@ -40,6 +40,7 @@ mkdir -p $out/share/emacs/site-lisp/tree-sitter
 ln -s ${treesitter}/go.so ${treesitter_out}/libtree-sitter-go.so
 ln -s ${treesitter}/gomod.so ${treesitter_out}/libtree-sitter-gomod.so
 ln -s ${treesitter}/typescript.so ${treesitter_out}/libtree-sitter-typescript.so
+ln -s ${treesitter}/python.so ${treesitter_out}/libtree-sitter-python.so
 ln -s ${treesitter}/tsx.so ${treesitter_out}/libtree-sitter-tsx.so
 
 ln -s ${mmdc} ${mmdc_out}/mmdc

@@ -92,6 +92,7 @@
           epkgs.org-roam
           epkgs.ormolu
           epkgs.pretty-hydra
+          epkgs.pyvenv
           epkgs.reformatter
           epkgs.transient
           epkgs.typescript-mode
