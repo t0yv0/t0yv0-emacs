@@ -33,6 +33,16 @@
          ("C-x p g"   . consult-ripgrep)
          ("C-x r b"   . consult-bookmark)
          ("C-x r s"   . consult-register))
+  :config
+  (defun t0yv0/consult--multi--around (orig-fun &rest args)
+    "Disable display-buffer custom placement when doing consult"
+    (let ((c nil) (r nil))
+      (setq c display-buffer-alist)
+      (setq display-buffer-alist nil)
+      (unwind-protect
+          (apply orig-fun args)
+        (setq display-buffer-alist c))))
+  (advice-add 'consult--multi :around #'t0yv0/consult--multi--around)
   :custom
   (consult-buffer-filter
    '("\\` "
