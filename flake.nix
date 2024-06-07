@@ -4,12 +4,19 @@
     nixpkgs_22_11.url = github:NixOS/nixpkgs/22.11;
     nixpkgs_darwin.url = github:NixOS/nixpkgs/nixpkgs-23.11-darwin;
     copilot_flake.url = github:t0yv0/copilot.el/v20240323;
+    copilot_flake.inputs.nixpkgs.follows = "nixpkgs";
     treesitedit_flake.url = github:t0yv0/treesitedit.el/main;
+    treesitedit_flake.inputs.nixpkgs.follows = "nixpkgs";
+    treesitedit_flake.inputs.nixpkgs_darwin.follows = "nixpkgs_darwin";
+    testrun_flake.url = github:t0yv0/testrun.el/main;
+    testrun_flake.inputs.nixpkgs.follows = "nixpkgs";
+    testrun_flake.inputs.nixpkgs_darwin.follows = "nixpkgs_darwin";
     dape_src.url = github:svaante/dape?rev=d1a96de51cbee7c410d1f2680f860d09048e2fc5;
     dape_src.flake = false;
   };
 
-  outputs = { self, nixpkgs, nixpkgs_22_11, nixpkgs_darwin, copilot_flake, dape_src, treesitedit_flake }: let
+  outputs = { self, nixpkgs, nixpkgs_22_11, nixpkgs_darwin, copilot_flake, dape_src,
+              treesitedit_flake, testrun_flake }: let
 
     version = self.rev or "dirty";
 
@@ -21,6 +28,7 @@
       mermaid = pkgs_22_11.nodePackages.mermaid-cli;
       copilot = (builtins.getAttr sys copilot_flake.packages).default;
       treesitedit = (builtins.getAttr sys treesitedit_flake.packages).default;
+      testrun = (builtins.getAttr sys testrun_flake.packages).default;
 
       jsonrpc = epkgs.elpaBuild {
         pname = "jsonrpc";
@@ -123,6 +131,7 @@
       };
 
       eager-packages = epkgs: [
+        testrun
         treesitedit
         copilot
         eglot

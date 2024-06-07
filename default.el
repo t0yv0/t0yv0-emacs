@@ -74,7 +74,7 @@
      consult--source-project-recent-file)))
 
 (use-package copilot
-  :bind (("C-c t" . t0yv0/copilot-hydra/body)
+  :bind (("C-c p" . t0yv0/copilot-hydra/body)
          ("C-c j" . copilot-accept-completion))
   :custom
   (copilot-indent-offset-warning-disable t)
@@ -392,9 +392,12 @@
 
 (use-package go-ts-mode
   :mode "\\.go\\'"
+  :bind (("C-c t SPC" . testrun-at-point)
+         ("C-c t t" . recompile))
   :config
   (t0yv0/ensure-tree-sitter-grammar-install)
   (require 'major-mode-hydra)
+  (require 'testrun)
 
   (eval '(major-mode-hydra-define
           go-ts-mode (:idle 0.5)
