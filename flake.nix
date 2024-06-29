@@ -1,8 +1,8 @@
 {
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-23.11;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-24.05;
     nixpkgs_22_11.url = github:NixOS/nixpkgs/22.11;
-    nixpkgs_darwin.url = github:NixOS/nixpkgs/nixpkgs-23.11-darwin;
+    nixpkgs_darwin.url = github:NixOS/nixpkgs/nixpkgs-24.05-darwin;
     copilot_flake.url = github:t0yv0/copilot.el/v20240323;
     copilot_flake.inputs.nixpkgs.follows = "nixpkgs";
     treesitedit_flake.url = github:t0yv0/treesitedit.el/main;
