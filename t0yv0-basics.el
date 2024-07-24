@@ -28,7 +28,6 @@
 (declare-function dape "dape" (arg))
 (declare-function dape--config-to-string "dape" (arg1 arg2))
 (declare-function git-link "git-link" ())
-(declare-function t0yv0/dape-hydra/body "default" ())
 
 
 (defvar-local t0yv0/vterm-dabbrev-state nil)
@@ -237,8 +236,7 @@ If DEFUN-BODY is not given, grab one from around point."
     (when (or (null dape-history)
               (and dape-history (not (equal dape-confs (car dape-history)))))
       (setq dape-history (cons dape-confs dape-history)))
-    (dape dape-config)
-    (t0yv0/dape-hydra/body)))
+    (dape dape-config)))
 
 
 (defun t0yv0/orderless-flex-if-twiddle (pattern _index _total)

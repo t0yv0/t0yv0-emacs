@@ -5,7 +5,6 @@
 ;;;
 ;;; Code:
 
-(require 'hydra)
 (require 't0yv0-basics)
 (require 'use-package)
 
@@ -395,9 +394,6 @@
   :config
   (setq magit-display-buffer-function #'display-buffer)
   :bind (("C-x g" . magit-status)))
-
-(use-package major-mode-hydra
-  :bind ("C-c SPC" . major-mode-hydra))
 
 (use-package marginalia
   :bind (:map minibuffer-local-map

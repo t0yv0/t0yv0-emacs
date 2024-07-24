@@ -106,14 +106,12 @@
           epkgs.haskell-mode
           epkgs.magit
           epkgs.magit-section
-          epkgs.major-mode-hydra
           epkgs.markdown-mode
           epkgs.mermaid-mode
           epkgs.multiple-cursors
           epkgs.nix-mode
           epkgs.org-roam
           epkgs.ormolu
-          epkgs.pretty-hydra
           epkgs.pyvenv
           epkgs.reformatter
           epkgs.transient
@@ -140,7 +138,6 @@
         src = [ "${bootstrap}" ];
         packageRequires = [
           t0yv0-basics
-          epkgs.hydra
         ];
       };
 
@@ -157,7 +154,6 @@
         epkgs.doom-modeline
         epkgs.envrc
         epkgs.forge
-        epkgs.hydra
         # Note on JINX: this spell-checking package requires additional packages; on NixOS
         # installing pkgs.nuspell and pkgs.hunspellDicts.en_US works fine; TBD on MacOS. I have not
         # taken the time to find how to inline this into t0yv0-emacs so it installs a local copy.
