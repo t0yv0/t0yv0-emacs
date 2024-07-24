@@ -314,6 +314,7 @@
          ("x" . t0yv0/embark-execute-defun)))
 
   :init
+  (require 'embark)
   (setq prefix-help-command #'embark-prefix-help-command)
 
   :config
