@@ -74,8 +74,15 @@
      consult--source-project-recent-file)))
 
 (use-package copilot
-  :bind (("C-c p" . t0yv0/copilot-hydra/body)
-         ("C-c j" . copilot-accept-completion))
+  :bind (("C-c p b" . copilot-previous-completion)
+         ("C-c p d" . copilot-diagnose)
+         ("C-c p f" . copilot-next-completion)
+         ("C-c p g" . copilot-clear-overlay)
+         ("C-c p l" . copilot-login)
+         ("C-c p m" . global-copilot-mode)
+         ("C-c p p" . copilot-accept-completion)
+         ("C-c p q" . copilot-logout)
+         ("C-c p /" . copilot-complete))
   :custom
   (copilot-indent-offset-warning-disable t)
   (copilot-disable-predicates
@@ -101,24 +108,7 @@
               :around (lambda (orig-fun &rest args)
                         (when (not (member major-mode '(minibuffer-mode)))
                           (apply orig-fun args))))
-  (copilot-diagnose)
-  (eval '(pretty-hydra-define
-          t0yv0/copilot-hydra
-          (:color amaranth :quit-key "C-g")
-          ("Completions"
-           (("/" copilot-complete "complete")
-            ("g" copilot-clear-overlay "clear" :color blue)
-            ("j" copilot-accept-completion "accept" :color blue))
-           "Nav"
-           (("n" copilot-next-completion "next")
-            ("p" copilot-previous-completion "prev"))
-           "Login"
-           (("L" copilot-login "login" :color blue)
-            ("Q" copilot-logout "logout" :color blue))
-           "Copilot System"
-           (("G" global-copilot-mode "global-mode" :color blue)
-            ("X" (lambda () (interactive) (global-copilot-mode -1)) "global-mode-off" :color blue)
-            ("D" copilot-diagnose "diagnose" :color blue))))))
+  (copilot-diagnose))
 
 (use-package corfu
   :init
