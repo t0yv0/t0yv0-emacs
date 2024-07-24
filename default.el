@@ -393,18 +393,14 @@
 
 (use-package go-ts-mode
   :mode "\\.go\\'"
-  :bind (("C-c t" . t0yv0/testrun-hydra/body))
+  :bind (("C-c t SPC" . testrun-at-point)
+         ("C-c t t" . testrun-repeat)
+         ("C-c t d" . testrun-in-current-directory)
+         ("C-c t v" . testrun-toggle-verbosity))
+
   :config
   (t0yv0/ensure-tree-sitter-grammar-install)
   (require 'major-mode-hydra)
-  (require 'testrun)
-
-  (eval '(pretty-hydra-define
-          t0yv0/testrun-hydra
-          (:color blue :quit-key "C-g" :idle 0.5)
-          ("Test"
-           (("SPC" testrun-at-point "at-point")
-            ("t" recompile "retest")))))
 
   (eval '(major-mode-hydra-define
           go-ts-mode (:idle 0.5)

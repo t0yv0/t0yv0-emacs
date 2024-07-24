@@ -107,11 +107,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1719628529,
-        "narHash": "sha256-UW1Z52p2A7Py+FQUOYHj34dk2Ck5JxcI4+g25JE4cDs=",
+        "lastModified": 1721792265,
+        "narHash": "sha256-S5ZRfyCT9TcJo1suIDDBkspAT160qDNkOFZGlBrMZwY=",
         "owner": "t0yv0",
         "repo": "testrun.el",
-        "rev": "e1e31afdb2387624f41df0c036cf7628bec49886",
+        "rev": "7e4993ea013c44fff72dff5a5b8a2cbb1e75acb4",
         "type": "github"
       },
       "original": {
