@@ -217,6 +217,7 @@ If DEFUN-BODY is not given, grab one from around point."
 (defun t0yv0/go-debug-current-test ()
   "Run dape debugger for the Go test currently surrounding point."
   (interactive)
+  (require 'dape)
   (let* ((name (t0yv0/go-defun-name))
          (cwd default-directory)
          (dape-config `(modes (go-mode go-ts-mode)

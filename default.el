@@ -123,40 +123,17 @@
         ("C-j" . corfu-insert)))
 
 (use-package dape
-  :bind (("C-c d" . t0yv0/dape-hydra/body))
+  :bind (("C-c d SPC" . t0yv0/go-debug-current-test)
+         ("C-c d n" . dape-next)
+         ("C-c d c" . dape-continue)
+         ("C-c d o" . dape-step-out)
+         ("C-c d i" . dape-step-in)
+         ("C-c d b" . dape-breakpoint-toggle)
+         ("C-c d B" . dape-breakpoint-remove-all)
+         ("C-c d r" . dape-restart)
+         ("C-c d q" . dape-quit))
   :config
-  (dape-breakpoint-global-mode)
-
-  (require 'major-mode-hydra)
-
-  (eval '(pretty-hydra-define
-          t0yv0/dape-hydra
-          (:color blue :quit-key "C-g")
-          ("Debug"
-           (("n" dape-next     "next"     :color red)
-            ("c" dape-continue "continue" :color red)
-            ("o" dape-step-out "step-out" :color red)
-            ("i" dape-step-in  "step-in"  :color red))
-           "Breakpoint"
-           (("b"           dape-breakpoint-toggle     "toggle"       :color red)
-            ("<backspace>" dape-breakpoint-remove-all "remove-all"   :color red)
-            ("e"           dape-breakpoint-expression "expression"   :color red)
-            ("l"           dape-breakpoint-log        "log"          :color red))
-           "Stack"
-           (("<" dape-stack-select-up       "select-up"    :color red)
-            (">" dape-stack-select-down     "select-down"  :color red)
-            ("S" dape-select-stack          "select-stack" :color red))
-           "Session"
-           (("d" t0yv0/go-debug-current-test "debug-defun" :color red)
-            ("r" dape-restart         "restart"         :color red)
-            ("p" dape-pause           "pause"           :color red)
-            ("q" dape-quit            "quit"            :color blue)
-            ("D" dape-disconnect-quit "disconnect-quit" :color red))
-           "Advanced"
-           (("x" dape-evaluate-expression "evaluate-expression" :color red)
-            ("w" dape-watch-dwim          "watch-dwim"          :color red)
-            ("m" dape-read-memory         "read-memory"         :color red)
-            ("t" dape-select-thread       "select-thread"       :color red))))))
+  (dape-breakpoint-global-mode))
 
 (use-package diminish)
 
