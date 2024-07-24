@@ -25,6 +25,7 @@
          ("M-s p"     . consult-ripgrep)
          ("M-g g"     . consult-goto-line)
          ("M-g M-g"   . consult-goto-line)
+         ("M-g h"     . consult-org-heading)
          ("M-g i"     . consult-imenu)
          ("M-g e"     . consult-flymake)
          ("M-g M-e"   . t0yv0/consult-flymake-project-errors)
@@ -464,23 +465,6 @@
          ("C-c l l"   . org-store-link)
          ("C-c l C-l" . org-insert-link))
   :config
-  (require 'major-mode-hydra)
-  (eval '(major-mode-hydra-define
-           org-mode (:idle 0.5)
-           ("Walk"
-            (("p" org-previous-visible-heading    "[C-c C-p] prev"     :color red)
-             ("n" org-next-visible-heading        "[C-c C-n] next"     :color red)
-             ("f" org-forward-heading-same-level  "[C-c C-f] forward"  :color red)
-             ("b" org-backward-heading-same-level "[C-c C-b] backward" :color red)
-             ("u" outline-up-heading              "[C-c C-u] up"       :color red))
-            "Jump"
-            (("j" consult-org-heading "consult-heading" :color blue))
-            "Narrow"
-            (("N" org-narrow-to-subtree "narrow" :color blue)
-             ("W" widen :color blue))
-            "Special"
-            (("/" org-sparse-tree "sparse-tree [C-c /]" :color blue)
-             ("x" org-columns "columns [C-c C-x C-c]" :color blue)))))
   (setq org-startup-indented t)
   (setq org-archive-location "%s_archive.gpg::")
   (setq org-confirm-babel-evaluate nil)
