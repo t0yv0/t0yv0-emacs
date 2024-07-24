@@ -514,41 +514,32 @@
 (use-package org-present)
 
 (use-package org-roam
-  :bind (("C-c r" . t0yv0/org-roam-hydra/body))
+  :bind (("C-c r c" . org-roam-capture)
+         ("C-c r f" . org-roam-node-find)
+         ("C-c r i" . org-roam-node-insert)
+         ("C-c r b" . org-roam-buffer-toggle))
   :custom
   (org-roam-directory (file-truename "~/workshare/org-roam/"))
+  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-capture-templates
+   '(("d" "default" plain "%?"
+      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org.gpg"
+                         "#+title: ${title}\n")
+      :unnarrowed t)))
   :config
-  (require 'org)
-  (require 'major-mode-hydra)
-  ;; If you're using a vertical completion framework, you might want a more informative completion interface
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode)
-  (require 'org-roam-dailies)
-  ;; Setup org-roam-dailies
-  (setq org-roam-dailies-directory "daily/")
-  (setq org-roam-dailies-capture-templates
-        '(("d" "default" entry
-           "* %?"
-           :target (file+head "%<%Y-%m-%d>.org.gpg"
-                              "#+title: %<%Y-%m-%d>\n"))))
-  (setq org-roam-capture-templates
-        '(("d" "default" plain "%?"
-           :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org.gpg"
-                              "#+title: ${title}\n")
-           :unnarrowed t)))
-  (eval '(pretty-hydra-define
-          t0yv0/org-roam-hydra
-          (:color blue :quit-key "C-g")
-          ("Node"
-           (("c" org-roam-capture "capture")
-            ("f" org-roam-node-find "find")
-            ("i" org-roam-node-insert "insert"))
-           "Relations"
-           (("b" org-roam-buffer-toggle "buffer-toggle"))
-           "Dailies"
-           (("t" org-roam-dailies-capture-today "capture-today")
-            ("d" org-roam-dailies-goto-today "goto-today")
-            ("D" org-roam-dailies-goto-date "goto-date"))))))
+  (org-roam-db-autosync-mode))
+
+(use-package org-roam-dailies
+  :bind (("C-c r t" . org-roam-dailies-capture-today)
+         ("C-c r d" . org-roam-dailies-goto-today)
+         ("C-c r g" . org-roam-dailies-goto-date))
+  :custom
+  (org-roam-dailies-directory "daily/")
+  (org-roam-dailies-capture-templates
+   '(("d" "default" entry
+      "* %?"
+      :target (file+head "%<%Y-%m-%d>.org.gpg"
+                         "#+title: %<%Y-%m-%d>\n")))))
 
 (use-package orderless
   :custom
