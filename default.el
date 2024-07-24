@@ -26,6 +26,8 @@
          ("M-g g"     . consult-goto-line)
          ("M-g M-g"   . consult-goto-line)
          ("M-g i"     . consult-imenu)
+         ("M-g e"     . consult-flymake)
+         ("M-g M-e"   . t0yv0/consult-flymake-project-errors)
          ("M-g C-SPC" . consult-mark)
          ("M-g l"     . consult-line)
          ("M-g d"     . t0yv0/consult-changed-line)
@@ -166,6 +168,10 @@
   :init (envrc-global-mode))
 
 (use-package eglot
+  :bind (("C-c e m" . eglot-find-implementation)
+         ("C-c e r" . eglot-rename)
+         ("C-c e i" . eglot-code-action-inline)
+         ("C-c e x" . eglot-code-action-extract))
   :custom
   (eglot-events-buffer-size 0)
   (eglot-stay-out-of (list 'eldoc))
@@ -365,34 +371,13 @@
 (use-package go-ts-mode
   :mode "\\.go\\'"
   :bind (("C-c t SPC" . testrun-at-point)
-         ("C-c t t" . testrun-repeat)
-         ("C-c t d" . testrun-in-current-directory)
-         ("C-c t v" . testrun-toggle-verbosity))
+         ("C-c t t"   . testrun-repeat)
+         ("C-c t d"   . testrun-in-current-directory)
+         ("C-c t v"   . testrun-toggle-verbosity)
+         ("C-c b d"   . t0yv0/build-go-current-directory))
 
   :config
   (t0yv0/ensure-tree-sitter-grammar-install)
-  (require 'major-mode-hydra)
-
-  (eval '(major-mode-hydra-define
-          go-ts-mode (:idle 0.5)
-          ("Consult"
-           (("e" consult-flymake "errors")
-            ("E" (lambda () (interactive) (consult-flymake (project-current nil))) "project-errors")
-            ("m" consult-imenu "imenu"))
-           "Code"
-           (("c" (lambda () (interactive) (compile "go build .")) "compile")
-            ("d" t0yv0/dape-hydra/body "debug"))
-           "Find"
-           (("im" eglot-find-implementation "impls")
-            ("rs" xref-find-references "refs"))
-           "Refactor"
-           (("ia" go-import-add "add-import")
-            ("re" eglot-rename "rename")
-            ("in" eglot-code-action-inline "inline")
-            ("xt" eglot-code-action-extract "extract"))
-           "Narrow"
-           (("n" narrow-to-defun "narrow-to-defun")
-            ("w" widen "widen")))))
 
   (setq compilation-error-regexp-alist-alist
         (remove 'go-panic (remove 'go-test compilation-error-regexp-alist-alist)))

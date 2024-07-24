@@ -34,6 +34,12 @@
 (defvar-local t0yv0/vterm-dabbrev-state nil)
 
 
+(defun t0yv0/build-go-current-directory ()
+  "Builds current directory in Go."
+  (interactive)
+  (compile "go build ."))
+
+
 (defun t0yv0/consult-changed-line ()
   "Act like `consult-line' but only for lines changed according to git diff."
   (interactive)
@@ -57,6 +63,12 @@
      ;; Add `isearch-string' as initial input if starting from Isearch
      :initial (and isearch-mode (prog1 isearch-string (isearch-done)))
      :state (consult--location-state candidates))))
+
+
+(defun t0yv0/consult-flymake-project-errors ()
+  "Consult all errors in the project."
+  (interactive)
+  (consult-flymake (project-current nil)))
 
 
 (defun t0yv0/consult-reformat-line-candidate (pair)
