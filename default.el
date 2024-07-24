@@ -633,21 +633,16 @@
   (vertico-mode))
 
 (use-package vterm
-  :bind (("C-x p v" . t0yv0/vterm-proj)
-         ("C-c z"   . t0yv0/vterm-repeat)
-         ("C-c v"   . t0yv0/vterm-hydra/body))
+  :bind (("C-c v v" . t0yv0/vterm)
+         ("C-c v p" . t0yv0/vterm-proj)
+         ("C-c v d" . t0yv0/vterm-dir)
+         ("C-c v z" . t0yv0/vterm-repeat))
   :bind (:map vterm-mode-map
               ("M-c" . kill-ring-save)
               ("M-v" . yank)
               ("M-z" . undo)
               ("M-w" . kill-ring-save)
               ("M-/" . #'t0yv0/vterm-dabbrev-expand))
-  :init (defhydra t0yv0/vterm-hydra (:color blue :idle 1.0)
-          "vterms"
-          ("v" t0yv0/vterm "vterm")
-          ("p" t0yv0/vterm-proj "vterm-proj")
-          ("d" t0yv0/vterm-dir "vterm-dir")
-          ("r" t0yv0/vterm-repeat "vterm-repeat"))
   :config
   (add-hook 'vterm-mode-hook (lambda ()
                                (setq-local global-hl-line-mode nil))))
