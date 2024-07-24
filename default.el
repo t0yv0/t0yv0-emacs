@@ -589,13 +589,9 @@
                                (setq-local global-hl-line-mode nil))))
 
 (use-package wgrep
-  :config
-  (require 'major-mode-hydra)
-  (eval '(major-mode-hydra-define
-          grep-mode nil
-          ("wgrep"
-           (("p" wgrep-change-to-wgrep-mode "wgrep-change-to-wgrep-mode [C-c C-p]")
-            ("s" wgrep-save-all-buffers "wgrep-save-all-buffers"))))))
+  :custom ((wgrep-auto-save-buffer t))
+  :bind (:map grep-mode-map
+              (("e" . wgrep-change-to-wgrep-mode))))
 
 (use-package yaml-mode
   :mode ("\\.yaml\\'" "\\.yml\\'"))
@@ -605,8 +601,6 @@
   (setq yas-snippet-dirs (list "~/my/snippets" t0yv0/yas-snippets))
   (yas-reload-all)
   (yas-global-mode))
-
-
 
 
 (provide 'default)
