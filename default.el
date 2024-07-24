@@ -341,23 +341,17 @@
          ("M-p" . flymake-goto-prev-error)))
 
 (use-package gptel
-  :bind (("C-c g" . t0yv0/gptel-hydra/body))
+  :bind (("C-c g b" . gptel)
+         ("C-c g g" . gptel-send)
+         ("C-c g m" . gptel-menu)
+         ("C-c g t" . gptel-set-topic))
   :config
   (setq
    gptel-model "llama2:latest"
    gptel-backend (gptel-make-ollama "llama2"
                                     :host "localhost:11434"
                                     :stream t
-                                    :models '("llama2:latest")))
-  (eval '(pretty-hydra-define
-          t0yv0/gptel-hydra
-          (:color blue :quit-key "C-g")
-          ("GPT"
-           (("g" gptel-send "send")
-            ("b" gptel "create-buffer")
-            ("m" gptel-menu "menu"))
-           "Org"
-           (("t" gptel-set-topic "set-topic [org-mode]"))))))
+                                    :models '("llama2:latest"))))
 
 (use-package git-link
   :bind (("C-c l g" . t0yv0/git-link)
