@@ -30,6 +30,20 @@
       treesitedit = (builtins.getAttr sys treesitedit_flake.packages).default;
       testrun = (builtins.getAttr sys testrun_flake.packages).default;
 
+      gptel = epkgs.elpaBuild {
+        pname = "gptel";
+        ename = "gptel";
+        version = "0.9.0";
+        src = pkgs.fetchurl {
+          url = "https://elpa.nongnu.org/nongnu/gptel-0.9.0.tar";
+          sha256 = "sha256-xMnVgMqB5fZSJJ6De8dRDwoPxzRJwTuogcREA8OzLLM=";
+        };
+        packageRequires = [];
+        meta = {
+          homepage = "https://elpa.gnu.org/packages/gptel.html";
+        };
+      };
+
       jsonrpc = epkgs.elpaBuild {
         pname = "jsonrpc";
         ename = "jsonrpc";
@@ -136,13 +150,13 @@
         copilot
         eglot
         jsonrpc
+        gptel
         default-el
         epkgs.corfu
         epkgs.diminish
         epkgs.doom-modeline
         epkgs.envrc
         epkgs.forge
-        epkgs.gptel
         epkgs.hydra
         # Note on JINX: this spell-checking package requires additional packages; on NixOS
         # installing pkgs.nuspell and pkgs.hunspellDicts.en_US works fine; TBD on MacOS. I have not
@@ -165,6 +179,7 @@
       eglot = eglot;
       dape = dape;
       default-el = default-el;
+      gptel = gptel;
       jsonrpc = jsonrpc;
       mermaid = mermaid;
       prebuilt = prebuilt;
