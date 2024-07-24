@@ -297,12 +297,6 @@
   ("C-." . embark-act)
   ("C-;" . embark-dwim)
 
-  :bind
-  ((:map embark-identifier-map
-         ("x" . t0yv0/embark-execute-identifier))
-   (:map embark-defun-map
-         ("x" . t0yv0/embark-execute-defun)))
-
   :init
   (require 'embark)
   (setq prefix-help-command #'embark-prefix-help-command)
@@ -387,8 +381,6 @@
             ("m" consult-imenu "imenu"))
            "Code"
            (("c" (lambda () (interactive) (compile "go build .")) "compile")
-            ("t" (lambda () (interactive) (t0yv0/embark-execute-defun)) "test-defun")
-            ("T" (lambda () (interactive) (compile "go test .")) "test-package")
             ("d" t0yv0/dape-hydra/body "debug"))
            "Find"
            (("im" eglot-find-implementation "impls")

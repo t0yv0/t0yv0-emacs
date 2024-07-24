@@ -106,27 +106,6 @@ Argument ALIST is ignored."
     nil))
 
 
-(defun t0yv0/embark-execute-defun (&optional defun-body)
-  "Extract func name from its code given by DEFUN-BODY and test it."
-  (let ((name (t0yv0/go-defun-name defun-body)))
-    (cond
-     ((and (equal major-mode 'go-ts-mode)
-           (string-prefix-p "Test" name))
-      (t0yv0/embark-execute-identifier name))
-     (t
-      (message "Do not know how to execute defun: %s" defun-body)))))
-
-
-(defun t0yv0/embark-execute-identifier (ident)
-  "Run go test specifically on IDENT."
-  (cond
-   ((and (equal major-mode 'go-ts-mode)
-         (string-prefix-p "Test" ident))
-    (compile (format "go test -test.v -test.run '^%s'" ident)))
-   (t
-    (message "Do not know how to execute identifier: %s" ident))))
-
-
 (defun t0yv0/embark-target-gh-ref ()
   "Target a link at point of the GitHub ref form like pulumi/pulumi#12117."
   (save-excursion
