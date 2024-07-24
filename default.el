@@ -359,22 +359,9 @@
            (("t" gptel-set-topic "set-topic [org-mode]"))))))
 
 (use-package git-link
-  :after major-mode-hydra
-  :bind (("C-c l" . (lambda ()
-                      (interactive)
-                      (require 'git-link)
-                      (t0yv0/link-hydra/body))))
-  :config
-  (eval '(pretty-hydra-define
-          t0yv0/link-hydra
-          (:color blue :quit-key "C-g")
-          ("Git Links"
-           (("g" t0yv0/git-link "git-link")
-            ("c" git-link-commit "git-link-commit")
-            ("h" git-link-homepage "git-link-homepage"))
-           "Org Links"
-           (("l" org-store-link "org-store-link")
-            ("C-l" org-insert-link "org-insert-link [C-c C-l]"))))))
+  :bind (("C-c l g" . t0yv0/git-link)
+         ("C-c l c" . git-link-commit)
+         ("C-c l h" . git-link-homepage)))
 
 (use-package go-mode
   :bind (("C-c C-a" . go-import-add))
@@ -495,8 +482,10 @@
   :bind (("C-c m" . mc/edit-lines)))
 
 (use-package org
-  :bind (("C-c c" . org-capture)
-         ("C-c a" . org-agenda))
+  :bind (("C-c c"     . org-capture)
+         ("C-c a"     . org-agenda)
+         ("C-c l l"   . org-store-link)
+         ("C-c l C-l" . org-insert-link))
   :config
   (require 'major-mode-hydra)
   (eval '(major-mode-hydra-define

@@ -166,6 +166,7 @@ Optional argument ARG is passed to `git-link'."
   (interactive "P")
   (if (t0yv0/git-link-file-name-to-github-remote (buffer-file-name))
       (t0yv0/git-link-go)
+    (require 'git-link)
     (call-interactively #'git-link arg)))
 
 
