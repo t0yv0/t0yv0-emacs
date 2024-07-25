@@ -175,6 +175,7 @@
   (load-theme 'modus-operandi)
   (define-key isearch-mode-map (kbd "C-j") 'isearch-exit)
   (global-hl-line-mode 1)
+  (t0yv0/go-fixup-compilation-regexp)
 
   :custom
   (display-buffer-alist
@@ -349,16 +350,9 @@
 
   :config
   (t0yv0/ensure-tree-sitter-grammar-install)
-
-  (setq compilation-error-regexp-alist-alist
-        (remove 'go-panic (remove 'go-test compilation-error-regexp-alist-alist)))
-
-  (add-to-list
-   'compilation-error-regexp-alist-alist
-   (cons 'go-panic (list (rx (seq bol "\t") (group (* (not ":"))) (any ":") (group (+ digit))) 1 2)))
-
   :hook
   (go-ts-mode . (lambda ()
+                  (t0yv0/go-fixup-compilation-regexp)
                   (eglot-ensure)
                   (message (format "enabling treesitedit-mode"))
                   (treesitedit-mode 1)))

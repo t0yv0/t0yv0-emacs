@@ -239,6 +239,24 @@ If DEFUN-BODY is not given, grab one from around point."
     (dape dape-config)))
 
 
+(defun t0yv0/go-fixup-compilation-regexp ()
+  "Improved compilation output parsing for Go."
+  (let ((p nil)
+        (entry nil))
+    (setq p (rx (seq bol "\t")
+                      (group (* (not ":")))
+                      (any ":")
+                      (group (+ digit))))
+    (setq entry (cons 'go-panic-custom (list p 1 2 nil (list 2))))
+    (setf (alist-get 'go-panic-custom compilation-error-regexp-alist-alist nil 'remove) nil)
+    (setf (alist-get 'go-panic compilation-error-regexp-alist-alist nil 'remove) nil)
+    (setf (alist-get 'go-test compilation-error-regexp-alist-alist nil 'remove) nil)
+    (add-to-list 'compilation-error-regexp-alist-alist entry)
+    (unless (memq 'go-panic-custom compilation-error-regexp-alist-alist)
+      (add-to-list 'compilation-error-regexp-alist 'go-panic-custom))
+    (message "Edited go-panic regexp for compilation-mode")))
+
+
 (defun t0yv0/orderless-flex-if-twiddle (pattern _index _total)
   "See `t0yv0/orderless-style-dispatchers'.
 PATTERN _INDEX _TOTAL as required by orderless."
