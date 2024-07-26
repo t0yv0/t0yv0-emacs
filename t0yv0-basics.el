@@ -257,6 +257,13 @@ If DEFUN-BODY is not given, grab one from around point."
     (message "Edited go-panic regexp for compilation-mode")))
 
 
+(defun t0yv0/gptel-openai-token ()
+  "Extracts the OpenAI token from pass."
+  (let ((tok (shell-command-to-string "pass platform.openai.com/token")))
+    (setq tok (string-trim tok))
+    (if (null (string-match-p (rx "Error") tok)) tok nil)))
+
+
 (defun t0yv0/orderless-flex-if-twiddle (pattern _index _total)
   "See `t0yv0/orderless-style-dispatchers'.
 PATTERN _INDEX _TOTAL as required by orderless."

@@ -323,12 +323,17 @@
          ("C-c g m" . gptel-menu)
          ("C-c g t" . gptel-set-topic))
   :config
-  (setq
-   gptel-model "llama2:latest"
-   gptel-backend (gptel-make-ollama "llama2"
-                                    :host "localhost:11434"
-                                    :stream t
-                                    :models '("llama2:latest"))))
+  (let ((openai-token (t0yv0/gptel-openai-token)))
+    (if openai-token
+        (setq
+         gptel-model "gpt-4o"
+         gptel-api-key openai-token)
+      (setq
+       gptel-model "llama2:latest"
+       gptel-backend (gptel-make-ollama "llama2"
+                       :host "localhost:11434"
+                       :stream t
+                       :models '("llama2:latest"))))))
 
 (use-package git-link
   :bind (("C-c l g" . t0yv0/git-link)
