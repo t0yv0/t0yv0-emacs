@@ -524,6 +524,13 @@
   :init
   (recentf-mode 1))
 
+(use-package terraform-mode
+  :custom (terraform-indent-level 2)
+  :config
+  (defun t0yv0/terraform-mode-init ()
+    (outline-minor-mode 1))
+  (add-hook 'terraform-mode-hook 't0yv0/terraform-mode-init))
+
 (use-package typescript-mode
   :mode "\\.ts\\'"
   :config

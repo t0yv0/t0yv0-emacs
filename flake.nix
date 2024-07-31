@@ -104,6 +104,7 @@
           epkgs.git-link
           epkgs.go-mode
           epkgs.haskell-mode
+          epkgs.hcl-mode
           epkgs.magit
           epkgs.magit-section
           epkgs.markdown-mode
@@ -114,6 +115,7 @@
           epkgs.ormolu
           epkgs.pyvenv
           epkgs.reformatter
+          epkgs.terraform-mode
           epkgs.transient
           epkgs.typescript-mode
           epkgs.with-editor
