@@ -323,15 +323,6 @@ PATTERN _INDEX _TOTAL as required by orderless."
     (point)))
 
 
-(defun t0yv0/vterm ()
-  "If a vterm is visible, switch to it, otherwise switch to the project vterm."
-  (interactive)
-  (let ((buf (t0yv0/vterm-find-visible-buffer)))
-    (if buf
-        (switch-to-buffer buf)
-      (t0yv0/vterm-proj))))
-
-
 (defun t0yv0/vterm-dabbrev-expand ()
   "Adaps `dabbrev-expand` to vterm."
   (interactive)
@@ -357,75 +348,6 @@ PATTERN _INDEX _TOTAL as required by orderless."
     (unless expansion
       (dabbrev--reset-global-variables)
       (setq t0yv0/vterm-dabbrev-state nil))))
-
-
-(defun t0yv0/vterm-dir ()
-  "Switch to the vterm buffer scoped at current directory."
-  (interactive)
-  (let* ((root (file-name-directory buffer-file-name))
-         (buffer (concat "*vterm-"
-                         (file-name-nondirectory
-                          (substring root 0 (- (length root) 1)))
-                         "*")))
-    (t0yv0/vterm-impl root buffer)))
-
-
-(defun t0yv0/vterm-find-visible-buffer ()
-  "Find a visible vterm buffer.
-
-This buffer must be associated with one of the windows in the
-current frame. Returns nil if none is found."
-  (let ((vterm-windows
-         (-filter (lambda (it)
-                    (equal 'vterm-mode (with-current-buffer
-                                           (window-buffer it)
-                                         major-mode)))
-                  (window-list))))
-    (if (null vterm-windows)
-        nil
-      (window-buffer (car vterm-windows)))))
-
-
-(defun t0yv0/vterm-impl (root buffer)
-  "Backend for varios t0yv0/vterm-* functions.
-
-If there is already a buffer named BUFFER, switch to it.
-
-Otherwise, start a new vterm in ROOT directory in a new buffer
-named BUFFER, and then switch to BUFFER.
-
-Also, enter `compilation-shell-minor-mode' in the new buffer."
-  (unless (buffer-live-p (get-buffer buffer))
-    (let ((default-directory root))
-      (vterm buffer)
-      (with-current-buffer (get-buffer buffer)
-        (compilation-shell-minor-mode 1))))
-  (switch-to-buffer buffer))
-
-
-(defun t0yv0/vterm-proj ()
-  "Switch to the vterm buffer scoped at current project."
-  (interactive)
-  (if (null (project-current))
-      (t0yv0/vterm-impl (getenv "HOME") "*vterm*")
-    (let* ((root (project-root (project-current)))
-           (buffer (concat "*vterm-"
-                           (file-name-nondirectory
-                            (substring root 0 (- (length root) 1)))
-                           "*")))
-      (t0yv0/vterm-impl root buffer))))
-
-
-(defun t0yv0/vterm-repeat ()
-  "Clear project shell and re-submit last command to it."
-  (interactive)
-  (save-window-excursion
-    (let ((buf (t0yv0/vterm-find-visible-buffer)))
-      (when buf
-        (with-current-buffer buf
-          (vterm-clear)
-          (vterm-send-key "<up>")
-          (vterm-send-return))))))
 
 
 (defun t0yv0/quit ()

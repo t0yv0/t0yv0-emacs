@@ -547,10 +547,10 @@
   (vertico-mode))
 
 (use-package vterm
-  :bind (("C-c v v" . t0yv0/vterm)
-         ("C-c v p" . t0yv0/vterm-proj)
-         ("C-c v d" . t0yv0/vterm-dir)
-         ("C-c v z" . t0yv0/vterm-repeat))
+  :bind (("C-c v v" . vterms-switch)
+         ("C-c v p" . vterms-new-in-project-root)
+         ("C-c v d" . vterms-new)
+         ("C-c v z" . vterms-repeat))
   :bind (:map vterm-mode-map
               ("M-c" . kill-ring-save)
               ("M-v" . yank)
@@ -559,6 +559,7 @@
               ("M-/" . #'t0yv0/vterm-dabbrev-expand))
   :config
   (add-hook 'vterm-mode-hook (lambda ()
+                               (compilation-shell-minor-mode 1)
                                (setq-local global-hl-line-mode nil))))
 
 (use-package wgrep
