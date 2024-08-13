@@ -550,7 +550,8 @@
   :bind (("C-c v v" . vterms-switch)
          ("C-c v p" . vterms-new-in-project-root)
          ("C-c v d" . vterms-new)
-         ("C-c v z" . vterms-repeat))
+         ("C-c v z" . vterms-repeat)
+         ("C-c v o" . vterms-window))
   :bind (:map vterm-mode-map
               ("M-c" . kill-ring-save)
               ("M-v" . yank)
