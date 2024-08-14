@@ -548,8 +548,8 @@
 
 (use-package vterm
   :bind (("C-c v v" . vterms-switch)
-         ("C-c v p" . vterms-new-in-project-root)
-         ("C-c v d" . vterms-new)
+         ("C-c v p" . vterms-switch-or-new-in-project-root)
+         ("C-c v d" . vterms-switch-or-new)
          ("C-c v z" . vterms-repeat)
          ("C-c v o" . vterms-window))
   :bind (:map vterm-mode-map
