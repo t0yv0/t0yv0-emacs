@@ -48,11 +48,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722397485,
-        "narHash": "sha256-zLJc72GIuQX/wPH9pV5Ik+hqieeu0MMrQilc0yxYsAQ=",
+        "lastModified": 1723780442,
+        "narHash": "sha256-EHhuAuzsn6myMp8EPVnTxTeSN0vK7KzUptZmtysgH4Q=",
         "owner": "t0yv0",
         "repo": "gh-autolinks.el",
-        "rev": "28f854a4f9749b8dd03421a1c206eae992929f92",
+        "rev": "422f6714185ce02c180af8a52b34dd1b323d1138",
         "type": "github"
       },
       "original": {

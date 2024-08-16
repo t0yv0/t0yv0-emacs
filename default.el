@@ -318,6 +318,10 @@
   :bind (("M-n" . flymake-goto-next-error)
          ("M-p" . flymake-goto-prev-error)))
 
+(use-package gh-autolinks
+  :custom (gh-autolinks-add-title t)
+  :hook (before-save . gh-autolinks-org-buffer))
+
 (use-package gptel
   :bind (("C-c g b" . gptel)
          ("C-c g g" . gptel-send)
