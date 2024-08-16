@@ -14,12 +14,15 @@
     vterms_flake.url = github:t0yv0/vterms.el/main;
     vterms_flake.inputs.nixpkgs.follows = "nixpkgs";
     vterms_flake.inputs.nixpkgs_darwin.follows = "nixpkgs_darwin";
+    ghauto_flake.url = github:t0yv0/gh-autolinks.el/main;
+    ghauto_flake.inputs.nixpkgs.follows = "nixpkgs";
+    ghauto_flake.inputs.nixpkgs_darwin.follows = "nixpkgs_darwin";
     dape_src.url = github:svaante/dape?rev=d1a96de51cbee7c410d1f2680f860d09048e2fc5;
     dape_src.flake = false;
   };
 
   outputs = { self, nixpkgs, nixpkgs_22_11, nixpkgs_darwin, copilot_flake, dape_src,
-              treesitedit_flake, testrun_flake, vterms_flake }: let
+              treesitedit_flake, testrun_flake, vterms_flake, ghauto_flake }: let
 
     version = self.rev or "dirty";
 
@@ -33,6 +36,7 @@
       treesitedit = (builtins.getAttr sys treesitedit_flake.packages).default;
       testrun = (builtins.getAttr sys testrun_flake.packages).default;
       vterms = (builtins.getAttr sys vterms_flake.packages).default;
+      ghauto = (builtins.getAttr sys ghauto_flake.packages).default;
 
       gptel = epkgs.elpaBuild {
         pname = "gptel";
@@ -150,6 +154,7 @@
       eager-packages = epkgs: [
         testrun
         vterms
+        ghauto
         treesitedit
         copilot
         eglot
