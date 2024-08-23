@@ -248,6 +248,8 @@
   (mac-option-modifier 'alt)
   (mac-pass-command-to-system nil)
   (mac-pass-control-to-system nil)
+  (mac-right-command-modifier 'hyper)
+  (mac-right-option-modifier 'super)
   (prefer-coding-system 'utf-8)
   (read-process-output-max 4194304)
   (scroll-bar-mode nil)
