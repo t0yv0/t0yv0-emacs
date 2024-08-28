@@ -326,7 +326,9 @@
 
 (use-package gh-autolinks
   :custom (gh-autolinks-add-title t)
-  :hook (before-save . gh-autolinks-org-buffer))
+  :hook (before-save . (lambda ()
+                         (when (equal major-mode 'org-mode)
+                           (gh-autolinks-org-buffer)))))
 
 (use-package gptel
   :bind (("C-c g b" . gptel)
