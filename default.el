@@ -187,7 +187,6 @@
           "\\*Embark"
           "\\*test"
           "current-region.png"
-          "\\*compilation"
           "\\*xref"
           "\\*Warnings")
       (display-buffer-reuse-window
@@ -206,13 +205,18 @@
       (window-height . 0.2356)
       (direction . bottom))
 
-     ((or (derived-mode . magit-mode)
-          (derived-mode . org-mode)
-          (mode . text-mode)
-          (mode . go-dot-mod-mode))
+     ((or (derived-mode . magit-mode))
       (display-buffer-reuse-mode-window
        display-buffer-in-direction)
-      (mode magit-mode org-mode text-mode go-dot-mod-mode)
+      (mode magit-mode)
+      (window . root)
+      (window-width . 0.38)
+      (direction . right))
+
+     ((or (derived-mode . compilation-mode))
+      (display-buffer-reuse-mode-window
+       display-buffer-in-direction)
+      (mode compilation-mode)
       (window . root)
       (window-width . 0.38)
       (direction . right))
