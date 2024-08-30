@@ -5,6 +5,10 @@
 ;;;
 ;;; Code:
 
+;;;; Increase GC threshold while loading.
+(setq gc-cons-threshold (* 64 1024 1024))
+
+
 (require 't0yv0-basics)
 (require 'use-package)
 
@@ -228,16 +232,21 @@
        display-buffer-pop-up-window)
       (mode prog-mode))))
 
+  (auto-save-default nil)
+  (blink-cursor-mode nil)
   (bookmark-default-file "~/my/bookmarks")
   (bookmark-save-flag 1)
   (column-number-mode t)
   (completion-cycle-threshold 3)
+  (delete-selection-mode t)
   (display-fill-column-indicator-mode t)
   (fill-column 120)
-  (gc-cons-threshold 16777216)
   (gc-cons-percentage 0.2)
+  (global-display-line-numbers-mode t)
   (global-mark-ring-max 6)
   (global-so-long-mode 1)
+  (electric-indent-mode nil)
+  (electric-pair-mode t)
   (enable-recursive-minibuffers t)
   (indent-tabs-mode nil)
   (inhibit-splash-screen t)
@@ -254,9 +263,11 @@
   (mac-pass-control-to-system nil)
   (mac-right-command-modifier 'hyper)
   (mac-right-option-modifier 'super)
+  (mouse-wheel-progressive-speed nil)
   (prefer-coding-system 'utf-8)
   (read-process-output-max 4194304)
   (scroll-bar-mode nil)
+  (scroll-conservatively 10)
   (sentence-end-double-space nil)
   (set-mark-command-repeat-pop t)
   (suggest-key-bindings t)
@@ -589,6 +600,10 @@
   (setq yas-snippet-dirs (list "~/my/snippets" t0yv0/yas-snippets))
   (yas-reload-all)
   (yas-global-mode))
+
+
+;; Done loading, decreate the threshold.
+(setq gc-cons-threshold (* 2 1024 1024))
 
 
 (provide 'default)
