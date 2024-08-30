@@ -560,6 +560,9 @@
     (outline-minor-mode 1))
   (add-hook 'terraform-mode-hook 't0yv0/terraform-mode-init))
 
+(use-package testrun
+  :custom (testrun-switch-to-compilation-buffer t))
+
 (use-package typescript-mode
   :mode "\\.ts\\'"
   :config
