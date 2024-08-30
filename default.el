@@ -364,6 +364,11 @@
          ("C-c l c" . git-link-commit)
          ("C-c l h" . git-link-homepage)))
 
+(use-package golden-ratio
+  :config
+  (golden-ratio-mode 1)
+  (add-to-list 'golden-ratio-extra-commands 'ace-window))
+
 (use-package go-mode
   :bind (("C-c C-a" . go-import-add))
   :config

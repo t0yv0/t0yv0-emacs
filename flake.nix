@@ -110,6 +110,7 @@
           epkgs.expand-region
           epkgs.git-commit
           epkgs.git-link
+          epkgs.golden-ratio
           epkgs.go-mode
           epkgs.haskell-mode
           epkgs.hcl-mode
