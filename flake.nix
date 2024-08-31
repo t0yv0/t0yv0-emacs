@@ -125,6 +125,7 @@
           epkgs.org-roam
           epkgs.ormolu
           epkgs.pyvenv
+          epkgs.rainbow-delimiters
           epkgs.reformatter
           epkgs.terraform-mode
           epkgs.transient

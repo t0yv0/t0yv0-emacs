@@ -564,6 +564,10 @@
   :config
   (pyvenv-mode t))
 
+(use-package rainbow-delimiters
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
 (use-package recentf
   :config
   (setq recentf-max-menu-items 15
