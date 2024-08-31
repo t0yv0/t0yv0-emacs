@@ -119,6 +119,7 @@
           epkgs.magit-section
           epkgs.markdown-mode
           epkgs.mermaid-mode
+          epkgs.minions
           epkgs.multiple-cursors
           epkgs.nix-mode
           epkgs.org-roam

@@ -156,6 +156,7 @@
 
 (use-package doom-modeline
   :after nerd-icons
+  :custom (doom-modeline-minor-modes t)
   :init (doom-modeline-mode 1))
 
 (use-package envrc
@@ -463,6 +464,9 @@
         (revert-buffer nil t))))
   :custom
   (mermaid-mmdc-location t0yv0/mermaid-mmdc-location))
+
+(use-package minions
+  :config (minions-mode +1))
 
 (use-package multiple-cursors
   :bind (("C-c m" . mc/edit-lines)))
