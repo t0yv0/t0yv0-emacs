@@ -104,6 +104,7 @@
         paths = [
           epkgs.ace-window
           epkgs.avy
+          epkgs.code-cells
           epkgs.emacsql
           epkgs.embark
           epkgs.embark-consult

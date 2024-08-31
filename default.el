@@ -20,6 +20,19 @@
   :bind (:map isearch-mode-map
               (("C-M-s" . avy-isearch))))
 
+(use-package code-cells
+  :bind (("A-;" . code-cells-comment-or-uncomment)
+         ("A-h" . code-cells-mark-cell)
+         ("A-M-p" . code-cells-move-cell-up)
+         ("A-M-n" . code-cells-move-cell-down)
+         ("A-p" . code-cells-backward-cell)
+         ("A-j" . code-cells-eval)
+         ("A-n" . code-cells-forward-cell))
+  :custom
+  (code-cells-eval-region-commands
+   '((python-ts-mode . python-shell-send-region)
+     (python-mode . python-shell-send-region))))
+
 (use-package consult
   :after dash
   :bind (("M-y"       . consult-yank-pop)
@@ -540,6 +553,7 @@
   :hook
   (python-ts-mode . (lambda ()
                       (eglot-ensure)
+                      (code-cells-mode-maybe)
                       (pyvenv-mode t))))
 
 (use-package pyvenv
