@@ -52,7 +52,8 @@
          ("C-x p b"   . consult-project-buffer)
          ("C-x p g"   . consult-ripgrep)
          ("C-x r b"   . consult-bookmark)
-         ("C-x r s"   . consult-register))
+         ("H-'"       . consult-register)
+         ("H-;"       . consult-register-store))
   :config
   (defun t0yv0/consult--multi--around (orig-fun &rest args)
     "Disable display-buffer custom placement when doing consult"
