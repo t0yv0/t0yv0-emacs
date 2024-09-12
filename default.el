@@ -211,7 +211,7 @@
        display-buffer-reuse-mode-window
        display-buffer-in-direction)
       (window . root)
-      (window-height . 0.2356)
+      (window-height . 0.382)
       (direction . bottom))
 
      ("\\*vterm"
@@ -220,7 +220,7 @@
        display-buffer-in-direction)
       (mode vterm-mode vterm-copy-mode)
       (window . root)
-      (window-height . 0.2356)
+      (window-height . 0.382)
       (direction . bottom))
 
      ((or (derived-mode . magit-mode))
@@ -228,7 +228,7 @@
        display-buffer-in-direction)
       (mode magit-mode)
       (window . root)
-      (window-width . 0.38)
+      (window-width . 0.382)
       (direction . right))
 
      ((or (derived-mode . compilation-mode))
@@ -236,7 +236,7 @@
        display-buffer-in-direction)
       (mode compilation-mode)
       (window . root)
-      (window-width . 0.38)
+      (window-width . 0.382)
       (direction . right))
 
      ((derived-mode . prog-mode)
@@ -379,6 +379,11 @@
          ("C-c l h" . git-link-homepage)))
 
 (use-package golden-ratio
+  :custom (golden-ratio-exclude-modes
+           '(compilation-mode
+             vterm-mode
+             xref--xref-buffer-mode
+             magit-status-mode))
   :config
   (golden-ratio-mode 1)
   (add-to-list 'golden-ratio-extra-commands 'ace-window))
