@@ -140,7 +140,7 @@
         ("C-j" . corfu-insert)))
 
 (use-package dape
-  :bind (("H-SPC" . t0yv0/go-debug-current-test)
+  :bind (("H-t" . t0yv0/go-debug-current-test)
          ("H-n" . dape-next)
          ("H-c" . dape-continue)
          ("H-o" . dape-step-out)
