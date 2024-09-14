@@ -54,16 +54,6 @@
          ("C-x r b"   . consult-bookmark)
          ("H-'"       . consult-register)
          ("H-;"       . consult-register-store))
-  :config
-  (defun t0yv0/consult--multi--around (orig-fun &rest args)
-    "Disable display-buffer custom placement when doing consult"
-    (let ((c nil) (r nil))
-      (setq c display-buffer-alist)
-      (setq display-buffer-alist nil)
-      (unwind-protect
-          (apply orig-fun args)
-        (setq display-buffer-alist c))))
-  (advice-add 'consult--multi :around #'t0yv0/consult--multi--around)
   :custom
   (consult-buffer-filter
    '("\\` "
@@ -199,7 +189,8 @@
 
   :custom
   (display-buffer-alist
-   `(((or "\\*Org Links"
+   `(((or "\\*compilation"
+          "\\*Org Links"
           "\\*Org Select"
           "\\*Gofmt"
           "\\*Occur"
@@ -207,38 +198,24 @@
           "\\*test"
           "current-region.png"
           "\\*xref"
+          "\\*vterm"
           "\\*Warnings")
-      (display-buffer-reuse-window
-       display-buffer-reuse-mode-window
-       display-buffer-in-direction)
-      (window . root)
+      (display-buffer-in-side-window)
+      (side . bottom)
+      (slot . 1)
+      (preserve-size . (nil . t))
       (window-height . 0.382)
-      (direction . bottom))
-
-     ("\\*vterm"
-      (display-buffer-reuse-window
-       display-buffer-reuse-mode-window
-       display-buffer-in-direction)
-      (mode vterm-mode vterm-copy-mode)
-      (window . root)
-      (window-height . 0.382)
-      (direction . bottom))
+      (window-parameters ((no-other-window . t)
+                          (no-delete-other-windows . t))))
 
      ((or (derived-mode . magit-mode))
-      (display-buffer-reuse-mode-window
-       display-buffer-in-direction)
-      (mode magit-mode)
-      (window . root)
+      (display-buffer-in-side-window)
+      (side . right)
+      (slot . 0)
+      (preserve-size . (t . nil))
       (window-width . 0.382)
-      (direction . right))
-
-     ((or (derived-mode . compilation-mode))
-      (display-buffer-reuse-mode-window
-       display-buffer-in-direction)
-      (mode compilation-mode)
-      (window . root)
-      (window-width . 0.382)
-      (direction . right))
+      (window-parameters ((no-other-window . t)
+                          (no-delete-other-windows . t))))
 
      ((derived-mode . prog-mode)
       (display-buffer-reuse-window
@@ -379,15 +356,10 @@
          ("C-c l c" . git-link-commit)
          ("C-c l h" . git-link-homepage)))
 
-(use-package golden-ratio
-  :custom (golden-ratio-exclude-modes
-           '(compilation-mode
-             vterm-mode
-             xref--xref-buffer-mode
-             magit-status-mode))
+(use-package zoom
+  :custom (zoom-size '(0.618 . 0.618))
   :config
-  (golden-ratio-mode 1)
-  (add-to-list 'golden-ratio-extra-commands 'ace-window))
+  (zoom-mode t))
 
 (use-package go-mode
   :bind (("C-c C-a" . go-import-add))
