@@ -212,7 +212,7 @@
       (display-buffer-in-side-window)
       (side . right)
       (slot . 0)
-      (preserve-size . (t . nil))
+      (preserve-size . (nil . nil))
       (window-width . 0.382)
       (window-parameters ((no-other-window . t)
                           (no-delete-other-windows . t))))
