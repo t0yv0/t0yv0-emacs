@@ -27,11 +27,12 @@
          ("A-M-n" . code-cells-move-cell-down)
          ("A-p" . code-cells-backward-cell)
          ("A-j" . code-cells-eval)
-         ("A-n" . code-cells-forward-cell))
+         ("A-n" . code-cells-forward-cell)
+         ("A-m" . code-cells-mode))
   :custom
   (code-cells-eval-region-commands
-   '((python-ts-mode . python-shell-send-region)
-     (python-mode . python-shell-send-region))))
+   '((python-ts-mode . (lambda (beg end) (jupyter-eval-region nil beg end)))
+     (python-mode . (lambda (beg end) (jupyter-eval-region nil beg end))))))
 
 (use-package consult
   :after dash
@@ -196,6 +197,7 @@
           "\\*Occur"
           "\\*Embark"
           "\\*test"
+          "\\*jupyter"
           "current-region.png"
           "\\*xref"
           "\\*vterm"
@@ -355,6 +357,8 @@
   :bind (("C-c l g" . t0yv0/git-link)
          ("C-c l c" . git-link-commit)
          ("C-c l h" . git-link-homepage)))
+
+(use-package jupyter)
 
 (use-package zoom
   :custom (zoom-size '(0.618 . 0.618))
@@ -535,7 +539,6 @@
   :hook
   (python-ts-mode . (lambda ()
                       (eglot-ensure)
-                      (code-cells-mode-maybe)
                       (pyvenv-mode t))))
 
 (use-package pyvenv

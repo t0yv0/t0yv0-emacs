@@ -174,6 +174,7 @@
         # installing pkgs.nuspell and pkgs.hunspellDicts.en_US works fine; TBD on MacOS. I have not
         # taken the time to find how to inline this into t0yv0-emacs so it installs a local copy.
         epkgs.jinx
+        epkgs.jupyter
         epkgs.marginalia
         epkgs.orderless
         epkgs.org-present
