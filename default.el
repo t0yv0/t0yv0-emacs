@@ -581,12 +581,12 @@
   :init
   (vertico-mode))
 
+(use-package vterms
+  :bind (("H-<return>" . vterms-toggle)
+         ("H-z" . vterms-repeat)
+         ("H-." . vterms-cd)))
+
 (use-package vterm
-  :bind (("C-c v v" . vterms-switch)
-         ("C-c v p" . vterms-switch-or-new-in-project-root)
-         ("C-c v d" . vterms-switch-or-new)
-         ("C-c v z" . vterms-repeat)
-         ("C-c v o" . vterms-window))
   :bind (:map vterm-mode-map
               ("M-c" . kill-ring-save)
               ("M-v" . yank)
