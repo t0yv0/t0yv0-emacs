@@ -43,8 +43,8 @@
         ename = "gptel";
         version = "0.9.0";
         src = pkgs.fetchurl {
-          url = "https://elpa.nongnu.org/nongnu/gptel-0.9.0.tar";
-          sha256 = "sha256-xMnVgMqB5fZSJJ6De8dRDwoPxzRJwTuogcREA8OzLLM=";
+          url = "https://elpa.nongnu.org/nongnu/gptel-0.9.6.tar";
+          sha256 = "sha256-i2WExjewHJ9B40At7Tk/GD/KM2bpACIE9be+pehF7Vg=";
         };
         packageRequires = [];
         meta = {
@@ -109,6 +109,7 @@
           epkgs.embark
           epkgs.embark-consult
           epkgs.expand-region
+          epkgs.gif-screencast
           epkgs.git-commit
           epkgs.git-link
           epkgs.go-mode
