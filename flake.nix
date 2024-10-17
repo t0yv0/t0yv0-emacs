@@ -109,7 +109,6 @@
           epkgs.embark
           epkgs.embark-consult
           epkgs.expand-region
-          epkgs.gif-screencast
           epkgs.git-commit
           epkgs.git-link
           epkgs.go-mode

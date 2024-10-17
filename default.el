@@ -329,9 +329,6 @@
   :bind (("M-n" . flymake-goto-next-error)
          ("M-p" . flymake-goto-prev-error)))
 
-(use-package gif-screencast
-  :custom (gif-screencast-args '()))
-
 (use-package gh-autolinks
   :custom (gh-autolinks-add-title t)
   :hook (before-save . (lambda ()
