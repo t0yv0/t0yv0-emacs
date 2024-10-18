@@ -358,6 +358,9 @@
          ("C-c l c" . git-link-commit)
          ("C-c l h" . git-link-homepage)))
 
+(use-package json-ts-mode
+  :mode "\\.json\\'")
+
 (use-package jupyter)
 
 (use-package zoom

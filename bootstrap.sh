@@ -37,6 +37,7 @@ EOF
 cat "$2" >> $out/default.el
 
 mkdir -p $out/share/emacs/site-lisp/tree-sitter
+ln -s ${treesitter}/json.so ${treesitter_out}/libtree-sitter-json.so
 ln -s ${treesitter}/go.so ${treesitter_out}/libtree-sitter-go.so
 ln -s ${treesitter}/gomod.so ${treesitter_out}/libtree-sitter-gomod.so
 ln -s ${treesitter}/typescript.so ${treesitter_out}/libtree-sitter-typescript.so
