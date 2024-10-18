@@ -458,6 +458,23 @@
          ("C-c a"     . org-agenda)
          ("C-c l l"   . org-store-link)
          ("C-c l C-l" . org-insert-link))
+  :custom (org-src-lang-modes '(("C" . c)
+                                ("C++" . c++)
+                                ("asymptote" . asy)
+                                ("bash" . sh)
+                                ("beamer" . latex)
+                                ("calc" . fundamental)
+                                ("cpp" . c++)
+                                ("ditaa" . artist)
+                                ("desktop" . conf-desktop)
+                                ("dot" . fundamental)
+                                ("elisp" . emacs-lisp)
+                                ("go" . go-ts)
+                                ("ocaml" . tuareg)
+                                ("screen" . shell-script)
+                                ("shell" . sh)
+                                ("sqlite" . sql)
+                                ("toml" . conf-toml)))
   :config
   (setq org-startup-indented t)
   (setq org-archive-location "%s_archive.gpg::")
@@ -518,6 +535,8 @@
       "* %?"
       :target (file+head "%<%Y-%m-%d>.org.gpg"
                          "#+title: %<%Y-%m-%d>\n")))))
+
+(use-package ob-go)
 
 (use-package orderless
   :custom

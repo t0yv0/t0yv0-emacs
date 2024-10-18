@@ -121,6 +121,7 @@
           epkgs.minions
           epkgs.multiple-cursors
           epkgs.nix-mode
+          epkgs.ob-go
           epkgs.org-roam
           epkgs.ormolu
           epkgs.pyvenv

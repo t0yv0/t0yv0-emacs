@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: golang
+# key: go_
+# --
+#+begin_src go
+$0
+#+end_src
