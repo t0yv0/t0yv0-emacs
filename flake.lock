@@ -181,11 +181,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1729209679,
-        "narHash": "sha256-67YLpNX9jQhmRx9dwlmb+5LIwU4+jVDLzDAUCccmlZw=",
+        "lastModified": 1729759614,
+        "narHash": "sha256-oeZqhALrtwhL4W0qqVXF2KrHsAa7bGCPoSSQZrGu9+A=",
         "owner": "t0yv0",
         "repo": "vterms.el",
-        "rev": "fecc70faf7c98429403f42aa4d1f1673ae6da846",
+        "rev": "5d094dd40cc5dbf5d44bdc1f53d8110286e82398",
         "type": "github"
       },
       "original": {
