@@ -605,6 +605,7 @@
 
 (use-package vterms
   :bind (("H-<return>" . vterms-toggle)
+         ("C-H-<return>" . vterms-back)
          ("C-c z" . vterms-repeat)
          ("H-." . vterms-cd)))
 
