@@ -54,7 +54,9 @@
          ("C-x p g"   . consult-ripgrep)
          ("C-x r b"   . consult-bookmark)
          ("H-'"       . consult-register)
-         ("H-;"       . consult-register-store))
+         ("H-;"       . consult-register-store)
+
+         ("<remap> <suspend-frame>" . consult-complex-command))
   :custom
   (consult-buffer-filter
    '("\\` "
@@ -603,7 +605,7 @@
 
 (use-package vterms
   :bind (("H-<return>" . vterms-toggle)
-         ("H-z" . vterms-repeat)
+         ("C-c z" . vterms-repeat)
          ("H-." . vterms-cd)))
 
 (use-package vterm
