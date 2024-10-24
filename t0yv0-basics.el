@@ -109,14 +109,6 @@
   "Changed file candidate source for `consult-buffer' powered by `git status`.")
 
 
-(defun t0yv0/display-buffer-same-prog-mode-window (buffer alist)
-  "Display `BUFFER' in a window already showing code.
-Argument ALIST is ignored."
-  (if (derived-mode-p 'prog-mode)
-      (display-buffer-same-window buffer alist)
-    nil))
-
-
 (defun t0yv0/embark-target-gh-ref ()
   "Target a link at point of the GitHub ref form like pulumi/pulumi#12117."
   (save-excursion

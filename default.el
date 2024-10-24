@@ -217,14 +217,12 @@
       (preserve-size . (nil . nil))
       (window-width . 0.382)
       (window-parameters ((no-other-window . t)
-                          (no-delete-other-windows . t))))
+                          (no-delete-other-windows . t))))))
 
-     ((derived-mode . prog-mode)
-      (display-buffer-reuse-window
-       t0yv0/display-buffer-same-prog-mode-window
-       display-buffer-reuse-mode-window
-       display-buffer-pop-up-window)
-      (mode prog-mode))))
+  (display-buffer-base-action '((display-buffer-reuse-window
+                                 display-buffer-in-previous-window
+                                 display-buffer-same-window
+                                 display-buffer-full-frame)))
 
   (auto-save-default nil)
   (blink-cursor-mode nil)
