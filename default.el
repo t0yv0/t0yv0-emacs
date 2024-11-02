@@ -478,6 +478,7 @@
                                 ("shell" . sh)
                                 ("sqlite" . sql)
                                 ("toml" . conf-toml)))
+  :hook (org-babel-after-execute . org-redisplay-inline-images)
   :config
   (setq org-startup-indented t)
   (setq org-archive-location "%s_archive.gpg::")
