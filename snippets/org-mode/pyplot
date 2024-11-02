@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: pyplot
+# key: pyplot_
+# --
+#+begin_src jupyter :session py
+import matplotlib.pyplot as plt
+plt.plot([x * x for x in range(-30, 40)])
+plt.ylabel('some numbers')
+plt.show()
+#+end_src
