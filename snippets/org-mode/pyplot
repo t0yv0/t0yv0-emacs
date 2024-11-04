@@ -2,7 +2,7 @@
 # name: pyplot
 # key: pyplot_
 # --
-#+begin_src jupyter :session py
+#+begin_src jupyter-python :session py :export results :file fig.png
 import matplotlib.pyplot as plt
 plt.plot([x * x for x in range(-30, 40)])
 plt.ylabel('some numbers')
