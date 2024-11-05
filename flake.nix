@@ -114,6 +114,7 @@
           epkgs.go-mode
           epkgs.haskell-mode
           epkgs.hcl-mode
+          epkgs.htmlize
           epkgs.magit
           epkgs.magit-section
           epkgs.markdown-mode
