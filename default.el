@@ -338,11 +338,11 @@
          gptel-model "gpt-4o"
          gptel-api-key openai-token)
       (setq
-       gptel-model "llama2:latest"
-       gptel-backend (gptel-make-ollama "llama2"
+       gptel-model 'llama3.2:latest
+       gptel-backend (gptel-make-ollama "ollama"
                        :host "localhost:11434"
-                       :stream t
-                       :models '("llama2:latest"))))))
+                       :models '(llama3.2:latest
+                                 llama2:latest))))))
 
 (use-package git-link
   :bind (("C-c l g" . t0yv0/git-link)
