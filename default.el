@@ -210,15 +210,6 @@
       (preserve-size . (nil . t))
       (window-height . 0.382)
       (window-parameters ((no-other-window . t)
-                          (no-delete-other-windows . t))))
-
-     ((or (derived-mode . magit-mode))
-      (display-buffer-in-side-window)
-      (side . right)
-      (slot . 0)
-      (preserve-size . (nil . nil))
-      (window-width . 0.382)
-      (window-parameters ((no-other-window . t)
                           (no-delete-other-windows . t))))))
 
   (display-buffer-base-action '((display-buffer-reuse-window
@@ -419,7 +410,8 @@
 
 (use-package magit
   :config
-  (setq magit-display-buffer-function #'display-buffer)
+  (setq magit-display-buffer-function
+        #'magit-display-buffer-fullframe-status-topleft-v1)
   :bind (("C-x g" . magit-status)))
 
 (use-package marginalia
