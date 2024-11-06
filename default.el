@@ -16,9 +16,8 @@
   :bind (("M-o" . ace-window)))
 
 (use-package avy
-  :bind (("C-c j" . avy-goto-char-timer))
   :bind (:map isearch-mode-map
-              (("C-M-s" . avy-isearch))))
+              (("C-f" . avy-isearch))))
 
 (use-package code-cells
   :bind (("A-;" . code-cells-comment-or-uncomment)
