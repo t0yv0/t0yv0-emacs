@@ -16,6 +16,7 @@
   :bind (("M-o" . ace-window)))
 
 (use-package avy
+  :bind (("C-c f" . avy-goto-char-timer))
   :bind (:map isearch-mode-map
               (("C-f" . avy-isearch))))
 
