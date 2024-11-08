@@ -177,6 +177,8 @@
 (use-package emacs
   :bind* (("C-c q" . t0yv0/quit)
           ("M-`"   . other-frame)
+          ("H-["   . previous-buffer)
+          ("H-]"   . next-buffer)
 
           ("<remap> <dabbrev-expand>" . hippie-expand))
 
