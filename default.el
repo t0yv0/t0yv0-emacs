@@ -323,7 +323,7 @@
          ("M-p" . flymake-goto-prev-error)))
 
 (use-package gh-autolinks
-  :custom (gh-autolinks-add-title t)
+  :custom (gh-autolinks-use-overlays t)
   :hook (before-save . (lambda ()
                          (when (equal major-mode 'org-mode)
                            (gh-autolinks-org-buffer)))))
