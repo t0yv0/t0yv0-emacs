@@ -500,9 +500,7 @@
           ("T" "Tickler" entry
            (file+headline "~/workshare/org/tickler.org.gpg" "Tickler")
            "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
-  (setq org-refile-targets '(("~/workshare/org/gtd.org.gpg" :maxlevel . 3)
-                             ("~/workshare/org/someday.org.gpg" :level . 1)
-                             ("~/workshare/org/tickler.org.gpg" :maxlevel . 2))))
+  (setq org-refile-targets '(("~/workshare/org/gtd.org.gpg" :maxlevel . 1))))
 
 (use-package org-present)
 
