@@ -277,7 +277,7 @@
   (default-frame-alist
    '((menu-bar-lines . 0)
      (tool-bar-lines . 0)
-     (font . "Iosevka 15")
+     (font . "Iosevka 13")
      (vertical-scroll-bars . nil)
      (horizontal-scroll-bars . nil))))
 
