@@ -329,10 +329,14 @@
                            (gh-autolinks-org-buffer)))))
 
 (use-package gptel
-  :bind (("C-c g b" . gptel)
-         ("C-c g g" . gptel-send)
+  :bind (("C-c g g" . gptel-send)
          ("C-c g m" . gptel-menu)
-         ("C-c g t" . gptel-set-topic))
+         ("C-c g r" . gptel-rewrite)
+         ("C-c g b" . gptel)
+         ("C-c g a" . gptel-add)
+         ("C-c g f" . gptel-add-file)
+         ("C-c g t" . gptel-org-set-topic)
+         ("C-c g p" . gptel-org-set-properties))
   :config
   (let ((openai-token (t0yv0/gptel-openai-token)))
     (if openai-token
