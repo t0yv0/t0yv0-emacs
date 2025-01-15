@@ -1,8 +1,8 @@
 {
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-24.05;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-24.11;
     nixpkgs_22_11.url = github:NixOS/nixpkgs/22.11;
-    nixpkgs_darwin.url = github:NixOS/nixpkgs/nixpkgs-24.05-darwin;
+    nixpkgs_darwin.url = github:NixOS/nixpkgs/nixpkgs-24.11-darwin;
     copilot_flake.url = github:t0yv0/copilot.el/v20240323;
     copilot_flake.inputs.nixpkgs.follows = "nixpkgs";
     treesitedit_flake.url = github:t0yv0/treesitedit.el/main;
@@ -41,10 +41,10 @@
       gptel = epkgs.elpaBuild {
         pname = "gptel";
         ename = "gptel";
-        version = "0.9.0";
+        version = "0.9.7";
         src = pkgs.fetchurl {
-          url = "https://elpa.nongnu.org/nongnu/gptel-0.9.6.tar";
-          sha256 = "sha256-i2WExjewHJ9B40At7Tk/GD/KM2bpACIE9be+pehF7Vg=";
+          url = "https://elpa.nongnu.org/nongnu/gptel-0.9.7.tar";
+          sha256 = "sha256-FisqNrM68Tsg3zKxyWMJ7fmfZW7tDEKyNw0IgwHCCGo=";
         };
         packageRequires = [];
         meta = {
