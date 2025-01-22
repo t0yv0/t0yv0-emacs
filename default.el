@@ -477,6 +477,10 @@
                                 ("sqlite" . sql)
                                 ("toml" . conf-toml)))
   :hook (org-babel-after-execute . org-redisplay-inline-images)
+
+  :init
+  (add-hook 'org-mode-hook #'visual-line-mode)
+
   :config
   (setq org-startup-indented t)
   (setq org-archive-location "%s_archive.gpg::")
