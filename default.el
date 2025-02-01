@@ -192,6 +192,15 @@
   (global-hl-line-mode 1)
   (t0yv0/go-fixup-compilation-regexp)
 
+  ;; Fix C-x 1 to maximize side windows instead of failing. Also make it toggle back to previous window layout if the
+  ;; current window is already maximized.
+  (advice-add 'delete-other-windows
+              :around (lambda (orig-fun &rest args)
+                        (if (frame-root-window-p (selected-window))
+                            (call-interactively 'winner-undo)
+                          (let ((ignore-window-parameters t))
+                            (apply orig-fun args)))))
+
   :custom
   (display-buffer-alist
    `(((or "\\*compilation"
