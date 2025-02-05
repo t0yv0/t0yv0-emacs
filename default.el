@@ -13,7 +13,12 @@
 (require 'use-package)
 
 (use-package ace-window
-  :bind (("M-o" . ace-window)))
+  :bind (("M-o" . ace-window))
+  :custom
+  (aw-scope 'frame)
+  (aw-dispatch-always t)
+  :custom-face
+  (aw-leading-char-face ((t (:height 1)))))
 
 (use-package avy
   :bind (("C-c f" . avy-goto-char-timer))
@@ -369,11 +374,6 @@
 
 (use-package jupyter)
 
-(use-package zoom
-  :custom (zoom-size '(0.618 . 0.618))
-  :config
-  (zoom-mode t))
-
 (use-package go-mode
   :bind (("C-c C-a" . go-import-add))
   :config
@@ -426,7 +426,7 @@
 (use-package magit
   :config
   (setq magit-display-buffer-function
-        #'magit-display-buffer-fullframe-status-topleft-v1)
+        #'magit-display-buffer-traditional)
   :bind (("C-x g" . magit-status)))
 
 (use-package marginalia

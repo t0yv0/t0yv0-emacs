@@ -132,7 +132,6 @@
           epkgs.typescript-mode
           epkgs.with-editor
           epkgs.yaml-mode
-          epkgs.zoom
           dape
           t0yv0-basics
         ];
