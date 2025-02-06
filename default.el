@@ -139,15 +139,15 @@
         ("C-j" . corfu-insert)))
 
 (use-package dape
-  :bind (("H-t" . t0yv0/go-debug-current-test)
-         ("H-n" . dape-next)
-         ("H-c" . dape-continue)
-         ("H-o" . dape-step-out)
-         ("H-i" . dape-step-in)
-         ("H-b" . dape-breakpoint-toggle)
-         ("H-B" . dape-breakpoint-remove-all)
-         ("H-r" . dape-restart)
-         ("H-q" . dape-quit))
+  :bind (("C-c d t" . t0yv0/go-debug-current-test)
+         ("C-c d n" . dape-next)
+         ("C-c d c" . dape-continue)
+         ("C-c d o" . dape-step-out)
+         ("C-c d i" . dape-step-in)
+         ("C-c d b" . dape-breakpoint-toggle)
+         ("C-c d x" . dape-breakpoint-remove-all)
+         ("C-c d r" . dape-restart)
+         ("C-c d q" . dape-quit))
   :config
   (dape-breakpoint-global-mode))
 
