@@ -635,10 +635,10 @@
   (vertico-mode))
 
 (use-package vterms
-  :bind (("H-<return>" . vterms-toggle)
-         ("C-H-<return>" . vterms-back)
-         ("C-c z" . vterms-repeat)
-         ("H-." . vterms-cd)))
+  :bind (("C-c v v" . vterms-toggle)
+         ("C-c v q" . vterms-back)
+         ("C-c v z" . vterms-repeat)
+         ("C-c v ." . vterms-cd)))
 
 (use-package vterm
   :bind (:map vterm-mode-map
