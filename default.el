@@ -181,8 +181,8 @@
 
 (use-package emacs
   :bind* (("M-`"   . other-frame)
-          ("H-["   . previous-buffer)
-          ("H-]"   . next-buffer)
+          ("C-c q" . previous-buffer)
+          ("C-c w" . next-buffer)
 
           ("<remap> <dabbrev-expand>" . hippie-expand))
 
