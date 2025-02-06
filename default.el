@@ -55,11 +55,10 @@
          ("M-g C-SPC" . consult-mark)
          ("M-g l"     . consult-line)
          ("M-g d"     . t0yv0/consult-changed-line)
-         ("C-x p b"   . consult-project-buffer)
-         ("C-x p g"   . consult-ripgrep)
-         ("C-x r b"   . consult-bookmark)
-         ("H-'"       . consult-register)
-         ("H-;"       . consult-register-store)
+         ("M-g r"     . consult-register)
+         ("M-g b"     . consult-bookmark)
+         ("C-c SPC"   . consult-register-store)
+         ("C-c C-SPC" . bookmark-set)
 
          ("<remap> <suspend-frame>" . consult-complex-command))
   :custom
