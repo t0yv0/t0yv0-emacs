@@ -255,7 +255,7 @@
   (cursor-in-non-selected-windows nil)
   (delete-selection-mode t)
   (display-fill-column-indicator-mode t)
-  (fill-column 120)
+  (fill-column 100)
   (fast-but-imprecise-scrolling t)
   (frame-inhibit-implied-resize t)
   (frame-resize-pixelwise t)
