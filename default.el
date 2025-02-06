@@ -493,7 +493,7 @@
 
   :config
   (setq org-startup-indented t)
-  (setq org-archive-location "%s_archive.gpg::")
+  (setq org-archive-location "%s_archive::")
   (setq org-confirm-babel-evaluate nil)
   (org-babel-do-load-languages 'org-babel-load-languages
                                '((shell . t)
@@ -506,19 +506,19 @@
                         (replace-regexp-in-string
                          (regexp-quote "#")
                          "/issues/" path nil 'literal)))))
-  (setq org-default-notes-file "~/workshare/org/notes.org.gpg")
-  (setq org-agenda-files '("~/workshare/org/notes.org.gpg"
-                           "~/workshare/org/gtd.org.gpg"
-                           "~/workshare/org/tickler.org.gpg"))
+  (setq org-default-notes-file "~/workshare/org/notes.org")
+  (setq org-agenda-files '("~/workshare/org/notes.org"
+                           "~/workshare/org/gtd.org"
+                           "~/workshare/org/tickler.org"))
   ;; https://orgmode.org/manual/Capture-templates.html#Capture-templates
   (setq org-capture-templates
         '(("t" "Todo [inbox]" entry
-           (file+headline "~/workshare/org/notes.org.gpg" "Tasks")
+           (file+headline "~/workshare/org/notes.org" "Tasks")
            "* TODO %i%?\n  %a")
           ("T" "Tickler" entry
-           (file+headline "~/workshare/org/tickler.org.gpg" "Tickler")
+           (file+headline "~/workshare/org/tickler.org" "Tickler")
            "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
-  (setq org-refile-targets '(("~/workshare/org/gtd.org.gpg" :maxlevel . 1))))
+  (setq org-refile-targets '(("~/workshare/org/gtd.org" :maxlevel . 1))))
 
 (use-package org-crypt
   :init (org-crypt-use-before-save-magic)
@@ -538,7 +538,7 @@
   (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-capture-templates
    '(("d" "default" plain "%?"
-      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org.gpg"
+      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
                          "#+title: ${title}\n")
       :unnarrowed t)))
   :config
@@ -553,7 +553,7 @@
   (org-roam-dailies-capture-templates
    `(("d" "default" entry
       "* %?"
-      :target (file+head ,(concat "%<%Y-%m-%d>-" (system-name) ".org.gpg")
+      :target (file+head ,(concat "%<%Y-%m-%d>-" (system-name) ".org")
                          "#+title: %<%Y-%m-%d>\n")))))
 
 (use-package ob-go)
