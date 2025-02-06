@@ -201,7 +201,8 @@
   ;; current window is already maximized.
   (advice-add 'delete-other-windows
               :around (lambda (orig-fun &rest args)
-                        (if (frame-root-window-p (selected-window))
+                        (if (and (frame-root-window-p (selected-window))
+                                 (equal last-command 'delete-other-windows))
                             (call-interactively 'winner-undo)
                           (let ((ignore-window-parameters t))
                             (apply orig-fun args)))))
