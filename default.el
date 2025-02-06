@@ -206,6 +206,10 @@
                           (let ((ignore-window-parameters t))
                             (apply orig-fun args)))))
 
+  :init
+  (add-hook 'text-mode-hook #'visual-line-mode)
+  (save-place-mode 1)
+
   :custom
   (display-buffer-alist
    `(((or "\\*compilation"
@@ -238,22 +242,33 @@
   (bookmark-default-file "~/my/bookmarks")
   (bookmark-save-flag 1)
   (column-number-mode t)
+  (compilation-ask-about-save nil)
+  (compilation-scroll-output 'first-error)
   (completion-cycle-threshold 3)
+  (confirm-kill-emacs 'yes-or-no-p)
+  (confirm-kill-proceses nil)
+  (cursor-in-non-selected-windows nil)
   (delete-selection-mode t)
   (display-fill-column-indicator-mode t)
   (fill-column 120)
+  (fast-but-imprecise-scrolling t)
+  (frame-inhibit-implied-resize t)
+  (frame-resize-pixelwise t)
   (gc-cons-percentage 0.2)
   (global-display-line-numbers-mode t)
   (global-mark-ring-max 6)
   (global-so-long-mode 1)
+  (global-text-scale-adjust-resizes-frames nil)
   (electric-indent-mode nil)
   (electric-pair-mode t)
   (enable-recursive-minibuffers t)
   (indent-tabs-mode nil)
+  (indicate-buffer-boundaries t)
   (inhibit-splash-screen t)
   (inhibit-startup-message t)
   (initial-major-mode 'text-mode)
   (initial-scratch-message "")
+  (kill-do-not-save-duplicates t)
   (major-mode 'text-mode)
   (make-backup-files nil)
   (mark-ring-max 6)
@@ -267,6 +282,8 @@
   (mouse-wheel-progressive-speed nil)
   (prefer-coding-system 'utf-8)
   (read-process-output-max 4194304)
+  (require-final-newline t)
+  (save-interprogram-paste-before-kill t)
   (scroll-bar-mode nil)
   (scroll-conservatively 10)
   (sentence-end-double-space nil)
@@ -278,6 +295,7 @@
   (tab-width 8)
   (tool-bar-mode nil)
   (visible-bell t)
+  (use-dialog-box nil)
   (winner-mode t)
 
   (project-switch-commands
@@ -486,9 +504,6 @@
                                 ("sqlite" . sql)
                                 ("toml" . conf-toml)))
   :hook (org-babel-after-execute . org-redisplay-inline-images)
-
-  :init
-  (add-hook 'org-mode-hook #'visual-line-mode)
 
   :config
   (setq org-startup-indented t)
