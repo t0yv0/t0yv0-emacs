@@ -545,9 +545,9 @@
   :custom
   (org-roam-dailies-directory "daily/")
   (org-roam-dailies-capture-templates
-   '(("d" "default" entry
+   `(("d" "default" entry
       "* %?"
-      :target (file+head "%<%Y-%m-%d>.org.gpg"
+      :target (file+head ,(concat "%<%Y-%m-%d>-" (system-name) ".org.gpg")
                          "#+title: %<%Y-%m-%d>\n")))))
 
 (use-package ob-go)
