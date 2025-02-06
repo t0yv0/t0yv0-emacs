@@ -46,7 +46,7 @@
          ("C-c SPC"   . consult-register-store)
          ("C-c C-SPC" . bookmark-set)
 
-         ("<remap> <suspend-frame>" . consult-complex-command))
+         ("<remap> <suspend-frame>" . consult-complex-command)) ;; C-z
   :custom
   (consult-buffer-filter
    '("\\` "
@@ -519,6 +519,12 @@
            (file+headline "~/workshare/org/tickler.org.gpg" "Tickler")
            "* %i%? \n %(format-time-string \"<%Y-%m-%d %H:%M>\" (current-time))")))
   (setq org-refile-targets '(("~/workshare/org/gtd.org.gpg" :maxlevel . 1))))
+
+(use-package org-crypt
+  :init (org-crypt-use-before-save-magic)
+  :config
+  (setq org-tags-exclude-from-inheritance '("crypt"))
+  (setq org-crypt-key "0x9E15CD89706EE947"))
 
 (use-package org-present)
 
