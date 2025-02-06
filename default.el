@@ -180,8 +180,7 @@
                                        (eglot-inlay-hints-mode -1))))
 
 (use-package emacs
-  :bind* (("C-c q" . t0yv0/quit)
-          ("M-`"   . other-frame)
+  :bind* (("M-`"   . other-frame)
           ("H-["   . previous-buffer)
           ("H-]"   . next-buffer)
 

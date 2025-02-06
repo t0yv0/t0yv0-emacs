@@ -342,13 +342,5 @@ PATTERN _INDEX _TOTAL as required by orderless."
       (setq t0yv0/vterm-dabbrev-state nil))))
 
 
-(defun t0yv0/quit ()
-  "Quit current window or buffer."
-  (interactive)
-  (if (> (seq-length (window-list (selected-frame))) 1)
-      (quit-window)
-    (previous-buffer)))
-
-
 (provide 't0yv0-basics)
 ;;; t0yv0-basics.el ends here
