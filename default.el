@@ -467,9 +467,6 @@
 (use-package minions
   :config (minions-mode +1))
 
-(use-package multiple-cursors
-  :bind (("C-c m" . mc/edit-lines)))
-
 (use-package org
   :bind (("C-c c"     . org-capture)
          ("C-c a"     . org-agenda)

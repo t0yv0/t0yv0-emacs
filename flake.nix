@@ -118,7 +118,6 @@
           epkgs.markdown-mode
           epkgs.mermaid-mode
           epkgs.minions
-          epkgs.multiple-cursors
           epkgs.nix-mode
           epkgs.ob-go
           epkgs.org-roam
