@@ -209,6 +209,7 @@
   :init
   (add-hook 'text-mode-hook #'visual-line-mode)
   (save-place-mode 1)
+  (global-display-fill-column-indicator-mode)
 
   :custom
   (display-buffer-alist
