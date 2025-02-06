@@ -25,20 +25,6 @@
   :bind (:map isearch-mode-map
               (("C-f" . avy-isearch))))
 
-(use-package code-cells
-  :bind (("A-;" . code-cells-comment-or-uncomment)
-         ("A-h" . code-cells-mark-cell)
-         ("A-M-p" . code-cells-move-cell-up)
-         ("A-M-n" . code-cells-move-cell-down)
-         ("A-p" . code-cells-backward-cell)
-         ("A-j" . code-cells-eval)
-         ("A-n" . code-cells-forward-cell)
-         ("A-m" . code-cells-mode))
-  :custom
-  (code-cells-eval-region-commands
-   '((python-ts-mode . (lambda (beg end) (jupyter-eval-region nil beg end)))
-     (python-mode . (lambda (beg end) (jupyter-eval-region nil beg end))))))
-
 (use-package consult
   :after dash
   :bind (("M-y"       . consult-yank-pop)
