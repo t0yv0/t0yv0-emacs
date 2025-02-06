@@ -237,6 +237,11 @@
                                  display-buffer-same-window
                                  display-buffer-full-frame)))
 
+  ;; workaround uneven title bar height
+  (after-make-frame-functions (list (lambda (new-frame)
+                                      (tool-bar-mode)
+                                      (tool-bar-mode -1))))
+
   (auto-save-default nil)
   (blink-cursor-mode nil)
   (bookmark-default-file "~/my/bookmarks")
