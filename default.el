@@ -468,8 +468,8 @@
   :config (minions-mode +1))
 
 (use-package org
-  :bind (("C-c c"     . org-capture)
-         ("C-c a"     . org-agenda)
+  :bind (("C-c o c"   . org-capture)
+         ("C-c o a"   . org-agenda)
          ("C-c l l"   . org-store-link)
          ("C-c l C-l" . org-insert-link))
   :custom (org-src-lang-modes '(("C" . c)
