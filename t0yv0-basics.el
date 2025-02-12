@@ -33,6 +33,18 @@
 (defvar-local t0yv0/vterm-dabbrev-state nil)
 
 
+(defvar t0yv0/advice-around-delete-other-windows-state nil)
+
+
+(defun t0yv0/advice-around-delete-other-windows (orig-fun &rest args)
+  (if (and (frame-root-window-p (selected-window))
+           (window-configuration-p t0yv0/advice-around-delete-other-windows-state))
+      (set-window-configuration t0yv0/advice-around-delete-other-windows-state)
+    (let ((ignore-window-parameters t)) ;; make it work even for side windows
+      (setq t0yv0/advice-around-delete-other-windows-state (current-window-configuration))
+      (apply orig-fun args))))
+
+
 (defun t0yv0/build-go-current-directory ()
   "Builds current directory in Go."
   (interactive)

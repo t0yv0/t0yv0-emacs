@@ -183,13 +183,7 @@
 
   ;; Fix C-x 1 to maximize side windows instead of failing. Also make it toggle back to previous window layout if the
   ;; current window is already maximized.
-  (advice-add 'delete-other-windows
-              :around (lambda (orig-fun &rest args)
-                        (if (and (frame-root-window-p (selected-window))
-                                 (equal last-command 'delete-other-windows))
-                            (call-interactively 'winner-undo)
-                          (let ((ignore-window-parameters t))
-                            (apply orig-fun args)))))
+  (advice-add 'delete-other-windows :around #'t0yv0/advice-around-delete-other-windows)
 
   :init
   (add-hook 'text-mode-hook #'visual-line-mode)
