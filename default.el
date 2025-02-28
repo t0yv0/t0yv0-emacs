@@ -29,23 +29,22 @@
   :after dash
   :bind (("M-y"       . consult-yank-pop)
          ("C-x b"     . consult-buffer)
-         ("C-x C-b"   . consult-buffer)
          ("M-s d"     . t0yv0/consult-ripgrep-current-directory)
          ("M-s p"     . consult-ripgrep)
-         ("M-g g"     . consult-goto-line)
-         ("M-g M-g"   . consult-goto-line)
-         ("M-g h"     . consult-org-heading)
-         ("M-g i"     . consult-imenu)
          ("M-g e"     . consult-flymake)
          ("M-g M-e"   . t0yv0/consult-flymake-project-errors)
-         ("M-g C-SPC" . consult-mark)
-         ("M-g l"     . consult-line)
-         ("M-g d"     . t0yv0/consult-changed-line)
-         ("M-g r"     . consult-register)
+         ("M-g C-SPC" . consult-global-mark)
+         ("M-g SPC"   . consult-mark)
          ("M-g b"     . consult-bookmark)
+         ("M-g d"     . t0yv0/consult-changed-line)
+         ("M-g f"     . consult-recent-file)
+         ("M-g g"     . consult-goto-line)
+         ("M-g h"     . consult-org-heading)
+         ("M-g i"     . consult-imenu)
+         ("M-g l"     . consult-line)
+         ("M-g r"     . consult-register)
+         ("M-g s"     . consult-isearch-history)
          ("C-c SPC"   . consult-register-store)
-         ("C-c C-SPC" . bookmark-set)
-
          ("<remap> <suspend-frame>" . consult-complex-command)) ;; C-z
   :custom
   (consult-buffer-filter
