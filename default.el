@@ -324,9 +324,6 @@
                         (setq-local epa-file-encrypt-to '("0x9E15CD89706EE947"))
                         (message "NOTE: bypassing recipient selector and encrypting for self"))))
 
-(use-package expand-region
-  :bind (("C-=" . er/expand-region)))
-
 (use-package forge
   :after magit
   :config
