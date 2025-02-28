@@ -245,7 +245,6 @@
   (global-text-scale-adjust-resizes-frames nil)
   (electric-indent-mode nil)
   (electric-pair-mode t)
-  (enable-recursive-minibuffers t)
   (indent-tabs-mode nil)
   (indicate-buffer-boundaries t)
   (inhibit-splash-screen t)
