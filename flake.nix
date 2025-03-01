@@ -103,7 +103,6 @@
         version = "${version}";
         paths = [
           epkgs.ace-window
-          epkgs.avy
           epkgs.emacsql
           epkgs.embark
           epkgs.embark-consult

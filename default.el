@@ -20,11 +20,6 @@
   :custom-face
   (aw-leading-char-face ((t (:height 1)))))
 
-(use-package avy
-  :bind (("M-s C-f" . avy-goto-char-timer))
-  :bind (:map isearch-mode-map
-              (("C-f" . avy-isearch))))
-
 (use-package consult
   :after dash
   :bind (("M-y"       . consult-yank-pop)
