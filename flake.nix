@@ -41,12 +41,15 @@
       gptel = epkgs.elpaBuild {
         pname = "gptel";
         ename = "gptel";
-        version = "0.9.7";
+        version = "0.9.8";
         src = pkgs.fetchurl {
-          url = "https://elpa.nongnu.org/nongnu/gptel-0.9.7.tar";
-          sha256 = "sha256-FisqNrM68Tsg3zKxyWMJ7fmfZW7tDEKyNw0IgwHCCGo=";
+          url = "https://elpa.nongnu.org/nongnu/gptel-0.9.8.tar";
+          sha256 = "sha256-ee13wuZOT0h2GjtTqX2P6KqV0T4c2lBgS9xx5oIf1ec=";
         };
-        packageRequires = [];
+        packageRequires = [
+          epkgs.compat
+          epkgs.transient
+        ];
         meta = {
           homepage = "https://elpa.gnu.org/packages/gptel.html";
         };
@@ -74,7 +77,9 @@
           url = "https://elpa.gnu.org/packages/eglot-1.17.tar";
           sha256 = "sha256-flJX2hEj34Ah9eeyhWz0RSYdvmwKPU5kA7bh0xBKVrE=";
         };
-        packageRequires = [jsonrpc];
+        packageRequires = [
+          jsonrpc
+        ];
         meta = {
           homepage = "https://elpa.gnu.org/packages/eglot.html";
         };
