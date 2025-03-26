@@ -159,9 +159,13 @@
                                        (eglot-inlay-hints-mode -1))))
 
 (use-package emacs
-  :bind* (("M-`"   . other-frame)
-          ("C-c q" . previous-buffer)
-          ("C-c w" . next-buffer)
+  :bind* (("M-`"     . other-frame)
+          ("C-x C-b" . ibuffer)
+          ("C-c b q" . bury-buffer)
+          ("C-c b d" . kill-current-buffer)
+          ("C-c b x" . kill-buffer-and-window)
+          ("C-c b p" . previous-buffer)
+          ("C-c b n" . next-buffer)
 
           ("<remap> <dabbrev-expand>" . hippie-expand))
 
