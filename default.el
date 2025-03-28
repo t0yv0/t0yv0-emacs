@@ -39,6 +39,8 @@
          ("M-g l"     . consult-line)
          ("M-g r"     . consult-register)
          ("M-g s"     . consult-isearch-history)
+         ("C-c c e"   . consult-compile-error)
+
          ("C-c SPC"   . consult-register-store)
          ("<remap> <suspend-frame>" . consult-complex-command)) ;; C-z
   :custom
@@ -166,6 +168,11 @@
           ("C-c b x" . kill-buffer-and-window)
           ("C-c b p" . previous-buffer)
           ("C-c b n" . next-buffer)
+
+          ("C-c c c" . compile)
+          ("C-c c r" . recompile)
+          ("C-c c p" . project-compile)
+          ("C-c c b" . compilation-goto-in-progress-buffer)
 
           ("<remap> <dabbrev-expand>" . hippie-expand))
 
@@ -379,8 +386,7 @@
   :bind (("C-c t SPC" . testrun-at-point)
          ("C-c t t"   . testrun-repeat)
          ("C-c t d"   . testrun-in-current-directory)
-         ("C-c t v"   . testrun-toggle-verbosity)
-         ("C-c b d"   . t0yv0/build-go-current-directory))
+         ("C-c t v"   . testrun-toggle-verbosity))
 
   :config
   (t0yv0/ensure-tree-sitter-grammar-install)

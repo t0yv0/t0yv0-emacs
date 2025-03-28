@@ -45,12 +45,6 @@
       (apply orig-fun args))))
 
 
-(defun t0yv0/build-go-current-directory ()
-  "Builds current directory in Go."
-  (interactive)
-  (compile "go build ."))
-
-
 (defun t0yv0/consult-changed-line ()
   "Act like `consult-line' but only for lines changed according to git diff."
   (interactive)
