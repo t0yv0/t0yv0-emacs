@@ -641,6 +641,7 @@
   :mode ("\\.yaml\\'" "\\.yml\\'"))
 
 (use-package yasnippet
+  :bind (("C-c i" . yas-insert-snippet))
   :config
   (setq yas-snippet-dirs (list "~/my/snippets" t0yv0/yas-snippets))
   (yas-reload-all)
