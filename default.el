@@ -304,6 +304,7 @@
   :bind
   ("C-." . embark-act)
   ("C-;" . embark-dwim)
+  ("C-c x" . embark-export)
 
   :init
   (require 'embark)
