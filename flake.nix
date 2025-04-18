@@ -2,19 +2,27 @@
   inputs = {
     nixpkgs.url = github:NixOS/nixpkgs/nixos-24.11;
     flake-utils.url = "github:numtide/flake-utils";
+
     copilot_flake.url = github:t0yv0/copilot.el/v20240323;
+    copilot_flake.inputs.nixpkgs.follows = "nixpkgs";
+    copilot_flake.inputs.flake-utils.follows = "flake-utils";
+
     treesitedit_flake.url = github:t0yv0/treesitedit.el/main;
     treesitedit_flake.inputs.nixpkgs.follows = "nixpkgs";
     treesitedit_flake.inputs.flake-utils.follows = "flake-utils";
+
     testrun_flake.url = github:t0yv0/testrun.el/main;
     testrun_flake.inputs.nixpkgs.follows = "nixpkgs";
     testrun_flake.inputs.flake-utils.follows = "flake-utils";
+
     vterms_flake.url = github:t0yv0/vterms.el/main;
     vterms_flake.inputs.nixpkgs.follows = "nixpkgs";
     vterms_flake.inputs.flake-utils.follows = "flake-utils";
+
     ghauto_flake.url = github:t0yv0/gh-autolinks.el/main;
     ghauto_flake.inputs.nixpkgs.follows = "nixpkgs";
     ghauto_flake.inputs.flake-utils.follows = "flake-utils";
+
     dape_src.url = github:svaante/dape?rev=d1a96de51cbee7c410d1f2680f860d09048e2fc5;
     dape_src.flake = false;
   };
