@@ -516,7 +516,6 @@
   (setq org-refile-targets '(("~/workshare/org/gtd.org" :maxlevel . 1))))
 
 (use-package org-crypt
-  :init (org-crypt-use-before-save-magic)
   :config
   (setq org-tags-exclude-from-inheritance '("crypt"))
   (setq org-crypt-key "0x9E15CD89706EE947"))
