@@ -163,9 +163,11 @@
 (use-package emacs
   :bind* (("M-`"     . other-frame)
           ("C-x C-b" . ibuffer)
-          ("C-c b q" . bury-buffer)
-          ("C-c b d" . kill-current-buffer)
-          ("C-c b x" . kill-buffer-and-window)
+
+          ;; More handy buffer commands.
+          ("C-x x x" . bury-buffer)
+          ("C-x x k" . kill-current-buffer)
+          ("C-x x q" . kill-buffer-and-window)
 
           ;; These rebind backward-page and forward-page that are not very useful.
           ("C-x [" . previous-buffer)
