@@ -166,8 +166,10 @@
           ("C-c b q" . bury-buffer)
           ("C-c b d" . kill-current-buffer)
           ("C-c b x" . kill-buffer-and-window)
-          ("C-c b p" . previous-buffer)
-          ("C-c b n" . next-buffer)
+
+          ;; These rebind backward-page and forward-page that are not very useful.
+          ("C-x [" . previous-buffer)
+          ("C-x ]" . next-buffer)
 
           ("C-c c c" . compile)
           ("C-c c r" . recompile)
