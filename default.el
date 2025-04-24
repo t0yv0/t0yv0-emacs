@@ -57,9 +57,9 @@
      "\\`\\*Apropos"
      "\\`\\*Help"))
   (consult-buffer-sources
-   '(consult--source-hidden-buffer               ;; " "
+   '(t0yv0/consult-source-buffer-no-sorting      ;; "b"
+     consult--source-hidden-buffer               ;; " "
      consult--source-modified-buffer             ;; "*"
-     consult--source-buffer                      ;; "b"
      consult--source-recent-file                 ;; "f"
      consult--source-file-register               ;; "r"
      consult--source-bookmark                    ;; "m"

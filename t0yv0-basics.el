@@ -92,6 +92,20 @@
   (consult-ripgrep default-directory))
 
 
+(defvar t0yv0/consult-source-buffer-no-sorting
+  `(:name     "Buffer"
+    :narrow   ?b
+    :category buffer
+    :face     consult-buffer
+    :history  buffer-name-history
+    :state    ,#'consult--buffer-state
+    :default  t
+    :items
+    ,(lambda () (consult--buffer-query :sort nil
+                                       :as #'consult--buffer-pair)))
+  "Buffer candidate source for `consult-buffer'.")
+
+
 (defvar t0yv0/consult-source-git-status-file
   (list
    :name "Changed File"
