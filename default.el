@@ -353,9 +353,7 @@
          ("C-c g r" . gptel-rewrite)
          ("C-c g b" . gptel)
          ("C-c g a" . gptel-add)
-         ("C-c g f" . gptel-add-file)
-         ("C-c g t" . gptel-org-set-topic)
-         ("C-c g p" . gptel-org-set-properties))
+         ("C-c g f" . gptel-add-file))
   :config
   (let ((openai-token (t0yv0/gptel-openai-token)))
     (if openai-token
@@ -368,6 +366,10 @@
                        :host "localhost:11434"
                        :models '(llama3.2:latest
                                  llama2:latest))))))
+
+(use-package gptel-org
+  :bind (("C-c g t" . gptel-org-set-topic)
+         ("C-c g p" . gptel-org-set-properties)))
 
 (use-package git-link
   :bind (("C-c l g" . t0yv0/git-link)
