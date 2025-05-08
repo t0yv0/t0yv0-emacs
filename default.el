@@ -621,7 +621,7 @@
 
 (use-package vterms
   :bind (("C-c v v" . vterms-toggle)
-         ("C-c v q" . vterms-back)
+         ("C-c v o" . vterms-back)
          ("C-c v z" . vterms-repeat)
          ("C-c v ." . vterms-cd)))
 
