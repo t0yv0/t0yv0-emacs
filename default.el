@@ -58,6 +58,7 @@
      "\\`\\*Help"))
   (consult-buffer-sources
    '(t0yv0/consult-source-buffer-no-sorting      ;; "b"
+     t0yv0/consult-source-vterms                 ;; "v"
      consult--source-hidden-buffer               ;; " "
      consult--source-modified-buffer             ;; "*"
      consult--source-recent-file                 ;; "f"

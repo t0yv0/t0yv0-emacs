@@ -129,6 +129,21 @@
   "Changed file candidate source for `consult-buffer' powered by `git status`.")
 
 
+(defvar t0yv0/consult-source-vterms
+  `(:name     "Vterm"
+    :narrow   ?v
+    :category buffer
+    :face     consult-buffer
+    :history  buffer-name-history
+    :state    ,#'consult--buffer-state
+    :items
+    ,(lambda () (consult--buffer-query :sort nil
+                                       :filter nil
+                                       :mode 'vterm-mode
+                                       :as #'consult--buffer-pair)))
+  "Buffer candidate source for `consult-buffer' looking at all vterm-mode buffers.")
+
+
 (defun t0yv0/embark-target-gh-ref ()
   "Target a link at point of the GitHub ref form like pulumi/pulumi#12117."
   (save-excursion
