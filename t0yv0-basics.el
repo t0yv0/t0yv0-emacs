@@ -284,6 +284,13 @@ If DEFUN-BODY is not given, grab one from around point."
     (message "Edited go-panic regexp for compilation-mode")))
 
 
+(defun t0yv0/gptel-anthropic-token ()
+  "Extracts the Anthropic token from pass."
+  (let ((tok (shell-command-to-string "pass console.anthropic.com/default/emacs-key")))
+    (setq tok (string-trim tok))
+    (if (null (string-match-p (rx "Error") tok)) tok nil)))
+
+
 (defun t0yv0/gptel-openai-token ()
   "Extracts the OpenAI token from pass."
   (let ((tok (shell-command-to-string "pass platform.openai.com/token")))
