@@ -25,6 +25,12 @@
 
     dape_src.url = github:svaante/dape?rev=d1a96de51cbee7c410d1f2680f860d09048e2fc5;
     dape_src.flake = false;
+
+    mcpel_src.url = github:lizqwerscott/mcp.el?rev=7f77145cc5dbfd0552b0cec2ad615c346b0574d8;
+    mcpel_src.flake = false;
+
+    gptel_src.url = github:karthink/gptel?rev=fcdbe074140bf7b9c027a3478902edafe8ec76f8;
+    gptel_src.flake = false;
   };
 
   outputs = {
@@ -33,6 +39,8 @@
     flake-utils,
     copilot_flake,
     dape_src,
+    mcpel_src,
+    gptel_src,
     treesitedit_flake,
     testrun_flake,
     vterms_flake,
@@ -48,7 +56,7 @@
 
     overlay = final: prev: {
       t0yv0-emacs = final.callPackage ./package.nix {
-        inherit version dape_src;
+        inherit version dape_src mcpel_src gptel_src;
         pkgs = final;
         epkgs = final.emacsPackagesFor final.emacs;
         stdenv = final.stdenv;

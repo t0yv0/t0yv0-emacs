@@ -83,6 +83,40 @@
         "type": "github"
       }
     },
+    "gptel_src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1747374937,
+        "narHash": "sha256-cuKNMd2NWmX2Y0lzBGzeaQ3ZHggny1OZOTKghsyj6QA=",
+        "owner": "karthink",
+        "repo": "gptel",
+        "rev": "fcdbe074140bf7b9c027a3478902edafe8ec76f8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "karthink",
+        "repo": "gptel",
+        "rev": "fcdbe074140bf7b9c027a3478902edafe8ec76f8",
+        "type": "github"
+      }
+    },
+    "mcpel_src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1747305960,
+        "narHash": "sha256-shDFotHizUzDXad0zrJSmY/hE6zCkOOJs7YwGOItgr0=",
+        "owner": "lizqwerscott",
+        "repo": "mcp.el",
+        "rev": "7f77145cc5dbfd0552b0cec2ad615c346b0574d8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lizqwerscott",
+        "repo": "mcp.el",
+        "rev": "7f77145cc5dbfd0552b0cec2ad615c346b0574d8",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1744440957,
@@ -105,6 +139,8 @@
         "dape_src": "dape_src",
         "flake-utils": "flake-utils",
         "ghauto_flake": "ghauto_flake",
+        "gptel_src": "gptel_src",
+        "mcpel_src": "mcpel_src",
         "nixpkgs": "nixpkgs",
         "testrun_flake": "testrun_flake",
         "treesitedit_flake": "treesitedit_flake",

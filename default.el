@@ -356,6 +356,7 @@
          ("C-c g a" . gptel-add)
          ("C-c g f" . gptel-add-file))
   :config
+  (require 'gptel-anthropic)
   (let ((openai-token (t0yv0/gptel-openai-token))
         (anthropic-token (t0yv0/gptel-anthropic-token)))
     (cond (openai-token (setq
@@ -370,6 +371,8 @@
                               :host "localhost:11434"
                               :models '(llama3.2:latest
                                         llama2:latest)))))))
+
+(use-package gptel-integrations)
 
 (use-package gptel-org
   :bind (("C-c g t" . gptel-org-set-topic)
@@ -446,6 +449,9 @@
 
 (use-package markdown-mode
   :mode ("\\.md\\'" . gfm-mode))
+
+(use-package mcp-hub
+  :bind ("C-c m" . mcp-hub))
 
 (use-package mermaid-mode
   :bind ("C-c M" . t0yv0/mermaid-compile)
