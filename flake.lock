@@ -10,16 +10,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1744946517,
-        "narHash": "sha256-uHdEuet0n88rAXPxzxI4MDIdFF7PuDONEQBGMs5ab50=",
+        "lastModified": 1748059154,
+        "narHash": "sha256-spAf+LoThJD/3rHjlHWW2o7vN+navGLYu44IsE0gqsE=",
         "owner": "t0yv0",
         "repo": "copilot.el",
-        "rev": "343ce639b8dcd747d121fdb307ef54941be3febe",
+        "rev": "2e1e1129c7cb2509cb2f2588e146533037111413",
         "type": "github"
       },
       "original": {
         "owner": "t0yv0",
-        "ref": "v20240323",
+        "ref": "v20250523",
         "repo": "copilot.el",
         "type": "github"
       }

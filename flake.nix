@@ -3,7 +3,7 @@
     nixpkgs.url = github:NixOS/nixpkgs/nixos-24.11;
     flake-utils.url = "github:numtide/flake-utils";
 
-    copilot_flake.url = github:t0yv0/copilot.el/v20240323;
+    copilot_flake.url = github:t0yv0/copilot.el/v20250523;
     copilot_flake.inputs.nixpkgs.follows = "nixpkgs";
     copilot_flake.inputs.flake-utils.follows = "flake-utils";
 
