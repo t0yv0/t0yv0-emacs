@@ -286,16 +286,16 @@ If DEFUN-BODY is not given, grab one from around point."
 
 (defun t0yv0/gptel-anthropic-token ()
   "Extracts the Anthropic token from pass."
-  (let ((tok (shell-command-to-string "pass console.anthropic.com/default/emacs-key")))
+  (let ((tok (shell-command-to-string "pass console.anthropic.com/default/emacs-key 2>/dev/null")))
     (setq tok (string-trim tok))
-    (if (null (string-match-p (rx "Error") tok)) tok nil)))
+    (if (equal tok "") nil tok)))
 
 
 (defun t0yv0/gptel-openai-token ()
   "Extracts the OpenAI token from pass."
-  (let ((tok (shell-command-to-string "pass platform.openai.com/token")))
+  (let ((tok (shell-command-to-string "pass platform.openai.com/token 2>/dev/null")))
     (setq tok (string-trim tok))
-    (if (null (string-match-p (rx "Error") tok)) tok nil)))
+    (if (equal tok "") nil tok)))
 
 
 (defun t0yv0/orderless-flex-if-twiddle (pattern _index _total)
