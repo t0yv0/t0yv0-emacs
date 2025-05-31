@@ -86,17 +86,17 @@
     "gptel_src": {
       "flake": false,
       "locked": {
-        "lastModified": 1747374937,
-        "narHash": "sha256-cuKNMd2NWmX2Y0lzBGzeaQ3ZHggny1OZOTKghsyj6QA=",
+        "lastModified": 1748646899,
+        "narHash": "sha256-5QPl1SP53ss1mXvj1SJ612lF9NGqHPkjbcNsk1bumHg=",
         "owner": "karthink",
         "repo": "gptel",
-        "rev": "fcdbe074140bf7b9c027a3478902edafe8ec76f8",
+        "rev": "45814df5dca127cc2b0ec6d4e3daa1b7e57d8a5b",
         "type": "github"
       },
       "original": {
         "owner": "karthink",
         "repo": "gptel",
-        "rev": "fcdbe074140bf7b9c027a3478902edafe8ec76f8",
+        "rev": "45814df5dca127cc2b0ec6d4e3daa1b7e57d8a5b",
         "type": "github"
       }
     },

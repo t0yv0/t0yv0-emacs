@@ -29,7 +29,7 @@
     mcpel_src.url = github:lizqwerscott/mcp.el?rev=7f77145cc5dbfd0552b0cec2ad615c346b0574d8;
     mcpel_src.flake = false;
 
-    gptel_src.url = github:karthink/gptel?rev=fcdbe074140bf7b9c027a3478902edafe8ec76f8;
+    gptel_src.url = github:karthink/gptel?rev=45814df5dca127cc2b0ec6d4e3daa1b7e57d8a5b;
     gptel_src.flake = false;
   };
 
