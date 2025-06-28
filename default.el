@@ -360,7 +360,7 @@
   (require 'gptel-curl)
   (require 'gptel-transient)
 
-  (let ((emacs-gptel-backend (getenv "EMACS_GPTEL_BACKEND")))
+  (let ((emacs-gptel-backend t0yv0/gptel-backend))
     (cond
      ((equal emacs-gptel-backend "anthropic")
       (setq gptel-model 'claude-sonnet-4-20250514

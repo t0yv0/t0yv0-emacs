@@ -286,24 +286,11 @@ If DEFUN-BODY is not given, grab one from around point."
 
 (defun t0yv0/emacs-gptel-token ()
   "Extracts the Anthropic or OpenAI token from the secure store."
-  (let ((token-store (getenv "EMACS_GPTEL_TOKEN_STORE")))
-    (cond
-     ((equal token-store "pass")
-      (let ((tok (shell-command-to-string
-                  (concat "pass "
-                          (shell-quote-argument (getenv "EMACS_GPTEL_TOKEN_STORE_KEY"))
-                          " 2>/dev/null"))))
-        (setq tok (string-trim tok))
-        (if (equal tok "") nil tok)))
-     ((equal token-store "security")
-      (let ((tok (shell-command-to-string
-                  (concat "security find-generic-password -a "
-                          (shell-quote-argument (getenv "EMACS_GPTEL_TOKEN_STORE_KEY"))
-                          " -s "
-                          (shell-quote-argument (getenv "EMACS_GPTEL_TOKEN_STORE_KEY2"))
-                          " -w 2>/dev/null"))))
-        (setq tok (string-trim tok))
-        (if (equal tok "") nil tok))))))
+  (if (equal t0yv0/gptel-token-shell-command "") nil
+    (let ((tok (shell-command-to-string t0yv0/gptel-token-shell-command)))
+      (setq tok (string-trim tok))
+      (if (equal tok "") nil tok)
+      tok)))
 
 
 (defun t0yv0/orderless-flex-if-twiddle (pattern _index _total)

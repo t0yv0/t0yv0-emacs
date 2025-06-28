@@ -17,6 +17,8 @@ cat << EOF > $out/default.el
 (defvar t0yv0/treesitter-dir "$treesitter_out")
 (defvar t0yv0/mermaid-mmdc-location "$mmdc_out/mmdc")
 (defvar t0yv0/yas-snippets "$snippets_out")
+(defvar t0yv0/gptel-backend "$6")
+(defvar t0yv0/gptel-token-shell-command "$7")
 
 (let* ((d "$1")
        (default-directory (concat d "/share/emacs/site-lisp")))

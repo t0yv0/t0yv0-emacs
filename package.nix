@@ -12,6 +12,8 @@
   gh-autolinks ? pkgs.gh-autolinks,
   treesitedit ? pkgs.treesitedit,
   copilot ? pkgs.copilot-el,
+  gptel-backend ? "anthropic",
+  gptel-token-shell-command ? "",
 }: let
 
 treesitter = pkgs.tree-sitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
@@ -126,6 +128,7 @@ bootstrap = stdenv.mkDerivation {
   args = [
     ./bootstrap.sh "${prebuilt}" ./default.el
     "${treesitter}" "${mermaid-cli}/bin/mmdc" ./snippets
+    "${gptel-backend}" "${gptel-token-shell-command}"
   ];
 };
 
