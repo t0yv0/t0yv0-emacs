@@ -359,16 +359,18 @@
   (require 'gptel-anthropic)
   (require 'gptel-curl)
   (require 'gptel-transient)
-  (let ((openai-token (t0yv0/gptel-openai-token))
-        (anthropic-token (t0yv0/gptel-anthropic-token)))
-    (cond (openai-token (setq
-                         gptel-model 'gpt-4o
-                         gptel-api-key openai-token))
-          (anthropic-token
-           (setq gptel-model 'claude-sonnet-4-20250514
-                 gptel-backend (gptel-make-anthropic "Claude" :stream t :key anthropic-token)))
-          (t (setq
-              gptel-model 'llama3.2:latest
+
+  (let ((emacs-gptel-backend (getenv "EMACS_GPTEL_BACKEND")))
+    (cond
+     ((equal emacs-gptel-backend "anthropic")
+      (setq gptel-model 'claude-sonnet-4-20250514
+            gptel-backend (gptel-make-anthropic "Claude"
+                            :stream t
+                            :key (t0yv0/emacs-gptel-token))))
+     ((equal emacs-gptel-backend "openai")
+      (setq gptel-model 'gpt-4o
+            gptel-api-key (t0yv0/emacs-gptel-token)))
+     (t (setq gptel-model 'llama3.2:latest
               gptel-backend (gptel-make-ollama "ollama"
                               :host "localhost:11434"
                               :models '(llama3.2:latest
