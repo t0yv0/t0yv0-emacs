@@ -354,7 +354,8 @@
          ("C-c g r" . gptel-rewrite)
          ("C-c g b" . gptel)
          ("C-c g a" . gptel-add)
-         ("C-c g f" . gptel-add-file))
+         ("C-c g f" . gptel-add-file)
+         ("C-c g w" . t0yv0/emacs-gptel-anthropic-toggle-web-search))
   :config
   (require 'gptel-anthropic)
   (require 'gptel-curl)
@@ -363,6 +364,7 @@
   (let ((emacs-gptel-backend t0yv0/gptel-backend))
     (cond
      ((equal emacs-gptel-backend "anthropic")
+      (t0yv0/emacs-gptel-anthropic-setup)
       (setq gptel-model 'claude-sonnet-4-20250514
             gptel-backend (gptel-make-anthropic "Claude"
                             :stream t

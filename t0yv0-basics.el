@@ -293,6 +293,39 @@ If DEFUN-BODY is not given, grab one from around point."
       tok)))
 
 
+(defvar *t0yv0/emacs-gptel-anthropic-use-web-search* nil)
+
+
+(defun t0yv0/emacs-gptel-anthropic-setup ()
+  "TODO[karthink/gptel#937] Support web search with Anthropic."
+  (advice-add
+   'gptel--request-data
+   :around
+   (lambda (orig-fn &rest args)
+     (when (cl-typep (car args) 'gptel-anthropic)
+       (let* ((result (apply orig-fn args))
+              (modified (if *t0yv0/emacs-gptel-anthropic-use-web-search*
+                            `(:tools [(:type
+                                       "web_search_20250305"
+                                       :name "web_search"
+                                       :max_uses 5)]
+                                     ,@result)
+                          result)))
+         ;; (message (format "DEBUG anthropic request: %s" modified))
+         modified
+         )))))
+
+
+(defun t0yv0/emacs-gptel-anthropic-toggle-web-search ()
+  "Toggle web search on or off."
+  (interactive)
+  (setq *t0yv0/emacs-gptel-anthropic-use-web-search*
+        (not *t0yv0/emacs-gptel-anthropic-use-web-search*))
+  (if *t0yv0/emacs-gptel-anthropic-use-web-search*
+      (message "web_search tool is now on for anthropic requests")
+    (message "web_search tool is now off for anthropic requests")))
+
+
 (defun t0yv0/orderless-flex-if-twiddle (pattern _index _total)
   "See `t0yv0/orderless-style-dispatchers'.
 PATTERN _INDEX _TOTAL as required by orderless."
