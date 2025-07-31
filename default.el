@@ -590,9 +590,7 @@
   :config
   (t0yv0/ensure-tree-sitter-grammar-install)
   :hook
-  (python-ts-mode . (lambda ()
-                      (eglot-ensure)
-                      (pyvenv-mode t))))
+  (python-ts-mode . t0yv0/python-mode-configure))
 
 (use-package pyvenv
   :config

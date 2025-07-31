@@ -17,6 +17,7 @@
 (require 'consult)
 (require 'dabbrev)
 (require 'dash)
+(require 'eglot)
 (require 'project)
 (require 'vterm)
 
@@ -383,6 +384,18 @@ PATTERN _INDEX _TOTAL as required by orderless."
     (goto-char (point-min))
     (forward-line (1- n))
     (point)))
+
+
+(defun t0yv0/python-mode-configure ()
+  "Setup python-mode to automatically use pylsp from uv project."
+  (setf (alist-get '(python-mode python-ts-mode) eglot-server-programs nil nil #'equal)
+        (lambda (&optional interactive project)
+          (if (and project
+                   (file-exists-p (concat (project-root project) "uv.lock")))
+              '("uv" "run" "pylsp")
+            '("pylsp"))))
+  (eglot-ensure)
+  (pyvenv-mode t))
 
 
 (defun t0yv0/vterm-dabbrev-expand ()
