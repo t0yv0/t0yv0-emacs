@@ -390,10 +390,11 @@ PATTERN _INDEX _TOTAL as required by orderless."
   "Setup python-mode to automatically use pylsp from uv project."
   (setf (alist-get '(python-mode python-ts-mode) eglot-server-programs nil nil #'equal)
         (lambda (&optional interactive project)
-          (if (and project
-                   (file-exists-p (concat (project-root project) "uv.lock")))
-              '("uv" "run" "pylsp")
-            '("pylsp"))))
+          (let ((init-opts '(:pylsp (:plugins (:pylsp_mypy (:enabled t))))))
+            (if (and project
+                     (file-exists-p (concat (project-root project) "uv.lock")))
+                `("uv" "run" "pylsp" :initializationOptions ,init-opts)
+              `("pylsp" :initializationOptions ,init-opts)))))
   (eglot-ensure)
   (pyvenv-mode t))
 
