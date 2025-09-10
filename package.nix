@@ -106,6 +106,7 @@ prebuilt = pkgs.symlinkJoin {
     epkgs.ob-go
     epkgs.org-roam
     epkgs.ormolu
+    epkgs.proof-general
     epkgs.pyvenv
     epkgs.rainbow-delimiters
     epkgs.reformatter
