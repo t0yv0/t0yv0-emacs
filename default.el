@@ -668,7 +668,7 @@
   :init (yas-global-mode))
 
 
-;; Done loading, decreate the threshold.
+;; Done loading, decrease the threshold.
 (setq gc-cons-threshold (* 2 1024 1024))
 
 
