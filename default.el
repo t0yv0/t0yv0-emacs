@@ -204,7 +204,9 @@
 
   :custom
   (display-buffer-alist
-   `(((or "\\*compilation"
+   `(("\\*vterm"
+      (t0yv0/display-buffer-in-bottom-side-window))
+     ((or "\\*compilation"
           "\\*Org Links"
           "\\*Org Select"
           "\\*Gofmt"

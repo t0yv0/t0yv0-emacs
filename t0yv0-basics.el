@@ -145,6 +145,13 @@
   "Buffer candidate source for `consult-buffer' looking at all vterm-mode buffers.")
 
 
+(defun t0yv0/display-buffer-in-bottom-side-window (buffer alist)
+  "If there is a bottom side window, place a buffer there."
+  (let ((w (window-with-parameter 'window-side 'bottom)))
+    (when w
+      (window--display-buffer buffer w 'reuse alist))))
+
+
 (defun t0yv0/embark-target-gh-ref ()
   "Target a link at point of the GitHub ref form like pulumi/pulumi#12117."
   (save-excursion
