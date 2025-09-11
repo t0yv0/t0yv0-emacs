@@ -177,6 +177,11 @@
           ("C-c c p" . project-compile)
           ("C-c c b" . compilation-goto-in-progress-buffer)
 
+          ;; Side windows (see also C-x w s for window-toggle-side-windows)
+          ("C-c b b" . window-toggle-side-windows)
+          ("C-c b p" . t0yv0/sidewin-sideline-current-buffer)
+          ("C-c b n" . t0yv0/sidewin-restore-sidelined-buffer)
+
           ("<remap> <dabbrev-expand>" . hippie-expand))
 
   :hook
@@ -209,7 +214,6 @@
           "\\*jupyter"
           "current-region.png"
           "\\*xref"
-          "\\*vterm"
           "\\*Warnings")
       (display-buffer-in-side-window)
       (side . bottom)

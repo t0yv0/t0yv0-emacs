@@ -399,8 +399,47 @@ PATTERN _INDEX _TOTAL as required by orderless."
   (pyvenv-mode t))
 
 
+(defun t0yv0/sidewin-sideline-current-buffer ()
+  "Moves the current buffer to the bottom side window.
+
+The side window opens if there is not one already.
+
+Shows the previous buffer in place of the current one."
+  (interactive)
+  (let* ((b (current-buffer))
+         (n (buffer-name b))
+         (entry `(,n
+                  (display-buffer-in-side-window)
+                  (side . bottom)
+                  (slot . 1)
+                  (preserve-size . (nil . t))
+                  (window-height . 0.382)
+                  (window-parameters ((no-other-window . t)
+                                      (no-delete-other-windows . t))))))
+
+    (call-interactively #'previous-buffer)
+    (let ((display-buffer-alist (cons entry display-buffer-alist)))
+      (display-buffer b))))
+
+
+(defun t0yv0/sidewin-restore-sidelined-buffer ()
+    (interactive)
+    "Restores a buffer from the bottom side window to a normal window.
+
+Closes the side window.
+
+If side window is not visible this function does nothing."
+    (let* ((w (window-with-parameter 'window-side 'bottom))
+           (b (and w (window-buffer w))))
+      (when w
+        (window-toggle-side-windows)
+        (display-buffer b))
+      (unless w
+        (message "No bottom side window detected"))))
+
+
 (defun t0yv0/vterm-dabbrev-expand ()
-  "Adaps `dabbrev-expand` to vterm."
+  "Adapts `dabbrev-expand` to vterm."
   (interactive)
   (if t0yv0/vterm-dabbrev-state
       (let-alist t0yv0/vterm-dabbrev-state
