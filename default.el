@@ -651,6 +651,7 @@
   :config
   (add-hook 'vterm-mode-hook (lambda ()
                                (compilation-shell-minor-mode 1)
+                               (setq-local kill-buffer-query-functions nil)
                                (setq-local global-hl-line-mode nil))))
 
 (use-package wgrep
