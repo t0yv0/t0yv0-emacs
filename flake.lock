@@ -220,11 +220,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748651912,
-        "narHash": "sha256-vsHPMkWnLWSnmzums+8weoQHYaLDn2YQ0lr0X8XObBI=",
+        "lastModified": 1757648208,
+        "narHash": "sha256-Tcx/empGruWXdNh1FUHuycioVs02OFY8ec5d+hInR/0=",
         "owner": "t0yv0",
         "repo": "vterms.el",
-        "rev": "8b05097292ba027d877e0fb14313b7a7ac8320e8",
+        "rev": "e823b788ebc787374950a0e10bf606019b8443f4",
         "type": "github"
       },
       "original": {

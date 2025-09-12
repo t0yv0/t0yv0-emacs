@@ -638,12 +638,12 @@
   (vertico-mode))
 
 (use-package vterms
-  :bind (("C-c v v" . vterms-toggle)
-         ("C-c v o" . vterms-back)
+  :bind (("C-c v p" . vterms-project-vterm)
          ("C-c v z" . vterms-repeat)
          ("C-c v ." . vterms-cd)))
 
 (use-package vterm
+  :bind (("C-c v v" . vterm))
   :bind (:map vterm-mode-map
               ("M-c" . kill-ring-save)
               ("M-v" . yank)
