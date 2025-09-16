@@ -228,7 +228,7 @@
   (display-buffer-base-action '((display-buffer-reuse-window
                                  display-buffer-in-previous-window
                                  display-buffer-same-window
-                                 display-buffer-full-frame)))
+                                 display-buffer-use-some-window)))
 
   ;; workaround uneven title bar height
   (after-make-frame-functions (list (lambda (new-frame)
