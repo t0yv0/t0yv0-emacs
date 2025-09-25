@@ -406,43 +406,41 @@ PATTERN _INDEX _TOTAL as required by orderless."
   (pyvenv-mode t))
 
 
-(defun t0yv0/sidewin-sideline-current-buffer ()
-  "Moves the current buffer to the bottom side window.
-
-The side window opens if there is not one already.
-
-Shows the previous buffer in place of the current one."
-  (interactive)
-  (let* ((b (current-buffer))
-         (n (buffer-name b))
-         (entry `(,n
-                  (display-buffer-in-side-window)
-                  (side . bottom)
-                  (slot . 1)
-                  (preserve-size . (nil . t))
-                  (window-height . 0.382)
-                  (window-parameters ((no-other-window . t)
-                                      (no-delete-other-windows . t))))))
-
-    (call-interactively #'previous-buffer)
-    (let ((display-buffer-alist (cons entry display-buffer-alist)))
-      (display-buffer b))))
-
-
-(defun t0yv0/sidewin-restore-sidelined-buffer ()
+(defun t0yv0/sidewin-bottom-toggle ()
     (interactive)
-    "Restores a buffer from the bottom side window to a normal window.
+    "Toggles buffer placement between bottom side window and regular window.
 
-Closes the side window.
+If the current window is a normal window, move its buffer to the bottom
+side window. Display the previous buffer instead.
 
-If side window is not visible this function does nothing."
-    (let* ((w (window-with-parameter 'window-side 'bottom))
-           (b (and w (window-buffer w))))
-      (when w
-        (window-toggle-side-windows)
-        (display-buffer b))
-      (unless w
-        (message "No bottom side window detected"))))
+If the current window is the bottom side window, close it and display
+the buffer it is currently displaying in a normal window.
+
+If the current window is the bottom side window and is also the only
+window in the frame, call `window-toggle-side-windows' to restore to a
+normal state."
+    (cond
+     ((and (equal 'bottom (window-parameter (selected-window) 'window-side))
+           (not (equal (frame-root-window) (selected-window))))
+      (let ((b (window-buffer (selected-window))))
+        (call-interactively #'window-toggle-side-windows)
+        (display-buffer b)))
+     ((null (window-parameter (selected-window) 'window-side))
+      (let* ((b (current-buffer))
+             (n (buffer-name b))
+             (entry `(,n
+                      (display-buffer-in-side-window)
+                      (side . bottom)
+                      (slot . 1)
+                      (preserve-size . (nil . t))
+                      (window-height . 0.382)
+                      (window-parameters ((no-other-window . t)
+                                          (no-delete-other-windows . t))))))
+        (call-interactively #'previous-buffer)
+        (let ((display-buffer-alist (cons entry display-buffer-alist)))
+          (pop-to-buffer b))))
+     (t
+      (call-interactively #'window-toggle-side-windows))))
 
 
 (defun t0yv0/vterm-dabbrev-expand ()
