@@ -443,6 +443,18 @@ normal state."
       (call-interactively #'window-toggle-side-windows))))
 
 
+(defun t0yv0/vterm-in-bottom-side-window ()
+  (interactive)
+  (pop-to-buffer (vterm))
+  (t0yv0/sidewin-bottom-toggle))
+
+
+(defun t0yv0/project-vterm-in-bottom-side-window ()
+  (interactive)
+  (pop-to-buffer (vterms-project-vterm))
+  (t0yv0/sidewin-bottom-toggle))
+
+
 (defun t0yv0/vterm-dabbrev-expand ()
   "Adapts `dabbrev-expand` to vterm."
   (interactive)
