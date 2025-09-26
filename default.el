@@ -109,6 +109,9 @@
                           (apply orig-fun args))))
   (copilot-diagnose))
 
+(use-package proof-general
+  :mode ("\\.v\\'" . coq-mode))
+
 (use-package corfu
   :init
   (global-corfu-mode)
