@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-25.05;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
     flake-utils.url = "github:numtide/flake-utils";
 
     copilot_flake.url = github:t0yv0/copilot.el/nix;
@@ -49,9 +49,8 @@
 
     version = self.rev or "dirty";
 
-    # https://github.com/NixOS/nixpkgs/issues/395169
     emacs-overlay = final: prev: {
-      emacs = prev.emacs.override { withNativeCompilation = false; };
+      emacs = prev.emacs.override { withNativeCompilation = true; };
     };
 
     overlay = final: prev: {
